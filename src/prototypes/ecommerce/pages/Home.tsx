@@ -113,16 +113,12 @@ export function Home() {
 
       <div className="storefront-section">
         <SectionHeader title={t(s.categoriesButton)} />
-        <Carousel label={t(s.categoriesRow)} count={6} minItem="96px" dots prevLabel={prev} nextLabel={next}>
-          {chunk(home.categories, 2).map((pair, i) => (
-            <div key={i} className="category-column">
-              {pair.map((c) => (
-                <button key={t(c)} type="button" className="category-tile" onClick={() => goSearch(t(c))}>
-                  <ProductImage label={t(c)} />
-                  <span>{t(c)}</span>
-                </button>
-              ))}
-            </div>
+        <Carousel label={t(s.categoriesRow)} count={6} minItem="96px" rows={2} dots prevLabel={prev} nextLabel={next}>
+          {home.categories.map((c) => (
+            <button key={t(c)} type="button" className="category-tile" onClick={() => goSearch(t(c))}>
+              <ProductImage label={t(c)} />
+              <span>{t(c)}</span>
+            </button>
           ))}
         </Carousel>
       </div>
@@ -138,13 +134,9 @@ export function Home() {
 
       <div className="storefront-section">
         <SectionHeader title={t(s.brandsTitle)} />
-        <Carousel label={t(s.brandsRow)} count={10} minItem="88px" dots prevLabel={prev} nextLabel={next}>
-          {chunk(home.brands, 2).map((pair, i) => (
-            <div key={i} className="brand-column">
-              {pair.map((b) => (
-                <BrandChip key={t(b)} name={t(b)} onSelect={() => goSearch(t(b))} />
-              ))}
-            </div>
+        <Carousel label={t(s.brandsRow)} count={10} minItem="88px" rows={2} dots prevLabel={prev} nextLabel={next}>
+          {home.brands.map((b) => (
+            <BrandChip key={t(b)} name={t(b)} onSelect={() => goSearch(t(b))} />
           ))}
         </Carousel>
       </div>
@@ -158,7 +150,7 @@ export function Home() {
             return (
               <Card key={id}>
                 <ProductImage label={t(p.name)} />
-                {p.brand && <Badge>{t(p.brand)}</Badge>}
+                <Badge>{t(p.brand ?? p.category)}</Badge>
                 <h3 className="article-card__title">{t(p.name)}</h3>
                 <DataRow label={<strong>{formatMoney(p.price, lang)}</strong>} value={<Button size="sm" onClick={() => add(id)}>{t(s.add)}</Button>} />
               </Card>

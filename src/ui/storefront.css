@@ -38,6 +38,7 @@
 .carousel__track { display: flex; gap: var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .carousel__track::-webkit-scrollbar { display: none; }
 .carousel__track > * { flex: 0 0 max(var(--carousel-min), calc((100% - (var(--carousel-count) - 1) * var(--space-4)) / var(--carousel-count))); scroll-snap-align: start; min-width: 0; }
+.carousel__track--rows { display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--carousel-rows), auto); grid-auto-columns: max(var(--carousel-min), calc((100% - (var(--carousel-count) - 1) * var(--space-4)) / var(--carousel-count))); }
 .carousel__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: var(--space-6); height: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-sm); font: inherit; font-size: var(--font-size-lg); line-height: 1; cursor: pointer; }
 .carousel__arrow--prev { left: var(--space-2); }
 .carousel__arrow--next { right: var(--space-2); }
@@ -91,7 +92,6 @@
 
 .category-tile { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-2); width: 100%; padding: 0; border: 0; background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-sm); text-align: center; cursor: pointer; }
 .category-tile .product-image { font-size: var(--font-size-xl); }
-.category-column { display: flex; flex-direction: column; gap: var(--space-4); }
 
 .tile-mosaic__grid { display: grid; gap: var(--space-3); grid-auto-rows: minmax(160px, 1fr); }
 .tile { position: relative; display: flex; align-items: flex-end; min-height: 160px; padding: 0; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-alt); color: var(--color-text); font: inherit; cursor: pointer; }
@@ -100,7 +100,6 @@
 
 .brand-chip { width: 100%; min-height: var(--space-8); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text-muted); font: inherit; font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); cursor: pointer; }
 .brand-chip:hover { border-color: var(--color-accent); color: var(--color-accent); }
-.brand-column { display: flex; flex-direction: column; gap: var(--space-3); }
 
 .storefront-section { max-width: var(--grid-max-width); margin-inline: auto; padding: var(--space-5) var(--space-4); }
 

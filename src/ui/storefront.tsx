@@ -96,14 +96,21 @@ type CarouselProps = ScrollerProps & {
   minItem?: string
   dots?: boolean
   arrows?: boolean
+  // Lay items out in this many rows that scroll together, so each row lines up whatever the text length.
+  rows?: number
 }
 
-export function Carousel({ children, label, count = 1, minItem = '160px', dots = false, arrows = true, prevLabel, nextLabel }: CarouselProps) {
+export function Carousel({ children, label, count = 1, minItem = '160px', dots = false, arrows = true, rows, prevLabel, nextLabel }: CarouselProps) {
   const { ref, page, pages, measure, by, to } = useScroller()
   return (
     <div className="carousel" role="region" aria-label={label}>
       <div className="carousel__stage">
-        <div ref={ref} className="carousel__track" style={{ '--carousel-count': count, '--carousel-min': minItem } as CSSProperties} onScroll={measure}>
+        <div
+          ref={ref}
+          className={`carousel__track${rows ? ' carousel__track--rows' : ''}`}
+          style={{ '--carousel-count': count, '--carousel-min': minItem, ...(rows ? { '--carousel-rows': rows } : {}) } as CSSProperties}
+          onScroll={measure}
+        >
           {children}
         </div>
         {arrows && pages > 1 && (
