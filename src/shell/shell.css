@@ -1,0 +1,8 @@
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--color-surface); border-bottom: 1px solid var(--color-border); }
+.topbar__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); max-width: var(--grid-max-width); margin-inline: auto; padding: var(--space-3) var(--space-4); }
+.topbar__title { font-weight: var(--font-weight-bold); margin-right: auto; }
+.lang { display: inline-flex; border: 1px solid var(--color-border); border-radius: var(--radius-pill); overflow: hidden; }
+.lang button { font: inherit; font-size: var(--font-size-sm); padding: var(--space-1) var(--space-3); border: 0; background: var(--color-surface); color: var(--color-text-muted); cursor: pointer; }
+.lang button[aria-pressed='true'] { background: var(--color-accent); color: var(--color-accent-text); }
+.page-header { max-width: var(--grid-max-width); margin-inline: auto; padding: var(--space-5) var(--space-4) 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.page-header__spacer { margin-right: auto; }
