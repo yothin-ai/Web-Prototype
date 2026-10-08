@@ -73,4 +73,7 @@ export const s = {
   categoriesRow: { th: 'หมวดหมู่สินค้า', en: 'Product categories' },
   jobsRow: { th: 'หน้าของงาน', en: 'Jobs' },
   brandsRow: { th: 'แถวแบรนด์', en: 'Brand row' },
+  recommendedTitle: { th: 'สินค้าแนะนำ', en: 'Recommended products' },
+  readMore: { th: 'อ่านต่อ', en: 'Read more' },
+  articlesRow: { th: 'บทความ', en: 'Articles' },
 } satisfies Record<string, Localized>

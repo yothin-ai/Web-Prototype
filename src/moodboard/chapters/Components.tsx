@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  Accordion, AppPromoCard, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs,
-  ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteHeader, TileMosaic, UtilityBar,
+  Accordion, AppPromoCard, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs,
+  ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
@@ -251,6 +251,35 @@ export function Components() {
               <div key={i} style={{ width: 'calc(var(--space-8) * 2)' }}><BrandChip name={t(b)} onSelect={() => {}} /></div>
             ))}
           </div>
+        </div>
+      </Block>
+      <Block number="4.10" title={t(text.c410)} note={t(text.c410Note)}>
+        <div className="stack">
+          <Grid>
+            <Col span={{ base: 4, sm: 4, md: 4 }}>
+              <p className="mb-caption">{t(text.articleCard)}</p>
+              <ArticleCard category={t(text.articleCategory)} views="4.19k" title={t(text.articleTitle)} readLabel={t(text.readMore)} onRead={() => {}} />
+            </Col>
+            <Col span={{ base: 4, sm: 4, md: 8 }}>
+              <p className="mb-caption">{t(text.benefitBar)}</p>
+              <BenefitBar title={t(text.benefitTitle)} text={t(text.benefitText)} items={[{ title: t(text.benefit1), text: t(text.benefitText) }, { title: t(text.benefit2), text: t(text.benefitText) }, { title: t(text.benefit3), text: t(text.benefitText) }]} />
+            </Col>
+          </Grid>
+          <p className="mb-caption">{t(text.siteFooter)}</p>
+          <SiteFooter
+            logo={<Logo name={t(text.brandName)} tone="on-dark" />}
+            contact={[t(text.footerContact)]}
+            socials={['Facebook', 'Line']}
+            stores={['App Store', 'Google Play']}
+            perks={[{ title: t(text.benefit1), text: t(text.benefitText) }, { title: t(text.benefit2), text: t(text.benefitText) }]}
+            columns={[{ title: t(text.footerColumn), links: [{ label: t(text.footerLink) }, { label: t(text.footerLink), to: '/moodboard' }] }]}
+            certTitle={t(text.footerColumn)}
+            hoursNote={t(text.footerLink)}
+            complaint={t(text.footerLink)}
+            copyright={`© 2026 ${t(text.brandName)}`}
+            legal={[t(text.footerLink), t(text.footerLink)]}
+            payments={['Credit card', 'PromptPay']}
+          />
         </div>
       </Block>
     </Chapter>

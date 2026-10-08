@@ -297,3 +297,92 @@ export function TileMosaic({ tiles, onSelect }: { tiles: string[]; onSelect: (ti
 export function BrandChip({ name, onSelect }: { name: string; onSelect: () => void }) {
   return <button type="button" className="brand-chip" onClick={onSelect}>{name}</button>
 }
+
+export function ArticleCard({ category, views, title, readLabel, onRead }: { category: string; views: string; title: string; readLabel: string; onRead: () => void }) {
+  return (
+    <article className="article-card">
+      <div className="product-image" role="img" aria-label={title}><span aria-hidden="true">{Array.from(title).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+      <div className="article-card__meta"><span className="badge">{category}</span><span className="muted">{views}</span></div>
+      <h3 className="article-card__title">{title}</h3>
+      <button type="button" className="article-card__read" onClick={onRead}>{readLabel} →</button>
+    </article>
+  )
+}
+
+export function BenefitBar({ title, text, items }: { title: string; text: string; items: { title: string; text: string }[] }) {
+  return (
+    <section className="benefit-bar">
+      <div className="benefit-bar__intro">
+        <h2>{title}</h2>
+        <p className="muted">{text}</p>
+      </div>
+      <ul className="benefit-bar__list">
+        {items.map((item) => (
+          <li key={item.title} className="benefit-bar__item">
+            <IconCircle size="lg" />
+            <strong>{item.title}</strong>
+            <span className="muted">{item.text}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+type FooterLink = { label: string; to?: string }
+
+type SiteFooterProps = {
+  logo: ReactNode
+  contact: string[]
+  socials: string[]
+  stores: string[]
+  perks: { title: string; text: string }[]
+  columns: { title: string; links: FooterLink[] }[]
+  certTitle: string
+  hoursNote: string
+  complaint: string
+  copyright: string
+  legal: string[]
+  payments: string[]
+}
+
+export function SiteFooter(p: SiteFooterProps) {
+  return (
+    <footer className="site-footer">
+      <div className="site-footer__inner site-footer__perks">
+        {p.perks.map((perk) => (
+          <div key={perk.title} className="site-footer__perk"><IconCircle size="md" /><span><strong>{perk.title}</strong><small>{perk.text}</small></span></div>
+        ))}
+      </div>
+      <div className="site-footer__inner site-footer__main">
+        <div className="site-footer__brand">
+          {p.logo}
+          {p.contact.map((line) => <p key={line}>{line}</p>)}
+          <div className="row">{p.socials.map((s) => <span key={s} title={s}><IconCircle size="md" tone="muted" /></span>)}</div>
+          <div className="row">{p.stores.map((s) => <button key={s} type="button" className="btn btn--secondary btn--sm"><IconCircle size="sm" tone="muted" />{s}</button>)}</div>
+        </div>
+        {p.columns.map((col) => (
+          <div key={col.title} className="site-footer__column">
+            <h3>{col.title}</h3>
+            <ul>
+              {col.links.map((link) => (
+                <li key={link.label}>{link.to ? <Link to={link.to}>{link.label}</Link> : <span>{link.label}</span>}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <div className="site-footer__column">
+          <h3>{p.certTitle}</h3>
+          <IconCircle size="lg" tone="muted" />
+        </div>
+      </div>
+      <div className="site-footer__inner site-footer__bottom">
+        <span>{p.hoursNote}</span>
+        <span>{p.complaint}</span>
+        <span className="site-footer__payments">{p.payments.map((m) => <span key={m} title={m}><IconCircle size="sm" tone="muted" /></span>)}</span>
+        <span>{p.copyright}</span>
+        <span className="site-footer__legal">{p.legal.map((l) => <span key={l}>{l}</span>)}</span>
+      </div>
+    </footer>
+  )
+}

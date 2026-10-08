@@ -1,9 +1,10 @@
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import {
-  AppPromoCard, BannerSlide, BrandChip, Button, Carousel, Col, Countdown, FlashSaleCard, Grid, IconCircle, ProductImage, SectionHeader, ShortcutCard, ShortcutRow, TileMosaic,
+  AppPromoCard, ArticleCard, BannerSlide, BenefitBar, BrandChip, Badge, Button, Card, DataRow, Carousel, Col, Countdown, FlashSaleCard, Grid, IconCircle, ProductImage, SectionHeader, ShortcutCard, ShortcutRow, TileMosaic,
 } from '../../../ui'
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
+import { f } from '../footer'
 import { s } from '../strings'
 import { useGoSearch } from '../Storefront'
 
@@ -147,6 +148,35 @@ export function Home() {
           ))}
         </Carousel>
       </div>
+
+      <div className="storefront-section">
+        <SectionHeader title={t(s.recommendedTitle)} />
+        <div className="product-grid">
+          {home.recommendedIds.map((id) => {
+            const p = productById(id)
+            if (!p) return null
+            return (
+              <Card key={id}>
+                <ProductImage label={t(p.name)} />
+                {p.brand && <Badge>{t(p.brand)}</Badge>}
+                <h3 className="article-card__title">{t(p.name)}</h3>
+                <DataRow label={<strong>{formatMoney(p.price, lang)}</strong>} value={<Button size="sm" onClick={() => add(id)}>{t(s.add)}</Button>} />
+              </Card>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className="storefront-section">
+        <SectionHeader title={t(home.ideasTitle)} action={<Button size="sm">{t(s.viewAll)}</Button>} />
+        <div className="article-grid" aria-label={t(s.articlesRow)}>
+          {home.articles.map((a, i) => (
+            <ArticleCard key={i} category={t(a.category)} views={a.views} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => {}} />
+          ))}
+        </div>
+      </div>
+
+      <BenefitBar title={t(home.trust.title)} text={t(home.trust.text)} items={f.benefits.map((b) => ({ title: t(b.title), text: t(b.text) }))} />
     </>
   )
 }

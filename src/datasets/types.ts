@@ -15,6 +15,7 @@ export type Product = {
 
 export type Choice = { id: string; name: Localized; detail: Localized; price?: number }
 
+export type Article = { category: Localized; views: string; title: Localized }
 export type Slide = { title: Localized; text: Localized }
 export type Shortcut = { title: Localized; text: Localized; tag: Localized }
 
@@ -33,6 +34,10 @@ export type EcommerceHome = {
   jobsTitle: Localized
   jobs: Localized[]
   brands: Localized[]
+  recommendedIds: string[]
+  ideasTitle: Localized
+  articles: Article[]
+  trust: { title: Localized; text: Localized }
 }
 
 export type EcommerceContent = {

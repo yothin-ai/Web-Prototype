@@ -199,6 +199,23 @@ export const text = {
   brandB: { th: 'แบรนด์ B', en: 'Brand B' },
   brandC: { th: 'แบรนด์ C', en: 'Brand C' },
 
+  c410: { th: 'เนื้อหาและส่วนท้ายเว็บ (Content & footer)', en: 'Content and footer blocks' },
+  c410Note: { th: 'การ์ดบทความ แถบความมั่นใจ และส่วนท้ายเว็บ', en: 'Article card, benefit bar and site footer.' },
+  articleCard: { th: 'การ์ดบทความ', en: 'Article card' },
+  benefitBar: { th: 'แถบความมั่นใจ', en: 'Benefit bar' },
+  siteFooter: { th: 'ส่วนท้ายเว็บ', en: 'Site footer' },
+  articleCategory: { th: 'หมวดบทความ', en: 'Article category' },
+  articleTitle: { th: 'ชื่อบทความตัวอย่างที่ยาวพอให้ขึ้นหลายบรรทัด', en: 'A sample article title long enough to wrap over several lines' },
+  readMore: { th: 'อ่านต่อ', en: 'Read more' },
+  benefitTitle: { th: 'หัวข้อที่ให้ความมั่นใจ', en: 'A reassuring headline' },
+  benefitText: { th: 'คำอธิบายสั้น ๆ ของร้านและบริการ', en: 'A short description of the store and its services' },
+  benefit1: { th: 'จัดส่งทั่วประเทศ', en: 'Nationwide delivery' },
+  benefit2: { th: 'ชำระเงินปลอดภัย', en: 'Secure payment' },
+  benefit3: { th: 'คืนสินค้าง่าย', en: 'Easy returns' },
+  footerContact: { th: 'ข้อมูลติดต่อตัวอย่าง', en: 'Sample contact line' },
+  footerColumn: { th: 'หัวข้อคอลัมน์', en: 'Column title' },
+  footerLink: { th: 'ลิงก์ตัวอย่าง', en: 'Sample link' },
+
   // 5 elevation
   c5Title: { th: 'มิติเงาและความโค้งมน (Elevation, Shadows & Radius)', en: 'Elevation, Shadows and Radius' },
   c5Tag: { th: '3 ระดับ · 4 ค่าความโค้ง', en: '3 levels · 4 radii' },

@@ -49,5 +49,10 @@ The `/moodboard` page that is the single source of truth for the system's look a
 _Avoid_: Style guide, theme, mockup
 
 **Storefront**:
-The frame shared by every E-Commerce page: promo strip, utility bar, site header and category menu, with a footer to follow.
+The frame shared by every E-Commerce page: promo strip, utility bar, site header and category menu above the page, and a footer below.
 _Avoid_: Layout, template, chrome
+
+**Flash Sale**:
+A time-limited group of discounted products shown with a countdown, each carrying its price before the discount and how many are sold and left.
+_Avoid_: Promotion, deal of the day
+

@@ -3,7 +3,8 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { LanguageToggle } from '../../shell/LanguageToggle'
-import { CategoryNav, IconCircle, Logo, PromoStrip, SiteHeader, UtilityBar } from '../../ui'
+import { CategoryNav, IconCircle, Logo, PromoStrip, SiteFooter, SiteHeader, UtilityBar } from '../../ui'
+import { f } from './footer'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
 
@@ -67,6 +68,34 @@ export function Storefront({ children }: { children: ReactNode }) {
         end={<button type="button" className="btn btn--primary btn--sm"><IconCircle size="sm" />{t(home.assistant)}</button>}
       />
       <main className="storefront-main">{children}</main>
+      <SiteFooter
+        logo={<Logo name={t(dataset.brandName)} tone="on-dark" />}
+        contact={f.contact.map((c) => t(c))}
+        socials={f.socials}
+        stores={f.stores}
+        perks={f.perks.map((x) => ({ title: t(x.title), text: t(x.text) }))}
+        columns={[
+          { title: t(f.aboutTitle), links: f.about.map((l) => ({ label: t(l) })) },
+          { title: t(f.helpTitle), links: [...f.help.map((l) => ({ label: t(l) })), { label: t(home.ideasTitle) }] },
+          {
+            title: t(f.accountTitle),
+            links: [
+              { label: t(f.signInMember) },
+              { label: t(f.profile) },
+              { label: t(f.orders), to: `${base}/orders${search}` },
+              { label: t(f.addresses) },
+              { label: t(f.coupons) },
+              { label: t(home.app.club) },
+            ],
+          },
+        ]}
+        certTitle={t(f.certTitle)}
+        hoursNote={t(f.hoursNote)}
+        complaint={t(f.complaint)}
+        copyright={`© 2026 ${t(dataset.brandName)} · ${t(f.copyright)}`}
+        legal={f.legal.map((l) => t(l))}
+        payments={f.payments}
+      />
     </>
   )
 }
