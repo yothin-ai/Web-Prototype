@@ -55,6 +55,12 @@ export function useDemoState<T>(prototypeId: string, key: string, initial: T): [
   return [value, set]
 }
 
+// The latest saved value, read at call time. Use it when several writes can land before React re-renders.
+export function readDemoState<T>(prototypeId: string, key: string, initial: T): T {
+  const stored = parse(read(prototypeId))
+  return key in stored ? (stored[key] as T) : initial
+}
+
 export function resetPrototype(prototypeId: string): void {
   write(prototypeId, null)
 }

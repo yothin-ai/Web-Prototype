@@ -213,3 +213,87 @@ export function AppPromoCard(p: AppPromoCardProps) {
     </div>
   )
 }
+
+// A page section's title row, with an optional aside (such as a Countdown) and action button.
+export function SectionHeader({ title, aside, action, tone = 'default' }: { title: string; aside?: ReactNode; action?: ReactNode; tone?: 'default' | 'sale' }) {
+  return (
+    <div className={`section-header${tone === 'sale' ? ' section-header--sale' : ''}`}>
+      <h2 className="section-header__title">{title}</h2>
+      {aside && <div className="section-header__aside">{aside}</div>}
+      {action && <div className="section-header__action">{action}</div>}
+    </div>
+  )
+}
+
+const pad = (n: number) => String(n).padStart(2, '0')
+
+// Counts down from `startSeconds` once a second and starts over at zero.
+export function Countdown({ startSeconds, label }: { startSeconds: number; label: string }) {
+  const [left, setLeft] = useState(startSeconds)
+  useEffect(() => {
+    const id = window.setInterval(() => setLeft((l) => (l <= 1 ? startSeconds : l - 1)), 1000)
+    return () => window.clearInterval(id)
+  }, [startSeconds])
+  return (
+    <span className="countdown">
+      <span>{label}</span>
+      <strong className="countdown__time">{pad(Math.floor(left / 3600))}:{pad(Math.floor((left % 3600) / 60))}:{pad(left % 60)}</strong>
+    </span>
+  )
+}
+
+type FlashSaleCardProps = {
+  flashLabel: string
+  imageLabel: string
+  name: string
+  price: string
+  originalPrice: string
+  discount: string
+  soldText: string
+  stockText: string
+  progress: number
+  buyLabel: string
+  onBuy: () => void
+}
+
+export function FlashSaleCard(p: FlashSaleCardProps) {
+  const progressLabel = `${p.soldText} · ${p.stockText}`
+  return (
+    <article className="flash-card">
+      <span className="flash-card__tag">{p.flashLabel}</span>
+      <div className="product-image" role="img" aria-label={p.imageLabel}><span aria-hidden="true">{Array.from(p.imageLabel).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+      <h3 className="flash-card__name">{p.name}</h3>
+      <div className="flash-card__prices">
+        <strong className="flash-card__price">{p.price}</strong>
+        <s className="flash-card__old">{p.originalPrice}</s>
+        <span className="flash-card__discount">{p.discount}</span>
+      </div>
+      <div className="progress progress--danger" role="progressbar" aria-label={progressLabel} aria-valuemin={0} aria-valuemax={100} aria-valuenow={p.progress}>
+        <div className="progress__fill" style={{ '--progress': `${p.progress}%` } as CSSProperties} />
+      </div>
+      <div className="flash-card__stock"><span>{p.soldText}</span><span>{p.stockText}</span></div>
+      <button type="button" className="btn btn--danger btn--sm" onClick={p.onBuy}>{p.buyLabel}</button>
+    </article>
+  )
+}
+
+// One page of tiles: the first is large, the rest fill in around it.
+export function TileMosaic({ tiles, onSelect }: { tiles: string[]; onSelect: (tile: string) => void }) {
+  return (
+    <div className="tile-mosaic">
+      <div className="tile-mosaic__grid">
+        {tiles.map((label) => (
+          <button key={label} type="button" className="tile" onClick={() => onSelect(label)}>
+            <span className="tile__image" aria-hidden="true">{Array.from(label).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span>
+            <span className="tile__label">{label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// A logo placeholder: the brand's name in a frame.
+export function BrandChip({ name, onSelect }: { name: string; onSelect: () => void }) {
+  return <button type="button" className="brand-chip" onClick={onSelect}>{name}</button>
+}

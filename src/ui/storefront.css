@@ -66,3 +66,40 @@
 .circle-link { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); text-align: center; font-size: var(--font-size-sm); }
 
 .storefront-main { padding-block: var(--space-6); }
+
+.progress--danger .progress__fill { background: var(--color-danger); }
+
+.section-header { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); padding-bottom: var(--space-3); }
+.section-header__title { margin-right: auto; }
+.section-header--sale { padding: var(--space-3) var(--space-4); background: var(--color-danger); color: var(--color-accent-text); border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.countdown { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-sm); }
+.countdown__time { padding: var(--space-1) var(--space-3); background: var(--color-surface); color: var(--color-danger); border-radius: var(--radius-sm); font-family: var(--font-mono); }
+
+.sale-panel { border: 1px solid var(--color-danger); border-radius: var(--radius-md); background: var(--color-surface); overflow: hidden; }
+.sale-panel .section-header { padding-bottom: var(--space-3); border-radius: 0; }
+.sale-panel__body { padding: var(--space-4); }
+
+.flash-card { position: relative; display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); height: 100%; }
+.flash-card__tag { position: absolute; top: var(--space-3); left: var(--space-3); z-index: 1; padding: var(--space-1) var(--space-2); background: var(--color-danger); color: var(--color-accent-text); border-radius: var(--radius-sm); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); }
+.flash-card__name { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: calc(3 * 1.25em); }
+.flash-card__prices { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-2); }
+.flash-card__price { font-size: var(--font-size-lg); color: var(--color-danger); }
+.flash-card__old { font-size: var(--font-size-xs); color: var(--color-text-muted); }
+.flash-card__discount { padding: var(--space-1) var(--space-2); background: var(--color-surface-alt); color: var(--color-danger); border-radius: var(--radius-sm); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); }
+.flash-card__stock { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--font-size-xs); color: var(--color-text-muted); }
+.flash-card .btn { margin-top: auto; }
+
+.category-tile { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-2); width: 100%; padding: 0; border: 0; background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-sm); text-align: center; cursor: pointer; }
+.category-tile .product-image { font-size: var(--font-size-xl); }
+.category-column { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.tile-mosaic__grid { display: grid; gap: var(--space-3); grid-auto-rows: minmax(160px, 1fr); }
+.tile { position: relative; display: flex; align-items: flex-end; min-height: 160px; padding: 0; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-alt); color: var(--color-text); font: inherit; cursor: pointer; }
+.tile__image { position: absolute; inset: 0; display: grid; place-items: center; font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--color-border); }
+.tile__label { position: relative; width: 100%; padding: var(--space-2) var(--space-3); background: var(--color-surface); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); text-align: left; }
+
+.brand-chip { width: 100%; min-height: var(--space-8); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text-muted); font: inherit; font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); cursor: pointer; }
+.brand-chip:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.brand-column { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.storefront-section { max-width: var(--grid-max-width); margin-inline: auto; padding: var(--space-5) var(--space-4); }

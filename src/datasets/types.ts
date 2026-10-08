@@ -28,6 +28,11 @@ export type EcommerceHome = {
   app: { title: Localized; subtitle: Localized; coupon: number; club: Localized; earnBaht: number }
   shortcuts: Shortcut[]
   circles: Localized[]
+  flashIds: string[]
+  flashStartSeconds: number
+  jobsTitle: Localized
+  jobs: Localized[]
+  brands: Localized[]
 }
 
 export type EcommerceContent = {

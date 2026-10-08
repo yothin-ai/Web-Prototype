@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  Accordion, AppPromoCard, Badge, BannerSlide, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, DataRow, Field, Grid, Hero, IconCircle, Logo, NavTabs,
-  ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, ShortcutCard, ShortcutRow, SiteHeader, UtilityBar,
+  Accordion, AppPromoCard, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs,
+  ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteHeader, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
@@ -217,6 +217,40 @@ export function Components() {
               />
             </Col>
           </Grid>
+        </div>
+      </Block>
+      <Block number="4.9" title={t(text.c49)} note={t(text.c49Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.sectionHeader)}</p>
+          <SectionHeader title={t(text.flashTitle)} aside={<Countdown startSeconds={5574} label={t(text.remaining)} />} action={<Button size="sm">{t(text.viewAll)}</Button>} />
+          <Grid>
+            <Col span={{ base: 4, sm: 4, md: 3 }}>
+              <p className="mb-caption">{t(text.flashCard)}</p>
+              <FlashSaleCard
+                flashLabel="FLASH SALE"
+                imageLabel={t(text.sampleName)}
+                name={t(text.saleName)}
+                price="฿1,490"
+                originalPrice="฿2,490"
+                discount="-40%"
+                soldText={t(text.soldText)}
+                stockText={t(text.leftText)}
+                progress={50}
+                buyLabel={t(text.buyNow)}
+                onBuy={() => {}}
+              />
+            </Col>
+            <Col span={{ base: 4, sm: 8, md: 9 }}>
+              <p className="mb-caption">{t(text.tileMosaic)}</p>
+              <TileMosaic tiles={[t(text.tileA), t(text.tileB), t(text.tileC), t(text.tileD), t(text.tileE)]} onSelect={() => {}} />
+            </Col>
+          </Grid>
+          <p className="mb-caption">{t(text.brandChip)}</p>
+          <div className="row">
+            {[text.brandA, text.brandB, text.brandC].map((b, i) => (
+              <div key={i} style={{ width: 'calc(var(--space-8) * 2)' }}><BrandChip name={t(b)} onSelect={() => {}} /></div>
+            ))}
+          </div>
         </div>
       </Block>
     </Chapter>

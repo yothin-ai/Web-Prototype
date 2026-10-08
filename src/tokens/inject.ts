@@ -22,11 +22,18 @@ function gridCss(): string {
   const spans = (cls: string, count: number) =>
     Array.from({ length: count }, (_, i) => `.${cls}-${i + 1} { grid-column: span ${i + 1}; }`).join(' ')
   const at = (width: number, css: string) => `@media (min-width: ${width}px) { ${css} }`
+  // A tile mosaic reacts to its own width, not the window's, so it fits any column it is placed in.
+  const mosaic = [
+    `.tile-mosaic { container-type: inline-size; }`,
+    `.tile-mosaic__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tile-mosaic__grid > :first-child { grid-column: span 2; }`,
+    `@container (min-width: ${breakpoint.sm}px) { .tile-mosaic__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .tile-mosaic__grid > :first-child { grid-row: span 2; } }`,
+  ].join('\n')
   return [
     `.grid { display: grid; grid-template-columns: repeat(${grid.columns.base}, minmax(0, 1fr)); gap: var(--grid-gutter); max-width: var(--grid-max-width); margin-inline: auto; padding-inline: var(--space-4); width: 100%; box-sizing: border-box; }`,
     `.col { grid-column: 1 / -1; min-width: 0; }`,
     spans('col', grid.columns.base),
     at(breakpoint.sm, `.grid { grid-template-columns: repeat(${grid.columns.sm}, minmax(0, 1fr)); } .col-sm-full { grid-column: 1 / -1; } ${spans('col-sm', grid.columns.sm)}`),
+    mosaic,
     at(breakpoint.md, `.grid { grid-template-columns: repeat(${grid.columns.md}, minmax(0, 1fr)); } .col-md-full { grid-column: 1 / -1; } ${spans('col-md', grid.columns.md)}`),
   ].join('\n')
 }

@@ -1,4 +1,4 @@
-import { useDemoState } from '../../state/demoState'
+import { readDemoState, useDemoState } from '../../state/demoState'
 import { useDataset } from '../../datasets/DatasetContext'
 import type { Product } from '../../datasets/types'
 import type { Localized } from '../../i18n'
@@ -26,6 +26,15 @@ export const useEcommerce = () => {
 
 export const useCart = () => useDemoState<CartLine[]>(PROTOTYPE_ID, 'cart', [])
 export const useOrders = () => useDemoState<Order[]>(PROTOTYPE_ID, 'orders', [])
+
+export const useAddToCart = () => {
+  const [, setCart] = useCart()
+  return (productId: string) => {
+    const cart = readDemoState<CartLine[]>(PROTOTYPE_ID, 'cart', [])
+    const existing = cart.find((l) => l.productId === productId)
+    setCart(existing ? cart.map((l) => (l === existing ? { ...l, qty: l.qty + 1 } : l)) : [...cart, { productId, qty: 1 }])
+  }
+}
 
 export const cartCount = (cart: CartLine[]) => cart.reduce((n, l) => n + l.qty, 0)
 export const cartSubtotal = (cart: CartLine[], productById: (id: string) => Product | undefined) =>

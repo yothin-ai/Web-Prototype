@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { Badge, Button, Card, Col, DataRow, Grid, ProductImage } from '../../../ui'
-import { formatMoney, useCart, useEcommerce } from '../cart'
+import { formatMoney, useAddToCart, useCart, useEcommerce } from '../cart'
 import { s } from '../strings'
 
 // The product grid: every product, or the ones matching the `q` search term.
@@ -9,18 +9,14 @@ export function Browse() {
   const { t, lang } = useLang()
   const [params] = useSearchParams()
   const { products } = useEcommerce()
-  const [cart, setCart] = useCart()
+  const [cart] = useCart()
+  const add = useAddToCart()
   const q = (params.get('q') ?? '').trim().toLowerCase()
 
   const matches = (text: string) => text.toLowerCase().includes(q)
   const shown = q
     ? products.filter((p) => matches(t(p.name)) || matches(t(p.category)) || (p.brand && matches(t(p.brand))))
     : products
-
-  const add = (productId: string) => {
-    const existing = cart.find((l) => l.productId === productId)
-    setCart(existing ? cart.map((l) => (l === existing ? { ...l, qty: l.qty + 1 } : l)) : [...cart, { productId, qty: 1 }])
-  }
 
   return (
     <div>

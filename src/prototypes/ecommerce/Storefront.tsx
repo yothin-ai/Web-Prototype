@@ -17,18 +17,24 @@ export const withQuery = (search: string, key: string, value: string) => {
 }
 
 // The frame shared by every E-Commerce page: promo strip, utility bar, header and category menu.
+// Returns a function that opens the results page for a search term, keeping ?clean=1 and friends.
+export function useGoSearch() {
+  const { search } = useLocation()
+  const navigate = useNavigate()
+  return (q: string) => navigate({ pathname: `/${PROTOTYPE_ID}/products`, search: withQuery(search, 'q', q) })
+}
+
 export function Storefront({ children }: { children: ReactNode }) {
   const { t } = useLang()
   const { dataset } = useDataset()
   const { search } = useLocation()
-  const navigate = useNavigate()
+  const goSearch = useGoSearch()
   const [params] = useSearchParams()
   const [cart] = useCart()
   const home = dataset.ecommerce.home
   const base = `/${PROTOTYPE_ID}`
   const count = cartCount(cart)
 
-  const goSearch = (q: string) => navigate({ pathname: `${base}/products`, search: withQuery(search, 'q', q) })
 
   return (
     <>

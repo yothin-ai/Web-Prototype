@@ -147,10 +147,10 @@ export function Quote({ text, author }: { text: string; author: string }) {
 }
 
 // `value` is a percentage from 0 to 100.
-export function ProgressBar({ value, label }: { value: number; label: string }) {
+export function ProgressBar({ value, label, tone = 'accent' }: { value: number; label: string; tone?: 'accent' | 'danger' }) {
   const clamped = Math.min(100, Math.max(0, value))
   return (
-    <div className="progress" role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={clamped}>
+    <div className={`progress${tone === 'danger' ? ' progress--danger' : ''}`} role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={clamped}>
       <div className="progress__fill" style={{ '--progress': `${clamped}%` } as CSSProperties} />
     </div>
   )
