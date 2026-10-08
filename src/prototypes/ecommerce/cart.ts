@@ -32,7 +32,7 @@ export const cartSubtotal = (cart: CartLine[], productById: (id: string) => Prod
   cart.reduce((sum, l) => sum + (productById(l.productId)?.price ?? 0) * l.qty, 0)
 
 export const formatMoney = (amount: number, lang: string) =>
-  new Intl.NumberFormat(lang === 'th' ? 'th-TH' : 'en-US', { style: 'currency', currency: 'THB', currencyDisplay: 'narrowSymbol', maximumFractionDigits: 0 }).format(amount)
+  new Intl.NumberFormat(lang === 'th' ? 'th-TH' : 'en-US', { style: 'currency', currency: 'THB', currencyDisplay: 'narrowSymbol', maximumFractionDigits: Number.isInteger(amount) ? 0 : 2 }).format(amount)
 
 export const formatDate = (iso: string, lang: string) =>
   new Intl.DateTimeFormat(lang === 'th' ? 'th-TH' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso))

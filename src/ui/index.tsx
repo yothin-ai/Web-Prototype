@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import './ui.css'
+import './storefront.css'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
@@ -177,3 +178,4 @@ export function Logo({ name = 'Logo', tone = 'default', symbolOnly }: { name?: s
     </span>
   )
 }
+export * from './storefront'

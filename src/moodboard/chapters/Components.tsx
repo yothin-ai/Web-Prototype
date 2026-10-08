@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  Accordion, Badge, Button, Card, ChoiceCard, ChoiceGroup, Col, DataRow, Field, Grid, Hero, Logo, NavTabs, ProductImage, ProgressBar, QuantityStepper, Quote,
+  Accordion, AppPromoCard, Badge, BannerSlide, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, DataRow, Field, Grid, Hero, IconCircle, Logo, NavTabs,
+  ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, ShortcutCard, ShortcutRow, SiteHeader, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
@@ -156,6 +157,64 @@ export function Components() {
             <Col span={{ base: 4, sm: 8, md: 6 }}>
               <p className="mb-caption">{t(text.quote)}</p>
               <Quote text={t(text.quoteText)} author={t(text.quoteAuthor)} />
+            </Col>
+          </Grid>
+        </div>
+      </Block>
+      <Block number="4.8" title={t(text.c48)} note={t(text.c48Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.iconCircle)}</p>
+          <div className="row"><IconCircle size="sm" /><IconCircle size="md" /><IconCircle size="lg" /><IconCircle size="lg" tone="muted" /></div>
+          <p className="mb-caption">{t(text.promoStrip)}</p>
+          <PromoStrip>{t(text.promoText)}</PromoStrip>
+          <p className="mb-caption">{t(text.utilityBar)}</p>
+          <UtilityBar items={[t(text.phone), t(text.branch), t(text.help)]} end={<Badge>TH · EN</Badge>} />
+          <p className="mb-caption">{t(text.siteHeader)}</p>
+          <SiteHeader
+            logo={<Logo name={t(text.brandName)} />}
+            categoriesLabel={t(text.categoriesBtn)}
+            searchPlaceholder={t(text.searchPh)}
+            searchLabel={t(text.searchBtn)}
+            onSearch={() => {}}
+            account={{ label: t(text.accountLabel), sub: t(text.signIn), to: '/moodboard' }}
+            cart={{ label: t(text.cartLabel), sub: t(text.cartEmpty), to: '/moodboard', count: 2 }}
+          />
+          <p className="mb-caption">{t(text.categoryNav)}</p>
+          <CategoryNav
+            label={t(text.categoryNav)}
+            items={[t(text.cat1), t(text.cat2), t(text.cat3)]}
+            onSelect={() => {}}
+            prevLabel={t(text.scrollPrev)}
+            nextLabel={t(text.scrollNext)}
+            end={<Button size="sm"><IconCircle size="sm" />{t(text.askAi)}</Button>}
+          />
+          <p className="mb-caption">{t(text.carousel)}</p>
+          <Carousel label={t(text.carousel)} dots prevLabel={t(text.scrollPrev)} nextLabel={t(text.scrollNext)}>
+            <BannerSlide title={t(text.slide1)} text={t(text.slideText)} />
+            <BannerSlide title={t(text.slide2)} text={t(text.slideText)} />
+          </Carousel>
+          <Grid>
+            <Col span={{ base: 4, sm: 8, md: 6 }}>
+              <p className="mb-caption">{t(text.shortcut)}</p>
+              <ShortcutRow>
+                <ShortcutCard title={t(text.shortcutTitle)} text={t(text.shortcutText)} tag="HOT" />
+              </ShortcutRow>
+            </Col>
+            <Col span={{ base: 4, sm: 8, md: 6 }}>
+              <p className="mb-caption">{t(text.appCard)}</p>
+              <AppPromoCard
+                title={t(text.appTitle)}
+                subtitle={t(text.appSub)}
+                couponIntro={t(text.couponIntro)}
+                couponValue="100"
+                couponTitle={t(text.couponTitle)}
+                couponNote={t(text.couponNote)}
+                stores={['App Store', 'Google Play']}
+                clubTitle={t(text.clubTitle)}
+                clubBadge="Member"
+                earnText={t(text.earnText)}
+                joinLabel={t(text.joinLabel)}
+              />
             </Col>
           </Grid>
         </div>

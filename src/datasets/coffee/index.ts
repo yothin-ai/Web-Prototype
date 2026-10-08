@@ -6,6 +6,47 @@ const dataset: Dataset = {
   brandName: { th: 'บ้านสวนคั่วกาแฟ', en: 'Baan Suan Roasters' },
   tagline: { th: 'ตัวอย่างลูกค้าธุรกิจกาแฟคั่วสด', en: 'Sample client: a fresh-roast coffee business' },
   ecommerce: {
+    home: {
+      promoStrip: { th: 'กาแฟคั่วสดใหม่ ลด 20% ในออเดอร์แรก', en: 'Fresh-roast coffee, 20% off your first order' },
+      utility: [
+        { th: '0-0000-0000 · 24 ชม.', en: '0-0000-0000 · 24 hrs' },
+        { th: 'สาขาตัวอย่าง', en: 'Sample branch' },
+        { th: 'ศูนย์ช่วยเหลือ', en: 'Help center' },
+      ],
+      categories: [
+        { th: 'เมล็ดกาแฟ', en: 'Beans' },
+        { th: 'ดริป', en: 'Drip' },
+        { th: 'อุปกรณ์ชงกาแฟ', en: 'Brewing gear' },
+        { th: 'แก้วและถ้วย', en: 'Cups and mugs' },
+        { th: 'ชา', en: 'Tea' },
+        { th: 'ขนมและของว่าง', en: 'Snacks' },
+        { th: 'ของขวัญ', en: 'Gifts' },
+        { th: 'สมาชิกรายเดือน', en: 'Monthly club' },
+      ],
+      assistant: { th: 'ถามด้วย AI', en: 'Ask AI' },
+      slides: [
+        { title: { th: 'กาแฟคั่วสดใหม่ ส่งถึงบ้าน', en: 'Fresh-roast coffee, delivered' }, text: { th: 'คั่วตามออเดอร์ทุกสัปดาห์', en: 'Roasted to order every week' } },
+        { title: { th: 'สมาชิกรายเดือน', en: 'Monthly club' }, text: { th: 'เลื่อนหรือหยุดรอบจัดส่งได้ทุกเมื่อ', en: 'Skip or pause any time' } },
+        { title: { th: 'เมล็ดกาแฟจากภาคเหนือ', en: 'Beans from the north' }, text: { th: 'คัดจากฟาร์มที่รู้ที่มา', en: 'Picked from farms we can trace' } },
+        { title: { th: 'ดริปแบ็กพกไปได้ทุกที่', en: 'Drip bags for anywhere' }, text: { th: 'ชงง่าย แค่เติมน้ำร้อน', en: 'Just add hot water' } },
+        { title: { th: 'อุปกรณ์ชงกาแฟที่บ้าน', en: 'Brewing gear for home' }, text: { th: 'ครบทุกอย่างสำหรับดริปแก้วแรก', en: 'Everything for your first pour-over' } },
+      ],
+      app: { title: { th: 'BAAN SUAN APP', en: 'BAAN SUAN APP' }, subtitle: { th: 'Click & Collect — ช้อปได้ดีกว่า', en: 'Click & Collect: shop better' }, coupon: 100, club: { th: 'คลับกาแฟ', en: 'Coffee Club' }, earnBaht: 50 },
+      shortcuts: [
+        { title: { th: 'คูปองลดเพิ่ม', en: 'Extra discount coupons' }, text: { th: 'รับส่วนลดเพิ่มด้วยคูปองพิเศษ', en: 'Get more off with special coupons' }, tag: { th: 'HOT', en: 'HOT' } },
+        { title: { th: 'คอร์สชงกาแฟ', en: 'Brewing classes' }, text: { th: 'เรียนรู้จากบาริสต้าตัวจริง', en: 'Learn from real baristas' }, tag: { th: 'PRO', en: 'PRO' } },
+        { title: { th: 'สมาชิกคลับกาแฟ', en: 'Coffee Club membership' }, text: { th: 'สมัครฟรี สะสมแต้ม รับสิทธิ์พิเศษ', en: 'Free to join, earn points, get perks' }, tag: { th: 'FREE', en: 'FREE' } },
+      ],
+      circles: [
+        { th: 'ส่งฟรี', en: 'Free delivery' },
+        { th: 'เมล็ดกาแฟ', en: 'Beans' },
+        { th: 'ดริปแบ็ก', en: 'Drip bags' },
+        { th: 'New arrival', en: 'New arrival' },
+        { th: 'แบรนด์เด่น', en: 'Featured brand' },
+        { th: 'คอร์สชงกาแฟ', en: 'Brewing classes' },
+        { th: 'คูปองลดเพิ่ม', en: 'Extra discount coupons' },
+      ],
+    },
     products: [
       { id: 'c1', category: { th: 'เมล็ดกาแฟ', en: 'Beans' }, name: { th: 'เมล็ดกาแฟเชียงใหม่ คั่วกลาง', en: 'Chiang Mai beans, medium roast' }, description: { th: 'กลิ่นช็อกโกแลตและถั่ว ถุง 250 กรัม', en: 'Notes of chocolate and nuts, 250 g bag' }, price: 320 },
       { id: 'c2', category: { th: 'เมล็ดกาแฟ', en: 'Beans' }, name: { th: 'เมล็ดกาแฟน่าน คั่วอ่อน', en: 'Nan beans, light roast' }, description: { th: 'กลิ่นผลไม้และดอกไม้ ถุง 250 กรัม', en: 'Fruity and floral, 250 g bag' }, price: 340 },

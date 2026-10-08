@@ -6,6 +6,47 @@ const dataset: Dataset = {
   brandName: { th: 'แบรนด์ตัวอย่าง', en: 'Sample Brand' },
   tagline: { th: 'ข้อมูลสมมติสำหรับดูโครงสร้าง', en: 'Placeholder content for judging structure' },
   ecommerce: {
+    home: {
+      promoStrip: { th: 'ของใช้บนโต๊ะทำงาน ลดพิเศษตลอดเดือนนี้', en: 'Desk essentials on special offer all month' },
+      utility: [
+        { th: '0-0000-0000 · 24 ชม.', en: '0-0000-0000 · 24 hrs' },
+        { th: 'สาขาตัวอย่าง', en: 'Sample branch' },
+        { th: 'ศูนย์ช่วยเหลือ', en: 'Help center' },
+      ],
+      categories: [
+        { th: 'เครื่องเขียน', en: 'Stationery' },
+        { th: 'ของใช้บนโต๊ะ', en: 'Desk' },
+        { th: 'เครื่องดื่ม', en: 'Drinkware' },
+        { th: 'กระเป๋า', en: 'Bags' },
+        { th: 'ของขวัญ', en: 'Gifts' },
+        { th: 'งานฝีมือ', en: 'Crafts' },
+        { th: 'ออฟฟิศ', en: 'Office' },
+        { th: 'สินค้าลดราคา', en: 'On sale' },
+      ],
+      assistant: { th: 'ถามด้วย AI', en: 'Ask AI' },
+      slides: [
+        { title: { th: 'ของใช้บนโต๊ะทำงาน', en: 'Desk essentials' }, text: { th: 'จัดโต๊ะใหม่ให้พร้อมทำงาน', en: 'Set up your desk for work' } },
+        { title: { th: 'สมาชิกสะสมแต้ม รับสิทธิพิเศษ', en: 'Members earn points and perks' }, text: { th: 'สมัครฟรี ใช้ได้ทันที', en: 'Free to join, ready to use' } },
+        { title: { th: 'เครื่องเขียนคุณภาพดี', en: 'Good stationery' }, text: { th: 'ปากกาและสมุดที่เขียนแล้วอยากเขียนอีก', en: 'Pens and notebooks you will want to keep using' } },
+        { title: { th: 'กระเป๋าสำหรับคนทำงาน', en: 'Bags for working people' }, text: { th: 'ใส่ของได้เยอะ แต่ยังพกสบาย', en: 'Roomy yet comfortable to carry' } },
+        { title: { th: 'ยิ่งซื้อเยอะ ยิ่งประหยัด', en: 'Buy more, save more' }, text: { th: 'ราคาพิเศษเมื่อซื้อเป็นชุด', en: 'Special prices on sets' } },
+      ],
+      app: { title: { th: 'SAMPLE BRAND APP', en: 'SAMPLE BRAND APP' }, subtitle: { th: 'Click & Collect — ช้อปได้ดีกว่า', en: 'Click & Collect: shop better' }, coupon: 100, club: { th: 'คลับสมาชิก', en: 'Member Club' }, earnBaht: 50 },
+      shortcuts: [
+        { title: { th: 'คูปองลดเพิ่ม', en: 'Extra discount coupons' }, text: { th: 'รับส่วนลดเพิ่มด้วยคูปองพิเศษ', en: 'Get more off with special coupons' }, tag: { th: 'HOT', en: 'HOT' } },
+        { title: { th: 'บริการห่อของขวัญ', en: 'Gift wrapping' }, text: { th: 'ห่อสวย ใส่ใจทุกชิ้น', en: 'Neatly wrapped, with care' }, tag: { th: 'PRO', en: 'PRO' } },
+        { title: { th: 'สมาชิกคลับ', en: 'Member Club' }, text: { th: 'สมัครฟรี สะสมแต้ม รับสิทธิ์พิเศษ', en: 'Free to join, earn points, get perks' }, tag: { th: 'FREE', en: 'FREE' } },
+      ],
+      circles: [
+        { th: 'ส่งฟรี', en: 'Free delivery' },
+        { th: 'ของใช้บนโต๊ะ', en: 'Desk' },
+        { th: 'เครื่องเขียน', en: 'Stationery' },
+        { th: 'New arrival', en: 'New arrival' },
+        { th: 'แบรนด์เด่น', en: 'Featured brand' },
+        { th: 'บริการห่อของขวัญ', en: 'Gift wrapping' },
+        { th: 'คูปองลดเพิ่ม', en: 'Extra discount coupons' },
+      ],
+    },
     products: [
       { id: 'p1', category: { th: 'เครื่องเขียน', en: 'Stationery' }, name: { th: 'สมุดโน้ตปกผ้า', en: 'Cloth-bound notebook' }, description: { th: 'กระดาษเรียบ 120 หน้า เหมาะกับจดและร่างภาพ', en: '120 smooth pages for notes and sketches' }, price: 290 },
       { id: 'p2', category: { th: 'เครื่องเขียน', en: 'Stationery' }, name: { th: 'ชุดปากกาหมึกเจล', en: 'Gel pen set' }, description: { th: 'ปากกา 5 สี เขียนลื่น หมึกแห้งเร็ว', en: 'Five colors that write smoothly and dry fast' }, price: 159 },

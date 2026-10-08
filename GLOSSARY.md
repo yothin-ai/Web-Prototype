@@ -47,3 +47,7 @@ _Avoid_: Wrapper, chrome, layout
 **Moodboard**:
 The `/moodboard` page that is the single source of truth for the system's look and feel, read by both people and AI; every Prototype's UI follows it and nothing else.
 _Avoid_: Style guide, theme, mockup
+
+**Storefront**:
+The frame shared by every E-Commerce page: promo strip, utility bar, site header and category menu, with a footer to follow.
+_Avoid_: Layout, template, chrome
