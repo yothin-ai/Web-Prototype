@@ -160,10 +160,20 @@ export function NavTabs({ label, items }: { label: string; items: { to: string; 
   return (
     <nav className="nav-tabs" aria-label={label}>
       {items.map((item) => (
-        <Link key={item.to} to={item.to} className="nav-tabs__link" aria-current={item.active ? 'page' : undefined}>
+        <Link key={`${item.to}-${item.label}`} to={item.to} className="nav-tabs__link" aria-current={item.active ? 'page' : undefined}>
           {item.label}
         </Link>
       ))}
     </nav>
+  )
+}
+
+// A placeholder brand mark: the first letter of `name` in a square, plus the name.
+export function Logo({ name = 'Logo', tone = 'default', symbolOnly }: { name?: string; tone?: 'default' | 'on-dark' | 'on-accent'; symbolOnly?: boolean }) {
+  return (
+    <span className={`logo${tone === 'default' ? '' : ` logo--${tone}`}`} role="img" aria-label={name}>
+      <span className="logo__mark" aria-hidden="true">{initial(name)}</span>
+      {!symbolOnly && <span className="logo__name" aria-hidden="true">{name}</span>}
+    </span>
   )
 }

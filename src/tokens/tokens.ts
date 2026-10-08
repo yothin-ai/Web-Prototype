@@ -66,3 +66,46 @@ export const colorUsage: Record<ColorToken, { th: string; en: string }> = {
   warning: { th: 'คำเตือน', en: 'Warning' },
   danger: { th: 'ข้อผิดพลาดและการกระทำที่ลบหรือล้าง', en: 'Errors and destructive actions' },
 }
+
+type Text = { th: string; en: string }
+
+// How the type tokens are combined into roles. Shown on /moodboard.
+export const typeScale: {
+  role: string
+  size: keyof typeof tokens.font.size
+  weight: keyof typeof tokens.font.weight
+  lineHeight: keyof typeof tokens.font.lineHeight
+  use: Text
+}[] = [
+  { role: 'Display', size: '3xl', weight: 'bold', lineHeight: 'tight', use: { th: 'หัวข้อใหญ่ใน Hero', en: 'Hero headline' } },
+  { role: 'Heading 1', size: '2xl', weight: 'bold', lineHeight: 'tight', use: { th: 'หัวข้อหน้า', en: 'Page title' } },
+  { role: 'Heading 2', size: 'xl', weight: 'bold', lineHeight: 'tight', use: { th: 'หัวข้อส่วนและชื่อแบรนด์', en: 'Section titles and brand name' } },
+  { role: 'Heading 3', size: 'lg', weight: 'medium', lineHeight: 'tight', use: { th: 'หัวข้อการ์ด', en: 'Card titles' } },
+  { role: 'Lead', size: 'lg', weight: 'regular', lineHeight: 'normal', use: { th: 'ประโยคนำใต้ Hero และคำพูดอ้างอิง', en: 'Sentence under a hero, and quotes' } },
+  { role: 'Body', size: 'md', weight: 'regular', lineHeight: 'normal', use: { th: 'เนื้อหาทั่วไปและปุ่ม', en: 'General content and buttons' } },
+  { role: 'Label', size: 'sm', weight: 'medium', lineHeight: 'normal', use: { th: 'ป้ายกำกับฟอร์ม ปุ่มเล็ก และเมนูแท็บ', en: 'Form labels, small buttons and tabs' } },
+  { role: 'Caption', size: 'xs', weight: 'medium', lineHeight: 'normal', use: { th: 'ป้าย (Badge) และข้อความช่วยเหลือ', en: 'Badges and helper text' } },
+]
+
+export const spaceUsage: Record<keyof typeof tokens.space, Text> = {
+  1: { th: 'ช่องว่างแคบสุด เช่น ภายในป้าย', en: 'Tightest gaps, such as inside badges' },
+  2: { th: 'ช่องว่างระหว่างปุ่มเล็กและไอคอน', en: 'Between small buttons and icons' },
+  3: { th: 'ช่องไฟในแถวและระยะแนวตั้งของปุ่ม', en: 'Row gaps and vertical button padding' },
+  4: { th: 'ระยะระหว่างการ์ดและขอบหน้า (gutter)', en: 'Between cards and the page edge (gutter)' },
+  5: { th: 'ระยะภายในการ์ดและปุ่ม', en: 'Inside cards and buttons' },
+  6: { th: 'ระยะระหว่างส่วนของหน้า', en: 'Between page sections' },
+  7: { th: 'สำรองไว้สำหรับช่องว่างขนาดใหญ่', en: 'Reserved for large gaps' },
+  8: { th: 'สำรองไว้สำหรับช่องว่างขนาดใหญ่มาก', en: 'Reserved for very large gaps' },
+}
+
+export const radiusUsage: Record<keyof typeof tokens.radius, Text> = {
+  sm: { th: 'ช่องกรอกข้อมูลและกรอบภาพ', en: 'Inputs and image frames' },
+  md: { th: 'การ์ด ตัวเลือก คำถามพับได้ และคำพูดอ้างอิง', en: 'Cards, choices, accordion items and quotes' },
+  lg: { th: 'สำรองไว้สำหรับแผงขนาดใหญ่', en: 'Reserved for large panels' },
+  pill: { th: 'ปุ่ม ป้าย แท็บ และแถบความคืบหน้า', en: 'Buttons, badges, tabs and progress bars' },
+}
+
+export const shadowUsage: Record<keyof typeof tokens.shadow, Text> = {
+  sm: { th: 'การ์ดในสถานะปกติ', en: 'Cards at rest' },
+  md: { th: 'การ์ดที่กดได้เมื่อชี้เมาส์', en: 'Clickable cards on hover' },
+}
