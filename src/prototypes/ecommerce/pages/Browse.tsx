@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { Badge, Button, Card, Col, DataRow, Grid, ProductImage } from '../../../ui'
+import { Badge, Button, Card, DataRow, ProductImage } from '../../../ui'
 import { formatMoney, useAddToCart, useCart, useEcommerce } from '../cart'
 import { s } from '../strings'
 
@@ -19,22 +19,18 @@ export function Browse() {
     : products
 
   return (
-    <div>
-      <Grid>
-        <Col>
-          <h1>{q ? `${t(s.resultsTitle)}: ${params.get('q')}` : t(s.allProducts)}</h1>
-        </Col>
-        {shown.length === 0 && (
-          <Col><Card><p>{t(s.resultsEmpty)}</p></Card></Col>
-        )}
-        {shown.map((p) => {
-          const qty = cart.find((l) => l.productId === p.id)?.qty ?? 0
-          return (
-            <Col key={p.id} span={{ base: 4, sm: 4, md: 4 }}>
-              <Card>
+    <div className="storefront-section">
+      <div className="stack">
+        <h1>{q ? `${t(s.resultsTitle)}: ${params.get('q')}` : t(s.allProducts)}</h1>
+        {shown.length === 0 && <Card><p>{t(s.resultsEmpty)}</p></Card>}
+        <div className="product-grid">
+          {shown.map((p) => {
+            const qty = cart.find((l) => l.productId === p.id)?.qty ?? 0
+            return (
+              <Card key={p.id}>
                 <ProductImage label={t(p.name)} />
-                <Badge>{t(p.category)}</Badge>
-                <h3>{t(p.name)}</h3>
+                {p.brand ? <Badge>{t(p.brand)}</Badge> : <Badge>{t(p.category)}</Badge>}
+                <h3 className="article-card__title">{t(p.name)}</h3>
                 <p className="muted">{t(p.description)}</p>
                 <DataRow
                   label={<strong>{formatMoney(p.price, lang)}</strong>}
@@ -46,10 +42,10 @@ export function Browse() {
                   }
                 />
               </Card>
-            </Col>
-          )
-        })}
-      </Grid>
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 }
