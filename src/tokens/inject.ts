@@ -46,6 +46,10 @@ function gridCss(): string {
     `.site-header { position: relative; }`,
     // From the sm breakpoint the site header follows the page, just under the Shell bar.
     at(breakpoint.sm, `.site-header { position: sticky; top: var(--shell-bar-height, 0px); }`),
+    // Account area: the side menu shows from md up; below that a bottom tab bar takes over.
+    `.account-aside { display: none; } .account-menu-only { display: block; } .bottom-tabs { display: grid; } .account-page { padding-bottom: calc(var(--space-8) * 2); } .account-split { grid-template-columns: minmax(0, 1fr); } .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }`,
+    at(breakpoint.sm, `.stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }`),
+    at(breakpoint.md, `.account-aside { display: block; } .account-menu-only { display: none; } .bottom-tabs { display: none; } .account-page { padding-bottom: 0; } .account-split { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }`),
     at(breakpoint.md, `.checkout-aside { position: sticky; top: calc(var(--shell-bar-height, 0px) + var(--site-header-height, 0px) + var(--space-4)); }`),
     at(breakpoint.md, `.grid { grid-template-columns: repeat(${grid.columns.md}, minmax(0, 1fr)); } .col-md-full { grid-column: 1 / -1; } ${spans('col-md', grid.columns.md)}`),
   ].join('\n')

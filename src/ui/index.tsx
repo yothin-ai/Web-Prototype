@@ -44,8 +44,9 @@ export function Grid({ children }: { children: ReactNode }) {
 
 type Spans = { base?: number; sm?: number | 'full'; md?: number | 'full' }
 
-export function Col({ span = {}, children }: { span?: Spans; children: ReactNode }) {
+export function Col({ span = {}, className, children }: { span?: Spans; className?: string; children: ReactNode }) {
   const classes = ['col']
+  if (className) classes.push(className)
   if (span.base) classes.push(`col-${span.base}`)
   if (span.sm) classes.push(span.sm === 'full' ? 'col-sm-full' : `col-sm-${span.sm}`)
   if (span.md) classes.push(span.md === 'full' ? 'col-md-full' : `col-md-${span.md}`)

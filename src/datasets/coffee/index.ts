@@ -132,7 +132,7 @@ const dataset: Dataset = {
       { id: 'c6', category: { th: 'อุปกรณ์', en: 'Gear' }, name: { th: 'กาต้มน้ำคอห่าน', en: 'Gooseneck kettle' }, description: { th: 'ควบคุมสายน้ำได้แม่นยำ จุ 600 มล.', en: 'Precise pour control, 600 ml' }, price: 1890 , brand: { th: 'แบรนด์ F', en: 'Brand F' } },
     ],
     store: { stockDefault: 48, shelf: { th: 'ชั้น 57 · ฝั่งขวา · ล็อค 10', en: 'Shelf 57 · right side · bay 10' }, delivery: { th: '2-7 วัน', en: '2-7 days' }, pickupMinutes: 30, installmentMin: 3000, installmentMonths: 10 },
-    account: { name: { th: 'กาแฟ ตัวอย่าง', en: 'Coffee Example' }, email: 'coffee.example@example.com', provider: { th: 'อีเมลตัวอย่าง', en: 'Sample email' }, memberNo: 'M-0000-0002', points: 640, tier: { th: 'สมาชิกทั่วไป', en: 'Member' } },
+    account: { name: { th: 'กาแฟ ตัวอย่าง', en: 'Coffee Example' }, email: 'coffee.example@example.com', provider: { th: 'อีเมลตัวอย่าง', en: 'Sample email' }, memberNo: 'M-0000-0002', points: 640, tier: { th: 'สมาชิกระดับทอง', en: 'Gold member' }, nextTier: { th: 'แพลทินัม', en: 'Platinum' }, toNext: 12000, spent: 1800 },
     checkout: {
       coupons: [
         { id: 'save100', title: { th: 'ลด ฿100', en: '฿100 off' }, detail: { th: 'เมื่อซื้อครบ ฿500', en: 'When you spend ฿500' }, kind: 'amount', value: 100, minSpend: 500 },

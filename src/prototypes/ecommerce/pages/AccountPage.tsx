@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
@@ -10,14 +10,14 @@ import { PROTOTYPE_ID } from '../cart'
 import { useClubLinked, useSavedAddress, type Address } from '../checkout'
 import { c } from '../checkoutStrings'
 import { s } from '../strings'
-import { AccountMenu } from './AccountNav'
+import { AccountShell } from './AccountShell'
 import '../checkout.css'
 
 const EMPTY: Address = { name: '', phone: '', line: '', province: '', district: '', subdistrict: '', postcode: '' }
 const PHONE = /^0\d{9}$/
 const EMAIL = /^\S+@\S+\.\S+$/
 
-export function AccountPage() {
+export function AccountPage({ focus }: { focus?: 'address' }) {
   const { t } = useLang()
   const { search } = useLocation()
   const { dataset } = useDataset()
@@ -31,6 +31,9 @@ export function AccountPage() {
   const [tab, setTab] = useState<'phone' | 'id'>('phone')
   const [clubValue, setClubValue] = useState('')
   const base = `/${PROTOTYPE_ID}`
+  useEffect(() => {
+    if (focus === 'address') document.getElementById('account-address')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [focus])
   const rowText = { saveLabel: t(a.save), cancelLabel: t(a.cancel), emptyText: t(a.notAdded) }
   const name = profile.name || t(account.name)
   const email = profile.email || account.email
@@ -45,15 +48,8 @@ export function AccountPage() {
   const bad = (cond: boolean) => (tried && cond ? t(c.errRequired) : undefined)
 
   return (
-    <Grid>
-      <Col>
-        <div className="stack">
-          <Breadcrumb label={t(s.breadcrumbLabel)} items={[{ label: t(s.home), to: `${base}${search}` }, { label: t(a.crumbAccount) }, { label: t(a.title) }]} />
-          <AccountMenu active="profile" />
-        </div>
-      </Col>
-      <Col span={{ base: 4, sm: 8, md: 8 }}>
-        <div className="stack">
+    <AccountShell active={focus === 'address' ? 'addresses' : 'profile'}>
+      <Breadcrumb label={t(s.breadcrumbLabel)} items={[{ label: t(s.home), to: `${base}${search}` }, { label: t(a.crumbAccount), to: `${base}/account${search}` }, { label: t(a.title) }]} />
           <Card>
             <h2>{t(a.title)}</h2>
             <span className="muted">{t(a.subtitle)}</span>
@@ -69,7 +65,7 @@ export function AccountPage() {
           </Card>
 
           <Card>
-            <h2>{t(a.addressTitle)}</h2>
+            <h2 id="account-address">{t(a.addressTitle)}</h2>
             <span className="muted">{t(a.addressSub)}</span>
             {editing ? (
               <div className="checkout-panel stack">
@@ -124,8 +120,6 @@ export function AccountPage() {
             )}
           </Card>
           <span className="muted">{t(a.demoNote)}</span>
-        </div>
-      </Col>
-    </Grid>
+    </AccountShell>
   )
 }

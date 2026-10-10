@@ -168,17 +168,18 @@ export function ShortcutRow({ children }: { children: ReactNode }) {
   return <div className="shortcut-row">{children}</div>
 }
 
-export function ShortcutCard({ title, text, tag }: { title: string; text: string; tag: string }) {
-  return (
-    <div className="shortcut">
+export function ShortcutCard({ title, text, tag, to }: { title: string; text: string; tag?: string; to?: string }) {
+  const body = (
+    <>
       <div className="shortcut__head">
         <IconCircle size="lg" />
-        <span className="badge">{tag}</span>
+        {tag && <span className="badge">{tag}</span>}
       </div>
       <h3>{title}</h3>
       <p className="muted">{text}</p>
-    </div>
+    </>
   )
+  return to ? <Link to={to} className="shortcut shortcut--link">{body}</Link> : <div className="shortcut">{body}</div>
 }
 
 type AppPromoCardProps = {

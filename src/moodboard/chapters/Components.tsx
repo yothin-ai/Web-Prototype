@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountNav, SettingRow, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -346,13 +346,32 @@ export function Components() {
       </Block>
       <Block number="4.14" title={t(text.c414)} note={t(text.c414Note)}>
         <div className="stack">
-          <p className="mb-caption">{t(text.accountNav)}</p>
-          <AccountNav label={t(text.accountNav)} items={[{ to: '/moodboard', label: t(text.acctProfile), active: true }, { to: '/moodboard', label: t(text.acctOrders), active: false }]} />
           <p className="mb-caption">{t(text.settingRow)}</p>
           <Card>
             <SettingRow label={t(text.settingName)} value={t(text.settingValue)} emptyText={t(text.settingEmpty)} actionLabel={t(text.settingChange)} saveLabel={t(text.settingSave)} cancelLabel={t(text.settingCancel)} />
             <SettingRow label={t(text.settingPhone)} emptyText={t(text.settingEmpty)} actionLabel={t(text.settingAdd)} saveLabel={t(text.settingSave)} cancelLabel={t(text.settingCancel)} />
           </Card>
+        </div>
+      </Block>
+      <Block number="4.15" title={t(text.c415)} note={t(text.c415Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.memberBanner)}</p>
+          <MemberBanner tier={t(text.tierName)} points="1,280" pointsLabel={t(text.pointsWord)} progress={35} progressText={t(text.progressSample)} progressLabel={t(text.pointsWord)} perksLabel={t(text.perksWord)} action={<Button size="sm">{t(text.redeemWord)}</Button>} />
+          <p className="mb-caption">{t(text.statCard)}</p>
+          <div className="stat-grid">
+            <StatCard label={t(text.pointsWord)} value="1,280" note={t(text.statNote)} />
+            <StatCard label={t(text.couponWord)} value="3" note={t(text.statNote)} />
+          </div>
+          <Grid>
+            <Col span={{ base: 4, sm: 4, md: 5 }}>
+              <p className="mb-caption">{t(text.accountSidebar)}</p>
+              <AccountSidebar name={t(text.settingValue)} email="sample@example.com" badge={t(text.tierName)} groups={[{ title: t(text.groupSample), items: [{ to: '/moodboard', label: t(text.acctProfile), active: true }, { to: '/moodboard', label: t(text.acctOrders), active: false }] }]} logoutLabel={t(text.logoutWord)} onLogout={() => {}} />
+            </Col>
+            <Col span={{ base: 4, sm: 4, md: 7 }}>
+              <p className="mb-caption">{t(text.bottomTabs)}</p>
+              <BottomTabBar inline label={t(text.bottomTabs)} items={[{ to: '/moodboard', label: t(text.acctProfile), active: true }, { to: '/moodboard', label: t(text.acctOrders), active: false }, { to: '/moodboard', label: t(text.couponWord), active: false }]} />
+            </Col>
+          </Grid>
         </div>
       </Block>
     </Chapter>

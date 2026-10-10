@@ -30,7 +30,7 @@ export type Coupon = {
 
 // Checkout content: coupons, instalment banks and the bank-transfer account (all placeholders).
 // The sample shopper shown on the account page: no real person.
-export type AccountContent = { name: Localized; email: string; provider: Localized; memberNo: string; points: number; tier: Localized }
+export type AccountContent = { name: Localized; email: string; provider: Localized; memberNo: string; points: number; tier: Localized; nextTier: Localized; toNext: number; spent: number }
 
 export type CheckoutContent = {
   coupons: Coupon[]

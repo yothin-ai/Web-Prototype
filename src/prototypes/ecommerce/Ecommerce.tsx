@@ -1,4 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
+import { AccountHome } from './pages/AccountHome'
+import { AccountMenuPage, ComingSoon } from './pages/AccountMisc'
 import { AccountPage } from './pages/AccountPage'
 import { Browse } from './pages/Browse'
 import { CartPage } from './pages/CartPage'
@@ -21,7 +23,11 @@ export function Ecommerce() {
         <Route path="checkout" element={<Checkout />} />
         <Route path="pay" element={<PaymentPage />} />
         <Route path="done/:orderId" element={<Confirmation />} />
-        <Route path="account" element={<AccountPage />} />
+        <Route path="account" element={<AccountHome />} />
+        <Route path="account/profile" element={<AccountPage />} />
+        <Route path="account/addresses" element={<AccountPage focus="address" />} />
+        <Route path="account/menu" element={<AccountMenuPage />} />
+        <Route path="account/:page" element={<ComingSoon />} />
         <Route path="orders" element={<OrdersPage />} />
       </Routes>
     </Storefront>
