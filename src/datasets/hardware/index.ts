@@ -189,6 +189,7 @@ const dataset: Dataset = {
       { id: 'r20', category: { th: 'เครื่องมือช่าง และอุปกรณ์ฮาร์ดแวร์', en: 'Tools and hardware' }, name: { th: 'ระดับน้ำแบบเข้ามุมพร้อมแม่เหล็ก ขนาด 15 ซม. สีแดง', en: 'Magnetic corner spirit level, 15 cm, red' }, description: { th: 'ระดับน้ำแบบเข้ามุมพร้อมแม่เหล็ก ขนาด 15 ซม. สีแดง', en: 'Magnetic corner spirit level, 15 cm, red' }, price: 139, brand: { th: 'แบรนด์ P', en: 'Brand P' } },
     ],
     store: { stockDefault: 48, shelf: { th: 'ชั้น 57 · ฝั่งขวา · ล็อค 10', en: 'Shelf 57 · right side · bay 10' }, delivery: { th: '2-7 วัน', en: '2-7 days' }, pickupMinutes: 30, installmentMin: 3000, installmentMonths: 10 },
+    account: { name: { th: 'ช่าง ตัวอย่าง', en: 'Builder Example' }, email: 'builder.example@example.com', provider: { th: 'อีเมลตัวอย่าง', en: 'Sample email' }, memberNo: 'M-0000-0003', points: 3150, tier: { th: 'สมาชิกทั่วไป', en: 'Member' } },
     checkout: {
       coupons: [
         { id: 'save100', title: { th: 'ลด ฿100', en: '฿100 off' }, detail: { th: 'เมื่อซื้อครบ ฿500', en: 'When you spend ฿500' }, kind: 'amount', value: 100, minSpend: 500 },

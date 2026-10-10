@@ -5,6 +5,7 @@ import { useLang } from '../../i18n'
 import { LanguageToggle } from '../../shell/LanguageToggle'
 import { CategoryNav, IconCircle, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
 import type { MenuNode } from '../../datasets/types'
+import { useProfile } from './account'
 import { f } from './footer'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
@@ -33,6 +34,7 @@ export function Storefront({ children }: { children: ReactNode }) {
   const goSearch = useGoSearch()
   const [params] = useSearchParams()
   const [cart] = useCart()
+  const [profile] = useProfile()
   const home = dataset.ecommerce.home
   const base = `/${PROTOTYPE_ID}`
   const count = cartCount(cart)
@@ -91,7 +93,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         searchLabel={t(s.searchButton)}
         initialQuery={params.get('q') ?? ''}
         onSearch={goSearch}
-        account={{ label: t(s.account), sub: t(s.signIn), to: `${base}/orders${withQuery(search, 'q', '')}` }}
+        account={{ label: t(s.account), sub: profile.name || t(dataset.ecommerce.account.name), to: `${base}/account${withQuery(search, 'q', '')}` }}
         menu={{
           open: menuOpen,
           onToggle: () => setMenuOpen((o) => !o),

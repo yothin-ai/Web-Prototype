@@ -133,6 +133,7 @@ const dataset: Dataset = {
       { id: 'p6', category: { th: 'กระเป๋า', en: 'Bags' }, name: { th: 'กระเป๋าผ้าใบสะพายข้าง', en: 'Canvas shoulder bag' }, description: { th: 'ผ้าหนา กันน้ำเบา ๆ ใส่ของได้เยอะ', en: 'Thick, lightly water-resistant, roomy' }, price: 690 , brand: { th: 'แบรนด์ F', en: 'Brand F' } },
     ],
     store: { stockDefault: 48, shelf: { th: 'ชั้น 57 · ฝั่งขวา · ล็อค 10', en: 'Shelf 57 · right side · bay 10' }, delivery: { th: '2-7 วัน', en: '2-7 days' }, pickupMinutes: 30, installmentMin: 3000, installmentMonths: 10 },
+    account: { name: { th: 'สมชาย ตัวอย่าง', en: 'Somchai Example' }, email: 'somchai.example@example.com', provider: { th: 'อีเมลตัวอย่าง', en: 'Sample email' }, memberNo: 'M-0000-0001', points: 1280, tier: { th: 'สมาชิกทั่วไป', en: 'Member' } },
     checkout: {
       coupons: [
         { id: 'save100', title: { th: 'ลด ฿100', en: '฿100 off' }, detail: { th: 'เมื่อซื้อครบ ฿500', en: 'When you spend ฿500' }, kind: 'amount', value: 100, minSpend: 500 },

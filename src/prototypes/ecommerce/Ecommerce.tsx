@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import { AccountPage } from './pages/AccountPage'
 import { Browse } from './pages/Browse'
 import { CartPage } from './pages/CartPage'
 import { Checkout } from './pages/Checkout'
@@ -20,6 +21,7 @@ export function Ecommerce() {
         <Route path="checkout" element={<Checkout />} />
         <Route path="pay" element={<PaymentPage />} />
         <Route path="done/:orderId" element={<Confirmation />} />
+        <Route path="account" element={<AccountPage />} />
         <Route path="orders" element={<OrdersPage />} />
       </Routes>
     </Storefront>

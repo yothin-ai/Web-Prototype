@@ -3,6 +3,7 @@ import { useLang } from '../../../i18n'
 import { Badge, Button, Card, Col, Grid } from '../../../ui'
 import { formatDate, PROTOTYPE_ID, useOrders } from '../cart'
 import { s } from '../strings'
+import { AccountMenu } from './AccountNav'
 import { OrderSummary } from './OrderSummary'
 
 export function OrdersPage() {
@@ -12,6 +13,7 @@ export function OrdersPage() {
 
   return (
     <Grid>
+      <Col><AccountMenu active="orders" /></Col>
       <Col span={{ base: 4, sm: 8, md: 8 }}>
         <div className="stack">
           {orders.length === 0 && (

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountNav, SettingRow, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -342,6 +342,17 @@ export function Components() {
           <Notice tone="info" title={t(text.noticeInfo)}>{t(text.noticeBody)}</Notice>
           <Notice tone="success" title={t(text.noticeSuccess)} />
           <Notice tone="error" title={t(text.noticeError)} />
+        </div>
+      </Block>
+      <Block number="4.14" title={t(text.c414)} note={t(text.c414Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.accountNav)}</p>
+          <AccountNav label={t(text.accountNav)} items={[{ to: '/moodboard', label: t(text.acctProfile), active: true }, { to: '/moodboard', label: t(text.acctOrders), active: false }]} />
+          <p className="mb-caption">{t(text.settingRow)}</p>
+          <Card>
+            <SettingRow label={t(text.settingName)} value={t(text.settingValue)} emptyText={t(text.settingEmpty)} actionLabel={t(text.settingChange)} saveLabel={t(text.settingSave)} cancelLabel={t(text.settingCancel)} />
+            <SettingRow label={t(text.settingPhone)} emptyText={t(text.settingEmpty)} actionLabel={t(text.settingAdd)} saveLabel={t(text.settingSave)} cancelLabel={t(text.settingCancel)} />
+          </Card>
         </div>
       </Block>
     </Chapter>
