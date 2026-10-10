@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { LanguageToggle } from '../../shell/LanguageToggle'
@@ -71,7 +71,11 @@ export function Storefront({ children }: { children: ReactNode }) {
       />
       {menuOpen && <div className="mega-backdrop" onClick={() => setMenuOpen(false)} />}
       <SiteHeader
-        logo={<Logo name={t(dataset.brandName)} />}
+        logo={
+          <Link to={{ pathname: base, search: withQuery(search, 'q', '') }} className="site-header__home" aria-label={t(s.goHome)}>
+            <Logo name={t(dataset.brandName)} />
+          </Link>
+        }
         categoriesLabel={t(s.categoriesButton)}
         searchPlaceholder={t(s.searchPlaceholder)}
         searchLabel={t(s.searchButton)}

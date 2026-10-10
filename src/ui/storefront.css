@@ -156,3 +156,5 @@
 .mega-menu[data-narrow] .mega-menu__col { display: none; border-right: 0; overflow: visible; }
 .mega-menu[data-narrow][data-level='0'] .mega-menu__col[data-col='0'], .mega-menu[data-narrow][data-level='1'] .mega-menu__col[data-col='1'], .mega-menu[data-narrow][data-level='2'] .mega-menu__col[data-col='2'] { display: block; }
 .mega-menu[data-narrow] .mega-menu__back { display: inline-flex; }
+
+.site-header__home { display: inline-flex; color: inherit; text-decoration: none; border-radius: var(--radius-sm); }

@@ -73,6 +73,7 @@ export const s = {
   categoriesRow: { th: 'หมวดหมู่สินค้า', en: 'Product categories' },
   jobsRow: { th: 'หน้าของงาน', en: 'Jobs' },
   brandsRow: { th: 'แถวแบรนด์', en: 'Brand row' },
+  goHome: { th: 'กลับไปหน้าแรก', en: 'Back to the home page' },
   menuTitle: { th: 'หมวดหมู่', en: 'Categories' },
   back: { th: 'ย้อนกลับ', en: 'Back' },
   menuEmpty: { th: 'ไม่มีรายการย่อยในส่วนนี้ ดูสินค้าทั้งหมดของหมวดนี้ได้ที่ปุ่ม "ดูทั้งหมด"', en: 'There are no further items here. Use "View all" to see everything in this category.' },
