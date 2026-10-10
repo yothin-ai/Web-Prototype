@@ -6,6 +6,8 @@ import {
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
 import { f } from '../footer'
 import { s } from '../strings'
+import { Link, useLocation } from 'react-router-dom'
+import { PROTOTYPE_ID } from '../cart'
 import { useGoSearch } from '../Storefront'
 
 const chunk = <T,>(items: T[], size: number): T[][] =>
@@ -14,6 +16,8 @@ const chunk = <T,>(items: T[], size: number): T[][] =>
 export function Home() {
   const { t, lang } = useLang()
   const goSearch = useGoSearch()
+  const { search } = useLocation()
+  const detailPath = (id: string) => `/${PROTOTYPE_ID}/product/${id}${search}`
   const add = useAddToCart()
   const { productById } = useEcommerce()
   const { home } = useDataset().dataset.ecommerce
@@ -103,6 +107,7 @@ export function Home() {
                     progress={sold + stock === 0 ? 0 : Math.round((sold / (sold + stock)) * 100)}
                     buyLabel={t(s.buyNow)}
                     onBuy={() => add(id)}
+                    to={detailPath(id)}
                   />
                 )
               })}
@@ -149,9 +154,9 @@ export function Home() {
             if (!p) return null
             return (
               <Card key={id}>
-                <ProductImage label={t(p.name)} />
+                <Link to={detailPath(id)} className="card-link"><ProductImage label={t(p.name)} /></Link>
                 <Badge>{t(p.brand ?? p.category)}</Badge>
-                <h3 className="article-card__title">{t(p.name)}</h3>
+                <Link to={detailPath(id)} className="card-link"><h3 className="article-card__title">{t(p.name)}</h3></Link>
                 <DataRow label={<strong>{formatMoney(p.price, lang)}</strong>} value={<Button size="sm" onClick={() => add(id)}>{t(s.add)}</Button>} />
               </Card>
             )

@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { Button, Card, Col, DataRow, Grid, QuantityStepper } from '../../../ui'
 import { cartSubtotal, formatMoney, PROTOTYPE_ID, useCart, useEcommerce } from '../cart'
@@ -36,7 +36,7 @@ export function CartPage() {
             if (!product) return null
             return (
               <Card key={line.productId}>
-                <DataRow label={<h3>{t(product.name)}</h3>} value={<strong>{formatMoney(product.price * line.qty, lang)}</strong>} />
+                <DataRow label={<Link to={`${base}/product/${product.id}${search}`} className="card-link"><h3>{t(product.name)}</h3></Link>} value={<strong>{formatMoney(product.price * line.qty, lang)}</strong>} />
                 <p className="muted">{formatMoney(product.price, lang)}</p>
                 <div className="row">
                   <QuantityStepper

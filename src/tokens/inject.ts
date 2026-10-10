@@ -28,12 +28,21 @@ function gridCss(): string {
     `.tile-mosaic__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tile-mosaic__grid > :first-child { grid-column: span 2; }`,
     `@container (min-width: ${breakpoint.sm}px) { .tile-mosaic__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .tile-mosaic__grid > :first-child { grid-row: span 2; } }`,
   ].join('\n')
+  // The product gallery puts thumbnails beside the picture only when its own column is wide enough.
+  const galleryMin = 480
+  const gallery = [
+    `.gallery { container-type: inline-size; }`,
+    `.gallery__layout { display: flex; flex-direction: column-reverse; gap: var(--space-3); }`,
+    `.gallery__thumbs { display: flex; flex-direction: row; gap: var(--space-2); overflow-x: auto; scrollbar-width: none; }`,
+    `@container (min-width: ${galleryMin}px) { .gallery__layout { flex-direction: row; } .gallery__thumbs { flex-direction: column; overflow-x: visible; overflow-y: auto; } }`,
+  ].join('\n')
   return [
     `.grid { display: grid; grid-template-columns: repeat(${grid.columns.base}, minmax(0, 1fr)); gap: var(--grid-gutter); max-width: var(--grid-max-width); margin-inline: auto; padding-inline: var(--space-4); width: 100%; box-sizing: border-box; }`,
     `.col { grid-column: 1 / -1; min-width: 0; }`,
     spans('col', grid.columns.base),
     at(breakpoint.sm, `.grid { grid-template-columns: repeat(${grid.columns.sm}, minmax(0, 1fr)); } .col-sm-full { grid-column: 1 / -1; } ${spans('col-sm', grid.columns.sm)}`),
     mosaic,
+    gallery,
     at(breakpoint.md, `.grid { grid-template-columns: repeat(${grid.columns.md}, minmax(0, 1fr)); } .col-md-full { grid-column: 1 / -1; } ${spans('col-md', grid.columns.md)}`),
   ].join('\n')
 }

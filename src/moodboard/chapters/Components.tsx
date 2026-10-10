@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  Accordion, AppPromoCard, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs,
-  MegaMenu, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, TileMosaic, UtilityBar,
+  Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs,
+  MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
@@ -301,6 +301,37 @@ export function Components() {
           emptyText={t(text.megaEmpty)}
           onSelect={() => {}}
         />
+      </Block>
+      <Block number="4.12" title={t(text.c412)} note={t(text.c412Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.breadcrumb)}</p>
+          <Breadcrumb label={t(text.breadcrumb)} items={[{ label: t(text.home), to: '/moodboard' }, { label: t(text.crumbMid), to: '/moodboard' }, { label: t(text.crumbLast) }]} />
+          <Grid>
+            <Col span={{ base: 4, sm: 8, md: 5 }}>
+              <p className="mb-caption">{t(text.gallery)}</p>
+              <ProductGallery name={t(text.sampleName)} frameLabels={[1, 2, 3, 4, 5].map((n) => `${t(text.frame)} ${n}`)} prevLabel={t(text.prevImage)} nextLabel={t(text.nextImage)} />
+            </Col>
+            <Col span={{ base: 4, sm: 8, md: 7 }}>
+              <p className="mb-caption">{t(text.tabs)}</p>
+              <Tabs
+                label={t(text.tabs)}
+                tabs={[
+                  { id: 'mb-one', label: t(text.tabOneLabel), content: <p>{t(text.tabBody)}</p> },
+                  { id: 'mb-two', label: t(text.tabTwoLabel), content: <p>{t(text.tabBody)}</p> },
+                  { id: 'mb-three', label: t(text.tabThreeLabel), content: <p>{t(text.tabBody)}</p> },
+                ]}
+              />
+            </Col>
+          </Grid>
+          <p className="mb-caption">{t(text.stickyBar)}</p>
+          <StickyActionBar
+            inline
+            visible
+            name={t(text.sampleName)}
+            price="฿1,200"
+            actions={<><Button variant="secondary" size="sm">{t(text.addToCart)}</Button><Button size="sm">{t(text.buyNowLabel)}</Button></>}
+          />
+        </div>
       </Block>
     </Chapter>
   )

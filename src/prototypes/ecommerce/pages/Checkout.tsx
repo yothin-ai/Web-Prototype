@@ -41,7 +41,7 @@ export function Checkout() {
       paymentId,
       lines: cart.flatMap((l) => {
         const p = productById(l.productId)
-        return p ? [{ name: p.name, price: p.price, qty: l.qty }] : []
+        return p ? [{ productId: p.id, name: p.name, price: p.price, qty: l.qty }] : []
       }),
       subtotal,
       shippingPrice,

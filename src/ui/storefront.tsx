@@ -263,6 +263,7 @@ type FlashSaleCardProps = {
   progress: number
   buyLabel: string
   onBuy: () => void
+  to?: string
 }
 
 export function FlashSaleCard(p: FlashSaleCardProps) {
@@ -270,8 +271,17 @@ export function FlashSaleCard(p: FlashSaleCardProps) {
   return (
     <article className="flash-card">
       <span className="flash-card__tag">{p.flashLabel}</span>
-      <div className="product-image" role="img" aria-label={p.imageLabel}><span aria-hidden="true">{Array.from(p.imageLabel).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
-      <h3 className="flash-card__name">{p.name}</h3>
+      {p.to ? (
+        <Link to={p.to} className="card-link">
+          <div className="product-image" role="img" aria-label={p.imageLabel}><span aria-hidden="true">{Array.from(p.imageLabel).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+          <h3 className="flash-card__name">{p.name}</h3>
+        </Link>
+      ) : (
+        <>
+          <div className="product-image" role="img" aria-label={p.imageLabel}><span aria-hidden="true">{Array.from(p.imageLabel).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+          <h3 className="flash-card__name">{p.name}</h3>
+        </>
+      )}
       <div className="flash-card__prices">
         <strong className="flash-card__price">{p.price}</strong>
         <s className="flash-card__old">{p.originalPrice}</s>

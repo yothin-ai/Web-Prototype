@@ -12,7 +12,7 @@ export type Order = {
   customer: { name: string; phone: string; address: string }
   shippingId: string
   paymentId: string
-  lines: { name: Localized; price: number; qty: number }[]
+  lines: { productId?: string; name: Localized; price: number; qty: number }[]
   subtotal: number
   shippingPrice: number
   total: number
@@ -29,10 +29,10 @@ export const useOrders = () => useDemoState<Order[]>(PROTOTYPE_ID, 'orders', [])
 
 export const useAddToCart = () => {
   const [, setCart] = useCart()
-  return (productId: string) => {
+  return (productId: string, qty = 1) => {
     const cart = readDemoState<CartLine[]>(PROTOTYPE_ID, 'cart', [])
     const existing = cart.find((l) => l.productId === productId)
-    setCart(existing ? cart.map((l) => (l === existing ? { ...l, qty: l.qty + 1 } : l)) : [...cart, { productId, qty: 1 }])
+    setCart(existing ? cart.map((l) => (l === existing ? { ...l, qty: l.qty + qty } : l)) : [...cart, { productId, qty }])
   }
 }
 

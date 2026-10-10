@@ -60,3 +60,7 @@ _Avoid_: Promotion, deal of the day
 The three-level list of product groups (category, subcategory, item) that the Storefront's category menu shows; each Dataset carries its own.
 _Avoid_: Taxonomy, sitemap
 
+**Product page**:
+The page for one product, with its gallery, price and buy box, details, specifications, reviews and related products.
+_Avoid_: Detail page, PDP
+

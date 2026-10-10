@@ -1,13 +1,14 @@
-import { useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { Badge, Button, Card, DataRow, ProductImage } from '../../../ui'
-import { formatMoney, useAddToCart, useCart, useEcommerce } from '../cart'
+import { formatMoney, PROTOTYPE_ID, useAddToCart, useCart, useEcommerce } from '../cart'
 import { s } from '../strings'
 
 // The product grid: every product, or the ones matching the `q` search term.
 export function Browse() {
   const { t, lang } = useLang()
   const [params] = useSearchParams()
+  const { search } = useLocation()
   const { products } = useEcommerce()
   const [cart] = useCart()
   const add = useAddToCart()
@@ -28,9 +29,9 @@ export function Browse() {
             const qty = cart.find((l) => l.productId === p.id)?.qty ?? 0
             return (
               <Card key={p.id}>
-                <ProductImage label={t(p.name)} />
+                <Link to={`/${PROTOTYPE_ID}/product/${p.id}${search}`} className="card-link"><ProductImage label={t(p.name)} /></Link>
                 {p.brand ? <Badge>{t(p.brand)}</Badge> : <Badge>{t(p.category)}</Badge>}
-                <h3 className="article-card__title">{t(p.name)}</h3>
+                <Link to={`/${PROTOTYPE_ID}/product/${p.id}${search}`} className="card-link"><h3 className="article-card__title">{t(p.name)}</h3></Link>
                 <p className="muted">{t(p.description)}</p>
                 <DataRow
                   label={<strong>{formatMoney(p.price, lang)}</strong>}

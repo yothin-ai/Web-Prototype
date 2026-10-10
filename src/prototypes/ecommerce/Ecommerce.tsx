@@ -5,6 +5,7 @@ import { Checkout } from './pages/Checkout'
 import { Confirmation } from './pages/Confirmation'
 import { Home } from './pages/Home'
 import { OrdersPage } from './pages/OrdersPage'
+import { ProductPage } from './pages/ProductPage'
 import { Storefront } from './Storefront'
 
 export function Ecommerce() {
@@ -13,6 +14,7 @@ export function Ecommerce() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="products" element={<Browse />} />
+        <Route path="product/:productId" element={<ProductPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="done/:orderId" element={<Confirmation />} />

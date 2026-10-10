@@ -81,7 +81,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         searchLabel={t(s.searchButton)}
         initialQuery={params.get('q') ?? ''}
         onSearch={goSearch}
-        account={{ label: t(s.account), sub: t(s.signIn), to: `${base}/orders${search}` }}
+        account={{ label: t(s.account), sub: t(s.signIn), to: `${base}/orders${withQuery(search, 'q', '')}` }}
         menu={{
           open: menuOpen,
           onToggle: () => setMenuOpen((o) => !o),
@@ -102,7 +102,7 @@ export function Storefront({ children }: { children: ReactNode }) {
             />
           ),
         }}
-        cart={{ label: t(s.cartTitle), sub: count ? `${count} ${t(s.itemsCount)}` : t(s.cartEmptyShort), to: `${base}/cart${search}`, count }}
+        cart={{ label: t(s.cartTitle), sub: count ? `${count} ${t(s.itemsCount)}` : t(s.cartEmptyShort), to: `${base}/cart${withQuery(search, 'q', '')}`, count }}
       />
       <CategoryNav
         label={t(s.categoriesButton)}

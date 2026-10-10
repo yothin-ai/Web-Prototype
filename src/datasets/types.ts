@@ -1,5 +1,31 @@
 import type { Localized } from '../i18n'
 
+export type ProductDetail = {
+  sku: string
+  unit: Localized
+  standard?: Localized
+  // Path shown after "Home" in the breadcrumb, ending before the product name.
+  path?: Localized[]
+  highlights: Localized[]
+  general: Localized[]
+  details: Localized[]
+  install: Localized
+  warranty: Localized
+  caution: Localized
+  specs: { label: Localized; value: Localized }[]
+  related?: string[]
+}
+
+// Store-wide facts shown on every product page. Placeholder values, kept here so they can change per dataset.
+export type StoreInfo = {
+  stockDefault: number
+  shelf: Localized
+  delivery: Localized
+  pickupMinutes: number
+  installmentMin: number
+  installmentMonths: number
+}
+
 export type Product = {
   id: string
   name: Localized
@@ -11,6 +37,7 @@ export type Product = {
   originalPrice?: number
   sold?: number
   stock?: number
+  detail?: ProductDetail
 }
 
 export type Choice = { id: string; name: Localized; detail: Localized; price?: number }
@@ -45,6 +72,7 @@ export type EcommerceHome = {
 
 export type EcommerceContent = {
   home: EcommerceHome
+  store: StoreInfo
   products: Product[]
   shippingMethods: Choice[]
   paymentMethods: Choice[]
