@@ -189,6 +189,17 @@ const dataset: Dataset = {
       { id: 'r20', category: { th: 'เครื่องมือช่าง และอุปกรณ์ฮาร์ดแวร์', en: 'Tools and hardware' }, name: { th: 'ระดับน้ำแบบเข้ามุมพร้อมแม่เหล็ก ขนาด 15 ซม. สีแดง', en: 'Magnetic corner spirit level, 15 cm, red' }, description: { th: 'ระดับน้ำแบบเข้ามุมพร้อมแม่เหล็ก ขนาด 15 ซม. สีแดง', en: 'Magnetic corner spirit level, 15 cm, red' }, price: 139, brand: { th: 'แบรนด์ P', en: 'Brand P' } },
     ],
     store: { stockDefault: 48, shelf: { th: 'ชั้น 57 · ฝั่งขวา · ล็อค 10', en: 'Shelf 57 · right side · bay 10' }, delivery: { th: '2-7 วัน', en: '2-7 days' }, pickupMinutes: 30, installmentMin: 3000, installmentMonths: 10 },
+    checkout: {
+      coupons: [
+        { id: 'save100', title: { th: 'ลด ฿100', en: '฿100 off' }, detail: { th: 'เมื่อซื้อครบ ฿500', en: 'When you spend ฿500' }, kind: 'amount', value: 100, minSpend: 500 },
+        { id: 'save5', title: { th: 'ลด 5%', en: '5% off' }, detail: { th: 'สูงสุด ฿300 เมื่อซื้อครบ ฿1,000', en: 'Up to ฿300 when you spend ฿1,000' }, kind: 'percent', value: 5, cap: 300, minSpend: 1000 },
+        { id: 'freeship', title: { th: 'ส่งฟรี', en: 'Free delivery' }, detail: { th: 'ฟรีค่าจัดส่งเมื่อซื้อครบ ฿800 (เฉพาะจัดส่งพัสดุ)', en: 'Free delivery when you spend ฿800 (parcel delivery only)' }, kind: 'freeship', value: 0, minSpend: 800 },
+      ],
+      banks: [{ th: 'ธนาคารตัวอย่าง A', en: 'Sample Bank A' }, { th: 'ธนาคารตัวอย่าง B', en: 'Sample Bank B' }],
+      installmentMonths: [3, 6, 10],
+      transfer: { bank: { th: 'ธนาคารตัวอย่าง A', en: 'Sample Bank A' }, name: { th: 'ชื่อบัญชีตัวอย่าง', en: 'Sample account name' }, number: '000-0-00000-0' },
+      paymentWindowMinutes: 15,
+    },
     shippingMethods: [
       { id: 'standard', name: { th: 'ส่งธรรมดา', en: 'Standard' }, detail: { th: '3–5 วันทำการ', en: '3–5 business days' }, price: 80 },
       { id: 'express', name: { th: 'ส่งด่วน', en: 'Express' }, detail: { th: 'ภายในวันถัดไป', en: 'Next day' }, price: 180 },

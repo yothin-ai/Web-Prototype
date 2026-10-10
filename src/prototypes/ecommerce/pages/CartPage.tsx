@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { Button, Card, Col, DataRow, Grid, QuantityStepper } from '../../../ui'
+import { Button, Card, Col, DataRow, Grid, QuantityStepper, StepPill } from '../../../ui'
 import { cartSubtotal, formatMoney, PROTOTYPE_ID, useCart, useEcommerce } from '../cart'
+import { c } from '../checkoutStrings'
 import { s } from '../strings'
 
 export function CartPage() {
@@ -29,6 +30,7 @@ export function CartPage() {
 
   return (
     <Grid>
+      <Col><StepPill step={1} label={t(c.stepCart)} progress={`${t(c.stepWord)} 1 ${t(c.ofThree)}`} /></Col>
       <Col span={{ base: 4, sm: 8, md: 8 }}>
         <div className="stack">
           {cart.map((line) => {

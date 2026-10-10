@@ -131,6 +131,7 @@ export const s = {
   galleryPrev: { th: 'ภาพก่อนหน้า', en: 'Previous image' },
   galleryNext: { th: 'ภาพถัดไป', en: 'Next image' },
   addedToCart: { th: 'เพิ่มลงตะกร้าแล้ว', en: 'Added to cart' },
+  free: { th: 'ฟรี', en: 'Free' },
   perUnitSep: { th: '/', en: '/' },
   reviewsEmpty: { th: 'ยังไม่มีรีวิวสำหรับสินค้านี้', en: 'There are no reviews for this product yet' },
 } satisfies Record<string, Localized>

@@ -1,7 +1,8 @@
 import { useLocation, useParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { Badge, Button, Card, Col, Grid } from '../../../ui'
+import { StepPill, Badge, Button, Card, Col, Grid } from '../../../ui'
 import { PROTOTYPE_ID, useOrders } from '../cart'
+import { c } from '../checkoutStrings'
 import { s } from '../strings'
 import { OrderSummary } from './OrderSummary'
 
@@ -19,6 +20,7 @@ export function Confirmation() {
         <Card>
           {order ? (
             <>
+              <StepPill step={3} label={t(c.stepDone)} progress={`${t(c.stepWord)} 3 ${t(c.ofThree)}`} />
               <Badge tone="success">{t(s.thanks)}</Badge>
               <h2>{t(s.orderNumber)} {order.id}</h2>
               <p className="muted">{t(s.thanksNote)}</p>

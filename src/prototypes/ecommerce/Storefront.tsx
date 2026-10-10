@@ -45,6 +45,16 @@ export function Storefront({ children }: { children: ReactNode }) {
 
   // The menu closes when the page changes or Escape is pressed.
   useEffect(() => setMenuOpen(false), [pathname, search])
+  // Publishes the sticky header's height so sticky columns can sit just under it.
+  useEffect(() => {
+    const el = document.querySelector<HTMLElement>('.site-header')
+    if (!el) return
+    const publish = () => document.documentElement.style.setProperty('--site-header-height', `${el.offsetHeight}px`)
+    publish()
+    const ro = new ResizeObserver(publish)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
   useEffect(() => {
     if (!menuOpen) return
     const onKey = (e: KeyboardEvent) => {

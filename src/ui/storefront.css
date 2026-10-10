@@ -197,3 +197,23 @@
 .product-page--bar { padding-bottom: calc(var(--space-8) + var(--space-5)); }
 .card-link { display: block; color: inherit; text-decoration: none; }
 .card-link:hover h3 { color: var(--color-accent); }
+
+.step-pill { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1); border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-surface); font-size: var(--font-size-xs); }
+.step-pill__num { display: grid; place-items: center; width: var(--space-5); height: var(--space-5); border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-text); }
+.step-pill__progress { color: var(--color-text-muted); }
+
+.field__select { appearance: auto; }
+.field__input[aria-invalid='true'] { border-color: var(--color-danger); }
+
+.switch-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.switch-row__text { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--font-size-sm); }
+.switch { position: relative; flex: none; width: var(--space-7); height: var(--space-6); padding: 0; border: 0; border-radius: var(--radius-pill); background: var(--color-border); cursor: pointer; }
+.switch[aria-checked='true'] { background: var(--color-accent); }
+.switch__thumb { position: absolute; top: var(--space-1); left: var(--space-1); width: var(--space-5); height: var(--space-5); border-radius: var(--radius-pill); background: var(--color-surface); box-shadow: var(--shadow-sm); transition: transform 0.15s; }
+.switch[aria-checked='true'] .switch__thumb { transform: translateX(var(--space-5)); }
+
+.notice { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-3) var(--space-4); border-left: var(--space-1) solid var(--color-accent); border-radius: var(--radius-sm); background: var(--color-surface-alt); font-size: var(--font-size-sm); }
+.notice--success { border-left-color: var(--color-success); }
+.notice--error { border-left-color: var(--color-danger); color: var(--color-danger); }
+.notice--error .notice__body { color: var(--color-text); }
+.notice__title { font-weight: var(--font-weight-bold); }

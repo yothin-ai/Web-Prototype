@@ -3,13 +3,13 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import type { Localized } from '../../../i18n'
 import { useLang } from '../../../i18n'
-import { tokens } from '../../../tokens/tokens'
 import {
   Badge, Breadcrumb, Button, Card, Carousel, DataRow, IconCircle, ProductGallery, ProductImage, QuantityStepper, StickyActionBar, Tabs,
 } from '../../../ui'
 import { formatMoney, PROTOTYPE_ID, useAddToCart, useEcommerce } from '../cart'
 import { s } from '../strings'
 import { withQuery } from '../Storefront'
+import { useNarrow } from '../useNarrow'
 
 const FRAMES = 5
 const DEFAULT_UNIT: Localized = { th: 'ชิ้น', en: 'piece' }
@@ -18,19 +18,6 @@ const skuFor = (id: string) => {
   let h = 0
   for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0
   return String(h).padStart(8, '0').slice(-8)
-}
-
-// True on phone-width screens, where the buy bar stays on screen all the time.
-function useNarrow() {
-  const query = `(max-width: ${tokens.breakpoint.sm - 1}px)`
-  const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
-  useEffect(() => {
-    const m = window.matchMedia(query)
-    const on = () => setNarrow(m.matches)
-    m.addEventListener('change', on)
-    return () => m.removeEventListener('change', on)
-  }, [query])
-  return narrow
 }
 
 function List({ items }: { items: Localized[] }) {

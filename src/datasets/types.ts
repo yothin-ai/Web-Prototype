@@ -17,6 +17,26 @@ export type ProductDetail = {
 }
 
 // Store-wide facts shown on every product page. Placeholder values, kept here so they can change per dataset.
+export type Coupon = {
+  id: string
+  title: Localized
+  detail: Localized
+  kind: 'amount' | 'percent' | 'freeship'
+  value: number
+  // Largest discount a percentage coupon can give.
+  cap?: number
+  minSpend: number
+}
+
+// Checkout content: coupons, instalment banks and the bank-transfer account (all placeholders).
+export type CheckoutContent = {
+  coupons: Coupon[]
+  banks: Localized[]
+  installmentMonths: number[]
+  transfer: { bank: Localized; name: Localized; number: string }
+  paymentWindowMinutes: number
+}
+
 export type StoreInfo = {
   stockDefault: number
   shelf: Localized
@@ -73,6 +93,7 @@ export type EcommerceHome = {
 export type EcommerceContent = {
   home: EcommerceHome
   store: StoreInfo
+  checkout: CheckoutContent
   products: Product[]
   shippingMethods: Choice[]
   paymentMethods: Choice[]

@@ -46,6 +46,7 @@ function gridCss(): string {
     `.site-header { position: relative; }`,
     // From the sm breakpoint the site header follows the page, just under the Shell bar.
     at(breakpoint.sm, `.site-header { position: sticky; top: var(--shell-bar-height, 0px); }`),
+    at(breakpoint.md, `.checkout-aside { position: sticky; top: calc(var(--shell-bar-height, 0px) + var(--site-header-height, 0px) + var(--space-4)); }`),
     at(breakpoint.md, `.grid { grid-template-columns: repeat(${grid.columns.md}, minmax(0, 1fr)); } .col-md-full { grid-column: 1 / -1; } ${spans('col-md', grid.columns.md)}`),
   ].join('\n')
 }

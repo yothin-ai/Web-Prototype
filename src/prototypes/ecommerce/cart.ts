@@ -16,6 +16,12 @@ export type Order = {
   subtotal: number
   shippingPrice: number
   total: number
+  fulfilment?: 'pickup' | 'parcel'
+  pickupMode?: 'counter' | 'locker'
+  discount?: number
+  couponTitle?: Localized
+  points?: number
+  installment?: { months: number; monthly: number }
 }
 
 export const useEcommerce = () => {

@@ -95,16 +95,16 @@ export function Tabs({ label, tabs, initial: start = 0 }: TabsProps) {
   )
 }
 
-type StickyBarProps = { visible: boolean; name: string; price: string; actions: ReactNode; inline?: boolean }
+type StickyBarProps = { visible: boolean; name: string; price: string; actions: ReactNode; inline?: boolean; thumb?: boolean }
 
 // A bar pinned to the bottom of the screen with the product, its price and the buy actions.
 // `inline` draws it in the page flow instead, for showing it on the Moodboard.
-export function StickyActionBar({ visible, name, price, actions, inline }: StickyBarProps) {
+export function StickyActionBar({ visible, name, price, actions, inline, thumb = true }: StickyBarProps) {
   if (!visible && !inline) return null
   return (
     <div className={`sticky-bar${inline ? ' sticky-bar--inline' : ''}`} role="region" aria-label={name}>
       <div className="sticky-bar__inner">
-        <div className="sticky-bar__thumb" aria-hidden="true">{initial(name)}</div>
+        {thumb && <div className="sticky-bar__thumb" aria-hidden="true">{initial(name)}</div>}
         <div className="sticky-bar__text">
           <span className="sticky-bar__name">{name}</span>
           <strong className="sticky-bar__price">{price}</strong>
