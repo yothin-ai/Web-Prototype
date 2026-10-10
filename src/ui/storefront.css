@@ -132,7 +132,7 @@
 .site-footer__bottom { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5); border-top: 1px solid var(--color-text-muted); }
 .site-footer__payments, .site-footer__legal { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
 
-.site-header { position: relative; z-index: 20; }
+.site-header { z-index: 20; }
 .mega-backdrop { position: fixed; inset: 0; z-index: 15; background: transparent; }
 .mega-menu-wrap { position: absolute; top: 100%; left: 0; right: 0; z-index: 30; padding: var(--space-2) var(--space-4) 0; pointer-events: none; }
 .mega-menu { pointer-events: auto; display: grid; grid-template-columns: 1fr 1fr 2fr; max-width: var(--grid-max-width); height: min(70vh, 600px); margin-inline: auto; overflow: hidden; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
