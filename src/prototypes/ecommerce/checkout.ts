@@ -31,7 +31,10 @@ export function couponDiscount(coupon: Coupon | undefined, subtotal: number, shi
 }
 
 export const usePending = () => useDemoState<Order | null>(PROTOTYPE_ID, 'pending', null)
-export const useSavedAddress = () => useDemoState<Address | null>(PROTOTYPE_ID, 'address', null)
+export type SavedAddress = Address & { id: string; main: boolean }
+// Any number of saved addresses; exactly one is the main one while the list is not empty.
+export const useAddresses = () => useDemoState<SavedAddress[]>(PROTOTYPE_ID, 'addresses', [])
+export const pickAddress = (list: SavedAddress[], id?: string) => list.find((x) => x.id === id) ?? list.find((x) => x.main) ?? list[0]
 export const useClubLinked = () => useDemoState<boolean>(PROTOTYPE_ID, 'club', false)
 
 // Turns a draft into a real order: numbers it, stores it, empties the cart.

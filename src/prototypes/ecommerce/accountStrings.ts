@@ -91,4 +91,10 @@ export const a = {
   soonTitle: { th: 'กำลังพัฒนา', en: 'Coming soon' },
   soonText: { th: 'หน้านี้ยังไม่เปิดให้ใช้งานในเดโมนี้', en: 'This page is not available in this demo yet' },
   menuTitle: { th: 'เมนู', en: 'Menu' },
+  phoneExample: { th: 'เช่น 0812345678', en: 'e.g. 0812345678' },
+  mainAddress: { th: 'ที่อยู่หลัก', en: 'Main address' },
+  makeMain: { th: 'ตั้งเป็นที่อยู่หลัก', en: 'Set as main address' },
+  addAnother: { th: 'เพิ่มที่อยู่อีก', en: 'Add another address' },
+  useThis: { th: 'ใช้ที่อยู่นี้', en: 'Use this address' },
+  inUse: { th: 'ที่อยู่ที่เลือก', en: 'Selected' },
 } satisfies Record<string, Localized>

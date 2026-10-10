@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, Checkbox, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -12,6 +12,7 @@ export function Components() {
   const [qty, setQty] = useState(1)
   const [choice, setChoice] = useState('a')
   const [switched, setSwitched] = useState(false)
+  const [ticked, setTicked] = useState(true)
   const variants = [
     { name: text.primary, variant: 'primary' as const },
     { name: text.secondary, variant: 'secondary' as const },
@@ -339,6 +340,7 @@ export function Components() {
           <StepPill step={2} label={t(text.stepLabel)} progress={t(text.stepProgress)} />
           <Select label={t(text.selectLabel)} id="mb-select" placeholder={t(text.selectPlaceholder)} options={[{ value: 'a', label: t(text.optionA) }, { value: 'b', label: t(text.optionB) }]} hint={t(text.selectHint)} />
           <Switch checked={switched} onChange={setSwitched} label={t(text.switchLabel)} description={t(text.switchDesc)} />
+          <Checkbox checked={ticked} onChange={setTicked} label={t(text.checkboxLabel)} />
           <Notice tone="info" title={t(text.noticeInfo)}>{t(text.noticeBody)}</Notice>
           <Notice tone="success" title={t(text.noticeSuccess)} />
           <Notice tone="error" title={t(text.noticeError)} />

@@ -231,7 +231,7 @@ export const text = {
   megaLeaf3: { th: 'รายการ ค', en: 'Item three' },
 
   c413: { th: 'ส่วนประกอบฟอร์มและขั้นตอน', en: 'Form and step blocks' },
-  c413Note: { th: 'ป้ายขั้นตอน ตัวเลือกแบบดรอปดาวน์ สวิตช์ และกล่องแจ้งข้อความ', en: 'Step pill, dropdown, switch and message notice.' },
+  c413Note: { th: 'ป้ายขั้นตอน ตัวเลือกแบบดรอปดาวน์ สวิตช์ ช่องติ๊ก และกล่องแจ้งข้อความ', en: 'Step pill, dropdown, switch and message notice.' },
   stepLabel: { th: 'ชำระเงิน', en: 'Payment' },
   stepProgress: { th: 'ขั้นที่ 2 จาก 3', en: 'Step 2 of 3' },
   selectLabel: { th: 'จังหวัด', en: 'Province' },
@@ -243,6 +243,7 @@ export const text = {
   noticeBody: { th: 'ข้อความอธิบายสั้นๆ ใต้หัวข้อ', en: 'A short explanation under the title.' },
   noticeSuccess: { th: 'สำเร็จ', en: 'Success' },
   noticeError: { th: 'มีข้อผิดพลาด', en: 'Something is wrong' },
+  checkboxLabel: { th: 'ตั้งเป็นที่อยู่หลัก', en: 'Set as main address' },
   c414: { th: 'แถวข้อมูลที่แก้ไขได้', en: 'Editable data row' },
   c414Note: { th: 'แถวข้อมูลที่กดแล้วแก้ไขได้ในที่เดิม', en: 'A data row that edits in place.' },
   c415: { th: 'ส่วนประกอบหน้าบัญชี', en: 'Account page blocks' },

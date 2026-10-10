@@ -8,17 +8,17 @@ import {
 } from '../../../ui'
 import { cartCount, cartSubtotal, formatMoney, PROTOTYPE_ID, useCart, useEcommerce, type Order } from '../cart'
 import {
-  couponDiscount, needsPaymentPage, paymentOptions, payTypeFromParam, useClubLinked, useCommitOrder, usePending, useSavedAddress,
-  type Address, type Fulfilment, type PayId,
+  couponDiscount, needsPaymentPage, paymentOptions, payTypeFromParam, useClubLinked, useCommitOrder, usePending, useAddresses, pickAddress,
+  type Fulfilment, type PayId,
 } from '../checkout'
+import { a } from '../accountStrings'
 import { c } from '../checkoutStrings'
 import { s } from '../strings'
+import { AddressBook } from './AddressBook'
 import { useNarrow } from '../useNarrow'
 import '../checkout.css'
 
-const EMPTY_ADDRESS: Address = { name: '', phone: '', line: '', province: '', district: '', subdistrict: '', postcode: '' }
 const PHONE = /^0\d{9}$/
-const POSTCODE = /^\d{5}$/
 
 type Problem = { anchor: string; message: string }
 
@@ -33,7 +33,9 @@ export function Checkout() {
   const [cart] = useCart()
   const [, setPending] = usePending()
   const commit = useCommitOrder()
-  const [address, setAddress] = useSavedAddress()
+  const [addresses] = useAddresses()
+  const [addressId, setAddressId] = useState('')
+  const address = pickAddress(addresses, addressId)
   const [clubLinked, setClubLinked] = useClubLinked()
   const narrow = useNarrow()
   const placed = useRef(false)
@@ -44,8 +46,6 @@ export function Checkout() {
   const [pickupMode, setPickupMode] = useState<'counter' | 'locker'>('counter')
   const [contact, setContact] = useState({ name: '', phone: '' })
   const [contactSaved, setContactSaved] = useState(false)
-  const [editing, setEditing] = useState(false)
-  const [form, setForm] = useState<Address>(EMPTY_ADDRESS)
   const [shippingId, setShippingId] = useState('')
   const [etax, setEtax] = useState(false)
   const [tax, setTax] = useState({ id: '', name: '' })
@@ -87,14 +87,6 @@ export function Checkout() {
   if (activePay === 'card' && months > 0 && !bank) problems.push({ anchor: 'co-bank', message: t(c.errBank) })
 
   const stepLabel = (n: number, name: string) => ({ step: n, label: name, progress: `${t(c.stepWord)} ${n} ${t(c.ofThree)}` })
-
-  const saveAddress = () => {
-    const bad = !form.name.trim() || !PHONE.test(form.phone) || !form.line.trim() || !form.province || !form.district.trim() || !form.subdistrict.trim() || !POSTCODE.test(form.postcode)
-    setAttempted(true)
-    if (bad) return
-    setAddress(form)
-    setEditing(false)
-  }
 
   const confirm = () => {
     setAttempted(true)
@@ -190,7 +182,7 @@ export function Checkout() {
                       <Field label={t(c.fullName)} id="co-contact-name" value={contact.name} aria-invalid={shown('co-contact-name')} hint={err(!contact.name.trim(), t(c.errName))} onChange={(e) => { setContact({ ...contact, name: e.target.value }); setContactSaved(false) }} />
                     </Col>
                     <Col span={{ base: 4, sm: 4, md: 6 }}>
-                      <Field label={t(c.phone)} id="co-contact-phone" type="tel" value={contact.phone} aria-invalid={shown('co-contact-phone')} hint={err(!PHONE.test(contact.phone), t(c.errPhone))} onChange={(e) => { setContact({ ...contact, phone: e.target.value.replace(/\D/g, '').slice(0, 10) }); setContactSaved(false) }} />
+                      <Field label={t(c.phone)} id="co-contact-phone" type="tel" inputMode="tel" placeholder={t(a.phoneExample)} value={contact.phone} aria-invalid={shown('co-contact-phone')} hint={err(!PHONE.test(contact.phone), t(c.errPhone))} onChange={(e) => { setContact({ ...contact, phone: e.target.value.replace(/\D/g, '').slice(0, 10) }); setContactSaved(false) }} />
                     </Col>
                   </Grid>
                   <div className="row">
@@ -202,39 +194,8 @@ export function Checkout() {
             ) : (
               <>
                 <div id="co-address" className="stack">
-                  {address && !editing ? (
-                    <div className="branch-card">
-                      <IconCircle size="md" />
-                      <div className="branch-card__text">
-                        <strong>{address.name} · {address.phone}</strong>
-                        <span className="muted">{address.line} {address.subdistrict} {address.district} {t(provinces.find((p) => p.th === address.province) ?? { th: address.province })} {address.postcode}</span>
-                      </div>
-                      <Button variant="secondary" size="sm" onClick={() => { setForm(address); setEditing(true) }}>{t(c.editAddress)}</Button>
-                    </div>
-                  ) : editing ? (
-                    <div className="checkout-panel stack">
-                      <strong>{t(c.addAddress)}</strong>
-                      <Grid>
-                        <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.fullName)} id="ad-name" value={form.name} hint={err(!form.name.trim(), t(c.errRequired))} onChange={(e) => setForm({ ...form, name: e.target.value })} /></Col>
-                        <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.phone)} id="ad-phone" type="tel" value={form.phone} hint={err(!PHONE.test(form.phone), t(c.errPhone))} onChange={(e) => setForm({ ...form, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })} /></Col>
-                        <Col><Field label={t(c.addrLine)} id="ad-line" value={form.line} hint={err(!form.line.trim(), t(c.errRequired))} onChange={(e) => setForm({ ...form, line: e.target.value })} /></Col>
-                        <Col span={{ base: 4, sm: 4, md: 6 }}>
-                          <Select label={t(c.province)} id="ad-province" value={form.province} placeholder={t(c.selectProvince)} hint={err(!form.province, t(c.errRequired))} options={provinces.map((p) => ({ value: p.th ?? '', label: t(p) }))} onChange={(e) => setForm({ ...form, province: e.target.value })} />
-                        </Col>
-                        <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.district)} id="ad-district" value={form.district} hint={err(!form.district.trim(), t(c.errRequired))} onChange={(e) => setForm({ ...form, district: e.target.value })} /></Col>
-                        <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.subdistrict)} id="ad-sub" value={form.subdistrict} hint={err(!form.subdistrict.trim(), t(c.errRequired))} onChange={(e) => setForm({ ...form, subdistrict: e.target.value })} /></Col>
-                        <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.postcode)} id="ad-post" inputMode="numeric" value={form.postcode} hint={err(!POSTCODE.test(form.postcode), t(c.errRequired))} onChange={(e) => setForm({ ...form, postcode: e.target.value.replace(/\D/g, '').slice(0, 5) })} /></Col>
-                      </Grid>
-                      <div className="row"><Button size="sm" onClick={saveAddress}>{t(c.save)}</Button><Button variant="ghost" size="sm" onClick={() => setEditing(false)}>{t(c.cancel)}</Button></div>
-                    </div>
-                  ) : (
-                    <div className="checkout-empty stack">
-                      <strong>{t(c.noAddress)}</strong>
-                      <span className="muted">{t(c.noAddressHint)}</span>
-                      <div><Button size="sm" onClick={() => { setForm(EMPTY_ADDRESS); setAttempted(false); setEditing(true) }}>+ {t(c.addAddress)}</Button></div>
-                      {shown('co-address') && <Notice tone="error">{t(c.errAddress)}</Notice>}
-                    </div>
-                  )}
+                  <AddressBook selectedId={address?.id} onSelect={setAddressId} emptyHint={t(c.noAddressHint)} />
+                  {shown('co-address') && <Notice tone="error">{t(c.errAddress)}</Notice>}
                 </div>
                 <div id="co-shipping" className="stack">
                   <strong>{t(c.shippingMethod)}</strong>

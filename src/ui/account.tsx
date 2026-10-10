@@ -12,12 +12,13 @@ type SettingRowProps = {
   locked?: ReactNode
   inputType?: string
   inputMode?: 'text' | 'tel' | 'email' | 'numeric'
+  placeholder?: string
   validate?: (value: string) => string | undefined
   onSave?: (value: string) => void
 }
 
 // One line of account data: label, value and a button that turns the value into an input.
-export function SettingRow({ label, value, emptyText, actionLabel, saveLabel, cancelLabel, locked, inputType, inputMode, validate, onSave }: SettingRowProps) {
+export function SettingRow({ label, value, emptyText, actionLabel, saveLabel, cancelLabel, locked, inputType, inputMode, placeholder, validate, onSave }: SettingRowProps) {
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState('')
   const [tried, setTried] = useState(false)
@@ -36,7 +37,7 @@ export function SettingRow({ label, value, emptyText, actionLabel, saveLabel, ca
         <span className="muted">{label}</span>
         {editing ? (
           <div className="stack">
-            <Field label={label} type={inputType} inputMode={inputMode} value={draft} hint={problem} aria-invalid={!!problem} onChange={(e) => setDraft(e.target.value)} />
+            <Field label={label} type={inputType} inputMode={inputMode} placeholder={placeholder} value={draft} hint={problem} aria-invalid={!!problem} onChange={(e) => setDraft(e.target.value)} />
             <div className="row"><Button size="sm" onClick={save}>{saveLabel}</Button><Button size="sm" variant="ghost" onClick={() => setEditing(false)}>{cancelLabel}</Button></div>
           </div>
         ) : value ? <strong>{value}</strong> : <strong className="setting-row__empty">{emptyText}</strong>}
