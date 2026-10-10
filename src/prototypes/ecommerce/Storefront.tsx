@@ -6,6 +6,7 @@ import { LanguageToggle } from '../../shell/LanguageToggle'
 import { CategoryNav, IconCircle, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
 import type { MenuNode } from '../../datasets/types'
 import { useProfile } from './account'
+import { useGoCategory, useCategoryLink } from './category'
 import { f } from './footer'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
@@ -32,6 +33,9 @@ export function Storefront({ children }: { children: ReactNode }) {
   const { dataset } = useDataset()
   const { pathname, search } = useLocation()
   const goSearch = useGoSearch()
+  const goCategory = useGoCategory()
+  const categoryLink = useCategoryLink()
+  const navigate = useNavigate()
   const [params] = useSearchParams()
   const [cart] = useCart()
   const [profile] = useProfile()
@@ -106,9 +110,9 @@ export function Storefront({ children }: { children: ReactNode }) {
               viewAllLabel={t(s.viewAll)}
               backLabel={t(s.back)}
               emptyText={t(s.menuEmpty)}
-              onSelect={(label) => {
+              onSelect={(_label, path) => {
                 setMenuOpen(false)
-                goSearch(label)
+                navigate(categoryLink(path))
               }}
               onClose={() => setMenuOpen(false)}
             />
@@ -119,7 +123,7 @@ export function Storefront({ children }: { children: ReactNode }) {
       <CategoryNav
         label={t(s.categoriesButton)}
         items={home.categories.map((c) => t(c))}
-        onSelect={goSearch}
+        onSelect={goCategory}
         prevLabel={t(s.scrollPrev)}
         nextLabel={t(s.scrollNext)}
         end={<button type="button" className="btn btn--primary btn--sm"><IconCircle size="sm" />{t(home.assistant)}</button>}

@@ -1,0 +1,25 @@
+import type { Localized } from '../../i18n'
+
+export const g = {
+  shopNow: { th: 'ช้อปเลย', en: 'Shop now' },
+  all: { th: 'ทั้งหมด', en: 'All' },
+  siblings: { th: 'รายการในหมวดเดียวกัน', en: 'Items in this category' },
+  sortBy: { th: 'เรียงตาม', en: 'Sort by' },
+  sortBest: { th: 'ขายดี', en: 'Best selling' },
+  sortLow: { th: 'ราคาต่ำ → สูง', en: 'Price: low to high' },
+  sortHigh: { th: 'ราคาสูง → ต่ำ', en: 'Price: high to low' },
+  sortName: { th: 'ชื่อ ก–ฮ', en: 'Name A–Z' },
+  filters: { th: 'ตัวกรองสินค้า', en: 'Filters' },
+  hideFilters: { th: 'ซ่อนตัวกรอง', en: 'Hide filters' },
+  clear: { th: 'ล้างตัวกรอง', en: 'Clear filters' },
+  brand: { th: 'แบรนด์', en: 'Brand' },
+  priceRange: { th: 'ช่วงราคา', en: 'Price range' },
+  promo: { th: 'โปรโมชัน', en: 'Promotions' },
+  onSale: { th: 'ลดราคา', en: 'On sale' },
+  bestSeller: { th: 'ขายดี', en: 'Best seller' },
+  results: { th: 'รายการสินค้า', en: 'products' },
+  noMatch: { th: 'ไม่มีสินค้าตรงกับตัวกรอง', en: 'No products match these filters' },
+  notFound: { th: 'ไม่พบหมวดหมู่นี้', en: 'Category not found' },
+  backHome: { th: 'กลับหน้าแรก', en: 'Back to the home page' },
+  discount: { th: 'ลด', en: 'Save' },
+} satisfies Record<string, Localized>

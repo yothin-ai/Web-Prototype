@@ -10,7 +10,8 @@ type MegaMenuProps = {
   viewAllLabel: string
   backLabel: string
   emptyText: string
-  onSelect: (label: string) => void
+  // `path` holds the picked item's position at each level, e.g. [2, 0, 5] for the sixth item of the first subcategory of the third category.
+  onSelect: (label: string, path: number[]) => void
   onClose?: () => void
 }
 
@@ -58,7 +59,7 @@ export function MegaMenu({ id, nodes, title, viewAllLabel, backLabel, emptyText,
       setA1(i)
       setA2(0)
       setLevel(1)
-    } else onSelect(node.label)
+    } else onSelect(node.label, [i])
   }
   const pick2 = (j: number) => {
     const node = cat.children?.[j]
@@ -66,7 +67,7 @@ export function MegaMenu({ id, nodes, title, viewAllLabel, backLabel, emptyText,
     if (narrow && node.children?.length) {
       setA2(j)
       setLevel(2)
-    } else onSelect(node.label)
+    } else onSelect(node.label, [a1, j])
   }
 
   // Arrow keys move within a column; right and left move between columns.
@@ -122,7 +123,7 @@ export function MegaMenu({ id, nodes, title, viewAllLabel, backLabel, emptyText,
         <button type="button" className="mega-menu__back" onClick={() => setLevel(0)}>← {backLabel}</button>
         <div className="mega-menu__head">
           <strong>{cat.label}</strong>
-          <button type="button" className="mega-menu__all" onClick={() => onSelect(cat.label)}>{viewAllLabel} →</button>
+          <button type="button" className="mega-menu__all" onClick={() => onSelect(cat.label, [a1])}>{viewAllLabel} →</button>
         </div>
         <ul className="mega-menu__list">
           {(cat.children ?? []).map((n, j) => (
@@ -148,13 +149,13 @@ export function MegaMenu({ id, nodes, title, viewAllLabel, backLabel, emptyText,
         {sub && (
           <div className="mega-menu__head">
             <strong>{sub.label}</strong>
-            <button type="button" className="mega-menu__all" onClick={() => onSelect(sub.label)}>{viewAllLabel} →</button>
+            <button type="button" className="mega-menu__all" onClick={() => onSelect(sub.label, [a1, a2])}>{viewAllLabel} →</button>
           </div>
         )}
         {leaves.length > 0 ? (
           <div className="mega-menu__leaves">
-            {leaves.map((leaf) => (
-              <button key={leaf.label} type="button" data-item className="mega-menu__leaf" onClick={() => onSelect(leaf.label)}>
+            {leaves.map((leaf, k) => (
+              <button key={leaf.label} type="button" data-item className="mega-menu__leaf" onClick={() => onSelect(leaf.label, [a1, a2, k])}>
                 <span className="mega-menu__circle" aria-hidden="true">{initial(leaf.label)}</span>
                 <span>{leaf.label}</span>
               </button>

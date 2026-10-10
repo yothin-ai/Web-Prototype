@@ -4,6 +4,7 @@ import { AccountMenuPage, ComingSoon } from './pages/AccountMisc'
 import { AccountPage } from './pages/AccountPage'
 import { Browse } from './pages/Browse'
 import { CartPage } from './pages/CartPage'
+import { CategoryPage } from './pages/CategoryPage'
 import { Checkout } from './pages/Checkout'
 import { Confirmation } from './pages/Confirmation'
 import { Home } from './pages/Home'
@@ -18,6 +19,7 @@ export function Ecommerce() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="products" element={<Browse />} />
+        <Route path="category/:slug" element={<CategoryPage />} />
         <Route path="product/:productId" element={<ProductPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="checkout" element={<Checkout />} />

@@ -8,6 +8,7 @@ import { f } from '../footer'
 import { s } from '../strings'
 import { Link, useLocation } from 'react-router-dom'
 import { PROTOTYPE_ID } from '../cart'
+import { useGoCategory } from '../category'
 import { useGoSearch } from '../Storefront'
 
 const chunk = <T,>(items: T[], size: number): T[][] =>
@@ -16,6 +17,7 @@ const chunk = <T,>(items: T[], size: number): T[][] =>
 export function Home() {
   const { t, lang } = useLang()
   const goSearch = useGoSearch()
+  const goCategory = useGoCategory()
   const { search } = useLocation()
   const detailPath = (id: string) => `/${PROTOTYPE_ID}/product/${id}${search}`
   const add = useAddToCart()
@@ -120,7 +122,7 @@ export function Home() {
         <SectionHeader title={t(s.categoriesButton)} />
         <Carousel label={t(s.categoriesRow)} count={6} minItem="96px" rows={2} dots prevLabel={prev} nextLabel={next}>
           {home.categories.map((c) => (
-            <button key={t(c)} type="button" className="category-tile" onClick={() => goSearch(t(c))}>
+            <button key={t(c)} type="button" className="category-tile" onClick={() => goCategory(t(c))}>
               <ProductImage label={t(c)} />
               <span>{t(c)}</span>
             </button>
@@ -132,7 +134,7 @@ export function Home() {
         <SectionHeader title={t(home.jobsTitle)} action={<Button size="sm">{t(s.viewAll)}</Button>} />
         <Carousel label={t(s.jobsRow)} dots prevLabel={prev} nextLabel={next}>
           {chunk(home.jobs, 9).map((page, i) => (
-            <TileMosaic key={i} tiles={page.map((j) => t(j))} onSelect={goSearch} />
+            <TileMosaic key={i} tiles={page.map((j) => t(j))} onSelect={goCategory} />
           ))}
         </Carousel>
       </div>

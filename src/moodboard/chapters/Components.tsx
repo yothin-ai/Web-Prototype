@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, CartItem, Checkbox, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, CategoryTile, Checkbox, FilterGroup, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -15,6 +15,7 @@ export function Components() {
   const [ticked, setTicked] = useState(true)
   const [cartQty, setCartQty] = useState(2)
   const [cartOn, setCartOn] = useState(true)
+  const [filterOn, setFilterOn] = useState<string[]>(['a'])
   const variants = [
     { name: text.primary, variant: 'primary' as const },
     { name: text.secondary, variant: 'secondary' as const },
@@ -410,6 +411,21 @@ export function Components() {
             removeLabel={t(text.cartRemove)}
             onRemove={() => {}}
           />
+        </div>
+      </Block>
+      <Block number="4.17" title={t(text.c417)} note={t(text.c417Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.categoryCard)}</p>
+          <CategoryCard title={t(text.sampleName)} text={t(text.sampleList)} actionLabel={t(text.shopNowWord)} to="/moodboard" thumb={<ProductImage label={t(text.sampleName)} />} />
+          <p className="mb-caption">{t(text.categoryTile)}</p>
+          <div className="listing-grid">
+            <CategoryTile title={t(text.sampleName)} to="/moodboard" thumb={<ProductImage label={t(text.sampleName)} />} />
+            <CategoryTile title={t(text.sampleName)} to="/moodboard" thumb={<ProductImage label={t(text.sampleName)} />} />
+          </div>
+          <p className="mb-caption">{t(text.categoryPills)}</p>
+          <CategoryPills label={t(text.categoryPills)} items={[{ label: t(text.allWord), to: '/moodboard', active: false }, { label: t(text.optionA), to: '/moodboard', active: true }, { label: t(text.optionB), to: '/moodboard', active: false }]} />
+          <p className="mb-caption">{t(text.filterGroup)}</p>
+          <FilterGroup title={t(text.brandWord)} options={[{ id: 'a', label: t(text.optionA), count: 6, checked: filterOn.includes('a') }, { id: 'b', label: t(text.optionB), count: 2, checked: filterOn.includes('b') }]} onToggle={(id) => setFilterOn(filterOn.includes(id) ? filterOn.filter((x) => x !== id) : [...filterOn, id])} />
         </div>
       </Block>
     </Chapter>

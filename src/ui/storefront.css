@@ -261,3 +261,20 @@
 .cart-item__side { display: flex; flex: 0 0 auto; flex-direction: column; align-items: flex-end; gap: var(--space-2); margin-inline-start: auto; }
 .cart-item__price { font-size: var(--font-size-xl); line-height: 1; }
 .cart-summary { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.category-card { display: flex; flex-wrap: wrap; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); overflow: hidden; }
+.category-card__media { flex: 1 1 calc(var(--space-8) * 3); min-width: 0; }
+.category-card__media .product-image { aspect-ratio: auto; height: 100%; min-height: calc(var(--space-8) * 2); border-radius: 0; }
+.category-card__body { display: flex; flex: 2 1 calc(var(--space-8) * 4); flex-direction: column; gap: var(--space-3); padding: var(--space-5); min-width: 0; }
+.category-card__action { margin-top: auto; align-self: flex-end; }
+.category-tile-link { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); text-align: center; text-decoration: none; }
+.category-pills { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.category-pills__link { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-4) var(--space-1) var(--space-1); border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-text); font-size: var(--font-size-sm); text-decoration: none; }
+.category-pills__link[aria-current='page'] { border-color: var(--color-text); background: var(--color-text); color: var(--color-surface); }
+.category-title { display: flex; align-items: center; justify-content: center; gap: var(--space-3); }
+.filter-group { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.filter-group__head { display: flex; align-items: center; justify-content: space-between; padding: 0; border: 0; background: transparent; color: var(--color-text); font: inherit; cursor: pointer; }
+.filter-group__body { display: flex; flex-direction: column; gap: var(--space-3); }
+.listing-bar { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-3); }
+.listing-filters { flex-direction: column; gap: var(--space-3); }
+.listing-grid { display: grid; gap: var(--space-4); }
