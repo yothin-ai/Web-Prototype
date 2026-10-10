@@ -2,7 +2,6 @@ import { useRef, useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
-import { provinces } from '../../../data/provinces'
 import {
   Badge, Breadcrumb, Button, Card, ChoiceCard, Col, DataRow, Field, Grid, IconCircle, Notice, Select, StepPill, StickyActionBar, Switch,
 } from '../../../ui'
@@ -14,7 +13,7 @@ import {
 import { a } from '../accountStrings'
 import { c } from '../checkoutStrings'
 import { s } from '../strings'
-import { AddressBook } from './AddressBook'
+import { AddressBook, placeOf } from './AddressBook'
 import { useNarrow } from '../useNarrow'
 import '../checkout.css'
 
@@ -101,7 +100,7 @@ export function Checkout() {
     const customer =
       fulfil === 'pickup'
         ? { name: contact.name, phone: contact.phone, address: branch }
-        : { name: address!.name, phone: address!.phone, address: `${address!.line} ${address!.subdistrict} ${address!.district} ${t(provinces.find((p) => p.th === address!.province) ?? { th: address!.province })} ${address!.postcode}` }
+        : { name: address!.name, phone: address!.phone, address: placeOf(t, address!) }
     const draft: Order = {
       id: '',
       placedAt: '',
@@ -179,7 +178,7 @@ export function Checkout() {
                   <strong>{t(c.contactTitle)}</strong>
                   <Grid>
                     <Col span={{ base: 4, sm: 4, md: 6 }}>
-                      <Field label={t(c.fullName)} id="co-contact-name" value={contact.name} aria-invalid={shown('co-contact-name')} hint={err(!contact.name.trim(), t(c.errName))} onChange={(e) => { setContact({ ...contact, name: e.target.value }); setContactSaved(false) }} />
+                      <Field label={t(c.fullName)} id="co-contact-name" placeholder={t(a.nameExample)} value={contact.name} aria-invalid={shown('co-contact-name')} hint={err(!contact.name.trim(), t(c.errName))} onChange={(e) => { setContact({ ...contact, name: e.target.value }); setContactSaved(false) }} />
                     </Col>
                     <Col span={{ base: 4, sm: 4, md: 6 }}>
                       <Field label={t(c.phone)} id="co-contact-phone" type="tel" inputMode="tel" placeholder={t(a.phoneExample)} value={contact.phone} aria-invalid={shown('co-contact-phone')} hint={err(!PHONE.test(contact.phone), t(c.errPhone))} onChange={(e) => { setContact({ ...contact, phone: e.target.value.replace(/\D/g, '').slice(0, 10) }); setContactSaved(false) }} />
