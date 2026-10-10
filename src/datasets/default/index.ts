@@ -1,4 +1,5 @@
 import type { Dataset } from '../types'
+import { menu } from './menu'
 
 const dataset: Dataset = {
   id: 'default',
@@ -23,6 +24,7 @@ const dataset: Dataset = {
         { th: 'ออฟฟิศ', en: 'Office' },
         { th: 'สินค้าลดราคา', en: 'On sale' },
       ],
+      menu,
       assistant: { th: 'ถามด้วย AI', en: 'Ask AI' },
       slides: [
         { title: { th: 'ของใช้บนโต๊ะทำงาน', en: 'Desk essentials' }, text: { th: 'จัดโต๊ะใหม่ให้พร้อมทำงาน', en: 'Set up your desk for work' } },

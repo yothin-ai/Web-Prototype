@@ -39,9 +39,10 @@ type SiteHeaderProps = {
   onSearch: (query: string) => void
   account: { label: string; sub: string; to: string }
   cart: { label: string; sub: string; to: string; count: number }
+  menu?: { open: boolean; onToggle: () => void; id: string; panel: ReactNode }
 }
 
-export function SiteHeader({ logo, categoriesLabel, searchPlaceholder, searchLabel, initialQuery = '', onSearch, account, cart }: SiteHeaderProps) {
+export function SiteHeader({ logo, categoriesLabel, searchPlaceholder, searchLabel, initialQuery = '', onSearch, account, cart, menu }: SiteHeaderProps) {
   const [query, setQuery] = useState(initialQuery)
   useEffect(() => setQuery(initialQuery), [initialQuery])
   const submit = (e: FormEvent) => {
@@ -52,7 +53,7 @@ export function SiteHeader({ logo, categoriesLabel, searchPlaceholder, searchLab
     <header className="site-header">
       <div className="site-header__inner">
         <div className="site-header__logo">{logo}</div>
-        <button type="button" className="btn btn--secondary btn--sm site-header__categories"><IconCircle size="sm" />{categoriesLabel}</button>
+        <button type="button" className="btn btn--secondary btn--sm site-header__categories" aria-expanded={menu ? menu.open : undefined} aria-controls={menu?.id} onClick={menu?.onToggle}><IconCircle size="sm" />{categoriesLabel}</button>
         <form className="site-header__search" role="search" onSubmit={submit}>
           <input className="field__input" type="search" value={query} placeholder={searchPlaceholder} aria-label={searchPlaceholder} onChange={(e) => setQuery(e.target.value)} />
           <button type="submit" className="btn btn--primary btn--sm">{searchLabel}</button>
@@ -60,6 +61,7 @@ export function SiteHeader({ logo, categoriesLabel, searchPlaceholder, searchLab
         <Link to={account.to} className="site-header__action"><IconCircle size="md" /><span><strong>{account.label}</strong><small>{account.sub}</small></span></Link>
         <Link to={cart.to} className="site-header__action"><IconCircle size="md">{cart.count > 0 ? cart.count : null}</IconCircle><span><strong>{cart.label}</strong><small>{cart.sub}</small></span></Link>
       </div>
+      {menu?.open && <div className="mega-menu-wrap">{menu.panel}</div>}
     </header>
   )
 }
@@ -324,8 +326,8 @@ export function BenefitBar({ title, text, items }: { title: string; text: string
         <p className="muted">{text}</p>
       </div>
       <ul className="benefit-bar__list">
-        {items.map((item) => (
-          <li key={item.title} className="benefit-bar__item">
+        {items.map((item, i) => (
+          <li key={`${item.title}-${i}`} className="benefit-bar__item">
             <IconCircle size="lg" />
             <strong>{item.title}</strong>
             <span className="muted">{item.text}</span>
@@ -357,23 +359,23 @@ export function SiteFooter(p: SiteFooterProps) {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner site-footer__perks">
-        {p.perks.map((perk) => (
-          <div key={perk.title} className="site-footer__perk"><IconCircle size="md" /><span><strong>{perk.title}</strong><small>{perk.text}</small></span></div>
+        {p.perks.map((perk, i) => (
+          <div key={`${perk.title}-${i}`} className="site-footer__perk"><IconCircle size="md" /><span><strong>{perk.title}</strong><small>{perk.text}</small></span></div>
         ))}
       </div>
       <div className="site-footer__inner site-footer__main">
         <div className="site-footer__brand">
           {p.logo}
-          {p.contact.map((line) => <p key={line}>{line}</p>)}
-          <div className="row">{p.socials.map((s) => <span key={s} title={s}><IconCircle size="md" tone="muted" /></span>)}</div>
-          <div className="row">{p.stores.map((s) => <button key={s} type="button" className="btn btn--secondary btn--sm"><IconCircle size="sm" tone="muted" />{s}</button>)}</div>
+          {p.contact.map((line, i) => <p key={`${line}-${i}`}>{line}</p>)}
+          <div className="row">{p.socials.map((s, i) => <span key={`${s}-${i}`} title={s}><IconCircle size="md" tone="muted" /></span>)}</div>
+          <div className="row">{p.stores.map((s, i) => <button key={`${s}-${i}`} type="button" className="btn btn--secondary btn--sm"><IconCircle size="sm" tone="muted" />{s}</button>)}</div>
         </div>
-        {p.columns.map((col) => (
-          <div key={col.title} className="site-footer__column">
+        {p.columns.map((col, i) => (
+          <div key={`${col.title}-${i}`} className="site-footer__column">
             <h3>{col.title}</h3>
             <ul>
-              {col.links.map((link) => (
-                <li key={link.label}>{link.to ? <Link to={link.to}>{link.label}</Link> : <span>{link.label}</span>}</li>
+              {col.links.map((link, i) => (
+                <li key={`${link.label}-${i}`}>{link.to ? <Link to={link.to}>{link.label}</Link> : <span>{link.label}</span>}</li>
               ))}
             </ul>
           </div>
@@ -386,9 +388,9 @@ export function SiteFooter(p: SiteFooterProps) {
       <div className="site-footer__inner site-footer__bottom">
         <span>{p.hoursNote}</span>
         <span>{p.complaint}</span>
-        <span className="site-footer__payments">{p.payments.map((m) => <span key={m} title={m}><IconCircle size="sm" tone="muted" /></span>)}</span>
+        <span className="site-footer__payments">{p.payments.map((m, i) => <span key={`${m}-${i}`} title={m}><IconCircle size="sm" tone="muted" /></span>)}</span>
         <span>{p.copyright}</span>
-        <span className="site-footer__legal">{p.legal.map((l) => <span key={l}>{l}</span>)}</span>
+        <span className="site-footer__legal">{p.legal.map((l, i) => <span key={`${l}-${i}`}>{l}</span>)}</span>
       </div>
     </footer>
   )

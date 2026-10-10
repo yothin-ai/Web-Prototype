@@ -15,6 +15,8 @@ export type Product = {
 
 export type Choice = { id: string; name: Localized; detail: Localized; price?: number }
 
+// A node of the category tree. The Storefront menu shows three levels: category, subcategory, item.
+export type MenuNode = { label: Localized; children?: MenuNode[] }
 export type Article = { category: Localized; views: string; title: Localized }
 export type Slide = { title: Localized; text: Localized }
 export type Shortcut = { title: Localized; text: Localized; tag: Localized }
@@ -24,6 +26,7 @@ export type EcommerceHome = {
   promoStrip: Localized
   utility: Localized[]
   categories: Localized[]
+  menu: MenuNode[]
   assistant: Localized
   slides: Slide[]
   app: { title: Localized; subtitle: Localized; coupon: number; club: Localized; earnBaht: number }

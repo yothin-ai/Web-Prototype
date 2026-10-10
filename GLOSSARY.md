@@ -56,3 +56,7 @@ _Avoid_: Layout, template, chrome
 A time-limited group of discounted products shown with a countdown, each carrying its price before the discount and how many are sold and left.
 _Avoid_: Promotion, deal of the day
 
+**Category tree**:
+The three-level list of product groups (category, subcategory, item) that the Storefront's category menu shows; each Dataset carries its own.
+_Avoid_: Taxonomy, sitemap
+

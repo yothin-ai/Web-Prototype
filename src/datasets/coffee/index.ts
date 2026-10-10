@@ -1,4 +1,5 @@
 import type { Dataset } from '../types'
+import { menu } from './menu'
 
 const dataset: Dataset = {
   id: 'coffee',
@@ -23,6 +24,7 @@ const dataset: Dataset = {
         { th: 'ของขวัญ', en: 'Gifts' },
         { th: 'สมาชิกรายเดือน', en: 'Monthly club' },
       ],
+      menu,
       assistant: { th: 'ถามด้วย AI', en: 'Ask AI' },
       slides: [
         { title: { th: 'กาแฟคั่วสดใหม่ ส่งถึงบ้าน', en: 'Fresh-roast coffee, delivered' }, text: { th: 'คั่วตามออเดอร์ทุกสัปดาห์', en: 'Roasted to order every week' } },

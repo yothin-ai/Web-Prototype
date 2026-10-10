@@ -216,6 +216,20 @@ export const text = {
   footerColumn: { th: 'หัวข้อคอลัมน์', en: 'Column title' },
   footerLink: { th: 'ลิงก์ตัวอย่าง', en: 'Sample link' },
 
+  c411: { th: 'เมนูหมวดหมู่แบบ 3 ชั้น (Mega menu)', en: 'Three-level category menu (Mega menu)' },
+  c411Note: { th: 'ชี้เมาส์หรือกดลูกศรเพื่อเปลี่ยนคอลัมน์ บนจอแคบจะแสดงทีละคอลัมน์พร้อมปุ่มย้อนกลับ', en: 'Hover or use the arrow keys to change column; on narrow screens it shows one column at a time with a back button.' },
+  megaTitle: { th: 'หมวดหมู่', en: 'Categories' },
+  megaBack: { th: 'ย้อนกลับ', en: 'Back' },
+  megaEmpty: { th: 'ไม่มีรายการย่อยในส่วนนี้', en: 'There are no further items here.' },
+  megaCat1: { th: 'หมวดหลักที่หนึ่ง', en: 'First category' },
+  megaCat2: { th: 'หมวดหลักที่สอง', en: 'Second category' },
+  megaSub1: { th: 'หมวดย่อย A', en: 'Subcategory A' },
+  megaSub2: { th: 'หมวดย่อย B', en: 'Subcategory B' },
+  megaSub3: { th: 'หมวดย่อยที่ไม่มีรายการ', en: 'Subcategory with no items' },
+  megaLeaf1: { th: 'รายการ ก', en: 'Item one' },
+  megaLeaf2: { th: 'รายการ ข', en: 'Item two' },
+  megaLeaf3: { th: 'รายการ ค', en: 'Item three' },
+
   // 5 elevation
   c5Title: { th: 'มิติเงาและความโค้งมน (Elevation, Shadows & Radius)', en: 'Elevation, Shadows and Radius' },
   c5Tag: { th: '3 ระดับ · 4 ค่าความโค้ง', en: '3 levels · 4 radii' },

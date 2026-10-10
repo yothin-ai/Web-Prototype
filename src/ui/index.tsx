@@ -179,3 +179,4 @@ export function Logo({ name = 'Logo', tone = 'default', symbolOnly }: { name?: s
   )
 }
 export * from './storefront'
+export * from './megamenu'

@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { LanguageToggle } from '../../shell/LanguageToggle'
-import { CategoryNav, IconCircle, Logo, PromoStrip, SiteFooter, SiteHeader, UtilityBar } from '../../ui'
+import { CategoryNav, IconCircle, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
+import type { MenuNode } from '../../datasets/types'
 import { f } from './footer'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
@@ -26,15 +27,34 @@ export function useGoSearch() {
 }
 
 export function Storefront({ children }: { children: ReactNode }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const { dataset } = useDataset()
-  const { search } = useLocation()
+  const { pathname, search } = useLocation()
   const goSearch = useGoSearch()
   const [params] = useSearchParams()
   const [cart] = useCart()
   const home = dataset.ecommerce.home
   const base = `/${PROTOTYPE_ID}`
   const count = cartCount(cart)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const nodes = useMemo(() => {
+    const toNode = (n: MenuNode): MegaNode => ({ label: t(n.label), children: n.children?.map(toNode) })
+    return home.menu.map(toNode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [home.menu, lang])
+
+  // The menu closes when the page changes or Escape is pressed.
+  useEffect(() => setMenuOpen(false), [pathname, search])
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      setMenuOpen(false)
+      document.querySelector<HTMLButtonElement>('.site-header__categories')?.focus()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [menuOpen])
 
 
   return (
@@ -49,6 +69,7 @@ export function Storefront({ children }: { children: ReactNode }) {
           </>
         }
       />
+      {menuOpen && <div className="mega-backdrop" onClick={() => setMenuOpen(false)} />}
       <SiteHeader
         logo={<Logo name={t(dataset.brandName)} />}
         categoriesLabel={t(s.categoriesButton)}
@@ -57,6 +78,26 @@ export function Storefront({ children }: { children: ReactNode }) {
         initialQuery={params.get('q') ?? ''}
         onSearch={goSearch}
         account={{ label: t(s.account), sub: t(s.signIn), to: `${base}/orders${search}` }}
+        menu={{
+          open: menuOpen,
+          onToggle: () => setMenuOpen((o) => !o),
+          id: 'storefront-mega-menu',
+          panel: (
+            <MegaMenu
+              id="storefront-mega-menu"
+              nodes={nodes}
+              title={t(s.menuTitle)}
+              viewAllLabel={t(s.viewAll)}
+              backLabel={t(s.back)}
+              emptyText={t(s.menuEmpty)}
+              onSelect={(label) => {
+                setMenuOpen(false)
+                goSearch(label)
+              }}
+              onClose={() => setMenuOpen(false)}
+            />
+          ),
+        }}
         cart={{ label: t(s.cartTitle), sub: count ? `${count} ${t(s.itemsCount)}` : t(s.cartEmptyShort), to: `${base}/cart${search}`, count }}
       />
       <CategoryNav

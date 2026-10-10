@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
   Accordion, AppPromoCard, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs,
-  ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, TileMosaic, UtilityBar,
+  MegaMenu, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
@@ -281,6 +281,26 @@ export function Components() {
             payments={['Credit card', 'PromptPay']}
           />
         </div>
+      </Block>
+      <Block number="4.11" title={t(text.c411)} note={t(text.c411Note)}>
+        <MegaMenu
+          nodes={[
+            {
+              label: t(text.megaCat1),
+              children: [
+                { label: t(text.megaSub1), children: [{ label: t(text.megaLeaf1) }, { label: t(text.megaLeaf2) }, { label: t(text.megaLeaf3) }] },
+                { label: t(text.megaSub2), children: [{ label: t(text.megaLeaf2) }, { label: t(text.megaLeaf3) }] },
+                { label: t(text.megaSub3) },
+              ],
+            },
+            { label: t(text.megaCat2), children: [{ label: t(text.megaSub2), children: [{ label: t(text.megaLeaf1) }] }] },
+          ]}
+          title={t(text.megaTitle)}
+          viewAllLabel={t(text.viewAll)}
+          backLabel={t(text.megaBack)}
+          emptyText={t(text.megaEmpty)}
+          onSelect={() => {}}
+        />
       </Block>
     </Chapter>
   )

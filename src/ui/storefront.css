@@ -131,3 +131,28 @@
 .site-footer__column ul { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; padding: 0; list-style: none; color: var(--color-border); }
 .site-footer__bottom { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5); border-top: 1px solid var(--color-text-muted); }
 .site-footer__payments, .site-footer__legal { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
+
+.site-header { position: relative; z-index: 20; }
+.mega-backdrop { position: fixed; inset: 0; z-index: 15; background: transparent; }
+.mega-menu-wrap { position: absolute; top: 100%; left: 0; right: 0; z-index: 30; padding: var(--space-2) var(--space-4) 0; pointer-events: none; }
+.mega-menu { pointer-events: auto; display: grid; grid-template-columns: 1fr 1fr 2fr; max-width: var(--grid-max-width); height: min(70vh, 600px); margin-inline: auto; overflow: hidden; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+.mega-menu__col { min-width: 0; overflow-y: auto; padding: var(--space-4); border-right: 1px solid var(--color-border); }
+.mega-menu__col:last-child { border-right: 0; }
+.mega-menu__title { margin: 0 0 var(--space-3); padding-inline: var(--space-3); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); color: var(--color-text-muted); }
+.mega-menu__list { display: flex; flex-direction: column; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.mega-menu__item { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); width: 100%; padding: var(--space-3); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-sm); text-align: left; cursor: pointer; }
+.mega-menu__item:hover, .mega-menu__item.is-active { background: var(--color-surface-alt); }
+.mega-menu__item.is-active { font-weight: var(--font-weight-medium); }
+.mega-menu__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); padding: 0 var(--space-3) var(--space-3); border-bottom: 1px solid var(--color-border); }
+.mega-menu__all { flex: none; padding: 0; border: 0; background: transparent; color: var(--color-accent); font: inherit; font-size: var(--font-size-sm); cursor: pointer; }
+.mega-menu__leaves { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: var(--space-4) var(--space-3); }
+.mega-menu__leaf { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-2); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-sm); text-align: center; cursor: pointer; }
+.mega-menu__leaf:hover { background: var(--color-surface-alt); }
+.mega-menu__circle { display: grid; place-items: center; width: var(--space-8); height: var(--space-8); border-radius: var(--radius-pill); background: var(--color-accent-soft); color: var(--color-accent); font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); }
+.mega-menu__empty { margin: 0; padding: var(--space-3); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.mega-menu__back { display: none; margin-bottom: var(--space-3); padding: var(--space-2) var(--space-3); border: 0; border-radius: var(--radius-pill); background: var(--color-surface-alt); color: var(--color-text); font: inherit; font-size: var(--font-size-sm); cursor: pointer; }
+
+.mega-menu[data-narrow] { display: block; height: auto; max-height: 75vh; overflow-y: auto; }
+.mega-menu[data-narrow] .mega-menu__col { display: none; border-right: 0; overflow: visible; }
+.mega-menu[data-narrow][data-level='0'] .mega-menu__col[data-col='0'], .mega-menu[data-narrow][data-level='1'] .mega-menu__col[data-col='1'], .mega-menu[data-narrow][data-level='2'] .mega-menu__col[data-col='2'] { display: block; }
+.mega-menu[data-narrow] .mega-menu__back { display: inline-flex; }
