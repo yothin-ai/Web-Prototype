@@ -1,0 +1,25 @@
+import type { Localized } from '../../i18n'
+
+export const k = {
+  title: { th: 'ตะกร้าสินค้าของคุณ', en: 'Your shopping cart' },
+  chosenWord: { th: 'เลือกแล้ว', en: 'Selected' },
+  continue: { th: 'เลือกซื้อสินค้าต่อ', en: 'Keep shopping' },
+  selectAll: { th: 'เลือกทั้งหมด', en: 'Select all' },
+  selectedOf: { th: 'เลือกแล้ว', en: 'Selected' },
+  listTitle: { th: 'รายการสินค้า', en: 'Items' },
+  selectItem: { th: 'เลือกสินค้านี้', en: 'Select this item' },
+  sku: { th: 'SKU', en: 'SKU' },
+  ready: { th: 'มีสินค้าพร้อมจัดส่ง', en: 'In stock, ready to ship' },
+  soldOut: { th: 'สินค้าหมด', en: 'Sold out' },
+  summaryTitle: { th: 'สรุปคำสั่งซื้อ', en: 'Order summary' },
+  priceOf: { th: 'ราคาสินค้า', en: 'Items' },
+  shipping: { th: 'ค่าจัดส่ง', en: 'Delivery' },
+  shipLater: { th: 'คำนวณตอนชำระเงิน', en: 'Worked out at checkout' },
+  grand: { th: 'ยอดรวมทั้งสิ้น', en: 'Total' },
+  vat: { th: 'รวม VAT 7% แล้ว', en: 'VAT 7% included' },
+  proceed: { th: 'ดำเนินการชำระเงิน', en: 'Proceed to payment' },
+  secure: { th: 'เข้ารหัส SSL · ปลอดภัยตามมาตรฐาน PCI-DSS (ข้อความตัวอย่าง)', en: 'SSL encrypted · PCI-DSS secure (sample text)' },
+  noneChosen: { th: 'เลือกสินค้าอย่างน้อย 1 รายการเพื่อชำระเงิน', en: 'Tick at least one item to pay' },
+  mayLike: { th: 'สินค้าที่คุณอาจชอบ', en: 'You may also like' },
+  mayLikeRow: { th: 'สินค้าที่คุณอาจชอบ', en: 'Products you may like' },
+} satisfies Record<string, Localized>

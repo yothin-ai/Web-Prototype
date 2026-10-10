@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, Checkbox, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, CartItem, Checkbox, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -13,6 +13,8 @@ export function Components() {
   const [choice, setChoice] = useState('a')
   const [switched, setSwitched] = useState(false)
   const [ticked, setTicked] = useState(true)
+  const [cartQty, setCartQty] = useState(2)
+  const [cartOn, setCartOn] = useState(true)
   const variants = [
     { name: text.primary, variant: 'primary' as const },
     { name: text.secondary, variant: 'secondary' as const },
@@ -374,6 +376,40 @@ export function Components() {
               <BottomTabBar inline label={t(text.bottomTabs)} items={[{ to: '/moodboard', label: t(text.acctProfile), active: true }, { to: '/moodboard', label: t(text.acctOrders), active: false }, { to: '/moodboard', label: t(text.couponWord), active: false }]} />
             </Col>
           </Grid>
+        </div>
+      </Block>
+      <Block number="4.16" title={t(text.c416)} note={t(text.c416Note)}>
+        <div className="stack">
+          <CartItem
+            checked={cartOn}
+            onCheck={setCartOn}
+            checkLabel={t(text.cartSelect)}
+            thumb={<ProductImage label={t(text.sampleName)} />}
+            skuLabel="SKU"
+            sku="SKU-00000001"
+            name={<strong>{t(text.sampleName)}</strong>}
+            status={t(text.cartReady)}
+            price="฿1,200"
+            quantity={<QuantityStepper value={cartQty} label={t(text.qty)} decreaseLabel="-" increaseLabel="+" onChange={setCartQty} />}
+            removeLabel={t(text.cartRemove)}
+            onRemove={() => {}}
+          />
+          <CartItem
+            checked={false}
+            onCheck={() => {}}
+            checkLabel={t(text.cartSelect)}
+            disabled
+            thumb={<ProductImage label={t(text.sampleName)} />}
+            skuLabel="SKU"
+            sku="SKU-00000002"
+            name={<strong>{t(text.sampleName)}</strong>}
+            status={t(text.cartSoldOut)}
+            statusTone="danger"
+            price="฿320"
+            quantity={<QuantityStepper value={1} label={t(text.qty)} decreaseLabel="-" increaseLabel="+" onChange={() => {}} />}
+            removeLabel={t(text.cartRemove)}
+            onRemove={() => {}}
+          />
         </div>
       </Block>
     </Chapter>

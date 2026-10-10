@@ -2,7 +2,7 @@ import type { Coupon } from '../../datasets/types'
 import type { Localized } from '../../i18n'
 import { readDemoState, useDemoState } from '../../state/demoState'
 import { c } from './checkoutStrings'
-import { PROTOTYPE_ID, useCart, useOrders, type Order } from './cart'
+import { PROTOTYPE_ID, useCart, useOrders, type CartLine, type Order } from './cart'
 
 export type Fulfilment = 'pickup' | 'parcel'
 export type PayId = 'card' | 'promptpay' | 'transfer' | 'branch' | 'cod'
@@ -46,7 +46,8 @@ export function useCommitOrder() {
     const current = readDemoState<Order[]>(PROTOTYPE_ID, 'orders', [])
     const order: Order = { ...draft, id: `ORD-${1001 + current.length}`, placedAt: new Date().toISOString() }
     setOrders([order, ...current])
-    setCart([])
+    const left = readDemoState<CartLine[]>(PROTOTYPE_ID, 'cart', []).filter((l) => !draft.lines.some((x) => x.productId === l.productId))
+    setCart(left)
     setPending(null)
     return order
   }

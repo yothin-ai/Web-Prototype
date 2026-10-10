@@ -6,19 +6,13 @@ import { useLang } from '../../../i18n'
 import {
   Badge, Breadcrumb, Button, Card, Carousel, DataRow, IconCircle, ProductGallery, ProductImage, QuantityStepper, StickyActionBar, Tabs,
 } from '../../../ui'
-import { formatMoney, PROTOTYPE_ID, useAddToCart, useEcommerce } from '../cart'
+import { formatMoney, PROTOTYPE_ID, skuOf, useAddToCart, useEcommerce } from '../cart'
 import { s } from '../strings'
 import { withQuery } from '../Storefront'
 import { useNarrow } from '../useNarrow'
 
 const FRAMES = 5
 const DEFAULT_UNIT: Localized = { th: 'ชิ้น', en: 'piece' }
-
-const skuFor = (id: string) => {
-  let h = 0
-  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0
-  return String(h).padStart(8, '0').slice(-8)
-}
 
 function List({ items }: { items: Localized[] }) {
   const { t } = useLang()
@@ -76,7 +70,7 @@ export function ProductPage() {
 
   const d = p.detail
   const unit = d?.unit ?? DEFAULT_UNIT
-  const sku = d?.sku ?? `SKU-${skuFor(p.id)}`
+  const sku = d?.sku ?? skuOf(p)
   const stock = p.stock ?? store.stockDefault
   const total = p.price * qty
   const points = Math.floor(total / home.app.earnBaht)

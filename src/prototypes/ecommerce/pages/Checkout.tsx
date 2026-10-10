@@ -5,7 +5,7 @@ import { useLang } from '../../../i18n'
 import {
   Badge, Breadcrumb, Button, Card, ChoiceCard, Col, DataRow, Field, Grid, IconCircle, Notice, Select, StepPill, StickyActionBar, Switch,
 } from '../../../ui'
-import { cartCount, cartSubtotal, formatMoney, PROTOTYPE_ID, useCart, useEcommerce, type Order } from '../cart'
+import { cartCount, cartSubtotal, formatMoney, PROTOTYPE_ID, useChosenCart, useEcommerce, type Order } from '../cart'
 import {
   couponDiscount, needsPaymentPage, paymentOptions, payTypeFromParam, useClubLinked, useCommitOrder, usePending, useAddresses, pickAddress,
   type Fulfilment, type PayId,
@@ -29,7 +29,7 @@ export function Checkout() {
   const { dataset } = useDataset()
   const { home, store, checkout } = dataset.ecommerce
   const { productById, shippingMethods } = useEcommerce()
-  const [cart] = useCart()
+  const { chosen: cart } = useChosenCart()
   const [, setPending] = usePending()
   const commit = useCommitOrder()
   const [addresses] = useAddresses()

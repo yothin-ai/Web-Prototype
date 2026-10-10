@@ -5,7 +5,8 @@ import type { Localized } from '../../i18n'
 
 export const PROTOTYPE_ID = 'ecommerce'
 
-export type CartLine = { productId: string; qty: number }
+// `selected` is false when the shopper un-ticks a line in the cart; a missing value counts as ticked.
+export type CartLine = { productId: string; qty: number; selected?: boolean }
 export type Order = {
   id: string
   placedAt: string
@@ -40,6 +41,38 @@ export const useAddToCart = () => {
     const existing = cart.find((l) => l.productId === productId)
     setCart(existing ? cart.map((l) => (l === existing ? { ...l, qty: l.qty + qty } : l)) : [...cart, { productId, qty }])
   }
+}
+
+// The SKU shown for a product: the Dataset's own when it has one, else a stable made-up number.
+export function skuOf(p: Product) {
+  if (p.detail?.sku) return p.detail.sku
+  let h = 0
+  for (const ch of p.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  return `SKU-${String(h).padStart(8, '0').slice(-8)}`
+}
+
+export const isTicked = (l: CartLine) => l.selected !== false
+
+// What the cart page and checkout work with: lines that are ticked and still in stock.
+export function useChosenCart() {
+  const { productById } = useEcommerce()
+  const { store } = useDataset().dataset.ecommerce
+  const [cart] = useCart()
+  const stockOf = (id: string) => productById(id)?.stock ?? store.stockDefault
+  const available = (l: CartLine) => !!productById(l.productId) && stockOf(l.productId) > 0
+  return { cart, stockOf, available, chosen: cart.filter((l) => isTicked(l) && available(l)) }
+}
+
+// Up to `limit` products to suggest: same categories as the cart first, then the Dataset's picks, then the rest.
+export function useSuggestions(limit = 5) {
+  const { products } = useEcommerce()
+  const { home } = useDataset().dataset.ecommerce
+  const [cart] = useCart()
+  const inCart = new Set(cart.map((l) => l.productId))
+  const cats = new Set(cart.map((l) => products.find((p) => p.id === l.productId)?.category.th))
+  const pool = products.filter((p) => !inCart.has(p.id))
+  const picks = home.recommendedIds.flatMap((id) => pool.filter((p) => p.id === id))
+  return [...new Set([...pool.filter((p) => cats.has(p.category.th)), ...picks, ...pool])].slice(0, limit)
 }
 
 export const cartCount = (cart: CartLine[]) => cart.reduce((n, l) => n + l.qty, 0)

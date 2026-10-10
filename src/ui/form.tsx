@@ -61,10 +61,10 @@ export function Notice({ tone = 'info', title, children }: NoticeProps) {
   )
 }
 
-// A tick box with a label, for a yes/no choice inside a form.
-export function Checkbox({ checked, onChange, label, disabled }: { checked: boolean; onChange: (checked: boolean) => void; label: string; disabled?: boolean }) {
+// A tick box with a label, for a yes/no choice inside a form. `bare` keeps the label for screen readers only.
+export function Checkbox({ checked, onChange, label, disabled, bare }: { checked: boolean; onChange: (checked: boolean) => void; label: string; disabled?: boolean; bare?: boolean }) {
   return (
-    <label className="checkbox">
+    <label className={`checkbox${bare ? ' checkbox--bare' : ''}`}>
       <input type="checkbox" checked={checked} disabled={disabled} onChange={(e) => onChange(e.target.checked)} />
       <span>{label}</span>
     </label>
