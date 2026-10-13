@@ -6,8 +6,8 @@ import { a } from '../accountStrings'
 import { PROTOTYPE_ID } from '../cart'
 import { AccountShell, useAccountIdentity, useAccountMenu, type AccountPageId } from './AccountShell'
 
-const known: AccountPageId[] = ['reviews', 'club', 'coupons', 'wallet', 'wishlist']
-const titles = { reviews: a.menuReviews, club: a.menuClub, coupons: a.menuCoupons, wallet: a.menuWallet, wishlist: a.menuWishlist, help: a.scHelp }
+const known: AccountPageId[] = ['reviews', 'club', 'coupons', 'wallet']
+const titles = { reviews: a.menuReviews, club: a.menuClub, coupons: a.menuCoupons, wallet: a.menuWallet, help: a.scHelp }
 
 // Pages that exist in the menu but are not built in this demo.
 export function ComingSoon() {

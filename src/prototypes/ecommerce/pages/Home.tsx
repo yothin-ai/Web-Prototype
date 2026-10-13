@@ -6,17 +6,17 @@ import {
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
 import { f } from '../footer'
 import { s } from '../strings'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PROTOTYPE_ID } from '../cart'
 import { useGoCategory } from '../category'
-import { useGoSearch } from '../Storefront'
 
 const chunk = <T,>(items: T[], size: number): T[][] =>
   Array.from({ length: Math.ceil(items.length / size) }, (_, i) => items.slice(i * size, i * size + size))
 
 export function Home() {
   const { t, lang } = useLang()
-  const goSearch = useGoSearch()
+  const navigate = useNavigate()
+  const base = `/${PROTOTYPE_ID}`
   const goCategory = useGoCategory()
   const { search } = useLocation()
   const detailPath = (id: string) => `/${PROTOTYPE_ID}/product/${id}${search}`
@@ -34,12 +34,12 @@ export function Home() {
             <div className="stack">
               <Carousel label={t(s.bannerList)} dots prevLabel={prev} nextLabel={next}>
                 {home.slides.map((slide, i) => (
-                  <BannerSlide key={i} title={t(slide.title)} text={t(slide.text)} />
+                  <BannerSlide key={i} title={t(slide.title)} text={t(slide.text)} to={`${base}/campaign/slide-${i}${search}`} />
                 ))}
               </Carousel>
               <ShortcutRow>
                 {home.shortcuts.map((x, i) => (
-                  <ShortcutCard key={i} title={t(x.title)} text={t(x.text)} tag={t(x.tag)} />
+                  <ShortcutCard key={i} title={t(x.title)} text={t(x.text)} tag={t(x.tag)} to={[`${base}/account/coupons${search}`, `${base}/soon${search}`, `${base}/account/club${search}`][i] ?? `${base}/soon${search}`} />
                 ))}
               </ShortcutRow>
             </div>
@@ -71,10 +71,10 @@ export function Home() {
           <Col>
             <Carousel label={t(s.quickLinks)} count={7} minItem="96px" arrows={false} prevLabel={prev} nextLabel={next}>
               {home.circles.map((c, i) => (
-                <div key={i} className="circle-link">
+                <Link key={i} to={`${base}/campaign/circle-${i}${search}`} className="circle-link circle-link--link">
                   <IconCircle size="lg" />
                   <span>{t(c)}</span>
-                </div>
+                </Link>
               ))}
             </Carousel>
           </Col>
@@ -131,7 +131,7 @@ export function Home() {
       </div>
 
       <div className="storefront-section">
-        <SectionHeader title={t(home.jobsTitle)} action={<Button size="sm">{t(s.viewAll)}</Button>} />
+        <SectionHeader title={t(home.jobsTitle)} action={<Button to={`${base}/products${search}`} size="sm">{t(s.viewAll)}</Button>} />
         <Carousel label={t(s.jobsRow)} dots prevLabel={prev} nextLabel={next}>
           {chunk(home.jobs, 9).map((page, i) => (
             <TileMosaic key={i} tiles={page.map((j) => t(j))} onSelect={goCategory} />
@@ -142,8 +142,8 @@ export function Home() {
       <div className="storefront-section">
         <SectionHeader title={t(s.brandsTitle)} />
         <Carousel label={t(s.brandsRow)} count={10} minItem="88px" rows={2} dots prevLabel={prev} nextLabel={next}>
-          {home.brands.map((b) => (
-            <BrandChip key={t(b)} name={t(b)} onSelect={() => goSearch(t(b))} />
+          {home.brands.map((b, i) => (
+            <BrandChip key={t(b)} name={t(b)} onSelect={() => navigate(`${base}/brand/${i}${search}`)} />
           ))}
         </Carousel>
       </div>
@@ -162,10 +162,10 @@ export function Home() {
       </div>
 
       <div className="storefront-section">
-        <SectionHeader title={t(home.ideasTitle)} action={<Button size="sm">{t(s.viewAll)}</Button>} />
+        <SectionHeader title={t(home.ideasTitle)} action={<Button to={`${base}/soon${search}`} size="sm">{t(s.viewAll)}</Button>} />
         <div className="article-grid" aria-label={t(s.articlesRow)}>
           {home.articles.map((a, i) => (
-            <ArticleCard key={i} category={t(a.category)} views={a.views} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => {}} />
+            <ArticleCard key={i} category={t(a.category)} views={a.views} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/soon${search}`)} />
           ))}
         </div>
       </div>

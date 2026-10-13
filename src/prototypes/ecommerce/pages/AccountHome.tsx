@@ -63,14 +63,12 @@ export function AccountHome() {
         <StatCard label={t(a.statPoints)} value={points.toLocaleString()} note={t(a.statPointsNote)} />
         <StatCard label={t(a.statCoupons)} value={String(coupons.length)} note={t(a.statCouponsNote)} />
         <StatCard label={t(a.statOrders)} value={String(orders.length)} note={t(a.statOrdersNote)} />
-        <StatCard label={t(a.statWishlist)} value="—" note={t(a.statWishlistNote)} />
       </div>
       <h3>{t(a.shortcuts)}</h3>
       <div className="stat-grid">
         <ShortcutCard to={`${base}/account/addresses${search}`} title={t(a.scAddress)} text={t(a.scAddressText)} />
         <ShortcutCard to={`${base}/account/reviews${search}`} title={t(a.scReview)} text={t(a.scReviewText)} />
-        <ShortcutCard to={`${base}/account/wishlist${search}`} title={t(a.scWish)} text={t(a.scWishText)} />
-        <ShortcutCard to={`${base}/account/help${search}`} title={t(a.scHelp)} text={t(a.scHelpText)} />
+        <ShortcutCard to={`${base}/info/faq${search}`} title={t(a.scHelp)} text={t(a.scHelpText)} />
       </div>
     </AccountShell>
   )

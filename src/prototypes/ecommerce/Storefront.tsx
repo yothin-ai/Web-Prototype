@@ -3,9 +3,10 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { LanguageToggle } from '../../shell/LanguageToggle'
-import { CategoryNav, IconCircle, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
+import { CategoryNav, DropdownMenu, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
 import type { MenuNode } from '../../datasets/types'
 import { useProfile } from './account'
+import { branchById, branches, useBranch } from './branches'
 import { useGoCategory, useCategoryLink } from './category'
 import { f } from './footer'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
@@ -39,6 +40,7 @@ export function Storefront({ children }: { children: ReactNode }) {
   const [params] = useSearchParams()
   const [cart] = useCart()
   const [profile] = useProfile()
+  const [branchId, setBranchId] = useBranch()
   const home = dataset.ecommerce.home
   const base = `/${PROTOTYPE_ID}`
   const count = cartCount(cart)
@@ -77,13 +79,23 @@ export function Storefront({ children }: { children: ReactNode }) {
     <>
       <PromoStrip>{t(home.promoStrip)}</PromoStrip>
       <UtilityBar
-        items={home.utility.map((x) => t(x))}
-        end={
-          <>
-            <LanguageToggle />
-            <button type="button" className="btn btn--ghost btn--sm" disabled aria-label={t(s.darkMode)}><IconCircle size="sm" tone="muted" />{t(s.darkMode)}</button>
-          </>
-        }
+        items={[
+          t(home.utility[0]),
+          <DropdownMenu
+            key="branch"
+            trigger={t(branchById(branchId).name)}
+            label={t(s.branchMenu)}
+            items={branches.map((b) => ({ id: b.id, label: t(b.name), detail: t(b.province), active: b.id === branchId, onSelect: () => setBranchId(b.id) }))}
+            footer={<Link to={`${base}/stores${search}`}>{t(s.allStores)}</Link>}
+          />,
+          <DropdownMenu
+            key="help"
+            trigger={t(s.helpCenter)}
+            label={t(s.helpCenter)}
+            items={f.help.map((l, i) => ({ id: f.helpTo[i], label: t(l), to: `${base}/${f.helpTo[i]}${search}` }))}
+          />,
+        ]}
+        end={<LanguageToggle />}
       />
       {menuOpen && <div className="mega-backdrop" onClick={() => setMenuOpen(false)} />}
       <SiteHeader
@@ -126,7 +138,6 @@ export function Storefront({ children }: { children: ReactNode }) {
         onSelect={goCategory}
         prevLabel={t(s.scrollPrev)}
         nextLabel={t(s.scrollNext)}
-        end={<button type="button" className="btn btn--primary btn--sm"><IconCircle size="sm" />{t(home.assistant)}</button>}
       />
       <main className="storefront-main">{children}</main>
       <SiteFooter
@@ -136,25 +147,25 @@ export function Storefront({ children }: { children: ReactNode }) {
         stores={f.stores}
         perks={f.perks.map((x) => ({ title: t(x.title), text: t(x.text) }))}
         columns={[
-          { title: t(f.aboutTitle), links: f.about.map((l) => ({ label: t(l) })) },
-          { title: t(f.helpTitle), links: [...f.help.map((l) => ({ label: t(l) })), { label: t(home.ideasTitle) }] },
+          { title: t(f.aboutTitle), links: f.about.map((l, i) => ({ label: t(l), to: `${base}/${f.aboutTo[i]}${search}` })) },
+          { title: t(f.helpTitle), links: [...f.help.map((l, i) => ({ label: t(l), to: `${base}/${f.helpTo[i]}${search}` })), { label: t(home.ideasTitle), to: `${base}/soon${search}` }] },
           {
             title: t(f.accountTitle),
             links: [
-              { label: t(f.signInMember) },
-              { label: t(f.profile) },
+              { label: t(f.signInMember), to: `${base}/account${search}` },
+              { label: t(f.profile), to: `${base}/account/profile${search}` },
               { label: t(f.orders), to: `${base}/orders${search}` },
-              { label: t(f.addresses) },
-              { label: t(f.coupons) },
-              { label: t(home.app.club) },
+              { label: t(f.addresses), to: `${base}/account/addresses${search}` },
+              { label: t(f.coupons), to: `${base}/account/coupons${search}` },
+              { label: t(home.app.club), to: `${base}/account/club${search}` },
             ],
           },
         ]}
         certTitle={t(f.certTitle)}
         hoursNote={t(f.hoursNote)}
-        complaint={t(f.complaint)}
+        complaint={{ label: t(f.complaint), to: `${base}/${f.complaintTo}${search}` }}
         copyright={`© 2026 ${t(dataset.brandName)} · ${t(f.copyright)}`}
-        legal={f.legal.map((l) => t(l))}
+        legal={f.legal.map((l, i) => ({ label: t(l), to: `${base}/${f.legalTo[i]}${search}` }))}
         payments={f.payments}
       />
     </>

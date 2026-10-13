@@ -26,6 +26,11 @@ export const f = {
     { th: 'กิจกรรมด้านความยั่งยืน', en: 'Sustainability activities' },
     { th: 'ข่าวสารและกิจกรรม', en: 'News and events' },
   ] as Localized[],
+  // Where each footer link goes, in the same order as the lists above. 'soon' is the not-yet-built page.
+  aboutTo: ['info/about', 'info/investor', 'info/investor-contact', 'info/careers', 'info/seller', 'info/sustainability', 'info/news'],
+  helpTo: ['info/faq', 'info/howto-order', 'info/click-collect', 'info/howto-payments', 'stores', 'info/installment', 'soon'],
+  legalTo: ['info/privacy', 'info/cookie', 'info/terms', 'info/returns', 'info/cctv', 'info/privacy-request'],
+  complaintTo: 'info/complaint',
   helpTitle: { th: 'คำถามและข้อสงสัย', en: 'Questions' },
   help: [
     { th: 'คำถามที่พบบ่อย', en: 'Frequently asked questions' },
@@ -52,7 +57,6 @@ export const f = {
     { th: 'เงื่อนไขการเปลี่ยน – คืนสินค้า', en: 'Exchange and return terms' },
     { th: 'นโยบายความเป็นส่วนตัวในการใช้กล้องวงจรปิด', en: 'CCTV privacy policy' },
     { th: 'คำร้องขอใช้สิทธิ', en: 'Data rights requests' },
-    { th: 'ตั้งค่าคุกกี้', en: 'Cookie settings' },
   ] as Localized[],
   payments: ['Credit card', 'PromptPay', 'Bank transfer', 'Cash on delivery'],
   copyright: { th: 'สงวนลิขสิทธิ์ (ตัวอย่าง)', en: 'All rights reserved (sample)' },

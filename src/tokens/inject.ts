@@ -48,7 +48,7 @@ function gridCss(): string {
     at(breakpoint.sm, `.site-header { position: sticky; top: var(--shell-bar-height, 0px); }`),
     // Account area: the side menu shows from md up; below that a bottom tab bar takes over.
     `.account-aside { display: none; } .account-menu-only { display: block; } .bottom-tabs { display: grid; } .account-page { padding-bottom: calc(var(--space-8) * 2); } .account-split { grid-template-columns: minmax(0, 1fr); } .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }`,
-    at(breakpoint.sm, `.stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }`),
+    at(breakpoint.sm, `.stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }`),
     // Product listings: filters fold away and the grid has two columns on a phone, more as the screen widens.
     `.listing-filters { display: none; } .listing-filters--open { display: flex; } .listing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }`,
     at(breakpoint.sm, `.listing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }`),

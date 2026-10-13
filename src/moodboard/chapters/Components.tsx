@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, CategoryTile, Checkbox, FilterGroup, ProductCard, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -280,9 +280,9 @@ export function Components() {
             columns={[{ title: t(text.footerColumn), links: [{ label: t(text.footerLink) }, { label: t(text.footerLink), to: '/moodboard' }] }]}
             certTitle={t(text.footerColumn)}
             hoursNote={t(text.footerLink)}
-            complaint={t(text.footerLink)}
+            complaint={{ label: t(text.footerLink), to: '/moodboard' }}
             copyright={`© 2026 ${t(text.brandName)}`}
-            legal={[t(text.footerLink), t(text.footerLink)]}
+            legal={[{ label: t(text.footerLink), to: '/moodboard' }, { label: t(text.footerLink) }]}
             payments={['Credit card', 'PromptPay']}
           />
         </div>
@@ -435,6 +435,17 @@ export function Components() {
             <ProductCard to="/moodboard" imageLabel={t(text.sampleName)} badges={<Badge>{t(text.brandWord)}</Badge>} name={t(text.sampleName)} price="฿355" action={<Button size="sm">{t(text.addToCart)}</Button>} />
           </div>
           <p className="muted">{t(text.productCardRule)}</p>
+        </div>
+      </Block>
+      <Block number="4.19" title={t(text.c419)} note={t(text.c419Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.dropdownMenu)}</p>
+          <div className="row">
+            <DropdownMenu variant="button" trigger={t(text.dropdownTrigger)} items={[{ id: 'a', label: t(text.optionA), detail: t(text.optionDetail), active: true }, { id: 'b', label: t(text.optionB), detail: t(text.optionDetail) }]} footer={<span>{t(text.dropdownFooter)}</span>} />
+          </div>
+          <p className="mb-caption">{t(text.branchCard)}</p>
+          <BranchCard name={t(text.branchName)} address={t(text.branchAddress)} hours={t(text.branchHours)} province={t(text.branchProvince)} selected={false} selectedLabel={t(text.branchMine)} chooseLabel={t(text.branchChoose)} onChoose={() => {}} />
+          <BranchCard name={t(text.branchName)} address={t(text.branchAddress)} hours={t(text.branchHours)} province={t(text.branchProvince)} selected selectedLabel={t(text.branchMine)} chooseLabel={t(text.branchChoose)} onChoose={() => {}} />
         </div>
       </Block>
     </Chapter>

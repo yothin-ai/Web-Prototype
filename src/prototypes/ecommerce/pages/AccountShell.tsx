@@ -7,7 +7,7 @@ import { a } from '../accountStrings'
 import { useProfile } from '../account'
 import { PROTOTYPE_ID } from '../cart'
 
-export type AccountPageId = 'home' | 'profile' | 'addresses' | 'orders' | 'reviews' | 'club' | 'coupons' | 'wallet' | 'wishlist' | 'menu'
+export type AccountPageId = 'home' | 'profile' | 'addresses' | 'orders' | 'reviews' | 'club' | 'coupons' | 'wallet' | 'menu'
 
 // Builds the account menu once so the side menu, the tab bar and the menu page agree.
 export function useAccountMenu(active: AccountPageId) {

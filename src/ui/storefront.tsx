@@ -15,13 +15,13 @@ export function PromoStrip({ children }: { children: ReactNode }) {
   return <div className="promo-strip"><span className="promo-strip__text">{children}</span></div>
 }
 
-export function UtilityBar({ items, end }: { items: string[]; end?: ReactNode }) {
+export function UtilityBar({ items, end }: { items: ReactNode[]; end?: ReactNode }) {
   return (
     <div className="utility-bar">
       <div className="utility-bar__inner">
         <ul className="utility-bar__list">
-          {items.map((label) => (
-            <li key={label} className="utility-bar__item"><IconCircle size="sm" tone="muted" />{label}</li>
+          {items.map((item, i) => (
+            <li key={i} className="utility-bar__item">{typeof item === 'string' ? <><IconCircle size="sm" tone="muted" />{item}</> : item}</li>
           ))}
         </ul>
         <div className="utility-bar__end">{end}</div>
@@ -134,13 +134,14 @@ export function Carousel({ children, label, count = 1, minItem = '160px', dots =
 }
 
 // A banner placeholder: a frame with the promotion's headline, standing in for the real artwork.
-export function BannerSlide({ title, text }: { title: string; text?: string }) {
-  return (
-    <div className="banner-slide">
+export function BannerSlide({ title, text, to }: { title: string; text?: string; to?: string }) {
+  const body = (
+    <>
       <strong className="banner-slide__title">{title}</strong>
       {text && <span className="banner-slide__text">{text}</span>}
-    </div>
+    </>
   )
+  return to ? <Link to={to} className="banner-slide banner-slide--link">{body}</Link> : <div className="banner-slide">{body}</div>
 }
 
 type CategoryNavProps = ScrollerProps & { label: string; items: string[]; onSelect: (item: string) => void; end?: ReactNode }
@@ -360,9 +361,9 @@ type SiteFooterProps = {
   columns: { title: string; links: FooterLink[] }[]
   certTitle: string
   hoursNote: string
-  complaint: string
+  complaint: FooterLink
   copyright: string
-  legal: string[]
+  legal: FooterLink[]
   payments: string[]
 }
 
@@ -379,7 +380,7 @@ export function SiteFooter(p: SiteFooterProps) {
           {p.logo}
           {p.contact.map((line, i) => <p key={`${line}-${i}`}>{line}</p>)}
           <div className="row">{p.socials.map((s, i) => <span key={`${s}-${i}`} title={s}><IconCircle size="md" tone="muted" /></span>)}</div>
-          <div className="row">{p.stores.map((s, i) => <button key={`${s}-${i}`} type="button" className="btn btn--secondary btn--sm"><IconCircle size="sm" tone="muted" />{s}</button>)}</div>
+          <div className="row">{p.stores.map((s, i) => <span key={`${s}-${i}`} className="site-footer__store"><IconCircle size="sm" tone="muted" />{s}</span>)}</div>
         </div>
         {p.columns.map((col, i) => (
           <div key={`${col.title}-${i}`} className="site-footer__column">
@@ -398,10 +399,10 @@ export function SiteFooter(p: SiteFooterProps) {
       </div>
       <div className="site-footer__inner site-footer__bottom">
         <span>{p.hoursNote}</span>
-        <span>{p.complaint}</span>
+        {p.complaint.to ? <Link to={p.complaint.to}>{p.complaint.label}</Link> : <span>{p.complaint.label}</span>}
         <span className="site-footer__payments">{p.payments.map((m, i) => <span key={`${m}-${i}`} title={m}><IconCircle size="sm" tone="muted" /></span>)}</span>
         <span>{p.copyright}</span>
-        <span className="site-footer__legal">{p.legal.map((l, i) => <span key={`${l}-${i}`}>{l}</span>)}</span>
+        <span className="site-footer__legal">{p.legal.map((l, i) => (l.to ? <Link key={`${l.label}-${i}`} to={l.to}>{l.label}</Link> : <span key={`${l.label}-${i}`}>{l.label}</span>))}</span>
       </div>
     </footer>
   )

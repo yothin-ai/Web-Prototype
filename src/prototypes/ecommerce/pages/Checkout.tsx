@@ -3,7 +3,7 @@ import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import {
-  Badge, Breadcrumb, Button, Card, ChoiceCard, Col, DataRow, Field, Grid, IconCircle, Notice, Select, StepPill, StickyActionBar, Switch,
+  Badge, Breadcrumb, Button, Card, ChoiceCard, Col, DataRow, DropdownMenu, Field, Grid, IconCircle, Notice, Select, StepPill, StickyActionBar, Switch,
 } from '../../../ui'
 import { cartCount, cartSubtotal, formatMoney, PROTOTYPE_ID, useChosenCart, useEcommerce, type Order } from '../cart'
 import {
@@ -13,6 +13,7 @@ import {
 import { a } from '../accountStrings'
 import { c } from '../checkoutStrings'
 import { s } from '../strings'
+import { branchById, branches, useBranch } from '../branches'
 import { AddressBook, placeOf } from './AddressBook'
 import { useNarrow } from '../useNarrow'
 import '../checkout.css'
@@ -69,7 +70,8 @@ export function Checkout() {
   const points = Math.floor(afterDiscount / home.app.earnBaht)
   const count = cartCount(cart)
   const club = t(home.app.club)
-  const branch = t(home.utility[1] ?? home.utility[0])
+  const [branchId, setBranchId] = useBranch()
+  const branch = t(branchById(branchId).name)
   const eligible = net >= store.installmentMin
   const modes = paymentOptions.filter((p) => p.modes.includes(fulfil))
   const activePay = payId && modes.some((p) => p.id === payId) ? payId : ''
@@ -168,7 +170,7 @@ export function Checkout() {
                     <strong>{branch}</strong>
                     <span className="row"><Badge tone="success">{t(c.open)}</Badge><Badge>{t(c.hasLocker)}</Badge></span>
                   </div>
-                  <Button variant="secondary" size="sm">{t(c.changeBranch)}</Button>
+                  <DropdownMenu variant="button" trigger={t(c.changeBranch)} items={branches.map((b) => ({ id: b.id, label: t(b.name), detail: t(b.province), active: b.id === branchId, onSelect: () => setBranchId(b.id) }))} />
                 </div>
                 <div className="choice-row" role="radiogroup" aria-label={t(c.pickup)}>
                   <ChoiceCard title={t(c.counter)} detail={t(c.counterDetail)} selected={pickupMode === 'counter'} onSelect={() => setPickupMode('counter')} />
