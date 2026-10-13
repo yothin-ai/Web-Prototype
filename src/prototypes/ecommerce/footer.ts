@@ -20,7 +20,6 @@ export const f = {
     { th: 'สำนักงานใหญ่ (ตัวอย่าง): 000 หมู่ 0 ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000', en: 'Head office (sample): 000 Moo 0, Sample Subdistrict, Sample District, Sample Province 00000' },
   ],
   socials: ['Facebook', 'Line', 'Instagram', 'YouTube', 'TikTok', 'X'],
-  stores: ['App Store', 'Google Play'],
   aboutTitle: { th: 'เกี่ยวกับร้านของเรา', en: 'About us' },
   about: [
     { th: 'รู้จักกับร้านของเรา', en: 'Get to know us' },
@@ -63,7 +62,6 @@ export const f = {
     { th: 'นโยบายความเป็นส่วนตัวในการใช้กล้องวงจรปิด', en: 'CCTV privacy policy' },
     { th: 'คำร้องขอใช้สิทธิ', en: 'Data rights requests' },
   ] as Localized[],
-  payments: ['Credit card', 'PromptPay', 'Bank transfer', 'Cash on delivery'],
   copyright: { th: 'สงวนลิขสิทธิ์ (ตัวอย่าง)', en: 'All rights reserved (sample)' },
   benefits: [
     { title: { th: 'CLICK & COLLECT', en: 'CLICK & COLLECT' }, text: { th: 'คลิกแอนด์คอลเลกต์', en: 'Click and collect' } },

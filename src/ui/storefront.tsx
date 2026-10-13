@@ -59,8 +59,21 @@ export function SiteHeader({ logo, categoriesLabel, searchPlaceholder, searchLab
           <input className="field__input" type="search" value={query} placeholder={searchPlaceholder} aria-label={searchPlaceholder} onChange={(e) => setQuery(e.target.value)} />
           <button type="submit" className="btn btn--primary btn--sm">{searchLabel}</button>
         </form>
-        <Link to={account.to} className="site-header__action"><IconCircle size="md" icon="user" /><span><strong>{account.label}</strong><small>{account.sub}</small></span></Link>
-        <Link to={cart.to} className="site-header__action"><IconCircle size="md" icon="cart">{cart.count > 0 ? cart.count : undefined}</IconCircle><span><strong>{cart.label}</strong><small>{cart.sub}</small></span></Link>
+        <div className="site-header__actions">
+          <Link to={account.to} className="site-header__action">
+            <Icon name="user" />
+            <strong>{account.label}</strong>
+            <small>{account.sub}</small>
+          </Link>
+          <Link to={cart.to} className="site-header__action">
+            <span className="site-header__icon">
+              <Icon name="cart" />
+              {cart.count > 0 && <span className="count-badge" aria-label={String(cart.count)}>{cart.count}</span>}
+            </span>
+            <strong>{cart.label}</strong>
+            <small>{cart.sub}</small>
+          </Link>
+        </div>
       </div>
       {menu?.open && <div className="mega-menu-wrap">{menu.panel}</div>}
     </header>
@@ -184,6 +197,9 @@ export function ShortcutCard({ title, text, tag, to, icon }: { title: string; te
   return to ? <Link to={to} className="shortcut shortcut--link">{body}</Link> : <div className="shortcut">{body}</div>
 }
 
+// A store badge picture (App Store, Google Play) with the name used as its text alternative.
+export type StoreBadge = { label: string; src: string }
+
 type AppPromoCardProps = {
   title: string
   subtitle: string
@@ -191,7 +207,7 @@ type AppPromoCardProps = {
   couponValue: string
   couponTitle: string
   couponNote: string
-  stores: [string, string]
+  stores: StoreBadge[]
   clubTitle: string
   clubBadge: string
   earnText: ReactNode
@@ -214,7 +230,7 @@ export function AppPromoCard(p: AppPromoCardProps) {
       </div>
       <div className="row">
         {p.stores.map((store) => (
-          <button key={store} type="button" className="btn btn--secondary btn--sm"><IconCircle size="sm" tone="muted" />{store}</button>
+          <img key={store.label} className="store-badge" src={store.src} alt={store.label} />
         ))}
       </div>
       <div className="app-card__club">
@@ -357,7 +373,7 @@ type SiteFooterProps = {
   logo: ReactNode
   contact: { text: string; icon?: IconName }[]
   socials: string[]
-  stores: string[]
+  stores: StoreBadge[]
   perks: { title: string; text: string; icon?: IconName }[]
   columns: { title: string; links: FooterLink[] }[]
   certTitle: string
@@ -365,7 +381,7 @@ type SiteFooterProps = {
   complaint: FooterLink
   copyright: string
   legal: FooterLink[]
-  payments: string[]
+  payments: { src: string; alt: string }
 }
 
 export function SiteFooter(p: SiteFooterProps) {
@@ -381,7 +397,7 @@ export function SiteFooter(p: SiteFooterProps) {
           {p.logo}
           {p.contact.map((line, i) => <p key={`${line.text}-${i}`} className="site-footer__contact">{line.icon && <Icon name={line.icon} size="sm" />}<span>{line.text}</span></p>)}
           <div className="row">{p.socials.map((s, i) => <span key={`${s}-${i}`} title={s}><IconCircle size="md" tone="muted" /></span>)}</div>
-          <div className="row">{p.stores.map((s, i) => <span key={`${s}-${i}`} className="site-footer__store"><IconCircle size="sm" tone="muted" icon="phoneApp" />{s}</span>)}</div>
+          <div className="row">{p.stores.map((s) => <img key={s.label} className="store-badge" src={s.src} alt={s.label} />)}</div>
         </div>
         {p.columns.map((col, i) => (
           <div key={`${col.title}-${i}`} className="site-footer__column">
@@ -401,7 +417,7 @@ export function SiteFooter(p: SiteFooterProps) {
       <div className="site-footer__inner site-footer__bottom">
         <span>{p.hoursNote}</span>
         {p.complaint.to ? <Link to={p.complaint.to}>{p.complaint.label}</Link> : <span>{p.complaint.label}</span>}
-        <span className="site-footer__payments">{p.payments.map((m, i) => <span key={`${m}-${i}`} title={m}><IconCircle size="sm" tone="muted" icon={(['card', 'qr', 'bank', 'cash'] as IconName[])[i]} /></span>)}</span>
+        <span className="site-footer__payments"><img className="payment-strip" src={p.payments.src} alt={p.payments.alt} /></span>
         <span>{p.copyright}</span>
         <span className="site-footer__legal">{p.legal.map((l, i) => (l.to ? <Link key={`${l.label}-${i}`} to={l.to}>{l.label}</Link> : <span key={`${l.label}-${i}`}>{l.label}</span>))}</span>
       </div>

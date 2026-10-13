@@ -4,6 +4,7 @@ import {
   AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
+import { paymentStrip, storeBadges } from '../../assets/brand'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
 
@@ -214,7 +215,7 @@ export function Components() {
                 couponValue="100"
                 couponTitle={t(text.couponTitle)}
                 couponNote={t(text.couponNote)}
-                stores={['App Store', 'Google Play']}
+                stores={storeBadges}
                 clubTitle={t(text.clubTitle)}
                 clubBadge="Member"
                 earnText={t(text.earnText)}
@@ -275,7 +276,7 @@ export function Components() {
             logo={<Logo name={t(text.brandName)} tone="on-dark" />}
             contact={[{ text: t(text.footerContact), icon: 'phone' }]}
             socials={['Facebook', 'Line']}
-            stores={['App Store', 'Google Play']}
+            stores={storeBadges}
             perks={[{ title: t(text.benefit1), text: t(text.benefitText) }, { title: t(text.benefit2), text: t(text.benefitText) }]}
             columns={[{ title: t(text.footerColumn), links: [{ label: t(text.footerLink) }, { label: t(text.footerLink), to: '/moodboard' }] }]}
             certTitle={t(text.footerColumn)}
@@ -283,7 +284,7 @@ export function Components() {
             complaint={{ label: t(text.footerLink), to: '/moodboard' }}
             copyright={`© 2026 ${t(text.brandName)}`}
             legal={[{ label: t(text.footerLink), to: '/moodboard' }, { label: t(text.footerLink) }]}
-            payments={['Credit card', 'PromptPay']}
+            payments={paymentStrip}
           />
         </div>
       </Block>

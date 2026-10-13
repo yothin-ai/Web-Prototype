@@ -10,6 +10,7 @@
 4. **Both languages.** Every visible string is a `{ th, en }` pair. Prototype content lives in a Dataset, never in the component.
 5. **Responsive from the start.** Check every page on a phone width and a laptop width.
 6. **Rows line up.** When cards sit side by side, the same part of each card (price, button, title) must land at the same height whatever the text length: pin the footer to the bottom with `margin-top: auto` and let the grid make the row one height. Product grids always use `ProductCard`; never build a product card by hand.
+7. **Brand pictures come in as props.** Third-party badges and logos (App Store, Google Play, payment logos) live in `src/assets/brand/` and reach `SiteFooter` and `AppPromoCard` through their props; never place a logo file inside a component or a page. They are other companies' trademarks, used only so the prototype looks finished.
 
 ## Color roles
 

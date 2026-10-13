@@ -5,6 +5,7 @@ import {
 } from '../../../ui'
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
 import { f } from '../footer'
+import { storeBadges } from '../../../assets/brand'
 import { s } from '../strings'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PROTOTYPE_ID } from '../cart'
@@ -52,7 +53,7 @@ export function Home() {
               couponValue={String(home.app.coupon)}
               couponTitle={t(s.couponTitle)}
               couponNote={t(s.couponNote)}
-              stores={['App Store', 'Google Play']}
+              stores={storeBadges}
               clubTitle={t(home.app.club)}
               clubBadge={t(s.memberBadge)}
               earnText={

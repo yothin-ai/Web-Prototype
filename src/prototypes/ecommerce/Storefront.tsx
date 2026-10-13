@@ -9,6 +9,7 @@ import { useProfile } from './account'
 import { branchById, branches, useBranch } from './branches'
 import { useGoCategory, useCategoryLink } from './category'
 import { f } from './footer'
+import { paymentStrip, storeBadges } from '../../assets/brand'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
 
@@ -146,7 +147,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         logo={<Logo name={t(dataset.brandName)} tone="on-dark" />}
         contact={f.contact.map((c, i) => ({ text: t(c), icon: f.contactIcons[i] }))}
         socials={f.socials}
-        stores={f.stores}
+        stores={storeBadges}
         perks={f.perks.map((x, i) => ({ title: t(x.title), text: t(x.text), icon: f.perkIcons[i] }))}
         columns={[
           { title: t(f.aboutTitle), links: f.about.map((l, i) => ({ label: t(l), to: `${base}/${f.aboutTo[i]}${search}` })) },
@@ -168,7 +169,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         complaint={{ label: t(f.complaint), to: `${base}/${f.complaintTo}${search}` }}
         copyright={`© 2026 ${t(dataset.brandName)} · ${t(f.copyright)}`}
         legal={f.legal.map((l, i) => ({ label: t(l), to: `${base}/${f.legalTo[i]}${search}` }))}
-        payments={f.payments}
+        payments={paymentStrip}
       />
     </>
   )
