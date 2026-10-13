@@ -6,6 +6,7 @@ import {
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
 import { f } from '../footer'
 import { storeBadges } from '../../../assets/brand'
+import { brandLogo } from '../../../assets/brand/brands'
 import { s } from '../strings'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PROTOTYPE_ID } from '../cart'
@@ -144,7 +145,7 @@ export function Home() {
         <SectionHeader title={t(s.brandsTitle)} />
         <Carousel label={t(s.brandsRow)} count={10} minItem="88px" rows={2} dots prevLabel={prev} nextLabel={next}>
           {home.brands.map((b, i) => (
-            <BrandChip key={t(b)} name={t(b)} onSelect={() => navigate(`${base}/brand/${i}${search}`)} />
+            <BrandChip key={t(b)} name={t(b)} logo={brandLogo(b.th)} onSelect={() => navigate(`${base}/brand/${i}${search}`)} />
           ))}
         </Carousel>
       </div>

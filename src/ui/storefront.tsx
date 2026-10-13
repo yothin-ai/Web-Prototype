@@ -332,8 +332,13 @@ export function TileMosaic({ tiles, onSelect }: { tiles: string[]; onSelect: (ti
 }
 
 // A logo placeholder: the brand's name in a frame.
-export function BrandChip({ name, onSelect }: { name: string; onSelect: () => void }) {
-  return <button type="button" className="brand-chip" onClick={onSelect}>{name}</button>
+// A brand tile: its logo when there is one (the name is then the picture's text), else the name.
+export function BrandChip({ name, logo, onSelect }: { name: string; logo?: string; onSelect: () => void }) {
+  return (
+    <button type="button" className={`brand-chip${logo ? ' brand-chip--logo' : ''}`} onClick={onSelect}>
+      {logo ? <img className="brand-chip__logo" src={logo} alt={name} /> : name}
+    </button>
+  )
 }
 
 export function ArticleCard({ category, views, title, readLabel, onRead }: { category: string; views: string; title: string; readLabel: string; onRead: () => void }) {

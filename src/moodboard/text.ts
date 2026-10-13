@@ -300,6 +300,7 @@ export const text = {
   iconRule2: { th: 'ปุ่มที่มีแต่ไอคอนต้องมีข้อความ (label) ให้โปรแกรมอ่านหน้าจอ', en: 'A button with only an icon needs a label for screen readers.' },
   iconRule3: { th: 'ห้ามกำหนดสีไอคอนเอง ให้ใช้สีตัวอักษรรอบข้าง', en: 'Never set an icon colour; use the surrounding text colour.' },
   iconRule4: { th: 'ใช้ขนาดจาก token เท่านั้น (เล็ก กลาง ใหญ่)', en: 'Use the token sizes only (small, medium, large).' },
+  brandLogoNote: { th: 'ชิปแบรนด์แสดงโลโก้เมื่อมีไฟล์โลโก้ชื่อตรงกัน (ไฟล์อยู่ใน src/assets/brand/brands) ไม่มีก็แสดงชื่อ', en: 'A brand chip shows its logo when a logo with the same name exists (files in src/assets/brand/brands); otherwise it shows the name.' },
   c414: { th: 'แถวข้อมูลที่แก้ไขได้', en: 'Editable data row' },
   c414Note: { th: 'แถวข้อมูลที่กดแล้วแก้ไขได้ในที่เดิม', en: 'A data row that edits in place.' },
   c415: { th: 'ส่วนประกอบหน้าบัญชี', en: 'Account page blocks' },

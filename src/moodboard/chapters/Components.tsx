@@ -5,6 +5,7 @@ import {
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
+import { brandLogo } from '../../assets/brand/brands'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
 
@@ -256,7 +257,10 @@ export function Components() {
             {[text.brandA, text.brandB, text.brandC].map((b, i) => (
               <div key={i} style={{ width: 'calc(var(--space-8) * 2)' }}><BrandChip name={t(b)} onSelect={() => {}} /></div>
             ))}
+            <div style={{ width: 'calc(var(--space-8) * 2)' }}><BrandChip name="Stanley" logo={brandLogo('Stanley')} onSelect={() => {}} /></div>
+            <div style={{ width: 'calc(var(--space-8) * 2)' }}><BrandChip name="Bosch" logo={brandLogo('Bosch')} onSelect={() => {}} /></div>
           </div>
+          <p className="muted">{t(text.brandLogoNote)}</p>
         </div>
       </Block>
       <Block number="4.10" title={t(text.c410)} note={t(text.c410Note)}>
