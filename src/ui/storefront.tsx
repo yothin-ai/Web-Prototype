@@ -372,7 +372,7 @@ type FooterLink = { label: string; to?: string }
 type SiteFooterProps = {
   logo: ReactNode
   contact: { text: string; icon?: IconName }[]
-  socials: string[]
+  socials: StoreBadge[]
   stores: StoreBadge[]
   perks: { title: string; text: string; icon?: IconName }[]
   columns: { title: string; links: FooterLink[] }[]
@@ -396,7 +396,7 @@ export function SiteFooter(p: SiteFooterProps) {
         <div className="site-footer__brand">
           {p.logo}
           {p.contact.map((line, i) => <p key={`${line.text}-${i}`} className="site-footer__contact">{line.icon && <Icon name={line.icon} size="sm" />}<span>{line.text}</span></p>)}
-          <div className="row">{p.socials.map((s, i) => <span key={`${s}-${i}`} title={s}><IconCircle size="md" tone="muted" /></span>)}</div>
+          <div className="site-footer__socials">{p.socials.map((s) => <img key={s.label} className="social-icon" src={s.src} alt={s.label} title={s.label} />)}</div>
           <div className="row">{p.stores.map((s) => <img key={s.label} className="store-badge" src={s.src} alt={s.label} />)}</div>
         </div>
         {p.columns.map((col, i) => (

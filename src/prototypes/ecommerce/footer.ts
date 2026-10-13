@@ -19,7 +19,6 @@ export const f = {
     { th: 'hello@example.com', en: 'hello@example.com' },
     { th: 'สำนักงานใหญ่ (ตัวอย่าง): 000 หมู่ 0 ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000', en: 'Head office (sample): 000 Moo 0, Sample Subdistrict, Sample District, Sample Province 00000' },
   ],
-  socials: ['Facebook', 'Line', 'Instagram', 'YouTube', 'TikTok', 'X'],
   aboutTitle: { th: 'เกี่ยวกับร้านของเรา', en: 'About us' },
   about: [
     { th: 'รู้จักกับร้านของเรา', en: 'Get to know us' },

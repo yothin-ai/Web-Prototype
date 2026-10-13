@@ -9,7 +9,7 @@ import { useProfile } from './account'
 import { branchById, branches, useBranch } from './branches'
 import { useGoCategory, useCategoryLink } from './category'
 import { f } from './footer'
-import { paymentStrip, storeBadges } from '../../assets/brand'
+import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
 
@@ -146,7 +146,7 @@ export function Storefront({ children }: { children: ReactNode }) {
       <SiteFooter
         logo={<Logo name={t(dataset.brandName)} tone="on-dark" />}
         contact={f.contact.map((c, i) => ({ text: t(c), icon: f.contactIcons[i] }))}
-        socials={f.socials}
+        socials={socialIcons}
         stores={storeBadges}
         perks={f.perks.map((x, i) => ({ title: t(x.title), text: t(x.text), icon: f.perkIcons[i] }))}
         columns={[

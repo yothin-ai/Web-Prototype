@@ -304,5 +304,7 @@
 .site-footer__contact { display: flex; align-items: flex-start; gap: var(--space-2); margin: 0; }
 .site-footer__contact .icon { margin-top: var(--space-1); }
 
+.site-footer__socials { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.social-icon { display: block; width: var(--space-6); height: var(--space-6); border-radius: var(--radius-pill); background: var(--color-surface); }
 .store-badge { display: block; height: var(--space-6); width: auto; }
 .payment-strip { display: block; height: var(--space-6); width: auto; max-width: 100%; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); background: var(--color-surface); }

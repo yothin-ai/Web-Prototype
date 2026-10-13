@@ -4,7 +4,7 @@ import {
   AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
-import { paymentStrip, storeBadges } from '../../assets/brand'
+import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
 
@@ -275,7 +275,7 @@ export function Components() {
           <SiteFooter
             logo={<Logo name={t(text.brandName)} tone="on-dark" />}
             contact={[{ text: t(text.footerContact), icon: 'phone' }]}
-            socials={['Facebook', 'Line']}
+            socials={socialIcons.slice(0, 3)}
             stores={storeBadges}
             perks={[{ title: t(text.benefit1), text: t(text.benefitText) }, { title: t(text.benefit2), text: t(text.benefitText) }]}
             columns={[{ title: t(text.footerColumn), links: [{ label: t(text.footerLink) }, { label: t(text.footerLink), to: '/moodboard' }] }]}
