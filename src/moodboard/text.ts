@@ -236,7 +236,7 @@ export const text = {
   stepProgress: { th: 'ขั้นที่ 2 จาก 3', en: 'Step 2 of 3' },
   selectLabel: { th: 'จังหวัด', en: 'Province' },
   selectPlaceholder: { th: 'เลือกจังหวัด', en: 'Choose a province' },
-  selectHint: { th: 'ข้อความช่วยใต้ช่อง', en: 'Helper text under the field' },
+  selectHint: { th: 'ลูกศรอยู่ห่างขอบขวาเท่ากับตัวอักษรห่างขอบซ้าย', en: 'The arrow sits as far from the right edge as the text does from the left' },
   switchLabel: { th: 'ขอใบกำกับภาษี', en: 'Ask for a tax invoice' },
   switchDesc: { th: 'เปิดแล้วจะมีช่องให้กรอกเพิ่ม', en: 'Extra fields appear when on' },
   noticeInfo: { th: 'ข้อมูลทั่วไป', en: 'Information' },

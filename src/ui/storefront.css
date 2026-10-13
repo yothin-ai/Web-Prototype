@@ -202,7 +202,9 @@
 .step-pill__num { display: grid; place-items: center; width: var(--space-5); height: var(--space-5); border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-text); }
 .step-pill__progress { color: var(--color-text-muted); }
 
-.field__select { appearance: auto; }
+.field__select-wrap { position: relative; display: flex; }
+.field__select { appearance: none; padding-inline-end: calc(var(--space-4) * 2 + var(--space-2)); }
+.field__select-wrap::after { content: ''; position: absolute; top: 50%; inset-inline-end: var(--space-4); width: var(--space-2); height: var(--space-2); border-inline-end: 2px solid var(--color-text-muted); border-bottom: 2px solid var(--color-text-muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .field__input[aria-invalid='true'] { border-color: var(--color-danger); }
 
 .switch-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }

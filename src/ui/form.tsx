@@ -23,10 +23,12 @@ export function Select({ label, options, placeholder, hint, id, ...rest }: Selec
   return (
     <div className="field">
       <label className="field__label" htmlFor={selectId}>{label}</label>
-      <select id={selectId} className="field__input field__select" {...rest}>
-        {placeholder && <option value="">{placeholder}</option>}
-        {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-      </select>
+      <div className="field__select-wrap">
+        <select id={selectId} className="field__input field__select" {...rest}>
+          {placeholder && <option value="">{placeholder}</option>}
+          {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+      </div>
       {hint && <span className="field__hint">{hint}</span>}
     </div>
   )
