@@ -73,6 +73,13 @@ export function ProductListing({ products, head }: { products: Product[]; head?:
       <Col>{head}</Col>
       <Col span={{ base: 4, sm: 8, md: 3 }}>
         <div className="stack">
+          <Select
+              label={t(g.sortBy)}
+              id="listing-sort"
+              value={sort}
+              options={[{ value: 'best', label: t(g.sortBest) }, { value: 'low', label: t(g.sortLow) }, { value: 'high', label: t(g.sortHigh) }, { value: 'name', label: t(g.sortName) }]}
+              onChange={(e) => setSort(e.target.value as Sort)}
+            />
           <Button className="listing-toggle" variant="secondary" size="sm" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? t(g.hideFilters) : t(g.filters)}{active ? ` (${brands.length + ranges.length + promos.length})` : ''}</Button>
           <div className={`listing-filters${open ? ' listing-filters--open' : ''}`}>
             {brandList.length > 0 && <FilterGroup title={t(g.brand)} options={brandList.map((b) => ({ ...b, checked: brands.includes(b.id) }))} onToggle={toggle(brands, setBrands)} />}
@@ -99,16 +106,7 @@ export function ProductListing({ products, head }: { products: Product[]; head?:
       </Col>
       <Col span={{ base: 4, sm: 8, md: 9 }}>
         <div className="stack">
-          <div className="listing-bar">
-            <span className="muted row__grow">{shown.length} {t(g.results)}</span>
-            <Select
-              label={t(g.sortBy)}
-              id="listing-sort"
-              value={sort}
-              options={[{ value: 'best', label: t(g.sortBest) }, { value: 'low', label: t(g.sortLow) }, { value: 'high', label: t(g.sortHigh) }, { value: 'name', label: t(g.sortName) }]}
-              onChange={(e) => setSort(e.target.value as Sort)}
-            />
-          </div>
+          <span className="muted">{shown.length} {t(g.results)}</span>
           {shown.length === 0 && <Card><p>{t(g.noMatch)}</p></Card>}
           <div className="listing-grid">
             {shown.map((p) => {
