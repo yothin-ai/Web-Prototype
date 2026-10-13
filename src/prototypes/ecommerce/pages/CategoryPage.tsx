@@ -59,7 +59,7 @@ export function CategoryPage() {
       <Grid>
         <Col>{heading}</Col>
         {children.map((c, i) => (
-          <Col key={i}>
+          <Col key={i} span={{ base: 4, sm: 8, md: 6 }}>
             <CategoryCard title={t(c.label)} text={joinLabels(c.children, t)} actionLabel={t(g.shopNow)} to={link([...path, i])} thumb={thumb(t(c.label))} />
           </Col>
         ))}

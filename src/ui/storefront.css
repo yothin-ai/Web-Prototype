@@ -268,6 +268,7 @@
 .cart-item__price { font-size: var(--font-size-xl); line-height: 1; }
 .cart-summary { display: flex; flex-direction: column; gap: var(--space-3); }
 
+.col > .category-card { height: 100%; }
 .category-card { display: flex; flex-wrap: wrap; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); overflow: hidden; }
 .category-card__media { flex: 1 1 calc(var(--space-8) * 3); min-width: 0; }
 .category-card__media .product-image { aspect-ratio: auto; height: 100%; min-height: calc(var(--space-8) * 2); border-radius: 0; }
