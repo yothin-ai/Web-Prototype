@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import type { Product } from '../../../datasets/types'
-import { Badge, Button, Card, Col, DataRow, FilterGroup, Grid, ProductImage, Select } from '../../../ui'
+import { Badge, Button, Card, Col, FilterGroup, Grid, ProductCard, Select } from '../../../ui'
 import { formatMoney, PROTOTYPE_ID, useAddToCart, useCart } from '../cart'
 import { g } from '../listingStrings'
 import { s } from '../strings'
@@ -113,23 +113,20 @@ export function ProductListing({ products, head }: { products: Product[]; head?:
               const qty = cart.find((l) => l.productId === p.id)?.qty ?? 0
               const cut = onSale(p) ? Math.round((1 - p.price / p.originalPrice!) * 100) : 0
               return (
-                <Card key={p.id}>
-                  <Link to={detail(p.id)} className="card-link"><ProductImage label={t(p.name)} /></Link>
-                  <span className="row">
-                    <Badge>{t(p.brand ?? p.category)}</Badge>
-                    {cut > 0 && <Badge tone="warning">{t(g.discount)} {cut}%</Badge>}
-                  </span>
-                  <Link to={detail(p.id)} className="card-link"><h3 className="article-card__title">{t(p.name)}</h3></Link>
-                  <DataRow
-                    label={<strong>{money(p.price)}</strong>}
-                    value={
-                      <span className="row">
-                        {qty > 0 && <span className="muted">{t(s.inCart)}: {qty}</span>}
-                        <Button size="sm" onClick={() => add(p.id)}>{t(s.add)}</Button>
-                      </span>
-                    }
-                  />
-                </Card>
+                <ProductCard
+                  key={p.id}
+                  to={detail(p.id)}
+                  imageLabel={t(p.name)}
+                  badges={<><Badge>{t(p.brand ?? p.category)}</Badge>{cut > 0 && <Badge tone="warning">{t(g.discount)} {cut}%</Badge>}</>}
+                  name={t(p.name)}
+                  price={money(p.price)}
+                  action={
+                    <span className="row">
+                      {qty > 0 && <span className="muted">{t(s.inCart)}: {qty}</span>}
+                      <Button size="sm" onClick={() => add(p.id)}>{t(s.add)}</Button>
+                    </span>
+                  }
+                />
               )
             })}
           </div>

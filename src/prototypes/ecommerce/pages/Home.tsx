@@ -1,12 +1,12 @@
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import {
-  AppPromoCard, ArticleCard, BannerSlide, BenefitBar, BrandChip, Badge, Button, Card, DataRow, Carousel, Col, Countdown, FlashSaleCard, Grid, IconCircle, ProductImage, SectionHeader, ShortcutCard, ShortcutRow, TileMosaic,
+  AppPromoCard, ArticleCard, BannerSlide, BenefitBar, BrandChip, Badge, Button, Carousel, Col, Countdown, FlashSaleCard, Grid, IconCircle, ProductCard, ProductImage, SectionHeader, ShortcutCard, ShortcutRow, TileMosaic,
 } from '../../../ui'
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
 import { f } from '../footer'
 import { s } from '../strings'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { PROTOTYPE_ID } from '../cart'
 import { useGoCategory } from '../category'
 import { useGoSearch } from '../Storefront'
@@ -155,12 +155,7 @@ export function Home() {
             const p = productById(id)
             if (!p) return null
             return (
-              <Card key={id}>
-                <Link to={detailPath(id)} className="card-link"><ProductImage label={t(p.name)} /></Link>
-                <Badge>{t(p.brand ?? p.category)}</Badge>
-                <Link to={detailPath(id)} className="card-link"><h3 className="article-card__title">{t(p.name)}</h3></Link>
-                <DataRow label={<strong>{formatMoney(p.price, lang)}</strong>} value={<Button size="sm" onClick={() => add(id)}>{t(s.add)}</Button>} />
-              </Card>
+              <ProductCard key={id} to={detailPath(id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" onClick={() => add(id)}>{t(s.add)}</Button>} />
             )
           })}
         </div>

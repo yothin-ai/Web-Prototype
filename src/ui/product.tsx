@@ -1,5 +1,6 @@
 import { useState, type KeyboardEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { ProductImage } from './index'
 
 const initial = (label: string) => Array.from(label).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''
 
@@ -110,6 +111,22 @@ export function StickyActionBar({ visible, name, price, actions, inline, thumb =
           <strong className="sticky-bar__price">{price}</strong>
         </div>
         <div className="sticky-bar__actions">{actions}</div>
+      </div>
+    </div>
+  )
+}
+
+// A product in a grid: picture, badges, name, then price and action pinned to the bottom edge,
+// so prices and buttons line up across a row however long the names are.
+export function ProductCard({ to, imageLabel, badges, name, price, action }: { to: string; imageLabel: string; badges: ReactNode; name: string; price: string; action: ReactNode }) {
+  return (
+    <div className="card product-card">
+      <Link to={to} className="card-link"><ProductImage label={imageLabel} /></Link>
+      <span className="row">{badges}</span>
+      <Link to={to} className="card-link"><h3 className="article-card__title">{name}</h3></Link>
+      <div className="product-card__foot">
+        <strong>{price}</strong>
+        {action}
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { Badge, Breadcrumb, Button, Card, CartItem, Carousel, Checkbox, Col, DataRow, Grid, Notice, ProductImage, QuantityStepper, SectionHeader, StepPill, StickyActionBar } from '../../../ui'
+import { Badge, Breadcrumb, Button, Card, CartItem, Carousel, Checkbox, Col, DataRow, Grid, Notice, ProductCard, ProductImage, QuantityStepper, SectionHeader, StepPill, StickyActionBar } from '../../../ui'
 import { cartCount, formatMoney, isTicked, PROTOTYPE_ID, skuOf, useAddToCart, useCart, useChosenCart, useEcommerce, useSuggestions } from '../cart'
 import { k } from '../cartStrings'
 import { c } from '../checkoutStrings'
@@ -33,12 +33,7 @@ export function CartPage() {
       <SectionHeader title={t(k.mayLike)} action={<Button to={`${base}/products${search}`} size="sm" variant="secondary">{t(s.viewAll)}</Button>} />
       <Carousel label={t(k.mayLikeRow)} count={5} minItem="180px" prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
         {suggestions.map((p) => (
-          <Card key={p.id}>
-            <Link to={detail(p.id)} className="card-link"><ProductImage label={t(p.name)} /></Link>
-            <Badge>{t(p.brand ?? p.category)}</Badge>
-            <Link to={detail(p.id)} className="card-link"><h3 className="article-card__title">{t(p.name)}</h3></Link>
-            <DataRow label={<strong>{formatMoney(p.price, lang)}</strong>} value={<Button size="sm" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
-          </Card>
+          <ProductCard key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
         ))}
       </Carousel>
     </div>

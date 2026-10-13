@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, CategoryTile, Checkbox, FilterGroup, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, CategoryTile, Checkbox, FilterGroup, ProductCard, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -426,6 +426,15 @@ export function Components() {
           <CategoryPills label={t(text.categoryPills)} items={[{ label: t(text.allWord), to: '/moodboard', active: false }, { label: t(text.optionA), to: '/moodboard', active: true }, { label: t(text.optionB), to: '/moodboard', active: false }]} />
           <p className="mb-caption">{t(text.filterGroup)}</p>
           <FilterGroup title={t(text.brandWord)} options={[{ id: 'a', label: t(text.optionA), count: 6, checked: filterOn.includes('a') }, { id: 'b', label: t(text.optionB), count: 2, checked: filterOn.includes('b') }]} onToggle={(id) => setFilterOn(filterOn.includes(id) ? filterOn.filter((x) => x !== id) : [...filterOn, id])} />
+        </div>
+      </Block>
+      <Block number="4.18" title={t(text.c418)} note={t(text.c418Note)}>
+        <div className="stack">
+          <div className="listing-grid">
+            <ProductCard to="/moodboard" imageLabel={t(text.sampleName)} badges={<Badge>{t(text.brandWord)}</Badge>} name={t(text.longName)} price="฿1,090" action={<Button size="sm">{t(text.addToCart)}</Button>} />
+            <ProductCard to="/moodboard" imageLabel={t(text.sampleName)} badges={<Badge>{t(text.brandWord)}</Badge>} name={t(text.sampleName)} price="฿355" action={<Button size="sm">{t(text.addToCart)}</Button>} />
+          </div>
+          <p className="muted">{t(text.productCardRule)}</p>
         </div>
       </Block>
     </Chapter>
