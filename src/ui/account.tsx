@@ -1,8 +1,10 @@
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Badge, Button, Field, IconCircle, ProgressBar } from './index'
+import type { IconName } from './icon'
 
 type SettingRowProps = {
+  icon?: IconName
   label: string
   value?: string
   emptyText: string
@@ -18,7 +20,7 @@ type SettingRowProps = {
 }
 
 // One line of account data: label, value and a button that turns the value into an input.
-export function SettingRow({ label, value, emptyText, actionLabel, saveLabel, cancelLabel, locked, inputType, inputMode, placeholder, validate, onSave }: SettingRowProps) {
+export function SettingRow({ icon, label, value, emptyText, actionLabel, saveLabel, cancelLabel, locked, inputType, inputMode, placeholder, validate, onSave }: SettingRowProps) {
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState('')
   const [tried, setTried] = useState(false)
@@ -32,7 +34,7 @@ export function SettingRow({ label, value, emptyText, actionLabel, saveLabel, ca
   }
   return (
     <div className="setting-row">
-      <IconCircle size="md" />
+      <IconCircle size="md" icon={icon} />
       <div className="setting-row__body">
         <span className="muted">{label}</span>
         {editing ? (
@@ -47,7 +49,7 @@ export function SettingRow({ label, value, emptyText, actionLabel, saveLabel, ca
   )
 }
 
-type NavItem = { to: string; label: string; active: boolean }
+type NavItem = { to: string; label: string; active: boolean; icon?: IconName }
 
 // The account menu: a profile summary on top, then links in titled groups.
 export function AccountSidebar({ name, email, badge, groups, logoutLabel, onLogout, always }: {
@@ -71,9 +73,9 @@ export function AccountSidebar({ name, email, badge, groups, logoutLabel, onLogo
         {groups.map((g) => (
           <div key={g.title} className="account-sidebar__group">
             <span className="account-sidebar__title">{g.title}</span>
-            {g.items.map((item) => (
-              <Link key={item.to} to={item.to} className="account-sidebar__link" aria-current={item.active ? 'page' : undefined}>
-                <IconCircle size="sm" />
+            {g.items.map((item, i) => (
+              <Link key={`${item.to}-${i}`} to={item.to} className="account-sidebar__link" aria-current={item.active ? 'page' : undefined}>
+                <IconCircle size="sm" icon={item.icon} />
                 <span>{item.label}</span>
               </Link>
             ))}
@@ -81,7 +83,7 @@ export function AccountSidebar({ name, email, badge, groups, logoutLabel, onLogo
         ))}
       </nav>
       <button type="button" className="account-sidebar__logout" onClick={onLogout}>
-        <IconCircle size="sm" tone="muted" />
+        <IconCircle size="sm" tone="muted" icon="logout" />
         <span>{logoutLabel}</span>
       </button>
     </aside>
@@ -115,10 +117,10 @@ export function MemberBanner({ tier, points, pointsLabel, progress, progressText
 }
 
 // One headline number with a caption and a note under it.
-export function StatCard({ label, value, note }: { label: string; value: string; note: string }) {
+export function StatCard({ label, value, note, icon }: { label: string; value: string; note: string; icon?: IconName }) {
   return (
     <div className="stat-card">
-      <span className="stat-card__label"><IconCircle size="sm" />{label}</span>
+      <span className="stat-card__label"><IconCircle size="sm" icon={icon} />{label}</span>
       <strong className="stat-card__value">{value}</strong>
       <span className="muted">{note}</span>
     </div>
@@ -131,7 +133,7 @@ export function BottomTabBar({ label, items, inline }: { label: string; items: N
     <nav className={`bottom-tabs${inline ? ' bottom-tabs--inline' : ''}`} aria-label={label}>
       {items.map((item) => (
         <Link key={item.to + item.label} to={item.to} className="bottom-tabs__link" aria-current={item.active ? 'page' : undefined}>
-          <IconCircle size="sm" />
+          <IconCircle size="sm" icon={item.icon} />
           <span>{item.label}</span>
         </Link>
       ))}

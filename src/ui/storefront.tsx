@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { Icon, type IconName } from './icon'
 
 // Page-level blocks for a storefront. Like everything in src/ui they read tokens only.
-// Icons are not drawn yet: every icon slot is an IconCircle.
+// Icon slots are IconCircles; pass `icon` to draw a Lucide icon inside, or leave it empty where the meaning is not settled.
 
 type Tone = 'accent' | 'muted'
 
-export function IconCircle({ size = 'md', tone = 'accent', children }: { size?: 'sm' | 'md' | 'lg'; tone?: Tone; children?: ReactNode }) {
-  return <span className={`icon-circle icon-circle--${size} icon-circle--${tone}`} aria-hidden="true">{children}</span>
+export function IconCircle({ size = 'md', tone = 'accent', icon, children }: { size?: 'sm' | 'md' | 'lg'; tone?: Tone; icon?: IconName; children?: ReactNode }) {
+  return <span className={`icon-circle icon-circle--${size} icon-circle--${tone}`} aria-hidden="true">{children ?? (icon && <Icon name={icon} size={size === 'lg' ? 'md' : 'sm'} />)}</span>
 }
 
 // A placeholder frame where an advertising banner will go.
@@ -53,13 +54,13 @@ export function SiteHeader({ logo, categoriesLabel, searchPlaceholder, searchLab
     <header className="site-header">
       <div className="site-header__inner">
         <div className="site-header__logo">{logo}</div>
-        <button type="button" className="btn btn--secondary btn--sm site-header__categories" aria-expanded={menu ? menu.open : undefined} aria-controls={menu?.id} onClick={menu?.onToggle}><IconCircle size="sm" />{categoriesLabel}</button>
+        <button type="button" className="btn btn--secondary btn--sm site-header__categories" aria-expanded={menu ? menu.open : undefined} aria-controls={menu?.id} onClick={menu?.onToggle}><IconCircle size="sm" icon="grid" />{categoriesLabel}</button>
         <form className="site-header__search" role="search" onSubmit={submit}>
           <input className="field__input" type="search" value={query} placeholder={searchPlaceholder} aria-label={searchPlaceholder} onChange={(e) => setQuery(e.target.value)} />
           <button type="submit" className="btn btn--primary btn--sm">{searchLabel}</button>
         </form>
-        <Link to={account.to} className="site-header__action"><IconCircle size="md" /><span><strong>{account.label}</strong><small>{account.sub}</small></span></Link>
-        <Link to={cart.to} className="site-header__action"><IconCircle size="md">{cart.count > 0 ? cart.count : null}</IconCircle><span><strong>{cart.label}</strong><small>{cart.sub}</small></span></Link>
+        <Link to={account.to} className="site-header__action"><IconCircle size="md" icon="user" /><span><strong>{account.label}</strong><small>{account.sub}</small></span></Link>
+        <Link to={cart.to} className="site-header__action"><IconCircle size="md" icon="cart">{cart.count > 0 ? cart.count : undefined}</IconCircle><span><strong>{cart.label}</strong><small>{cart.sub}</small></span></Link>
       </div>
       {menu?.open && <div className="mega-menu-wrap">{menu.panel}</div>}
     </header>
@@ -169,11 +170,11 @@ export function ShortcutRow({ children }: { children: ReactNode }) {
   return <div className="shortcut-row">{children}</div>
 }
 
-export function ShortcutCard({ title, text, tag, to }: { title: string; text: string; tag?: string; to?: string }) {
+export function ShortcutCard({ title, text, tag, to, icon }: { title: string; text: string; tag?: string; to?: string; icon?: IconName }) {
   const body = (
     <>
       <div className="shortcut__head">
-        <IconCircle size="lg" />
+        <IconCircle size="lg" icon={icon} />
         {tag && <span className="badge">{tag}</span>}
       </div>
       <h3>{title}</h3>
@@ -201,7 +202,7 @@ export function AppPromoCard(p: AppPromoCardProps) {
   return (
     <div className="app-card">
       <div className="app-card__top">
-        <IconCircle size="lg" />
+        <IconCircle size="lg" icon="phoneApp" />
         <div>
           <h3>{p.title}</h3>
           <p className="muted">{p.subtitle}</p>
@@ -330,7 +331,7 @@ export function ArticleCard({ category, views, title, readLabel, onRead }: { cat
   )
 }
 
-export function BenefitBar({ title, text, items }: { title: string; text: string; items: { title: string; text: string }[] }) {
+export function BenefitBar({ title, text, items }: { title: string; text: string; items: { title: string; text: string; icon?: IconName }[] }) {
   return (
     <section className="benefit-bar">
       <div className="benefit-bar__intro">
@@ -340,7 +341,7 @@ export function BenefitBar({ title, text, items }: { title: string; text: string
       <ul className="benefit-bar__list">
         {items.map((item, i) => (
           <li key={`${item.title}-${i}`} className="benefit-bar__item">
-            <IconCircle size="lg" />
+            <IconCircle size="lg" icon={item.icon} />
             <strong>{item.title}</strong>
             <span className="muted">{item.text}</span>
           </li>
@@ -354,10 +355,10 @@ type FooterLink = { label: string; to?: string }
 
 type SiteFooterProps = {
   logo: ReactNode
-  contact: string[]
+  contact: { text: string; icon?: IconName }[]
   socials: string[]
   stores: string[]
-  perks: { title: string; text: string }[]
+  perks: { title: string; text: string; icon?: IconName }[]
   columns: { title: string; links: FooterLink[] }[]
   certTitle: string
   hoursNote: string
@@ -372,15 +373,15 @@ export function SiteFooter(p: SiteFooterProps) {
     <footer className="site-footer">
       <div className="site-footer__inner site-footer__perks">
         {p.perks.map((perk, i) => (
-          <div key={`${perk.title}-${i}`} className="site-footer__perk"><IconCircle size="md" /><span><strong>{perk.title}</strong><small>{perk.text}</small></span></div>
+          <div key={`${perk.title}-${i}`} className="site-footer__perk"><IconCircle size="md" icon={perk.icon} /><span><strong>{perk.title}</strong><small>{perk.text}</small></span></div>
         ))}
       </div>
       <div className="site-footer__inner site-footer__main">
         <div className="site-footer__brand">
           {p.logo}
-          {p.contact.map((line, i) => <p key={`${line}-${i}`}>{line}</p>)}
+          {p.contact.map((line, i) => <p key={`${line.text}-${i}`} className="site-footer__contact">{line.icon && <Icon name={line.icon} size="sm" />}<span>{line.text}</span></p>)}
           <div className="row">{p.socials.map((s, i) => <span key={`${s}-${i}`} title={s}><IconCircle size="md" tone="muted" /></span>)}</div>
-          <div className="row">{p.stores.map((s, i) => <span key={`${s}-${i}`} className="site-footer__store"><IconCircle size="sm" tone="muted" />{s}</span>)}</div>
+          <div className="row">{p.stores.map((s, i) => <span key={`${s}-${i}`} className="site-footer__store"><IconCircle size="sm" tone="muted" icon="phoneApp" />{s}</span>)}</div>
         </div>
         {p.columns.map((col, i) => (
           <div key={`${col.title}-${i}`} className="site-footer__column">
@@ -394,13 +395,13 @@ export function SiteFooter(p: SiteFooterProps) {
         ))}
         <div className="site-footer__column">
           <h3>{p.certTitle}</h3>
-          <IconCircle size="lg" tone="muted" />
+          <IconCircle size="lg" tone="muted" icon="shield" />
         </div>
       </div>
       <div className="site-footer__inner site-footer__bottom">
         <span>{p.hoursNote}</span>
         {p.complaint.to ? <Link to={p.complaint.to}>{p.complaint.label}</Link> : <span>{p.complaint.label}</span>}
-        <span className="site-footer__payments">{p.payments.map((m, i) => <span key={`${m}-${i}`} title={m}><IconCircle size="sm" tone="muted" /></span>)}</span>
+        <span className="site-footer__payments">{p.payments.map((m, i) => <span key={`${m}-${i}`} title={m}><IconCircle size="sm" tone="muted" icon={(['card', 'qr', 'bank', 'cash'] as IconName[])[i]} /></span>)}</span>
         <span>{p.copyright}</span>
         <span className="site-footer__legal">{p.legal.map((l, i) => (l.to ? <Link key={`${l.label}-${i}`} to={l.to}>{l.label}</Link> : <span key={`${l.label}-${i}`}>{l.label}</span>))}</span>
       </div>

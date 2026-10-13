@@ -34,6 +34,8 @@ export const tokens = {
     lineHeight: { tight: 1.25, normal: 1.65 },
   },
   space: { 1: '4px', 2: '8px', 3: '12px', 4: '16px', 5: '24px', 6: '32px', 7: '48px', 8: '64px' },
+  // Icon boxes and line weight (Lucide icons are drawn with strokes).
+  icon: { size: { sm: '16px', md: '24px', lg: '32px' }, stroke: 2 },
   radius: { sm: '6px', md: '12px', lg: '20px', pill: '999px' },
   shadow: {
     sm: '0 1px 2px rgba(31, 36, 48, 0.08)',

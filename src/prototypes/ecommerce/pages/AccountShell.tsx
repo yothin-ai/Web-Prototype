@@ -2,19 +2,21 @@ import { useState, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
-import { AccountSidebar, BottomTabBar, Col, Grid, Notice } from '../../../ui'
+import { AccountSidebar, BottomTabBar, Col, Grid, Notice, type IconName } from '../../../ui'
 import { a } from '../accountStrings'
 import { useProfile } from '../account'
 import { PROTOTYPE_ID } from '../cart'
 
 export type AccountPageId = 'home' | 'profile' | 'addresses' | 'orders' | 'reviews' | 'club' | 'coupons' | 'wallet' | 'menu'
 
+const menuIcons: Record<AccountPageId, IconName> = { home: 'home', profile: 'user', addresses: 'pin', orders: 'orders', reviews: 'star', club: 'crown', coupons: 'ticket', wallet: 'wallet', menu: 'menu' }
+
 // Builds the account menu once so the side menu, the tab bar and the menu page agree.
 export function useAccountMenu(active: AccountPageId) {
   const { t } = useLang()
   const { search } = useLocation()
   const base = `/${PROTOTYPE_ID}`
-  const item = (id: AccountPageId, to: string, label: string) => ({ to: `${base}${to}${search}`, label, active: active === id })
+  const item = (id: AccountPageId, to: string, label: string) => ({ to: `${base}${to}${search}`, label, active: active === id, icon: menuIcons[id] })
   const groups = [
     { title: t(a.groupOverview), items: [item('home', '/account', t(a.menuHome))] },
     { title: t(a.groupAccount), items: [item('profile', '/account/profile', t(a.menuProfile)), item('addresses', '/account/addresses', t(a.menuAddresses))] },

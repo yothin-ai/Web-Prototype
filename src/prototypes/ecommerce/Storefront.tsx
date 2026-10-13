@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { LanguageToggle } from '../../shell/LanguageToggle'
-import { CategoryNav, DropdownMenu, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
+import { CategoryNav, DropdownMenu, IconCircle, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
 import type { MenuNode } from '../../datasets/types'
 import { useProfile } from './account'
 import { branchById, branches, useBranch } from './branches'
@@ -80,9 +80,10 @@ export function Storefront({ children }: { children: ReactNode }) {
       <PromoStrip>{t(home.promoStrip)}</PromoStrip>
       <UtilityBar
         items={[
-          t(home.utility[0]),
+          <><IconCircle size="sm" tone="muted" icon="phone" />{t(home.utility[0])}</>,
           <DropdownMenu
             key="branch"
+            icon="pin"
             trigger={t(branchById(branchId).name)}
             label={t(s.branchMenu)}
             items={branches.map((b) => ({ id: b.id, label: t(b.name), detail: t(b.province), active: b.id === branchId, onSelect: () => setBranchId(b.id) }))}
@@ -90,6 +91,7 @@ export function Storefront({ children }: { children: ReactNode }) {
           />,
           <DropdownMenu
             key="help"
+            icon="headset"
             trigger={t(s.helpCenter)}
             label={t(s.helpCenter)}
             items={f.help.map((l, i) => ({ id: f.helpTo[i], label: t(l), to: `${base}/${f.helpTo[i]}${search}` }))}
@@ -142,10 +144,10 @@ export function Storefront({ children }: { children: ReactNode }) {
       <main className="storefront-main">{children}</main>
       <SiteFooter
         logo={<Logo name={t(dataset.brandName)} tone="on-dark" />}
-        contact={f.contact.map((c) => t(c))}
+        contact={f.contact.map((c, i) => ({ text: t(c), icon: f.contactIcons[i] }))}
         socials={f.socials}
         stores={f.stores}
-        perks={f.perks.map((x) => ({ title: t(x.title), text: t(x.text) }))}
+        perks={f.perks.map((x, i) => ({ title: t(x.title), text: t(x.text), icon: f.perkIcons[i] }))}
         columns={[
           { title: t(f.aboutTitle), links: f.about.map((l, i) => ({ label: t(l), to: `${base}/${f.aboutTo[i]}${search}` })) },
           { title: t(f.helpTitle), links: [...f.help.map((l, i) => ({ label: t(l), to: `${base}/${f.helpTo[i]}${search}` })), { label: t(home.ideasTitle), to: `${base}/soon${search}` }] },

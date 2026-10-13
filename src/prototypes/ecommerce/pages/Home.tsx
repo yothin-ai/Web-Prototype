@@ -39,7 +39,7 @@ export function Home() {
               </Carousel>
               <ShortcutRow>
                 {home.shortcuts.map((x, i) => (
-                  <ShortcutCard key={i} title={t(x.title)} text={t(x.text)} tag={t(x.tag)} to={[`${base}/account/coupons${search}`, `${base}/soon${search}`, `${base}/account/club${search}`][i] ?? `${base}/soon${search}`} />
+                  <ShortcutCard key={i} title={t(x.title)} text={t(x.text)} tag={t(x.tag)} icon={(['ticket', 'hammer', 'crown'] as const)[i]} to={[`${base}/account/coupons${search}`, `${base}/soon${search}`, `${base}/account/club${search}`][i] ?? `${base}/soon${search}`} />
                 ))}
               </ShortcutRow>
             </div>
@@ -170,7 +170,7 @@ export function Home() {
         </div>
       </div>
 
-      <BenefitBar title={t(home.trust.title)} text={t(home.trust.text)} items={f.benefits.map((b) => ({ title: t(b.title), text: t(b.text) }))} />
+      <BenefitBar title={t(home.trust.title)} text={t(home.trust.text)} items={f.benefits.map((b, i) => ({ title: t(b.title), text: t(b.text), icon: f.benefitIcons[i] }))} />
     </>
   )
 }

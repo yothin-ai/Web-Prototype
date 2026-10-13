@@ -6,6 +6,7 @@ import { Button, Logo } from '../ui'
 import { Colors } from './chapters/Colors'
 import { Components } from './chapters/Components'
 import { Elevation } from './chapters/Elevation'
+import { IconsChapter } from './chapters/Icons'
 import { LogoChapter } from './chapters/Logo'
 import { Spacing } from './chapters/Spacing'
 import { Typography } from './chapters/Typography'
@@ -19,6 +20,7 @@ const chapters = [
   { id: 'components', label: text.nav4 },
   { id: 'elevation', label: text.nav5 },
   { id: 'logo', label: text.nav6 },
+  { id: 'icons', label: text.nav7 },
 ]
 
 export function Moodboard() {
@@ -62,6 +64,7 @@ export function Moodboard() {
         <Components />
         <Elevation />
         <LogoChapter />
+        <IconsChapter />
       </main>
     </>
   )

@@ -39,15 +39,15 @@ export function AccountPage({ focus }: { focus?: 'address' }) {
           <Card>
             <h2>{t(a.title)}</h2>
             <span className="muted">{t(a.subtitle)}</span>
-            <SettingRow {...rowText} label={t(a.loginWith)} value={`${t(account.provider)} · ${account.email}`} actionLabel="" locked={<Badge>{t(a.locked)}</Badge>} />
-            <SettingRow {...rowText} label={t(a.profileName)} value={name} actionLabel={t(a.change)} validate={(v) => (v.trim() ? undefined : t(a.errName))} onSave={(v) => setProfile({ ...profile, name: v })} />
+            <SettingRow {...rowText} icon="mail" label={t(a.loginWith)} value={`${t(account.provider)} · ${account.email}`} actionLabel="" locked={<Badge>{t(a.locked)}</Badge>} />
+            <SettingRow {...rowText} icon="user" label={t(a.profileName)} value={name} actionLabel={t(a.change)} validate={(v) => (v.trim() ? undefined : t(a.errName))} onSave={(v) => setProfile({ ...profile, name: v })} />
           </Card>
 
           <Card>
             <h2>{t(a.contactTitle)}</h2>
             <span className="muted">{t(a.contactSub)}</span>
-            <SettingRow {...rowText} label={t(a.phone)} value={profile.phone} actionLabel={profile.phone ? t(a.change) : t(a.add)} inputType="tel" inputMode="tel" placeholder={t(a.phoneExample)} validate={(v) => (PHONE.test(v.trim()) ? undefined : t(a.errPhone))} onSave={(v) => setProfile({ ...profile, phone: v })} />
-            <SettingRow {...rowText} label={t(a.email)} value={email} actionLabel={t(a.change)} inputType="email" inputMode="email" validate={(v) => (EMAIL.test(v.trim()) ? undefined : t(a.errEmail))} onSave={(v) => setProfile({ ...profile, email: v })} />
+            <SettingRow {...rowText} icon="phone" label={t(a.phone)} value={profile.phone} actionLabel={profile.phone ? t(a.change) : t(a.add)} inputType="tel" inputMode="tel" placeholder={t(a.phoneExample)} validate={(v) => (PHONE.test(v.trim()) ? undefined : t(a.errPhone))} onSave={(v) => setProfile({ ...profile, phone: v })} />
+            <SettingRow {...rowText} icon="mail" label={t(a.email)} value={email} actionLabel={t(a.change)} inputType="email" inputMode="email" validate={(v) => (EMAIL.test(v.trim()) ? undefined : t(a.errEmail))} onSave={(v) => setProfile({ ...profile, email: v })} />
           </Card>
 
           <Card>

@@ -1,7 +1,12 @@
 import type { Localized } from '../../i18n'
+import type { IconName } from '../../ui'
 
 // Footer wording shared by every dataset. Contact details are placeholders on purpose.
 export const f = {
+  // Icons for the lists below, in the same order.
+  perkIcons: ['store', 'truck', 'returns', 'shield', 'headset'] as IconName[],
+  benefitIcons: ['store', 'headset', 'shield', 'truck', 'returns'] as IconName[],
+  contactIcons: ['phone', 'mail', 'pin'] as IconName[],
   perks: [
     { title: { th: 'Click & Collect', en: 'Click & Collect' }, text: { th: 'สั่งออนไลน์ รับที่สาขา', en: 'Order online, collect in store' } },
     { title: { th: 'จัดส่งทั่วประเทศ', en: 'Nationwide delivery' }, text: { th: 'บริการจัดส่งรวดเร็ว', en: 'Fast delivery service' } },

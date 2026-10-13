@@ -80,7 +80,7 @@ export function AddressBook({ selectedId, onSelect, emptyHint }: Props) {
     <div className="stack">
       {list.map((x) => editingId === x.id ? <div key={x.id}>{form_}</div> : (
         <div key={x.id} className="branch-card">
-          <IconCircle size="md" />
+          <IconCircle size="md" icon="pin" />
           <div className="branch-card__text">
             <strong>{x.name} · {x.phone}</strong>
             <span className="muted">{placeOf(t, x)}</span>

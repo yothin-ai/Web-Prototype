@@ -60,9 +60,9 @@ export function AccountHome() {
         </Card>
       </div>
       <div className="stat-grid">
-        <StatCard label={t(a.statPoints)} value={points.toLocaleString()} note={t(a.statPointsNote)} />
-        <StatCard label={t(a.statCoupons)} value={String(coupons.length)} note={t(a.statCouponsNote)} />
-        <StatCard label={t(a.statOrders)} value={String(orders.length)} note={t(a.statOrdersNote)} />
+        <StatCard icon="star" label={t(a.statPoints)} value={points.toLocaleString()} note={t(a.statPointsNote)} />
+        <StatCard icon="ticket" label={t(a.statCoupons)} value={String(coupons.length)} note={t(a.statCouponsNote)} />
+        <StatCard icon="orders" label={t(a.statOrders)} value={String(orders.length)} note={t(a.statOrdersNote)} />
       </div>
       <h3>{t(a.shortcuts)}</h3>
       <div className="stat-grid">

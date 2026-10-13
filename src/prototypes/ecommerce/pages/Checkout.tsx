@@ -165,7 +165,7 @@ export function Checkout() {
             {fulfil === 'pickup' ? (
               <>
                 <div className="branch-card">
-                  <IconCircle size="md" />
+                  <IconCircle size="md" icon="store" />
                   <div className="branch-card__text">
                     <strong>{branch}</strong>
                     <span className="row"><Badge tone="success">{t(c.open)}</Badge><Badge>{t(c.hasLocker)}</Badge></span>
@@ -296,7 +296,7 @@ export function Checkout() {
       <Col span={{ base: 4, sm: 8, md: 4 }}>
         <div className="checkout-aside" ref={summaryRef}>
           <Card>
-            <div className="row"><IconCircle size="sm" /><strong className="row__grow">{t(c.clubTitle)}{club}</strong>{clubLinked && <Badge tone="success">{t(c.connected)}</Badge>}</div>
+            <div className="row"><IconCircle size="sm" icon="crown" /><strong className="row__grow">{t(c.clubTitle)}{club}</strong>{clubLinked && <Badge tone="success">{t(c.connected)}</Badge>}</div>
             <span className="muted">{t(c.clubSub)}</span>
             {clubLinked ? (
               <div><Button variant="ghost" size="sm" onClick={() => setClubLinked(false)}>{t(c.disconnect)}</Button></div>
@@ -314,7 +314,7 @@ export function Checkout() {
 
           <Card>
             <button type="button" className="coupon-row" aria-expanded={couponOpen} onClick={() => setCouponOpen((o) => !o)}>
-              <IconCircle size="md" />
+              <IconCircle size="md" icon="ticket" />
               <span className="coupon-row__text"><strong>{coupon && cut.items + cut.shipping > 0 ? `${t(c.couponUsed)}: ${t(coupon.title)}` : t(c.couponTitle)}</strong><span className="muted">{t(c.couponSub)}</span></span>
               <span aria-hidden="true">{couponOpen ? '⌃' : '›'}</span>
             </button>

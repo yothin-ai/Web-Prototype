@@ -30,8 +30,8 @@ export function CategoryTile({ title, to, thumb }: { title: string; to: string; 
 export function CategoryPills({ label, items }: { label: string; items: { label: string; to: string; active: boolean }[] }) {
   return (
     <nav className="category-pills" aria-label={label}>
-      {items.map((item) => (
-        <Link key={item.to} to={item.to} className="category-pills__link" aria-current={item.active ? 'page' : undefined}>
+      {items.map((item, i) => (
+        <Link key={`${item.to}-${i}`} to={item.to} className="category-pills__link" aria-current={item.active ? 'page' : undefined}>
           <IconCircle size="sm" />
           <span>{item.label}</span>
         </Link>

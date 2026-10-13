@@ -10,6 +10,7 @@ function cssVars(): string {
   for (const [name, value] of Object.entries(tokens.font.weight)) lines.push(`--font-weight-${name}: ${value};`)
   for (const [name, value] of Object.entries(tokens.font.lineHeight)) lines.push(`--line-height-${name}: ${value};`)
   for (const [name, value] of Object.entries(tokens.space)) lines.push(`--space-${name}: ${value};`)
+  for (const [name, value] of Object.entries(tokens.icon.size)) lines.push(`--icon-size-${name}: ${value};`)
   for (const [name, value] of Object.entries(tokens.radius)) lines.push(`--radius-${name}: ${value};`)
   for (const [name, value] of Object.entries(tokens.shadow)) lines.push(`--shadow-${name}: ${value};`)
   lines.push(`--grid-gutter: ${tokens.grid.gutter};`, `--grid-max-width: ${tokens.grid.maxWidth};`)

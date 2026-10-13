@@ -273,7 +273,7 @@ export function Components() {
           <p className="mb-caption">{t(text.siteFooter)}</p>
           <SiteFooter
             logo={<Logo name={t(text.brandName)} tone="on-dark" />}
-            contact={[t(text.footerContact)]}
+            contact={[{ text: t(text.footerContact), icon: 'phone' }]}
             socials={['Facebook', 'Line']}
             stores={['App Store', 'Google Play']}
             perks={[{ title: t(text.benefit1), text: t(text.benefitText) }, { title: t(text.benefit2), text: t(text.benefitText) }]}

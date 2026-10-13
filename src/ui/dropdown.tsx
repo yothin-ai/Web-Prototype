@@ -1,11 +1,12 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, IconCircle } from './index'
+import { Icon, type IconName } from './icon'
 
 export type DropdownItem = { id: string; label: string; detail?: string; active?: boolean; to?: string; onSelect?: () => void }
 
 // A button that opens a small panel of choices or links under it; closes on a pick, outside click or Escape.
-export function DropdownMenu({ trigger, items, footer, variant = 'bar', label }: { trigger: ReactNode; items: DropdownItem[]; footer?: ReactNode; variant?: 'bar' | 'button'; label?: string }) {
+export function DropdownMenu({ trigger, items, footer, variant = 'bar', label, icon }: { trigger: ReactNode; items: DropdownItem[]; footer?: ReactNode; variant?: 'bar' | 'button'; label?: string; icon?: IconName }) {
   const [open, setOpen] = useState(false)
   const root = useRef<HTMLDivElement>(null)
   const panelId = useId()
@@ -34,7 +35,7 @@ export function DropdownMenu({ trigger, items, footer, variant = 'bar', label }:
         <Button variant="secondary" size="sm" aria-expanded={open} aria-controls={panelId} aria-label={label} onClick={() => setOpen(!open)}>{trigger}</Button>
       ) : (
         <button type="button" className="dropdown__trigger" aria-expanded={open} aria-controls={panelId} aria-label={label} onClick={() => setOpen(!open)}>
-          <IconCircle size="sm" tone="muted" />{trigger}<span aria-hidden="true">⌄</span>
+          <IconCircle size="sm" tone="muted" icon={icon} />{trigger}<Icon name="down" size="sm" />
         </button>
       )}
       {open && (
@@ -63,7 +64,7 @@ export function DropdownMenu({ trigger, items, footer, variant = 'bar', label }:
 export function BranchCard({ name, address, hours, province, selected, selectedLabel, chooseLabel, onChoose }: { name: string; address: string; hours: string; province: string; selected: boolean; selectedLabel: string; chooseLabel: string; onChoose: () => void }) {
   return (
     <div className="store-card">
-      <IconCircle size="lg" />
+      <IconCircle size="lg" icon="store" />
       <div className="store-card__body">
         <strong>{name}</strong>
         <span className="muted">{address}</span>
