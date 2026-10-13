@@ -268,6 +268,7 @@ export const text = {
   c419: { th: 'เมนูเปิดลง และการ์ดสาขา', en: 'Dropdown menu and store card' },
   c419Note: { th: 'ปุ่มที่เปิดแผงตัวเลือกใต้ตัวเอง และการ์ดสาขาในหน้าตำแหน่งสาขา', en: 'A button that opens a panel of choices, and the store card for the store finder.' },
   dropdownMenu: { th: 'เมนูเปิดลง', en: 'Dropdown menu' },
+  dropdownBar: { th: 'เมนูเปิดลงในแถบบน (ไอคอน ข้อความ และลูกศรอยู่กึ่งกลางแนวเดียวกัน)', en: 'Dropdown in the top bar (icon, text and arrow share one centre line)' },
   dropdownTrigger: { th: 'เปลี่ยนสาขา', en: 'Change store' },
   dropdownFooter: { th: 'ลิงก์ท้ายเมนู', en: 'A link at the foot' },
   branchCard: { th: 'การ์ดสาขา', en: 'Store card' },

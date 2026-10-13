@@ -443,6 +443,8 @@ export function Components() {
           <div className="row">
             <DropdownMenu variant="button" trigger={t(text.dropdownTrigger)} items={[{ id: 'a', label: t(text.optionA), detail: t(text.optionDetail), active: true }, { id: 'b', label: t(text.optionB), detail: t(text.optionDetail) }]} footer={<span>{t(text.dropdownFooter)}</span>} />
           </div>
+          <p className="mb-caption">{t(text.dropdownBar)}</p>
+          <UtilityBar items={[t(text.branchHours), <DropdownMenu key="m" trigger={t(text.branchName)} items={[{ id: 'a', label: t(text.optionA), detail: t(text.optionDetail), active: true }, { id: 'b', label: t(text.optionB), detail: t(text.optionDetail) }]} />]} />
           <p className="mb-caption">{t(text.branchCard)}</p>
           <BranchCard name={t(text.branchName)} address={t(text.branchAddress)} hours={t(text.branchHours)} province={t(text.branchProvince)} selected={false} selectedLabel={t(text.branchMine)} chooseLabel={t(text.branchChoose)} onChoose={() => {}} />
           <BranchCard name={t(text.branchName)} address={t(text.branchAddress)} hours={t(text.branchHours)} province={t(text.branchProvince)} selected selectedLabel={t(text.branchMine)} chooseLabel={t(text.branchChoose)} onChoose={() => {}} />
