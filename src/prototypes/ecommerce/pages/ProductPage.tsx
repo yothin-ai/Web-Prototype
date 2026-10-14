@@ -267,7 +267,7 @@ export function ProductPage() {
             <Carousel label={t(s.relatedRow)} count={5} minItem="176px" prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
               {related.map((r) => (
                 <Card key={r!.id}>
-                  <Link to={detailPath(r!.id)} className="card-link"><ProductImage label={t(r!.name)} /></Link>
+                  <Link to={detailPath(r!.id)} className="card-link"><ProductImage label={t(r!.name)} square /></Link>
                   {r!.brand && <Badge>{t(r!.brand)}</Badge>}
                   <Link to={detailPath(r!.id)} className="card-link"><h3 className="article-card__title">{t(r!.name)}</h3></Link>
                   <DataRow label={<strong>{formatMoney(r!.price, lang)}</strong>} />

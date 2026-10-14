@@ -95,7 +95,7 @@ export function CartPage() {
                 onCheck={(v) => tick(line.productId, v)}
                 checkLabel={t(k.selectItem)}
                 disabled={out}
-                thumb={<ProductImage label={t(p.name)} />}
+                thumb={<ProductImage label={t(p.name)} square />}
                 skuLabel={t(k.sku)}
                 sku={skuOf(p)}
                 name={<Link to={detail(p.id)} className="card-link"><strong>{t(p.name)}</strong></Link>}

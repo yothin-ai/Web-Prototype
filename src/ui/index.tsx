@@ -61,10 +61,13 @@ export function Col({ span = {}, className, children }: { span?: Spans; classNam
 const initial = (label: string) => Array.from(label).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''
 
 // Fixed-ratio picture frame; shows an initial on a neutral surface until a real `src` exists.
-export function ProductImage({ label, src, alt = '' }: { label: string; src?: string; alt?: string }) {
-  if (src) return <div className="product-image"><img src={src} alt={alt} /></div>
+// A picture slot (a letter frame until there is a real photo). Pictures of products are `square`;
+// other pictures (articles, categories, courses) keep the 4:3 frame.
+export function ProductImage({ label, src, alt = '', square }: { label: string; src?: string; alt?: string; square?: boolean }) {
+  const cls = `product-image${square ? ' product-image--square' : ''}`
+  if (src) return <div className={cls}><img src={src} alt={alt} /></div>
   return (
-    <div className="product-image" role="img" aria-label={label}>
+    <div className={cls} role="img" aria-label={label}>
       <span aria-hidden="true">{initial(label)}</span>
     </div>
   )

@@ -11,7 +11,8 @@
 5. **Responsive from the start.** Check every page on a phone width and a laptop width.
 6. **Rows line up.** When cards sit side by side, the same part of each card (price, button, title) must land at the same height whatever the text length: pin the footer to the bottom with `margin-top: auto` and let the grid make the row one height. Product grids always use `ProductCard`; never build a product card by hand.
 7. **Add to cart looks the same everywhere.** Every add-to-cart button is `<Button icon="cart">`: the cart icon before the label, in the label's colour.
-8. **Brand pictures come in as props.** Third-party badges and logos (App Store, Google Play, payment and social logos, and popular-brand logos in `src/assets/brand/brands/`) live in `src/assets/brand/` and reach `SiteFooter` and `AppPromoCard` through their props; never place a logo file inside a component or a page. They are other companies' trademarks, used only so the prototype looks finished.
+8. **Product pictures are square.** A picture of a product (card, cart line, product page) is 1:1, shown with `<ProductImage square />`, and one 1000×1000px file serves them all. Pictures of articles and categories keep the 4:3 frame.
+9. **Brand pictures come in as props.** Third-party badges and logos (App Store, Google Play, payment and social logos, and popular-brand logos in `src/assets/brand/brands/`) live in `src/assets/brand/` and reach `SiteFooter` and `AppPromoCard` through their props; never place a logo file inside a component or a page. They are other companies' trademarks, used only so the prototype looks finished.
 
 ## Color roles
 

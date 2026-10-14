@@ -121,7 +121,7 @@ export function StickyActionBar({ visible, name, price, actions, inline, thumb =
 export function ProductCard({ to, imageLabel, badges, name, price, action }: { to: string; imageLabel: string; badges: ReactNode; name: string; price: string; action: ReactNode }) {
   return (
     <div className="card product-card">
-      <Link to={to} className="card-link"><ProductImage label={imageLabel} /></Link>
+      <Link to={to} className="card-link"><ProductImage label={imageLabel} square /></Link>
       <span className="row">{badges}</span>
       <Link to={to} className="card-link"><h3 className="article-card__title">{name}</h3></Link>
       <div className="product-card__foot">

@@ -84,7 +84,7 @@ export function Components() {
           <Col span={{ base: 4, sm: 4, md: 4 }}>
             <p className="mb-caption">{t(text.stateDefault)}</p>
             <Card>
-              <ProductImage label={t(text.sampleName)} />
+              <ProductImage label={t(text.sampleName)} square />
               <Badge>{t(text.sampleCategory)}</Badge>
               <h3>{t(text.sampleName)}</h3>
               <p className="muted">{t(text.sampleDesc)}</p>
@@ -95,7 +95,7 @@ export function Components() {
             <p className="mb-caption">{t(text.stateHover)}</p>
             <div className="state-hover-card">
               <Card>
-                <ProductImage label={t(text.sampleName)} />
+                <ProductImage label={t(text.sampleName)} square />
                 <Badge>{t(text.sampleCategory)}</Badge>
                 <h3>{t(text.sampleName)}</h3>
                 <p className="muted">{t(text.sampleDesc)}</p>
@@ -398,7 +398,7 @@ export function Components() {
             checked={cartOn}
             onCheck={setCartOn}
             checkLabel={t(text.cartSelect)}
-            thumb={<ProductImage label={t(text.sampleName)} />}
+            thumb={<ProductImage label={t(text.sampleName)} square />}
             skuLabel="SKU"
             sku="SKU-00000001"
             name={<strong>{t(text.sampleName)}</strong>}
@@ -413,7 +413,7 @@ export function Components() {
             onCheck={() => {}}
             checkLabel={t(text.cartSelect)}
             disabled
-            thumb={<ProductImage label={t(text.sampleName)} />}
+            thumb={<ProductImage label={t(text.sampleName)} square />}
             skuLabel="SKU"
             sku="SKU-00000002"
             name={<strong>{t(text.sampleName)}</strong>}
