@@ -128,7 +128,7 @@ export function ProductPage() {
 
   const actions = (
     <>
-      <Button variant="secondary" size="sm" onClick={addToCart}>{t(s.add)}</Button>
+      <Button variant="secondary" size="sm" icon="cart" onClick={addToCart}>{t(s.add)}</Button>
       <Button size="sm" onClick={buyNow}>{t(s.buyNow)}</Button>
     </>
   )
@@ -220,7 +220,7 @@ export function ProductPage() {
                 <span className="muted">{t(s.unitLabel)}: {t(unit)}</span>
               </div>
               <div className="row">
-                <Button variant="secondary" onClick={addToCart}>{t(s.add)}</Button>
+                <Button variant="secondary" icon="cart" onClick={addToCart}>{t(s.add)}</Button>
                 <Button onClick={buyNow}>{t(s.buyNow)}</Button>
                 <span className="muted" aria-live="polite">{added ? t(s.addedToCart) : ''}</span>
               </div>

@@ -157,7 +157,7 @@ export function Home() {
             const p = productById(id)
             if (!p) return null
             return (
-              <ProductCard key={id} to={detailPath(id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" onClick={() => add(id)}>{t(s.add)}</Button>} />
+              <ProductCard key={id} to={detailPath(id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(id)}>{t(s.add)}</Button>} />
             )
           })}
         </div>

@@ -117,15 +117,10 @@ export function ProductListing({ products, head }: { products: Product[]; head?:
                   key={p.id}
                   to={detail(p.id)}
                   imageLabel={t(p.name)}
-                  badges={<><Badge>{t(p.brand ?? p.category)}</Badge>{cut > 0 && <Badge tone="warning">{t(g.discount)} {cut}%</Badge>}</>}
+                  badges={<><Badge>{t(p.brand ?? p.category)}</Badge>{cut > 0 && <Badge tone="warning">{t(g.discount)} {cut}%</Badge>}{qty > 0 && <Badge tone="success">{t(s.inCart)}: {qty}</Badge>}</>}
                   name={t(p.name)}
                   price={money(p.price)}
-                  action={
-                    <span className="row">
-                      {qty > 0 && <span className="muted">{t(s.inCart)}: {qty}</span>}
-                      <Button size="sm" onClick={() => add(p.id)}>{t(s.add)}</Button>
-                    </span>
-                  }
+                  action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>}
                 />
               )
             })}

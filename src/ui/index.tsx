@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { Icon, type IconName } from './icon'
 import './ui.css'
 import './storefront.css'
 
@@ -7,12 +8,15 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
   size?: 'md' | 'sm'
   to?: string
+  // A Lucide icon drawn before the label, in the label's colour.
+  icon?: IconName
 }
 
-export function Button({ variant = 'primary', size = 'md', to, className, children, ...rest }: ButtonProps) {
+export function Button({ variant = 'primary', size = 'md', to, icon, className, children, ...rest }: ButtonProps) {
   const cls = `btn btn--${variant}${size === 'sm' ? ' btn--sm' : ''}${className ? ` ${className}` : ''}`
-  if (to) return <Link to={to} className={cls}>{children}</Link>
-  return <button type="button" className={cls} {...rest}>{children}</button>
+  const body = <>{icon && <Icon name={icon} size="sm" />}{children}</>
+  if (to) return <Link to={to} className={cls}>{body}</Link>
+  return <button type="button" className={cls} {...rest}>{body}</button>
 }
 
 export function Card({ to, children }: { to?: string; children: ReactNode }) {

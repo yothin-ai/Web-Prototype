@@ -52,6 +52,14 @@ export function Components() {
             ))}
           </tbody>
         </TableWrap>
+        <p className="mb-caption">{t(text.buttonIcon)}</p>
+        <div className="row">
+          <Button icon="cart">{t(text.addToCart)}</Button>
+          <Button variant="secondary" icon="cart">{t(text.addToCart)}</Button>
+          <Button size="sm" icon="cart">{t(text.addToCart)}</Button>
+          <Button variant="secondary" size="sm" icon="search">{t(text.searchWord)}</Button>
+        </div>
+        <p className="muted">{t(text.buttonIconRule)}</p>
       </Block>
 
       <Block number="4.2" title={t(text.c42)} note={t(text.c42Note)}>
@@ -339,7 +347,7 @@ export function Components() {
             visible
             name={t(text.sampleName)}
             price="฿1,200"
-            actions={<><Button variant="secondary" size="sm">{t(text.addToCart)}</Button><Button size="sm">{t(text.buyNowLabel)}</Button></>}
+            actions={<><Button variant="secondary" size="sm" icon="cart">{t(text.addToCart)}</Button><Button size="sm">{t(text.buyNowLabel)}</Button></>}
           />
         </div>
       </Block>
@@ -436,8 +444,8 @@ export function Components() {
       <Block number="4.18" title={t(text.c418)} note={t(text.c418Note)}>
         <div className="stack">
           <div className="listing-grid">
-            <ProductCard to="/moodboard" imageLabel={t(text.sampleName)} badges={<Badge>{t(text.brandWord)}</Badge>} name={t(text.longName)} price="฿1,090" action={<Button size="sm">{t(text.addToCart)}</Button>} />
-            <ProductCard to="/moodboard" imageLabel={t(text.sampleName)} badges={<Badge>{t(text.brandWord)}</Badge>} name={t(text.sampleName)} price="฿355" action={<Button size="sm">{t(text.addToCart)}</Button>} />
+            <ProductCard to="/moodboard" imageLabel={t(text.sampleName)} badges={<Badge>{t(text.brandWord)}</Badge>} name={t(text.longName)} price="฿1,090" action={<Button size="sm" icon="cart">{t(text.addToCart)}</Button>} />
+            <ProductCard to="/moodboard" imageLabel={t(text.sampleName)} badges={<Badge>{t(text.brandWord)}</Badge>} name={t(text.sampleName)} price="฿355" action={<Button size="sm" icon="cart">{t(text.addToCart)}</Button>} />
           </div>
           <p className="muted">{t(text.productCardRule)}</p>
         </div>

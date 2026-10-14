@@ -33,7 +33,7 @@ export function CartPage() {
       <SectionHeader title={t(k.mayLike)} action={<Button to={`${base}/products${search}`} size="sm" variant="secondary">{t(s.viewAll)}</Button>} />
       <Carousel label={t(k.mayLikeRow)} count={5} minItem="180px" prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
         {suggestions.map((p) => (
-          <ProductCard key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
+          <ProductCard key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
         ))}
       </Carousel>
     </div>
