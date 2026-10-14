@@ -15,6 +15,8 @@ import { PaymentPage } from './pages/PaymentPage'
 import { IdeasPage } from './pages/IdeasPage'
 import { JobPage } from './pages/JobPage'
 import { JobsPage } from './pages/JobsPage'
+import { LoginPage } from './pages/LoginPage'
+import { RegisterPage } from './pages/RegisterPage'
 import { InfoPage } from './pages/InfoPage'
 import { OrderDetailPage } from './pages/OrderDetailPage'
 import { OrdersPage } from './pages/OrdersPage'
@@ -45,6 +47,8 @@ export function Ecommerce() {
         <Route path="jobs" element={<JobsPage />} />
         <Route path="job/:job" element={<JobPage />} />
         <Route path="job/:job/:group" element={<JobPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
         <Route path="info/:slug" element={<InfoPage />} />
         <Route path="stores" element={<StoresPage />} />
         <Route path="campaign/:key" element={<CampaignPage />} />

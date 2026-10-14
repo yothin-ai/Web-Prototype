@@ -1,10 +1,10 @@
-import { useState, type ReactNode } from 'react'
-import { useLocation } from 'react-router-dom'
+import type { ReactNode } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
-import { AccountSidebar, BottomTabBar, Col, Grid, Notice, type IconName } from '../../../ui'
+import { AccountSidebar, BottomTabBar, Col, Grid, type IconName } from '../../../ui'
 import { a } from '../accountStrings'
-import { useProfile } from '../account'
+import { useProfile, useSignedIn } from '../account'
 import { PROTOTYPE_ID } from '../cart'
 
 export type AccountPageId = 'home' | 'profile' | 'addresses' | 'orders' | 'reviews' | 'club' | 'coupons' | 'wallet' | 'menu'
@@ -46,15 +46,19 @@ export function AccountShell({ active, children }: { active: AccountPageId; chil
   const { t } = useLang()
   const { groups, tabs } = useAccountMenu(active)
   const who = useAccountIdentity()
-  const [signedOut, setSignedOut] = useState(false)
+  const [signedIn, setSignedIn] = useSignedIn()
+  const { pathname, search } = useLocation()
+  const base = `/${PROTOTYPE_ID}`
+  const signOut = () => setSignedIn(false)
+  // The account pages need a signed-in shopper; otherwise sign in first and come back here.
+  if (!signedIn) return <Navigate to={`${base}/login?next=${encodeURIComponent(pathname + search)}`} replace />
   return (
     <Grid>
       <Col span={{ base: 4, sm: 8, md: 3 }} className="account-aside">
-        <AccountSidebar name={who.name} email={who.email} badge={who.tier} groups={groups} logoutLabel={t(a.logout)} onLogout={() => setSignedOut(true)} />
+        <AccountSidebar name={who.name} email={who.email} badge={who.tier} groups={groups} logoutLabel={t(a.logout)} onLogout={signOut} />
       </Col>
       <Col span={{ base: 4, sm: 8, md: 9 }}>
         <div className="stack account-page">
-          {signedOut && <Notice tone="info">{t(a.logoutNote)}</Notice>}
           {children}
         </div>
       </Col>

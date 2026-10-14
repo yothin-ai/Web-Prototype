@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { AccountSidebar, Button, Card, Notice } from '../../../ui'
+import { AccountSidebar, Button, Card } from '../../../ui'
 import { a } from '../accountStrings'
+import { useSignedIn } from '../account'
 import { PROTOTYPE_ID } from '../cart'
 import { AccountShell, useAccountIdentity, useAccountMenu, type AccountPageId } from './AccountShell'
 
@@ -33,11 +33,11 @@ export function AccountMenuPage() {
   const { t } = useLang()
   const { groups } = useAccountMenu('menu')
   const who = useAccountIdentity()
-  const [out, setOut] = useState(false)
+  const [, setSignedIn] = useSignedIn()
+  const signOut = () => setSignedIn(false)
   return (
     <AccountShell active="menu">
-      {out && <Notice tone="info">{t(a.logoutNote)}</Notice>}
-      <div className="account-menu-only"><AccountSidebar always name={who.name} email={who.email} badge={who.tier} groups={groups} logoutLabel={t(a.logout)} onLogout={() => setOut(true)} /></div>
+      <div className="account-menu-only"><AccountSidebar always name={who.name} email={who.email} badge={who.tier} groups={groups} logoutLabel={t(a.logout)} onLogout={signOut} /></div>
     </AccountShell>
   )
 }

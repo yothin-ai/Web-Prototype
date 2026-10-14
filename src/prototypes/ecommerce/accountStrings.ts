@@ -54,7 +54,6 @@ export const a = {
   tabClub: { th: 'คลับ', en: 'Club' },
   tabMenu: { th: 'เมนู', en: 'Menu' },
   logout: { th: 'ออกจากระบบ', en: 'Sign out' },
-  logoutNote: { th: 'เดโมนี้ไม่มีระบบล็อกอิน จึงไม่ได้ออกจากระบบ', en: 'This demo has no sign-in, so nothing was signed out' },
   hello: { th: 'สวัสดี,', en: 'Hello,' },
   thanksMember: { th: 'ขอบคุณที่เป็นสมาชิกกับเรา', en: 'Thank you for being a member' },
   tierNotLinked: { th: 'ยังไม่ได้เชื่อมสมาชิก', en: 'Not linked yet' },

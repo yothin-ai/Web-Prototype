@@ -5,7 +5,8 @@ import { useLang } from '../../i18n'
 import { LanguageToggle } from '../../shell/LanguageToggle'
 import { CategoryNav, DropdownMenu, IconCircle, Logo, MegaMenu, PromoStrip, SiteFooter, SiteHeader, UtilityBar, type MegaNode } from '../../ui'
 import type { MenuNode } from '../../datasets/types'
-import { useProfile } from './account'
+import { useProfile, useSignedIn } from './account'
+import { u } from './authStrings'
 import { branchById, branches, useBranch } from './branches'
 import { findPathByLabel, useCategoryLink, useCategoryTo } from './category'
 import { f } from './footer'
@@ -44,6 +45,7 @@ export function Storefront({ children }: { children: ReactNode }) {
   const [params] = useSearchParams()
   const [cart] = useCart()
   const [profile] = useProfile()
+  const [signedIn] = useSignedIn()
   const [branchId, setBranchId] = useBranch()
   const home = dataset.ecommerce.home
   const base = `/${PROTOTYPE_ID}`
@@ -115,7 +117,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         searchLabel={t(s.searchButton)}
         initialQuery={params.get('q') ?? ''}
         onSearch={goSearch}
-        account={{ label: t(s.account), sub: profile.name || t(dataset.ecommerce.account.name), to: `${base}/account${withQuery(search, 'q', '')}` }}
+        account={signedIn ? { label: t(s.account), sub: profile.name || t(dataset.ecommerce.account.name), to: `${base}/account${withQuery(search, 'q', '')}` } : { label: t(u.headerSignIn), sub: t(u.headerRegister), to: `${base}/login${withQuery(search, 'q', '')}` }}
         menu={{
           open: menuOpen,
           onToggle: () => setMenuOpen((o) => !o),
@@ -157,7 +159,7 @@ export function Storefront({ children }: { children: ReactNode }) {
           {
             title: t(f.accountTitle),
             links: [
-              { label: t(f.signInMember), to: `${base}/account${search}` },
+              { label: t(f.signInMember), to: signedIn ? `${base}/account${search}` : `${base}/login${search}` },
               { label: t(f.profile), to: `${base}/account/profile${search}` },
               { label: t(f.orders), to: `${base}/orders${search}` },
               { label: t(f.addresses), to: `${base}/account/addresses${search}` },

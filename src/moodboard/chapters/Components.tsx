@@ -509,6 +509,23 @@ export function Components() {
           />
         </div>
       </Block>
+      <Block number="4.23" title={t(text.c423)} note={t(text.c423Note)}>
+        <div className="auth-page">
+          <Card>
+            <div className="stack">
+              <h3>{t(text.authTitle)}</h3>
+              <Button variant="secondary" icon="globe">{t(text.authGoogle)}</Button>
+              <Tabs
+                label={t(text.authTabs)}
+                tabs={[
+                  { id: 'mb-auth-phone', label: t(text.authPhone), content: <div className="stack"><Field label={t(text.authPhone)} id="mb-auth-phone-field" placeholder="0812345678" /><Button>{t(text.authSignIn)}</Button></div> },
+                  { id: 'mb-auth-email', label: t(text.authEmail), content: <div className="stack"><Field label={t(text.authEmail)} id="mb-auth-email-field" placeholder="name@example.com" /><Field label={t(text.authPassword)} id="mb-auth-password-field" type="password" /><Button>{t(text.authSignIn)}</Button></div> },
+                ]}
+              />
+            </div>
+          </Card>
+        </div>
+      </Block>
     </Chapter>
   )
 }
