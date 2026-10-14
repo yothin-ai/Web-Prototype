@@ -10,7 +10,7 @@ import { brandLogo } from '../../../assets/brand/brands'
 import { s } from '../strings'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PROTOTYPE_ID } from '../cart'
-import { useGoCategory } from '../category'
+import { useCategoryTo } from '../category'
 
 const chunk = <T,>(items: T[], size: number): T[][] =>
   Array.from({ length: Math.ceil(items.length / size) }, (_, i) => items.slice(i * size, i * size + size))
@@ -19,7 +19,7 @@ export function Home() {
   const { t, lang } = useLang()
   const navigate = useNavigate()
   const base = `/${PROTOTYPE_ID}`
-  const goCategory = useGoCategory()
+  const categoryTo = useCategoryTo()
   const { search } = useLocation()
   const detailPath = (id: string) => `/${PROTOTYPE_ID}/product/${id}${search}`
   const add = useAddToCart()
@@ -124,10 +124,10 @@ export function Home() {
         <SectionHeader title={t(s.categoriesButton)} />
         <Carousel label={t(s.categoriesRow)} count={6} minItem="96px" rows={2} dots prevLabel={prev} nextLabel={next}>
           {home.categories.map((c) => (
-            <button key={t(c)} type="button" className="category-tile" onClick={() => goCategory(t(c))}>
+            <Link key={t(c)} to={categoryTo(t(c))} className="category-tile">
               <ProductImage label={t(c)} />
               <span>{t(c)}</span>
-            </button>
+            </Link>
           ))}
         </Carousel>
       </div>

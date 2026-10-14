@@ -158,17 +158,18 @@ export function BannerSlide({ title, text, to }: { title: string; text?: string;
   return to ? <Link to={to} className="banner-slide banner-slide--link">{body}</Link> : <div className="banner-slide">{body}</div>
 }
 
-type CategoryNavProps = ScrollerProps & { label: string; items: string[]; onSelect: (item: string) => void; end?: ReactNode }
+// The category strip: each item is a link; the one for the page you are in is marked.
+type CategoryNavProps = ScrollerProps & { label: string; items: { label: string; to: string; active?: boolean }[]; end?: ReactNode }
 
-export function CategoryNav({ label, items, onSelect, end, prevLabel, nextLabel }: CategoryNavProps) {
+export function CategoryNav({ label, items, end, prevLabel, nextLabel }: CategoryNavProps) {
   const { ref, page, pages, measure, by } = useScroller()
   return (
     <nav className="category-nav" aria-label={label}>
       <div className="category-nav__inner">
         {pages > 1 && <button type="button" className="category-nav__arrow" aria-label={prevLabel} disabled={page === 0} onClick={() => by(-1)}>‹</button>}
         <div ref={ref} className="category-nav__track" onScroll={measure}>
-          {items.map((item) => (
-            <button key={item} type="button" className="category-nav__link" onClick={() => onSelect(item)}>{item}</button>
+          {items.map((item, i) => (
+            <Link key={`${item.to}-${i}`} to={item.to} className="category-nav__link" aria-current={item.active ? 'page' : undefined}>{item.label}</Link>
           ))}
         </div>
         {pages > 1 && <button type="button" className="category-nav__arrow" aria-label={nextLabel} disabled={page >= pages - 1} onClick={() => by(1)}>›</button>}

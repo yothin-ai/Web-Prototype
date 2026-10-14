@@ -7,7 +7,7 @@ import { CategoryNav, DropdownMenu, IconCircle, Logo, MegaMenu, PromoStrip, Site
 import type { MenuNode } from '../../datasets/types'
 import { useProfile } from './account'
 import { branchById, branches, useBranch } from './branches'
-import { useGoCategory, useCategoryLink } from './category'
+import { findPathByLabel, useCategoryLink, useCategoryTo } from './category'
 import { f } from './footer'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
@@ -35,7 +35,10 @@ export function Storefront({ children }: { children: ReactNode }) {
   const { dataset } = useDataset()
   const { pathname, search } = useLocation()
   const goSearch = useGoSearch()
-  const goCategory = useGoCategory()
+  const categoryTo = useCategoryTo()
+  // The top-level category of the page being viewed (/category/3-1-2 is category 3), if any.
+  const onCategory = pathname.match(/\/category\/(\d+)/)
+  const activeCategory = onCategory ? Number(onCategory[1]) : null
   const categoryLink = useCategoryLink()
   const navigate = useNavigate()
   const [params] = useSearchParams()
@@ -137,8 +140,7 @@ export function Storefront({ children }: { children: ReactNode }) {
       />
       <CategoryNav
         label={t(s.categoriesButton)}
-        items={home.categories.map((c) => t(c))}
-        onSelect={goCategory}
+        items={home.categories.map((c) => ({ label: t(c), to: categoryTo(t(c)), active: activeCategory !== null && findPathByLabel(home.menu, t(c))?.[0] === activeCategory }))}
         prevLabel={t(s.scrollPrev)}
         nextLabel={t(s.scrollNext)}
       />

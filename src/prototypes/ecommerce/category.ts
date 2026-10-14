@@ -1,9 +1,9 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useDataset } from '../../datasets/DatasetContext'
 import type { MenuNode, Product } from '../../datasets/types'
 import type { Localized } from '../../i18n'
 import { PROTOTYPE_ID } from './cart'
-import { useGoSearch } from './Storefront'
+import { withQuery } from './Storefront'
 
 // A category page is addressed by positions in the menu tree, e.g. "3-1-2".
 export const pathToSlug = (path: number[]) => path.join('-')
@@ -59,16 +59,14 @@ export function useCategoryLink() {
   return (path: number[]) => `/${PROTOTYPE_ID}/category/${pathToSlug(path)}${search}`
 }
 
-// Opens the category page whose name matches `label`, or searches for it when no category does.
-export function useGoCategory() {
+// The address of the category page whose name matches `label`, or of a search for it when none does.
+export function useCategoryTo() {
   const { dataset } = useDataset()
-  const navigate = useNavigate()
+  const { search } = useLocation()
   const link = useCategoryLink()
-  const goSearch = useGoSearch()
   return (label: string) => {
     const path = findPathByLabel(dataset.ecommerce.home.menu, label)
-    if (path) navigate(link(path))
-    else goSearch(label)
+    return path ? link(path) : `/${PROTOTYPE_ID}/products${withQuery(search, 'q', label)}`
   }
 }
 

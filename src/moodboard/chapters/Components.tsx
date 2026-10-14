@@ -197,8 +197,7 @@ export function Components() {
           <p className="mb-caption">{t(text.categoryNav)}</p>
           <CategoryNav
             label={t(text.categoryNav)}
-            items={[t(text.cat1), t(text.cat2), t(text.cat3)]}
-            onSelect={() => {}}
+            items={[{ label: t(text.cat1), to: '/moodboard', active: true }, { label: t(text.cat2), to: '/moodboard' }, { label: t(text.cat3), to: '/moodboard' }]}
             prevLabel={t(text.scrollPrev)}
             nextLabel={t(text.scrollNext)}
             end={<Button size="sm"><IconCircle size="sm" />{t(text.askAi)}</Button>}

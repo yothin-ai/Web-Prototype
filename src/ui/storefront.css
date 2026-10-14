@@ -31,7 +31,8 @@
 .category-nav__inner { display: flex; align-items: center; gap: var(--space-2); max-width: var(--grid-max-width); margin-inline: auto; padding: var(--space-2) var(--space-4); }
 .category-nav__track { display: flex; flex: 1; gap: var(--space-1); overflow-x: auto; scrollbar-width: none; min-width: 0; }
 .category-nav__track::-webkit-scrollbar { display: none; }
-.category-nav__link { flex: none; padding: var(--space-2) var(--space-3); border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-sm); white-space: nowrap; cursor: pointer; }
+.category-nav__link { flex: none; padding: var(--space-2) var(--space-3); border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-sm); white-space: nowrap; text-decoration: none; cursor: pointer; }
+.category-nav__link[aria-current='page'] { background: var(--color-accent-soft); color: var(--color-accent); font-weight: var(--font-weight-bold); }
 .category-nav__link:hover { background: var(--color-accent-soft); color: var(--color-accent); }
 .category-nav__arrow { flex: none; width: var(--space-6); height: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-text); font: inherit; line-height: 1; cursor: pointer; }
 .category-nav__arrow:disabled { opacity: 0.4; cursor: default; }
@@ -94,7 +95,10 @@
 .flash-card .btn { margin-top: auto; }
 
 .category-tile { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-2); width: 100%; padding: 0; border: 0; background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-sm); text-align: center; cursor: pointer; }
+.category-tile { text-decoration: none; }
 .category-tile .product-image { font-size: var(--font-size-xl); }
+.category-tile:hover span, .category-tile:focus-visible span { color: var(--color-accent); }
+.category-tile:hover .product-image, .category-tile:focus-visible .product-image { box-shadow: 0 0 0 2px var(--color-accent); }
 
 .tile-mosaic__grid { display: grid; gap: var(--space-3); grid-auto-rows: minmax(160px, 1fr); }
 .tile { position: relative; display: flex; align-items: flex-end; min-height: 160px; padding: 0; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-alt); color: var(--color-text); font: inherit; cursor: pointer; }
