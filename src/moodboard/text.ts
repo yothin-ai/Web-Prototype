@@ -316,6 +316,8 @@ export const text = {
   articleH2: { th: 'เช็กง่าย ๆ', en: 'A quick check' },
   articleLi: { th: 'รายการตัวอย่าง', en: 'A sample item' },
   articleRule: { th: 'เนื้อหาบทความทุกหน้าต้องอยู่ใน ArticleBody ห้ามจัดตัวอักษรเอง', en: 'All article text goes inside ArticleBody; never style article text by hand.' },
+  c421: { th: 'ไทล์ชื่อซ้อนบนรูป', en: 'Tile with the name on the picture' },
+  c421Note: { th: 'ใช้กับรายการงานในหน้า "ช้อปตามงาน" ชื่ออยู่บนแถบเข้มโปร่งทับด้านล่างของรูป', en: 'Used for the jobs list: the name sits on a translucent dark band over the bottom of the picture.' },
   c414: { th: 'แถวข้อมูลที่แก้ไขได้', en: 'Editable data row' },
   c414Note: { th: 'แถวข้อมูลที่กดแล้วแก้ไขได้ในที่เดิม', en: 'A data row that edits in place.' },
   c415: { th: 'ส่วนประกอบหน้าบัญชี', en: 'Account page blocks' },

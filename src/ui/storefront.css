@@ -276,6 +276,9 @@
 .category-card__body { display: flex; flex: 2 1 calc(var(--space-8) * 4); flex-direction: column; gap: var(--space-3); padding: var(--space-5); min-width: 0; }
 .category-card__action { margin-top: auto; align-self: flex-end; }
 .category-tile-link { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); text-align: center; text-decoration: none; }
+.category-tile-link--overlay { position: relative; padding: 0; overflow: hidden; }
+.category-tile-link--overlay .product-image { border-radius: 0; }
+.category-tile-link--overlay strong { position: absolute; inset-inline: 0; bottom: 0; padding: var(--space-2) var(--space-3); background: color-mix(in srgb, var(--color-text) 80%, transparent); color: var(--color-surface); font-size: var(--font-size-sm); text-align: start; }
 .category-pills { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .category-pills__link { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-4) var(--space-1) var(--space-1); border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-text); font-size: var(--font-size-sm); text-decoration: none; }
 .category-pills__link[aria-current='page'] { border-color: var(--color-text); background: var(--color-text); color: var(--color-surface); }

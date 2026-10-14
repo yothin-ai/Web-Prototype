@@ -17,9 +17,10 @@ export function CategoryCard({ title, text, actionLabel, to, thumb }: { title: s
 }
 
 // A small card for one item inside a subcategory: picture above, name below.
-export function CategoryTile({ title, to, thumb }: { title: string; to: string; thumb: ReactNode }) {
+// With `overlay` the name sits on a dark band over the picture instead of under it.
+export function CategoryTile({ title, to, thumb, overlay }: { title: string; to: string; thumb: ReactNode; overlay?: boolean }) {
   return (
-    <Link to={to} className="category-tile-link">
+    <Link to={to} className={`category-tile-link${overlay ? ' category-tile-link--overlay' : ''}`}>
       {thumb}
       <strong>{title}</strong>
     </Link>

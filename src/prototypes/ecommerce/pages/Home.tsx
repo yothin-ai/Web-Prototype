@@ -133,10 +133,10 @@ export function Home() {
       </div>
 
       <div className="storefront-section">
-        <SectionHeader title={t(home.jobsTitle)} action={<Button to={`${base}/products${search}`} size="sm">{t(s.viewAll)}</Button>} />
+        <SectionHeader title={t(home.jobsTitle)} action={<Button to={`${base}/jobs${search}`} size="sm">{t(s.viewAll)}</Button>} />
         <Carousel label={t(s.jobsRow)} dots prevLabel={prev} nextLabel={next}>
           {chunk(home.jobs, 9).map((page, i) => (
-            <TileMosaic key={i} tiles={page.map((j) => t(j))} onSelect={goCategory} />
+            <TileMosaic key={i} tiles={page.map((j) => t(j))} onSelect={(label) => navigate(`${base}/job/${Math.max(0, home.jobs.findIndex((j) => t(j) === label))}${search}`)} />
           ))}
         </Carousel>
       </div>

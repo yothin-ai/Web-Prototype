@@ -481,6 +481,12 @@ export function Components() {
           <p className="muted">{t(text.articleRule)}</p>
         </div>
       </Block>
+      <Block number="4.21" title={t(text.c421)} note={t(text.c421Note)}>
+        <div className="listing-grid">
+          <CategoryTile overlay title={t(text.sampleName)} to="/moodboard" thumb={<ProductImage label={t(text.sampleName)} />} />
+          <CategoryTile overlay title={t(text.longName)} to="/moodboard" thumb={<ProductImage label={t(text.sampleName)} />} />
+        </div>
+      </Block>
     </Chapter>
   )
 }
