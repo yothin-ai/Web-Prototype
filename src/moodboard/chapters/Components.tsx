@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, Modal, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -11,6 +11,7 @@ import { text } from '../text'
 
 export function Components() {
   const { t } = useLang()
+  const [modalOpen, setModalOpen] = useState(false)
   const [qty, setQty] = useState(1)
   const [choice, setChoice] = useState('a')
   const [switched, setSwitched] = useState(false)
@@ -525,6 +526,16 @@ export function Components() {
             </div>
           </Card>
         </div>
+      </Block>
+      <Block number="4.24" title={t(text.c424)} note={t(text.c424Note)}>
+        <Button variant="secondary" onClick={() => setModalOpen(true)}>{t(text.c424Open)}</Button>
+        <Modal open={modalOpen} onClose={() => setModalOpen(false)} label={t(text.c424Title)} closeLabel={t(text.c424Close)}>
+          <div className="stack">
+            <h3>{t(text.c424Title)}</h3>
+            <span className="muted">{t(text.c424Body)}</span>
+            <Button onClick={() => setModalOpen(false)}>{t(text.c424Close)}</Button>
+          </div>
+        </Modal>
       </Block>
     </Chapter>
   )

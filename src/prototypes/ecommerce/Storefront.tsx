@@ -13,6 +13,7 @@ import { f } from './footer'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
+import { AuthModal } from './pages/AuthModal'
 
 // Adds or replaces the search term while keeping other query parameters such as ?clean=1.
 export const withQuery = (search: string, key: string, value: string) => {
@@ -83,6 +84,7 @@ export function Storefront({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <AuthModal />
       <PromoStrip>{t(home.promoStrip)}</PromoStrip>
       <UtilityBar
         items={[
@@ -117,7 +119,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         searchLabel={t(s.searchButton)}
         initialQuery={params.get('q') ?? ''}
         onSearch={goSearch}
-        account={signedIn ? { label: t(s.account), sub: profile.name || t(dataset.ecommerce.account.name), to: `${base}/account${withQuery(search, 'q', '')}` } : { label: t(u.headerSignIn), sub: t(u.headerRegister), to: `${base}/login${withQuery(search, 'q', '')}` }}
+        account={signedIn ? { label: t(s.account), sub: profile.name || t(dataset.ecommerce.account.name), to: `${base}/account${withQuery(search, 'q', '')}` } : { label: t(u.headerSignIn), sub: t(u.headerRegister), to: `${pathname}${withQuery(search, 'auth', 'login')}` }}
         menu={{
           open: menuOpen,
           onToggle: () => setMenuOpen((o) => !o),
@@ -159,7 +161,7 @@ export function Storefront({ children }: { children: ReactNode }) {
           {
             title: t(f.accountTitle),
             links: [
-              { label: t(f.signInMember), to: signedIn ? `${base}/account${search}` : `${base}/login${search}` },
+              { label: t(f.signInMember), to: signedIn ? `${base}/account${search}` : `${pathname}${withQuery(search, 'auth', 'login')}` },
               { label: t(f.profile), to: `${base}/account/profile${search}` },
               { label: t(f.orders), to: `${base}/orders${search}` },
               { label: t(f.addresses), to: `${base}/account/addresses${search}` },

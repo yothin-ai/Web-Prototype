@@ -7,6 +7,7 @@ export const u = {
   loginSub: { th: 'เข้าสู่ระบบเพื่อดูคำสั่งซื้อ จัดการที่อยู่ และรับสิทธิพิเศษสำหรับสมาชิก', en: 'Sign in to see your orders, manage addresses and get member perks' },
   google: { th: 'เข้าสู่ระบบด้วย Google', en: 'Sign in with Google' },
   googleNote: { th: 'จำลอง: เข้าสู่ระบบเป็นผู้ใช้ตัวอย่าง ไม่เชื่อมต่อ Google จริง', en: 'Simulated: signs in as the sample shopper, with no real Google connection' },
+  closeModal: { th: 'ปิดหน้าต่าง', en: 'Close' },
   or: { th: 'หรือ', en: 'or' },
   tabPhone: { th: 'เบอร์โทร (OTP)', en: 'Phone (OTP)' },
   tabEmail: { th: 'อีเมล + รหัสผ่าน', en: 'Email + password' },
