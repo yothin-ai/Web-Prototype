@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, ArticleBody, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -484,6 +484,33 @@ export function Components() {
         <div className="listing-grid">
           <CategoryTile overlay title={t(text.sampleName)} to="/moodboard" thumb={<ProductImage label={t(text.sampleName)} />} />
           <CategoryTile overlay title={t(text.longName)} to="/moodboard" thumb={<ProductImage label={t(text.sampleName)} />} />
+        </div>
+      </Block>
+      <Block number="4.22" title={t(text.c422)} note={t(text.c422Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.statusHeader)}</p>
+          <StatusHeader icon="package" kicker="ORDER IN PROGRESS" title={t(text.orderInProgress)} text={t(text.orderText)} orderLabel="ORDER #" orderId="ORD-1001" date="12 ต.ค. 2569" />
+          <p className="mb-caption">{t(text.orderTimeline)}</p>
+          <OrderTimeline label={t(text.orderTimeline)} steps={[
+            { label: t(text.stepA), state: 'done', icon: 'cart' },
+            { label: t(text.stepB), state: 'done', icon: 'card' },
+            { label: t(text.stepC), state: 'current', icon: 'package' },
+            { label: t(text.stepD), state: 'todo', icon: 'truck' },
+            { label: t(text.stepE), state: 'cancelled', icon: 'close' },
+          ]} />
+          <p className="mb-caption">{t(text.orderCard)}</p>
+          <OrderCard
+            id="ORD-1001"
+            status={t(text.orderInProgress)}
+            statusTone="warning"
+            sampleLabel={t(text.sampleWord)}
+            date="12 ต.ค. 2569 20:16"
+            size={`2 ${t(text.piecesWord)} · 2 ${t(text.itemsWord)}`}
+            totalLabel={t(text.netTotalWord)}
+            total="฿6,602"
+            thumbs={<><ProductImage label={t(text.sampleName)} square /><ProductImage label={t(text.sampleName)} square /></>}
+            actions={<><Button size="sm" icon="card">{t(text.payAgainWord)}</Button><Button size="sm" variant="secondary" icon="view">{t(text.viewDetailWord)}</Button></>}
+          />
         </div>
       </Block>
     </Chapter>

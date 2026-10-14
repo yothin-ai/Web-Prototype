@@ -10,11 +10,14 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   to?: string
   // A Lucide icon drawn before the label, in the label's colour.
   icon?: IconName
+  // An address outside the app (tel:, mailto:); the button then renders as a link.
+  href?: string
 }
 
-export function Button({ variant = 'primary', size = 'md', to, icon, className, children, ...rest }: ButtonProps) {
+export function Button({ variant = 'primary', size = 'md', to, href, icon, className, children, ...rest }: ButtonProps) {
   const cls = `btn btn--${variant}${size === 'sm' ? ' btn--sm' : ''}${className ? ` ${className}` : ''}`
   const body = <>{icon && <Icon name={icon} size="sm" />}{children}</>
+  if (href) return <a href={href} className={cls}>{body}</a>
   if (to) return <Link to={to} className={cls}>{body}</Link>
   return <button type="button" className={cls} {...rest}>{body}</button>
 }
@@ -196,3 +199,4 @@ export * from './category'
 export * from './dropdown'
 export * from './icon'
 export * from './article'
+export * from './order'

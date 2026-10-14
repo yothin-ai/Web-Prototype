@@ -30,25 +30,33 @@ export function couponDiscount(coupon: Coupon | undefined, subtotal: number, shi
   return { items: 0, shipping: fulfil === 'parcel' ? shipping : 0 }
 }
 
-export const usePending = () => useDemoState<Order | null>(PROTOTYPE_ID, 'pending', null)
 export type SavedAddress = Address & { id: string; main: boolean }
 // Any number of saved addresses; exactly one is the main one while the list is not empty.
 export const useAddresses = () => useDemoState<SavedAddress[]>(PROTOTYPE_ID, 'addresses', [])
 export const pickAddress = (list: SavedAddress[], id?: string) => list.find((x) => x.id === id) ?? list.find((x) => x.main) ?? list[0]
 export const useClubLinked = () => useDemoState<boolean>(PROTOTYPE_ID, 'club', false)
 
-// Turns a draft into a real order: numbers it, stores it, empties the cart.
+// Turns a draft into a real order: numbers it, stores it (with the status the draft carries,
+// "preparing" when it has none), and takes the bought lines out of the cart.
 export function useCommitOrder() {
   const [, setOrders] = useOrders()
   const [, setCart] = useCart()
-  const [, setPending] = usePending()
   return (draft: Order): Order => {
     const current = readDemoState<Order[]>(PROTOTYPE_ID, 'orders', [])
-    const order: Order = { ...draft, id: `ORD-${1001 + current.length}`, placedAt: new Date().toISOString() }
+    const own = current.filter((o) => !o.sample).length
+    const order: Order = { ...draft, id: `ORD-${1001 + own}`, placedAt: new Date().toISOString(), status: draft.status ?? 'preparing' }
     setOrders([order, ...current])
     const left = readDemoState<CartLine[]>(PROTOTYPE_ID, 'cart', []).filter((l) => !draft.lines.some((x) => x.productId === l.productId))
     setCart(left)
-    setPending(null)
     return order
+  }
+}
+
+// Marks a waiting-for-payment order as paid, so it moves on to "preparing".
+export function usePayOrder() {
+  const [, setOrders] = useOrders()
+  return (id: string) => {
+    const current = readDemoState<Order[]>(PROTOTYPE_ID, 'orders', [])
+    setOrders(current.map((o) => (o.id === id && o.status === 'pending' ? { ...o, status: 'preparing' as const } : o)))
   }
 }

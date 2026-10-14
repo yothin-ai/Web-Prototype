@@ -7,7 +7,7 @@ import {
 } from '../../../ui'
 import { cartCount, cartSubtotal, formatMoney, PROTOTYPE_ID, useChosenCart, useEcommerce, type Order } from '../cart'
 import {
-  couponDiscount, needsPaymentPage, paymentOptions, payTypeFromParam, useClubLinked, useCommitOrder, usePending, useAddresses, pickAddress,
+  couponDiscount, needsPaymentPage, paymentOptions, payTypeFromParam, useClubLinked, useCommitOrder, useAddresses, pickAddress,
   type Fulfilment, type PayId,
 } from '../checkout'
 import { a } from '../accountStrings'
@@ -31,7 +31,6 @@ export function Checkout() {
   const { home, store, checkout } = dataset.ecommerce
   const { productById, shippingMethods } = useEcommerce()
   const { chosen: cart } = useChosenCart()
-  const [, setPending] = usePending()
   const commit = useCommitOrder()
   const [addresses] = useAddresses()
   const [addressId, setAddressId] = useState('')
@@ -120,14 +119,11 @@ export function Checkout() {
       points,
       installment: activePay === 'card' && months > 0 ? { months, monthly: Math.ceil(net / months) } : undefined,
     }
-    if (needsPaymentPage(activePay as PayId)) {
-      setPending(draft)
-      navigate(`${base}/pay${search}`)
-    } else {
-      placed.current = true
-      const order = commit(draft)
-      navigate(`${base}/done/${order.id}${search}`)
-    }
+    // Card, PromptPay and transfer wait for payment on the pay page; the others are placed straight away.
+    const toPay = needsPaymentPage(activePay as PayId)
+    placed.current = true
+    const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax })
+    navigate(toPay ? `${base}/pay/${order.id}${search}` : `${base}/done/${order.id}${search}`)
   }
 
   const err = (cond: boolean, message: string) => (attempted && cond ? message : undefined)

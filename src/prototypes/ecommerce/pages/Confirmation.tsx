@@ -3,6 +3,7 @@ import { useLang } from '../../../i18n'
 import { StepPill, Badge, Button, Card, Col, Grid } from '../../../ui'
 import { PROTOTYPE_ID, useOrders } from '../cart'
 import { c } from '../checkoutStrings'
+import { o as ot } from '../orderStrings'
 import { s } from '../strings'
 import { OrderSummary } from './OrderSummary'
 
@@ -30,8 +31,9 @@ export function Confirmation() {
             <h3>{t(s.notFoundOrder)}</h3>
           )}
           <div className="row">
-            <Button to={`${base}/orders${search}`}>{t(s.viewOrders)}</Button>
-            <Button to={`${base}${search}`} variant="secondary">{t(s.continueShopping)}</Button>
+            {order && <Button to={`${base}/orders/${order.id}${search}`} icon="view">{t(ot.viewMyOrder)}</Button>}
+            <Button to={`${base}/orders${search}`} variant="secondary">{t(s.viewOrders)}</Button>
+            <Button to={`${base}${search}`} variant="ghost">{t(s.continueShopping)}</Button>
           </div>
         </Card>
       </Col>

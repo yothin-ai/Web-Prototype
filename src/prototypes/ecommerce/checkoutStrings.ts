@@ -134,8 +134,9 @@ export const c = {
   accountName: { th: 'ชื่อบัญชี', en: 'Account name' },
   accountNumber: { th: 'เลขที่บัญชี', en: 'Account number' },
   paidDemo: { th: 'ชำระแล้ว (จำลอง)', en: 'I have paid (simulated)' },
-  backToCheckout: { th: '← กลับไปแก้ไขคำสั่งซื้อ', en: '← Back to the order' },
-  noPending: { th: 'ไม่มีคำสั่งซื้อที่รอชำระเงิน', en: 'There is no order waiting for payment' },
+  payLater: { th: 'ชำระภายหลัง', en: 'Pay later' },
+  viewOrders: { th: 'ดูคำสั่งซื้อของฉัน', en: 'View my orders' },
+  noPending: { th: 'ไม่พบคำสั่งซื้อที่รอชำระเงิน', en: 'No order waiting for payment was found' },
   pickupAtBranch: { th: 'รับที่สาขา', en: 'Pick up in store' },
   installLine: { th: 'ผ่อน 0%', en: '0% instalments' },
 } satisfies Record<string, Localized>

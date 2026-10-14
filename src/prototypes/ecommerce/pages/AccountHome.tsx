@@ -1,9 +1,10 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { Badge, Button, Card, DataRow, ShortcutCard, StatCard, MemberBanner } from '../../../ui'
 import { a } from '../accountStrings'
-import { formatDate, formatMoney, PROTOTYPE_ID, useOrders } from '../cart'
+import { formatDate, formatMoney, PROTOTYPE_ID } from '../cart'
+import { useOrderBook } from '../orders'
 import { useClubLinked } from '../checkout'
 import { AccountShell, useAccountIdentity } from './AccountShell'
 
@@ -12,7 +13,7 @@ export function AccountHome() {
   const { search } = useLocation()
   const { dataset } = useDataset()
   const { account, checkout } = dataset.ecommerce
-  const [orders] = useOrders()
+  const [orders] = useOrderBook()
   const [linked, setLinked] = useClubLinked()
   const who = useAccountIdentity()
   const base = `/${PROTOTYPE_ID}`
@@ -49,7 +50,7 @@ export function AccountHome() {
               <div><Button to={`${base}${search}`} variant="ghost" size="sm">{t(a.startShopping)}</Button></div>
             </div>
           ) : latest.map((o) => (
-            <DataRow key={o.id} label={<span className="stack"><strong>{o.id}</strong><span className="muted">{formatDate(o.placedAt, lang)}</span></span>} value={formatMoney(o.total, lang)} />
+            <DataRow key={o.id} label={<span className="stack"><Link to={`${base}/orders/${o.id}${search}`} className="card-link"><strong>{o.id}</strong></Link><span className="muted">{formatDate(o.placedAt, lang)}</span></span>} value={formatMoney(o.total, lang)} />
           ))}
         </Card>
         <Card>

@@ -7,6 +7,8 @@ export const PROTOTYPE_ID = 'ecommerce'
 
 // `selected` is false when the shopper un-ticks a line in the cart; a missing value counts as ticked.
 export type CartLine = { productId: string; qty: number; selected?: boolean }
+// Where an order stands. A missing status (orders made before statuses existed) counts as 'preparing'.
+export type OrderStatus = 'pending' | 'preparing' | 'ready' | 'delivered' | 'cancelled'
 export type Order = {
   id: string
   placedAt: string
@@ -23,6 +25,9 @@ export type Order = {
   couponTitle?: Localized
   points?: number
   installment?: { months: number; monthly: number }
+  status?: OrderStatus
+  etax?: boolean
+  sample?: boolean
 }
 
 export const useEcommerce = () => {

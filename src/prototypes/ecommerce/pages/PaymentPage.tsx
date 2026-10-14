@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { Button, Card, Col, Countdown, DataRow, Field, Grid, Notice, StepPill } from '../../../ui'
-import { formatMoney, PROTOTYPE_ID } from '../cart'
-import { findPayment, useCommitOrder, usePending } from '../checkout'
+import { formatMoney, PROTOTYPE_ID, useOrders } from '../cart'
+import { findPayment, usePayOrder } from '../checkout'
 import { c } from '../checkoutStrings'
 import '../checkout.css'
 
@@ -16,31 +16,31 @@ export function PaymentPage() {
   const navigate = useNavigate()
   const { dataset } = useDataset()
   const { checkout } = dataset.ecommerce
-  const [pending] = usePending()
-  const commit = useCommitOrder()
-  const placed = useRef(false)
+  const { orderId } = useParams()
+  const [orders] = useOrders()
+  const payOrder = usePayOrder()
+  // The order already exists, waiting for payment; this page only takes the (simulated) payment.
+  const pending = orders.find((o) => o.id === orderId)
   const [otp, setOtp] = useState('')
   const base = `/${PROTOTYPE_ID}`
 
-  if (!pending && !placed.current) {
+  if (!pending) {
     return (
       <Grid>
         <Col span={{ base: 4, sm: 8, md: 8 }}>
           <Card>
             <h3>{t(c.noPending)}</h3>
-            <div><Button to={`${base}/cart${search}`}>{t(c.stepCart)}</Button></div>
+            <div><Button to={`${base}/orders${search}`}>{t(c.viewOrders)}</Button></div>
           </Card>
         </Col>
       </Grid>
     )
   }
-  if (!pending) return null
 
   const method = findPayment(pending.paymentId)
   const paid = () => {
-    placed.current = true
-    const order = commit(pending)
-    navigate(`${base}/done/${order.id}${search}`)
+    payOrder(pending.id)
+    navigate(`${base}/done/${pending.id}${search}`)
   }
 
   return (
@@ -80,7 +80,7 @@ export function PaymentPage() {
 
           <div className="row">
             <Button onClick={paid}>{t(c.paidDemo)}</Button>
-            <Button to={`${base}/checkout${search}`} variant="ghost">{t(c.backToCheckout)}</Button>
+            <Button to={`${base}/orders/${pending.id}${search}`} variant="ghost">{t(c.payLater)}</Button>
           </div>
         </Card>
       </Col>

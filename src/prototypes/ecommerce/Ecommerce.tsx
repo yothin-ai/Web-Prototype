@@ -16,6 +16,7 @@ import { IdeasPage } from './pages/IdeasPage'
 import { JobPage } from './pages/JobPage'
 import { JobsPage } from './pages/JobsPage'
 import { InfoPage } from './pages/InfoPage'
+import { OrderDetailPage } from './pages/OrderDetailPage'
 import { OrdersPage } from './pages/OrdersPage'
 import { ProductPage } from './pages/ProductPage'
 import { SoonPage } from './pages/SoonPage'
@@ -32,7 +33,7 @@ export function Ecommerce() {
         <Route path="product/:productId" element={<ProductPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="checkout" element={<Checkout />} />
-        <Route path="pay" element={<PaymentPage />} />
+        <Route path="pay/:orderId" element={<PaymentPage />} />
         <Route path="done/:orderId" element={<Confirmation />} />
         <Route path="account" element={<AccountHome />} />
         <Route path="account/profile" element={<AccountPage />} />
@@ -50,6 +51,7 @@ export function Ecommerce() {
         <Route path="brand/:index" element={<BrandPage />} />
         <Route path="soon" element={<SoonPage />} />
         <Route path="orders" element={<OrdersPage />} />
+        <Route path="orders/:orderId" element={<OrderDetailPage />} />
       </Routes>
     </Storefront>
   )
