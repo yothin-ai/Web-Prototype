@@ -537,6 +537,25 @@ export function Components() {
           </div>
         </Modal>
       </Block>
+      <Block number="4.25" title={t(text.c425)} note={t(text.c425Note)}>
+        <Grid>
+          <Col span={{ base: 4, sm: 8, md: 4 }}>
+            <Card>
+              <div className="stack">
+                <h3>{t(text.c425Toc)}</h3>
+                <Button variant="ghost" size="sm" className="legal-toc__link">1. {t(text.c425S1)}</Button>
+                <Button variant="ghost" size="sm" className="legal-toc__link">2. {t(text.c425S2)}</Button>
+              </div>
+            </Card>
+          </Col>
+          <Col span={{ base: 4, sm: 8, md: 8 }}>
+            <Card>
+              <div className="stack"><h2>1. {t(text.c425S1)}</h2><p>{t(text.c425P)}</p></div>
+              <div className="stack"><h2>2. {t(text.c425S2)}</h2><p>{t(text.c425P)}</p></div>
+            </Card>
+          </Col>
+        </Grid>
+      </Block>
     </Chapter>
   )
 }

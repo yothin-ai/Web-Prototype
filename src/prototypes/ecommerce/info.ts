@@ -1,7 +1,8 @@
 import type { Localized } from '../../i18n'
+import { cctvSections, cookieSections, privacyRequestSections, privacySections, returnsSections, termsSections } from './legalContent'
 
 export type InfoSection = { heading?: Localized; paragraphs?: Localized[]; faq?: { q: Localized; a: Localized }[] }
-export type InfoPageDef = { slug: string; group: 'about' | 'help' | 'legal'; title: Localized; sections: InfoSection[] }
+export type InfoPageDef = { slug: string; group: 'about' | 'help' | 'legal'; title: Localized; sections: InfoSection[]; legal?: boolean }
 
 const p = (th: string, en: string): Localized => ({ th, en })
 
@@ -51,24 +52,12 @@ export const infoPages: InfoPageDef[] = [
   { slug: 'installment', group: 'help', title: p('ผ่อนชำระบัตรเครดิต', 'Credit card instalments'), sections: [
     { paragraphs: [p('ผ่อน 0% นาน 3, 6 หรือ 10 เดือน เมื่อยอดชำระตั้งแต่ ฿3,000 กับธนาคารที่ร่วมรายการ (ตัวอย่าง)', '0% instalments over 3, 6 or 10 months when you pay ฿3,000 or more with a taking-part bank (sample).')] },
   ] },
-  { slug: 'returns', group: 'legal', title: p('เงื่อนไขการเปลี่ยน – คืนสินค้า', 'Exchange and return terms'), sections: [
-    { paragraphs: [p('สินค้าที่ไม่ได้ใช้งานและมีบรรจุภัณฑ์ครบ เปลี่ยนหรือคืนได้ภายใน 30 วันนับจากวันที่รับสินค้า (ข้อความตัวอย่าง)', 'Unused items in full packaging can be exchanged or returned within 30 days of receipt (sample text).')] },
-  ] },
-  { slug: 'privacy', group: 'legal', title: p('นโยบายความเป็นส่วนตัว', 'Privacy policy'), sections: [
-    { paragraphs: [p('เดโมนี้ไม่ส่งข้อมูลของคุณไปที่ใด ข้อมูลที่กรอกเก็บไว้ในเบราว์เซอร์นี้เท่านั้น (ข้อความตัวอย่าง)', 'This demo sends your data nowhere; what you enter stays in this browser (sample text).')] },
-  ] },
-  { slug: 'cookie', group: 'legal', title: p('นโยบายคุกกี้', 'Cookie policy'), sections: [
-    { paragraphs: [p('เดโมนี้ใช้พื้นที่เก็บข้อมูลของเบราว์เซอร์เพื่อจำตะกร้าและภาษาที่เลือกเท่านั้น (ข้อความตัวอย่าง)', 'This demo uses browser storage only to remember your cart and chosen language (sample text).')] },
-  ] },
-  { slug: 'terms', group: 'legal', title: p('ข้อตกลงและเงื่อนไข', 'Terms and conditions'), sections: [
-    { paragraphs: [p('เว็บไซต์นี้เป็นต้นแบบเพื่อการนำเสนอ ไม่มีการซื้อขายจริง (ข้อความตัวอย่าง)', 'This site is a presentation prototype; no real sales take place (sample text).')] },
-  ] },
-  { slug: 'cctv', group: 'legal', title: p('นโยบายความเป็นส่วนตัวในการใช้กล้องวงจรปิด', 'CCTV privacy policy'), sections: [
-    { paragraphs: [p('สาขาตัวอย่างอาจใช้กล้องวงจรปิดเพื่อความปลอดภัย โดยเก็บภาพตามระยะเวลาที่กำหนด (ข้อความตัวอย่าง)', 'Sample stores may use CCTV for safety and keep footage for a set period (sample text).')] },
-  ] },
-  { slug: 'privacy-request', group: 'legal', title: p('คำร้องขอใช้สิทธิ', 'Data rights requests'), sections: [
-    { paragraphs: [p('คุณขอเข้าถึง แก้ไข หรือลบข้อมูลส่วนบุคคลของคุณได้โดยส่งคำร้องถึงเจ้าหน้าที่คุ้มครองข้อมูล (ข้อความตัวอย่าง)', 'You can ask to access, correct or delete your personal data by writing to the data protection officer (sample text).')] },
-  ] },
+  { slug: 'returns', group: 'legal', title: p('เงื่อนไขการเปลี่ยน – คืนสินค้า', 'Exchange and return terms'), legal: true, sections: returnsSections },
+  { slug: 'privacy', group: 'legal', title: p('นโยบายความเป็นส่วนตัว', 'Privacy policy'), legal: true, sections: privacySections },
+  { slug: 'cookie', group: 'legal', title: p('นโยบายคุกกี้', 'Cookie policy'), legal: true, sections: cookieSections },
+  { slug: 'terms', group: 'legal', title: p('ข้อตกลงและเงื่อนไข', 'Terms and conditions'), legal: true, sections: termsSections },
+  { slug: 'cctv', group: 'legal', title: p('นโยบายความเป็นส่วนตัวในการใช้กล้องวงจรปิด', 'CCTV privacy policy'), legal: true, sections: cctvSections },
+  { slug: 'privacy-request', group: 'legal', title: p('คำร้องขอใช้สิทธิ', 'Data rights requests'), legal: true, sections: privacyRequestSections },
   { slug: 'complaint', group: 'help', title: p('ร้องเรียนเกี่ยวกับบริการ', 'Service complaints'), sections: [
     { paragraphs: [p('แจ้งปัญหาการใช้บริการได้ที่ complaint@example.com หรือโทร 0-0000-0000 ทีมงานจะติดต่อกลับภายใน 2 วันทำการ (ข้อมูลตัวอย่าง)', 'Report a service problem at complaint@example.com or call 0-0000-0000; we reply within 2 working days (sample details).')] },
   ] },

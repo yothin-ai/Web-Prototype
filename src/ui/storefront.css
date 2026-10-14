@@ -372,3 +372,8 @@
 .auth-page { width: 100%; max-width: calc(var(--space-8) * 7); margin-inline: auto; }
 .auth-or { display: flex; align-items: center; gap: var(--space-3); }
 .auth-or::before, .auth-or::after { content: ''; flex: 1; border-top: 1px solid var(--color-border); }
+
+/* Legal pages: a contents card that stays under the header, and sections that stop below it when jumped to. */
+.legal-toc { position: sticky; top: calc(var(--site-header-height, 0px) + var(--space-4)); }
+.legal-toc__link { justify-content: flex-start; text-align: left; height: auto; white-space: normal; }
+.legal-section { scroll-margin-top: calc(var(--site-header-height, 0px) + var(--space-4)); }

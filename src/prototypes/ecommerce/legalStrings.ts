@@ -1,0 +1,27 @@
+import type { Localized } from '../../i18n'
+
+export const lg = {
+  toc: { th: 'สารบัญ', en: 'Contents' },
+  updated: { th: 'มีผลบังคับใช้', en: 'Effective' },
+  version: { th: 'เวอร์ชัน', en: 'Version' },
+  formTitle: { th: 'แบบฟอร์มคำร้องขอใช้สิทธิ', en: 'Data rights request form' },
+  formType: { th: 'สิทธิที่ต้องการใช้', en: 'Right you want to use' },
+  formTypePlaceholder: { th: 'เลือกสิทธิ', en: 'Choose a right' },
+  typeAccess: { th: 'ขอเข้าถึงหรือรับสำเนาข้อมูล', en: 'Access or copy of my data' },
+  typeCorrect: { th: 'ขอแก้ไขข้อมูลให้ถูกต้อง', en: 'Correct my data' },
+  typeDelete: { th: 'ขอลบข้อมูล', en: 'Delete my data' },
+  typeRestrict: { th: 'ขอระงับการใช้ข้อมูล', en: 'Restrict use of my data' },
+  formName: { th: 'ชื่อ-สกุล', en: 'Full name' },
+  formEmail: { th: 'อีเมลที่ใช้ติดต่อกลับ', en: 'Email to reply to' },
+  formDetails: { th: 'รายละเอียดคำร้อง', en: 'Request details' },
+  formDetailsPlaceholder: { th: 'เช่น ขอสำเนาประวัติคำสั่งซื้อทั้งหมด', en: 'For example: a copy of my whole order history' },
+  formSubmit: { th: 'ส่งคำร้อง', en: 'Send request' },
+  errType: { th: 'เลือกสิทธิที่ต้องการใช้', en: 'Choose the right you want to use' },
+  errName: { th: 'กรอกชื่อ-สกุล', en: 'Enter your full name' },
+  errEmail: { th: 'กรอกอีเมลให้ถูกต้อง', en: 'Enter a valid email' },
+  errDetails: { th: 'กรอกรายละเอียดคำร้อง', en: 'Enter the request details' },
+  doneTitle: { th: 'รับคำร้องของคุณแล้ว (จำลอง)', en: 'We received your request (simulated)' },
+  doneRef: { th: 'เลขอ้างอิง', en: 'Reference number' },
+  doneNote: { th: 'ในร้านจริงเราจะตอบกลับทางอีเมลภายใน 30 วัน เดโมนี้ไม่ได้ส่งข้อมูลไปที่ใด', en: 'In a real shop we would reply by email within 30 days. This demo sends nothing anywhere.' },
+  another: { th: 'ส่งคำร้องอื่น', en: 'Send another request' },
+} satisfies Record<string, Localized>
