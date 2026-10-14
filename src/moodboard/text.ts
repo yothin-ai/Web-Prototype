@@ -207,6 +207,7 @@ export const text = {
   siteFooter: { th: 'ส่วนท้ายเว็บ', en: 'Site footer' },
   articleCategory: { th: 'หมวดบทความ', en: 'Article category' },
   articleTitle: { th: 'ชื่อบทความตัวอย่างที่ยาวพอให้ขึ้นหลายบรรทัด', en: 'A sample article title long enough to wrap over several lines' },
+  articleViews: { th: 'ครั้งที่อ่าน', en: 'views' },
   readMore: { th: 'อ่านต่อ', en: 'Read more' },
   benefitTitle: { th: 'หัวข้อที่ให้ความมั่นใจ', en: 'A reassuring headline' },
   benefitText: { th: 'คำอธิบายสั้น ๆ ของร้านและบริการ', en: 'A short description of the store and its services' },

@@ -77,6 +77,7 @@ export const s = {
   back: { th: 'ย้อนกลับ', en: 'Back' },
   menuEmpty: { th: 'ไม่มีรายการย่อยในส่วนนี้ ดูสินค้าทั้งหมดของหมวดนี้ได้ที่ปุ่ม "ดูทั้งหมด"', en: 'There are no further items here. Use "View all" to see everything in this category.' },
   recommendedTitle: { th: 'สินค้าแนะนำ', en: 'Recommended products' },
+  articleViews: { th: 'ครั้งที่อ่าน', en: 'views' },
   readMore: { th: 'อ่านต่อ', en: 'Read more' },
   articlesRow: { th: 'บทความ', en: 'Articles' },
   breadcrumbLabel: { th: 'เส้นทางหน้า', en: 'Breadcrumb' },

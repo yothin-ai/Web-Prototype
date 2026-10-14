@@ -276,7 +276,7 @@ export function Components() {
           <Grid>
             <Col span={{ base: 4, sm: 4, md: 4 }}>
               <p className="mb-caption">{t(text.articleCard)}</p>
-              <ArticleCard category={t(text.articleCategory)} views="4.19k" title={t(text.articleTitle)} readLabel={t(text.readMore)} onRead={() => {}} />
+              <ArticleCard category={t(text.articleCategory)} views="4.19k" viewsLabel={t(text.articleViews)} title={t(text.articleTitle)} readLabel={t(text.readMore)} onRead={() => {}} />
             </Col>
             <Col span={{ base: 4, sm: 4, md: 8 }}>
               <p className="mb-caption">{t(text.benefitBar)}</p>

@@ -341,11 +341,11 @@ export function BrandChip({ name, logo, onSelect }: { name: string; logo?: strin
   )
 }
 
-export function ArticleCard({ category, views, title, readLabel, onRead }: { category: string; views: string; title: string; readLabel: string; onRead: () => void }) {
+export function ArticleCard({ category, views, viewsLabel, title, readLabel, onRead }: { category: string; views: string; viewsLabel: string; title: string; readLabel: string; onRead: () => void }) {
   return (
     <article className="article-card">
       <div className="product-image" role="img" aria-label={title}><span aria-hidden="true">{Array.from(title).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
-      <div className="article-card__meta"><span className="badge">{category}</span><span className="muted">{views}</span></div>
+      <div className="article-card__meta"><span className="badge">{category}</span><span className="article-card__views" title={viewsLabel} aria-label={`${views} ${viewsLabel}`}>{views}<Icon name="view" size="sm" /></span></div>
       <h3 className="article-card__title">{title}</h3>
       <button type="button" className="article-card__read" onClick={onRead}>{readLabel} →</button>
     </article>
