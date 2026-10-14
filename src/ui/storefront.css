@@ -286,8 +286,6 @@
 .listing-filters { flex-direction: column; gap: var(--space-3); }
 .listing-grid { display: grid; gap: var(--space-4); }
 
-.product-card__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: auto; }
-.product-card__foot .row { justify-content: flex-end; }
 
 .dropdown { position: relative; display: flex; align-items: center; }
 .dropdown__trigger { display: inline-flex; align-items: center; gap: var(--space-2); padding: 0; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
@@ -311,3 +309,7 @@
 .social-icon { display: block; width: var(--space-6); height: var(--space-6); border-radius: var(--radius-pill); background: var(--color-surface); }
 .store-badge { display: block; height: var(--space-6); width: auto; }
 .payment-strip { display: block; height: var(--space-6); width: auto; max-width: 100%; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); background: var(--color-surface); }
+
+.product-card { padding: var(--space-4); }
+.product-card__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); margin-top: auto; }
+.product-card__foot .btn { margin-inline-start: auto; padding-inline: var(--space-3); }

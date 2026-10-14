@@ -25,9 +25,6 @@ function gridCss(): string {
   const at = (width: number, css: string) => `@media (min-width: ${width}px) { ${css} }`
   // A tile mosaic reacts to its own width, not the window's, so it fits any column it is placed in.
   const mosaic = [
-    // A product card too narrow for price and button side by side stacks them, button full width.
-    `.product-card { container-type: inline-size; }`,
-    `@container (max-width: 15rem) { .product-card__foot { flex-direction: column; align-items: stretch; } .product-card__foot .btn { width: 100%; } .product-card__foot .row { justify-content: center; } }`,
     `.tile-mosaic { container-type: inline-size; }`,
     `.tile-mosaic__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tile-mosaic__grid > :first-child { grid-column: span 2; }`,
     `@container (min-width: ${breakpoint.sm}px) { .tile-mosaic__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .tile-mosaic__grid > :first-child { grid-row: span 2; } }`,
