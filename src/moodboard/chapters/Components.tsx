@@ -84,22 +84,18 @@ export function Components() {
           <Col span={{ base: 4, sm: 4, md: 4 }}>
             <p className="mb-caption">{t(text.stateDefault)}</p>
             <Card>
-              <ProductImage label={t(text.sampleName)} square />
-              <Badge>{t(text.sampleCategory)}</Badge>
-              <h3>{t(text.sampleName)}</h3>
-              <p className="muted">{t(text.sampleDesc)}</p>
-              <DataRow label={<strong>฿1,200</strong>} value={<Button size="sm">{t(text.add)}</Button>} />
+              <h3>{t(text.cardTitle)}</h3>
+              <p className="muted">{t(text.cardBody)}</p>
+              <div><Button size="sm" variant="secondary">{t(text.cardAction)}</Button></div>
             </Card>
           </Col>
           <Col span={{ base: 4, sm: 4, md: 4 }}>
             <p className="mb-caption">{t(text.stateHover)}</p>
             <div className="state-hover-card">
               <Card>
-                <ProductImage label={t(text.sampleName)} square />
-                <Badge>{t(text.sampleCategory)}</Badge>
-                <h3>{t(text.sampleName)}</h3>
-                <p className="muted">{t(text.sampleDesc)}</p>
-                <DataRow label={<strong>฿1,200</strong>} value={<Button size="sm">{t(text.add)}</Button>} />
+                <h3>{t(text.cardTitle)}</h3>
+                <p className="muted">{t(text.cardBody)}</p>
+                <div><Button size="sm" variant="secondary">{t(text.cardAction)}</Button></div>
               </Card>
             </div>
           </Col>

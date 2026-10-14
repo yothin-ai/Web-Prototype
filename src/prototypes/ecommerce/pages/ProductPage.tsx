@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import type { Localized } from '../../../i18n'
 import { useLang } from '../../../i18n'
 import {
-  Badge, Breadcrumb, Button, Card, Carousel, DataRow, IconCircle, ProductGallery, ProductImage, QuantityStepper, StickyActionBar, Tabs,
+  Badge, Breadcrumb, Button, Card, Carousel, DataRow, IconCircle, ProductCard, ProductGallery, QuantityStepper, StickyActionBar, Tabs,
 } from '../../../ui'
 import { formatMoney, PROTOTYPE_ID, skuOf, useAddToCart, useEcommerce } from '../cart'
 import { s } from '../strings'
@@ -266,12 +266,15 @@ export function ProductPage() {
             <h2>{t(s.relatedTitle)}</h2>
             <Carousel label={t(s.relatedRow)} count={5} minItem="176px" prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
               {related.map((r) => (
-                <Card key={r!.id}>
-                  <Link to={detailPath(r!.id)} className="card-link"><ProductImage label={t(r!.name)} square /></Link>
-                  {r!.brand && <Badge>{t(r!.brand)}</Badge>}
-                  <Link to={detailPath(r!.id)} className="card-link"><h3 className="article-card__title">{t(r!.name)}</h3></Link>
-                  <DataRow label={<strong>{formatMoney(r!.price, lang)}</strong>} />
-                </Card>
+                <ProductCard
+                  key={r!.id}
+                  to={detailPath(r!.id)}
+                  imageLabel={t(r!.name)}
+                  badges={<Badge>{t(r!.brand ?? r!.category)}</Badge>}
+                  name={t(r!.name)}
+                  price={formatMoney(r!.price, lang)}
+                  action={<Button size="sm" icon="cart" onClick={() => add(r!.id)}>{t(s.add)}</Button>}
+                />
               ))}
             </Carousel>
           </div>
