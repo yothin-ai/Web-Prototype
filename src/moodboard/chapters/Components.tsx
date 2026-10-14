@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, CartItem, CategoryCard, CategoryPills, ArticleBody, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -461,6 +461,24 @@ export function Components() {
           <p className="mb-caption">{t(text.branchCard)}</p>
           <BranchCard name={t(text.branchName)} address={t(text.branchAddress)} hours={t(text.branchHours)} province={t(text.branchProvince)} selected={false} selectedLabel={t(text.branchMine)} chooseLabel={t(text.branchChoose)} onChoose={() => {}} />
           <BranchCard name={t(text.branchName)} address={t(text.branchAddress)} hours={t(text.branchHours)} province={t(text.branchProvince)} selected selectedLabel={t(text.branchMine)} chooseLabel={t(text.branchChoose)} onChoose={() => {}} />
+        </div>
+      </Block>
+      <Block number="4.20" title={t(text.c420)} note={t(text.c420Note)}>
+        <div className="stack">
+          <p className="mb-caption">{t(text.wideImage)}</p>
+          <ProductImage label={t(text.sampleName)} wide />
+          <p className="mb-caption">{t(text.shareBar)}</p>
+          <ShareBar label={t(text.shareWord)} items={socialIcons.filter((i) => ['Facebook', 'Line', 'X'].includes(i.label)).map((i) => ({ name: i.label, src: i.src }))} onShare={() => {}} />
+          <p className="mb-caption">{t(text.articleBody)}</p>
+          <ArticleBody>
+            <p>{t(text.articleP1)}</p>
+            <h3>1. {t(text.articleH1)}</h3>
+            <p>{t(text.articleP1)}</p>
+            <ul><li>{t(text.articleLi)}</li><li>{t(text.articleLi)}</li></ul>
+            <h2>{t(text.articleH2)}</h2>
+            <div className="article-body__checks"><Checkbox checked disabled onChange={() => {}} label={t(text.articleLi)} /></div>
+          </ArticleBody>
+          <p className="muted">{t(text.articleRule)}</p>
         </div>
       </Block>
     </Chapter>

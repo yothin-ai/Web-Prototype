@@ -164,10 +164,10 @@ export function Home() {
       </div>
 
       <div className="storefront-section">
-        <SectionHeader title={t(home.ideasTitle)} action={<Button to={`${base}/soon${search}`} size="sm">{t(s.viewAll)}</Button>} />
+        <SectionHeader title={t(home.ideasTitle)} action={<Button to={`${base}/ideas${search}`} size="sm">{t(s.viewAll)}</Button>} />
         <div className="article-grid" aria-label={t(s.articlesRow)}>
           {home.articles.map((a, i) => (
-            <ArticleCard key={i} category={t(a.category)} views={a.views} viewsLabel={t(s.articleViews)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/soon${search}`)} />
+            <ArticleCard key={i} category={t(a.category)} views={a.views} viewsLabel={t(s.articleViews)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/idea/${i}${search}`)} />
           ))}
         </div>
       </div>

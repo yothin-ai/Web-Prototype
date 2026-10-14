@@ -54,6 +54,9 @@ function gridCss(): string {
     `.listing-filters { display: none; } .listing-filters--open { display: flex; } .listing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }`,
     at(breakpoint.sm, `.listing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }`),
     at(breakpoint.md, `.listing-filters { display: flex; } .btn.listing-toggle { display: none; } .listing-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }`),
+    // Article: the share buttons stand in a column right of the reading column from md up; below md they sit under the title.
+    `.article-share { display: none; } .article-share-inline { display: block; }`,
+    at(breakpoint.md, `.article-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, calc(var(--space-8) * 12.5)) minmax(0, 1fr); gap: var(--space-5); } .article-layout > .article-main { grid-column: 2; } .article-layout > .article-share { grid-column: 3; grid-row: 1; align-self: start; position: sticky; top: calc(var(--shell-bar-height, 0px) + var(--site-header-height, 0px) + var(--space-4)); } .article-share { display: block; } .article-share-inline { display: none; } .article-share .share-bar { flex-direction: column; align-items: flex-start; }`),
     at(breakpoint.md, `.account-aside { display: block; } .account-menu-only { display: none; } .bottom-tabs { display: none; } .account-page { padding-bottom: 0; } .account-split { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }`),
     at(breakpoint.md, `.checkout-aside { position: sticky; top: calc(var(--shell-bar-height, 0px) + var(--site-header-height, 0px) + var(--space-4)); }`),
     at(breakpoint.md, `.grid { grid-template-columns: repeat(${grid.columns.md}, minmax(0, 1fr)); } .col-md-full { grid-column: 1 / -1; } ${spans('col-md', grid.columns.md)}`),

@@ -151,7 +151,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         perks={f.perks.map((x, i) => ({ title: t(x.title), text: t(x.text), icon: f.perkIcons[i] }))}
         columns={[
           { title: t(f.aboutTitle), links: f.about.map((l, i) => ({ label: t(l), to: `${base}/${f.aboutTo[i]}${search}` })) },
-          { title: t(f.helpTitle), links: [...f.help.map((l, i) => ({ label: t(l), to: `${base}/${f.helpTo[i]}${search}` })), { label: t(home.ideasTitle), to: `${base}/soon${search}` }] },
+          { title: t(f.helpTitle), links: [...f.help.map((l, i) => ({ label: t(l), to: `${base}/${f.helpTo[i]}${search}` })), { label: t(home.ideasTitle), to: `${base}/ideas${search}` }] },
           {
             title: t(f.accountTitle),
             links: [

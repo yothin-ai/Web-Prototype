@@ -5,12 +5,14 @@ import { AccountPage } from './pages/AccountPage'
 import { Browse } from './pages/Browse'
 import { CartPage } from './pages/CartPage'
 import { CategoryPage } from './pages/CategoryPage'
+import { ArticlePage } from './pages/ArticlePage'
 import { BrandPage } from './pages/BrandPage'
 import { CampaignPage } from './pages/CampaignPage'
 import { Checkout } from './pages/Checkout'
 import { Confirmation } from './pages/Confirmation'
 import { Home } from './pages/Home'
 import { PaymentPage } from './pages/PaymentPage'
+import { IdeasPage } from './pages/IdeasPage'
 import { InfoPage } from './pages/InfoPage'
 import { OrdersPage } from './pages/OrdersPage'
 import { ProductPage } from './pages/ProductPage'
@@ -35,6 +37,8 @@ export function Ecommerce() {
         <Route path="account/addresses" element={<AccountPage focus="address" />} />
         <Route path="account/menu" element={<AccountMenuPage />} />
         <Route path="account/:page" element={<ComingSoon />} />
+        <Route path="idea/:index" element={<ArticlePage />} />
+        <Route path="ideas" element={<IdeasPage />} />
         <Route path="info/:slug" element={<InfoPage />} />
         <Route path="stores" element={<StoresPage />} />
         <Route path="campaign/:key" element={<CampaignPage />} />
