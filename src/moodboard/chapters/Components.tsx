@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, Modal, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, Modal, CouponCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -554,6 +554,15 @@ export function Components() {
               <div className="stack"><h2>2. {t(text.c425S2)}</h2><p>{t(text.c425P)}</p></div>
             </Card>
           </Col>
+        </Grid>
+      </Block>
+      <Block number="4.26" title={t(text.c426)} note={t(text.c426Note)}>
+        <Grid>
+          <Col span={{ base: 4, sm: 4, md: 4 }}><CouponCard icon="ticket" iconLabel={t(text.c426Icon)} title={t(text.c426Value)} condition={t(text.c426Cond)} validity={t(text.c426Valid)} status={<Button size="sm">{t(text.c426Claim)}</Button>} onOpen={() => {}} /></Col>
+          <Col span={{ base: 4, sm: 4, md: 4 }}><CouponCard icon="percent" iconLabel={t(text.c426Icon)} title="5%" condition={t(text.c426Cond)} validity={t(text.c426Valid)} badge={t(text.c426Member)} status={t(text.c426Claimed)} onOpen={() => {}} /></Col>
+          <Col span={{ base: 4, sm: 4, md: 4 }}><CouponCard icon="truck" iconLabel={t(text.c426Icon)} title={t(text.c426Free)} condition={t(text.c426Cond)} validity={t(text.c426Valid)} state="full" status={t(text.c426Full)} onOpen={() => {}} /></Col>
+          <Col span={{ base: 4, sm: 4, md: 4 }}><CouponCard icon="ticket" iconLabel={t(text.c426Icon)} title={t(text.c426Value)} condition={t(text.c426Cond)} validity={t(text.c426Valid)} state="used" status={t(text.c426Used)} onOpen={() => {}} /></Col>
+          <Col span={{ base: 4, sm: 4, md: 4 }}><CouponCard icon="ticket" iconLabel={t(text.c426Icon)} title={t(text.c426Value)} condition={t(text.c426Cond)} validity={t(text.c426Valid)} state="expired" status={t(text.c426Expired)} onOpen={() => {}} /></Col>
         </Grid>
       </Block>
     </Chapter>

@@ -12,6 +12,8 @@ import {
 } from '../checkout'
 import { a } from '../accountStrings'
 import { c } from '../checkoutStrings'
+import { cp } from '../couponStrings'
+import { isUsable, useCouponWallet } from '../coupons'
 import { s } from '../strings'
 import { branchById, branches, useBranch } from '../branches'
 import { AddressBook, placeOf } from './AddressBook'
@@ -62,7 +64,10 @@ export function Checkout() {
   const parcelMethods = shippingMethods.filter((m) => m.id !== 'pickup')
   const subtotal = cartSubtotal(cart, productById)
   const shippingPrice = fulfil === 'pickup' ? 0 : (parcelMethods.find((m) => m.id === shippingId)?.price ?? 0)
-  const coupon = checkout.coupons.find((x) => x.id === couponId)
+  const { entryOf, markUsed } = useCouponWallet()
+  // Only the coupons in the wallet that are still usable online can be picked.
+  const walletCoupons = checkout.coupons.filter((x) => x.channel === 'online' && isUsable(x, entryOf(x.id)))
+  const coupon = walletCoupons.find((x) => x.id === couponId)
   const cut = couponDiscount(coupon, subtotal, shippingPrice, fulfil)
   const afterDiscount = subtotal - cut.items
   const net = afterDiscount + shippingPrice - cut.shipping
@@ -123,6 +128,7 @@ export function Checkout() {
     const toPay = needsPaymentPage(activePay as PayId)
     placed.current = true
     const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax })
+    if (coupon && cut.items + cut.shipping > 0) markUsed(coupon.id)
     navigate(toPay ? `${base}/pay/${order.id}${search}` : `${base}/done/${order.id}${search}`)
   }
 
@@ -315,14 +321,19 @@ export function Checkout() {
               <span aria-hidden="true">{couponOpen ? '⌃' : '›'}</span>
             </button>
             {couponOpen && (
+              <>
               <div className="choice-group" role="radiogroup" aria-label={t(c.couponTitle)}>
                 <ChoiceCard title={t(c.couponNone)} selected={couponId === ''} onSelect={() => setCouponId('')} />
-                {checkout.coupons.map((cp) => {
-                  const blocked = subtotal < cp.minSpend || (cp.kind === 'freeship' && fulfil !== 'parcel')
-                  const note = cp.kind === 'freeship' && fulfil !== 'parcel' ? t(c.couponNeedParcel) : subtotal < cp.minSpend ? `${t(c.minSpend)} ${formatMoney(cp.minSpend, lang)}` : t(cp.detail)
-                  return <ChoiceCard key={cp.id} title={t(cp.title)} detail={note} selected={couponId === cp.id && !blocked} onSelect={() => !blocked && setCouponId(cp.id)} />
+                {walletCoupons.length === 0 && <span className="muted">{t(cp.checkoutNone)}</span>}
+                {walletCoupons.map((x) => {
+                  const needMember = x.memberOnly && !clubLinked
+                  const blocked = needMember || subtotal < x.minSpend || (x.kind === 'freeship' && fulfil !== 'parcel')
+                  const note = needMember ? t(cp.needMember) : x.kind === 'freeship' && fulfil !== 'parcel' ? t(c.couponNeedParcel) : subtotal < x.minSpend ? `${t(c.minSpend)} ${formatMoney(x.minSpend, lang)}` : t(x.detail)
+                  return <ChoiceCard key={x.id} title={t(x.title)} detail={note} selected={couponId === x.id && !blocked} onSelect={() => !blocked && setCouponId(x.id)} />
                 })}
               </div>
+              <Link to={`${base}/coupons${search}`}>{t(cp.checkoutMore)}</Link>
+              </>
             )}
           </Card>
 

@@ -1,4 +1,5 @@
 import type { Dataset } from '../types'
+import { sampleCoupons } from '../coupons'
 import { menu } from './menu'
 
 const dataset: Dataset = {
@@ -212,11 +213,7 @@ const dataset: Dataset = {
     store: { stockDefault: 48, shelf: { th: 'ชั้น 57 · ฝั่งขวา · ล็อค 10', en: 'Shelf 57 · right side · bay 10' }, delivery: { th: '2-7 วัน', en: '2-7 days' }, pickupMinutes: 30, installmentMin: 3000, installmentMonths: 10 },
     account: { name: { th: 'ช่าง ตัวอย่าง', en: 'Builder Example' }, email: 'builder.example@example.com', provider: { th: 'อีเมลตัวอย่าง', en: 'Sample email' }, memberNo: 'M-0000-0003', points: 3150, tier: { th: 'สมาชิกระดับทอง', en: 'Gold member' }, nextTier: { th: 'แพลทินัม', en: 'Platinum' }, toNext: 40000, spent: 9600 },
     checkout: {
-      coupons: [
-        { id: 'save100', title: { th: 'ลด ฿100', en: '฿100 off' }, detail: { th: 'เมื่อซื้อครบ ฿500', en: 'When you spend ฿500' }, kind: 'amount', value: 100, minSpend: 500 },
-        { id: 'save5', title: { th: 'ลด 5%', en: '5% off' }, detail: { th: 'สูงสุด ฿300 เมื่อซื้อครบ ฿1,000', en: 'Up to ฿300 when you spend ฿1,000' }, kind: 'percent', value: 5, cap: 300, minSpend: 1000 },
-        { id: 'freeship', title: { th: 'ส่งฟรี', en: 'Free delivery' }, detail: { th: 'ฟรีค่าจัดส่งเมื่อซื้อครบ ฿800 (เฉพาะจัดส่งพัสดุ)', en: 'Free delivery when you spend ฿800 (parcel delivery only)' }, kind: 'freeship', value: 0, minSpend: 800 },
-      ],
+      coupons: sampleCoupons,
       banks: [{ th: 'ธนาคารตัวอย่าง A', en: 'Sample Bank A' }, { th: 'ธนาคารตัวอย่าง B', en: 'Sample Bank B' }],
       installmentMonths: [3, 6, 10],
       transfer: { bank: { th: 'ธนาคารตัวอย่าง A', en: 'Sample Bank A' }, name: { th: 'ชื่อบัญชีตัวอย่าง', en: 'Sample account name' }, number: '000-0-00000-0' },

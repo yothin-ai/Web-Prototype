@@ -377,3 +377,29 @@
 .legal-toc { position: sticky; top: calc(var(--site-header-height, 0px) + var(--space-4)); }
 .legal-toc__link { justify-content: flex-start; text-align: left; height: auto; white-space: normal; }
 .legal-section { scroll-margin-top: calc(var(--site-header-height, 0px) + var(--space-4)); }
+
+/* Coupon ticket: notches on both sides, an icon block, the value and its terms. The title button stretches over the whole ticket. */
+.coupon-card { position: relative; display: flex; gap: var(--space-3); align-items: stretch; padding: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
+.coupon-card::before, .coupon-card::after { content: ''; position: absolute; top: 50%; width: var(--space-4); height: var(--space-4); margin-top: calc(var(--space-4) / -2); border-radius: var(--radius-pill); background: var(--color-bg); border: 1px solid var(--color-border); }
+.coupon-card::before { left: calc(var(--space-4) / -2); }
+.coupon-card::after { right: calc(var(--space-4) / -2); }
+.coupon-card:focus-within { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+.coupon-card__badge { flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-1); width: calc(var(--space-8) * 1.25); padding: var(--space-2); border-radius: var(--radius-md); background: var(--color-accent-soft); color: var(--color-accent); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); text-align: center; }
+.coupon-card__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.coupon-card__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.coupon-card__open { padding: 0; border: 0; background: transparent; color: var(--color-text); font: inherit; font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); text-align: left; cursor: pointer; }
+.coupon-card__open::after { content: ''; position: absolute; inset: 0; }
+.coupon-card__open:focus-visible { outline: none; }
+.coupon-card:hover { border-color: var(--color-accent); }
+.coupon-card__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); margin-top: auto; padding-top: var(--space-2); }
+.coupon-card__validity { font-size: var(--font-size-xs); }
+.coupon-card__status { position: relative; z-index: 1; font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); color: var(--color-accent); }
+.coupon-card--used .coupon-card__badge, .coupon-card--expired .coupon-card__badge, .coupon-card--full .coupon-card__badge { background: var(--color-surface-alt); color: var(--color-text-muted); }
+.coupon-card--used .coupon-card__open, .coupon-card--expired .coupon-card__open { color: var(--color-text-muted); }
+.coupon-card--used .coupon-card__status, .coupon-card--expired .coupon-card__status, .coupon-card--full .coupon-card__status { color: var(--color-text-muted); }
+.coupon-hero { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); padding: var(--space-4); border-radius: var(--radius-md); background: var(--color-accent-soft); text-align: center; }
+.coupon-hero__value { font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); color: var(--color-accent); }
+.coupon-tabs { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.utility-bar__link { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-muted); text-decoration: none; }
+.utility-bar__link:hover { color: var(--color-text); }
+.coupon-terms { margin: 0; padding-left: var(--space-5); display: flex; flex-direction: column; gap: var(--space-1); }

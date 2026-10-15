@@ -26,6 +26,15 @@ export type Coupon = {
   // Largest discount a percentage coupon can give.
   cap?: number
   minSpend: number
+  // Where it is spent: at checkout online, or at a store till.
+  channel: 'online' | 'store'
+  starts: string
+  expires: string
+  memberOnly?: boolean
+  // Already past its date (a fixed flag so the demo looks the same every day).
+  expired?: boolean
+  // All the coupons are taken; it cannot be claimed any more.
+  full?: boolean
 }
 
 // Checkout content: coupons, instalment banks and the bank-transfer account (all placeholders).

@@ -13,6 +13,7 @@ import { f } from './footer'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
+import { cp } from './couponStrings'
 import { AuthModal } from './pages/AuthModal'
 
 // Adds or replaces the search term while keeping other query parameters such as ?clean=1.
@@ -97,6 +98,7 @@ export function Storefront({ children }: { children: ReactNode }) {
             items={branches.map((b) => ({ id: b.id, label: t(b.name), detail: t(b.province), active: b.id === branchId, onSelect: () => setBranchId(b.id) }))}
             footer={<Link to={`${base}/stores${search}`}>{t(s.allStores)}</Link>}
           />,
+          <Link key="coupons" to={`${base}/coupons${search}`} className="utility-bar__link"><IconCircle size="sm" tone="muted" icon="ticket" />{t(cp.utilityLabel)}</Link>,
           <DropdownMenu
             key="help"
             icon="headset"

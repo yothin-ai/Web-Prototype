@@ -4,6 +4,7 @@ import { useLang } from '../../../i18n'
 import { Badge, Button, Card, DataRow, ShortcutCard, StatCard, MemberBanner } from '../../../ui'
 import { a } from '../accountStrings'
 import { formatDate, formatMoney, PROTOTYPE_ID } from '../cart'
+import { isUsable, useCouponWallet } from '../coupons'
 import { useOrderBook } from '../orders'
 import { useClubLinked } from '../checkout'
 import { AccountShell, useAccountIdentity } from './AccountShell'
@@ -23,7 +24,8 @@ export function AccountHome() {
   const remaining = linked ? account.toNext : total
   const progress = linked ? (account.spent / total) * 100 : 0
   const latest = orders.slice(0, 2)
-  const coupons = checkout.coupons
+  const { wallet } = useCouponWallet()
+  const coupons = checkout.coupons.filter((x) => isUsable(x, wallet.find((w) => w.id === x.id)))
 
   return (
     <AccountShell active="home">
