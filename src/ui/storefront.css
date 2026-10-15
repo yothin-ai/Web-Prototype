@@ -61,12 +61,20 @@
 .shortcut h3 { font-size: var(--font-size-md); }
 .shortcut p { font-size: var(--font-size-sm); }
 
-.app-card { display: flex; flex-direction: column; gap: var(--space-4); height: 100%; padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.app-card { display: flex; flex-direction: column; gap: var(--space-4); height: 100%; padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); overflow: hidden; }
 .app-card__top { display: flex; align-items: center; gap: var(--space-3); }
-.app-card__perks { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
-.app-card__perk { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-3); background: var(--color-surface-alt); border-radius: var(--radius-sm); font-size: var(--font-size-sm); }
-.app-card__value { font-size: var(--font-size-2xl); line-height: 1; color: var(--color-accent); }
-.app-card__club { display: flex; flex-direction: column; gap: var(--space-3); margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.app-card__perks { display: flex; flex-direction: column; gap: var(--space-2); }
+.app-card__perk { display: flex; align-items: center; gap: var(--space-3); font-size: var(--font-size-md); }
+.app-card__value { font-size: var(--font-size-lg); color: var(--color-accent); }
+.app-card__stores { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.app-card__stores .store-badge { width: 100%; height: auto; }
+/* The member part sits on a tinted panel that runs to the card's edges, with a notch on each side of the dashed line above it. */
+.app-card__club { position: relative; display: flex; flex-direction: column; gap: var(--space-4); margin: auto calc(var(--space-5) * -1) calc(var(--space-5) * -1); padding: var(--space-5); background: var(--color-surface-alt); border-top: 1px dashed var(--color-border); }
+.app-card__club::before, .app-card__club::after { content: ''; position: absolute; top: calc(var(--space-3) * -1); width: var(--space-3); height: var(--space-5); background: var(--color-bg); border: 1px solid var(--color-border); }
+.app-card__club::before { left: -1px; border-left: 0; border-radius: 0 var(--space-5) var(--space-5) 0; }
+.app-card__club::after { right: -1px; border-right: 0; border-radius: var(--space-5) 0 0 var(--space-5); }
+.app-card__club-head { display: flex; align-items: center; gap: var(--space-3); }
+.app-card__club .btn { width: 100%; }
 
 .circle-link { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); text-align: center; font-size: var(--font-size-sm); }
 

@@ -226,18 +226,23 @@ export function AppPromoCard(p: AppPromoCardProps) {
         </div>
       </div>
       <div className="app-card__perks">
-        <div className="app-card__perk"><span className="muted">{p.couponIntro}</span><strong className="app-card__value">{p.couponValue}</strong></div>
-        <div className="app-card__perk"><span className="muted">{p.couponTitle}</span><strong>{p.couponNote}</strong></div>
+        <div className="app-card__perk"><IconCircle size="md" icon="ticket" /><span>{p.couponIntro} <strong className="app-card__value">{p.couponValue}.-</strong></span></div>
+        <div className="app-card__perk"><IconCircle size="md" icon="gift" /><span>{p.couponTitle} <strong>{p.couponNote}</strong></span></div>
       </div>
-      <div className="row">
+      <div className="app-card__stores">
         {p.stores.map((store) => (
           <img key={store.label} className="store-badge" src={store.src} alt={store.label} />
         ))}
       </div>
       <div className="app-card__club">
-        <div className="row"><h3 className="row__grow">{p.clubTitle}</h3><span className="badge">{p.clubBadge}</span></div>
-        <p className="muted">{p.earnText}</p>
-        <button type="button" className="btn btn--primary">{p.joinLabel}</button>
+        <div className="app-card__club-head">
+          <IconCircle size="lg" icon="crown" />
+          <div className="stack">
+            <div className="row"><h3>{p.clubTitle}</h3><span className="badge">{p.clubBadge}</span></div>
+            <p className="muted">{p.earnText}</p>
+          </div>
+        </div>
+        <button type="button" className="btn btn--primary">{p.joinLabel}<Icon name="right" size="sm" /></button>
       </div>
     </div>
   )
