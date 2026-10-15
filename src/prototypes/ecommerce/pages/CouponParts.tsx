@@ -49,7 +49,7 @@ export function CouponGrid({ coupons, mode }: { coupons: Coupon[]; mode: 'shop' 
         {coupons.map((c) => {
           const v = view(c)
           return (
-            <Col key={c.id} span={{ base: 4, sm: 4, md: 4 }}>
+            <Col key={c.id} span={{ base: 4, sm: 4, md: mode === 'wallet' ? 6 : 4 }}>
               <CouponCard
                 icon={iconOf(c)}
                 iconLabel={t(cp.iconLabel)}
