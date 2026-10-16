@@ -5,7 +5,7 @@ import { formatDate, formatMoney, PROTOTYPE_ID, useEcommerce } from '../cart'
 import { findPayment } from '../checkout'
 import { c } from '../checkoutStrings'
 import { o } from '../orderStrings'
-import { paysOnDelivery, statusOf, stepsDone, useOrderBook, type StepKey } from '../orders'
+import { customerText, paysOnDelivery, statusOf, stepsDone, useOrderBook, type StepKey } from '../orders'
 import { reviewKey, useReviews } from '../reviews'
 import { rv } from '../reviewStrings'
 import { s } from '../strings'
@@ -123,8 +123,8 @@ export function OrderDetailPage() {
           </Card>
           <Card>
             <h3>{pickup ? t(o.pickupTitle) : t(o.addressTitle)}</h3>
-            <span>{order.customer.name}</span>
-            <span className="muted">{order.customer.address}</span>
+            <span>{customerText(order.customer.name, lang)}</span>
+            <span className="muted">{customerText(order.customer.address, lang)}</span>
             {pickup && order.pickupMode && <span className="muted">{t(order.pickupMode === 'locker' ? c.locker : c.counter)}</span>}
             <span className="muted">{order.customer.phone}</span>
           </Card>

@@ -37,8 +37,8 @@ export function MyBookingsPage() {
                 <Badge tone={statusTone[b.status]}>{t(statusLabel[b.status])}</Badge>
               </div>
               <DataRow muted label={t(sv.when)} value={`${day(b.date)} · ${t(slotLabel[b.slot])}`} />
-              <DataRow muted label={t(sv.addrLabel)} value={b.address} />
-              {b.note && <DataRow muted label={t(sv.noteLabel)} value={b.note} />}
+              <DataRow muted label={t(sv.addrLabel)} value={typeof b.address === 'string' ? b.address : t(b.address)} />
+              {b.note && <DataRow muted label={t(sv.noteLabel)} value={typeof b.note === 'string' ? b.note : t(b.note)} />}
               {b.status === 'pending' && <div><Button size="sm" variant="secondary" onClick={() => cancel(b.id)}>{t(sv.cancel)}</Button></div>}
             </Card>
           )

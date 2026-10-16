@@ -27,6 +27,17 @@ export function stepsDone(o: Order): Record<StepKey, boolean> {
   }
 }
 
+// The sample orders keep these markers instead of text, so they read in whichever language the page is in.
+export const SAMPLE_NAME = '@sample-name'
+export const SAMPLE_ADDRESS = '@sample-address'
+export const SAMPLE_STORE = '@sample-store'
+const sampleText: Record<string, { th: string; en: string }> = {
+  [SAMPLE_NAME]: { th: 'ผู้ใช้ตัวอย่าง', en: 'Sample shopper' },
+  [SAMPLE_ADDRESS]: { th: '000 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000', en: '000 Sample Road, Sample Subdistrict, Sample District, Sample Province 00000' },
+  [SAMPLE_STORE]: { th: 'สาขาตัวอย่าง ปทุมธานี', en: 'Sample branch, Pathum Thani' },
+}
+export const customerText = (value: string, lang: string) => sampleText[value]?.[lang === 'th' ? 'th' : 'en'] ?? value
+
 const orderLines = (products: Product[], picks: [number, number][]) =>
   picks.flatMap(([i, qty]) => {
     const p = products[i % products.length]
@@ -42,7 +53,7 @@ export function sampleOrders(products: Product[], parcelShippingId: string, parc
     return {
       id,
       placedAt: new Date(now - ago).toISOString(),
-      customer: { name: 'ผู้ใช้ตัวอย่าง', phone: '0800000000', address: '000 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000' },
+      customer: { name: SAMPLE_NAME, phone: '0800000000', address: SAMPLE_ADDRESS },
       shippingId: parcelShippingId,
       paymentId: 'promptpay',
       lines,
@@ -59,7 +70,7 @@ export function sampleOrders(products: Product[], parcelShippingId: string, parc
   return [
     make('ORD-0904', 2 * hour, [[0, 1], [1, 2]], { status: 'pending', paymentId: 'promptpay' }),
     make('ORD-0903', 2 * day, [[2, 1]], { status: 'ready', paymentId: 'transfer' }),
-    make('ORD-0902', 9 * day, [[3, 1], [4, 1], [6, 1]], { status: 'delivered', paymentId: 'branch', fulfilment: 'pickup', shippingId: 'pickup', pickupMode: 'counter', customer: { name: 'ผู้ใช้ตัวอย่าง', phone: '0800000000', address: 'สาขาตัวอย่าง ปทุมธานี' } }),
+    make('ORD-0902', 9 * day, [[3, 1], [4, 1], [6, 1]], { status: 'delivered', paymentId: 'branch', fulfilment: 'pickup', shippingId: 'pickup', pickupMode: 'counter', customer: { name: SAMPLE_NAME, phone: '0800000000', address: SAMPLE_STORE } }),
     make('ORD-0899', 34 * day, [[7, 1], [8, 1]], { status: 'delivered', paymentId: 'transfer' }),
     make('ORD-0901', 20 * day, [[5, 2]], { status: 'cancelled', paymentId: 'cod' }),
   ]

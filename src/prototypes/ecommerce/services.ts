@@ -38,11 +38,13 @@ export const slots = ['morning', 'afternoon', 'evening'] as const
 export type Slot = (typeof slots)[number]
 
 export type BookingStatus = 'pending' | 'confirmed' | 'done' | 'cancelled'
-export type Booking = { id: string; serviceId: string; date: string; slot: Slot; address: string; name: string; phone: string; note: string; status: BookingStatus; at: string }
+export type Booking = { id: string; serviceId: string; date: string; slot: Slot; address: string | Localized; name: string | Localized; phone: string; note: string | Localized; status: BookingStatus; at: string }
 
+const addr = p('99 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000', '99 Sample Road, Sample Subdistrict, Sample District, Sample Province 00000')
+const who = p('ผู้ใช้ตัวอย่าง', 'Sample shopper')
 const seed: Booking[] = [
-  { id: 'SV-482913', serviceId: 'aircon', date: '2026-10-22', slot: 'morning', address: '99 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000', name: 'ผู้ใช้ตัวอย่าง', phone: '0800000000', note: 'ติดตั้งแอร์ห้องนอน 2 เครื่อง', status: 'confirmed', at: '2026-10-12T10:15:00' },
-  { id: 'SV-310276', serviceId: 'heater', date: '2026-10-02', slot: 'afternoon', address: '99 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000', name: 'ผู้ใช้ตัวอย่าง', phone: '0800000000', note: 'ติดตั้งเครื่องทำน้ำอุ่นห้องน้ำชั้นล่าง', status: 'done', at: '2026-09-28T09:00:00' },
+  { id: 'SV-482913', serviceId: 'aircon', date: '2026-10-22', slot: 'morning', address: addr, name: who, phone: '0800000000', note: p('ติดตั้งแอร์ห้องนอน 2 เครื่อง', 'Install two bedroom air conditioners'), status: 'confirmed', at: '2026-10-12T10:15:00' },
+  { id: 'SV-310276', serviceId: 'heater', date: '2026-10-02', slot: 'afternoon', address: addr, name: who, phone: '0800000000', note: p('ติดตั้งเครื่องทำน้ำอุ่นห้องน้ำชั้นล่าง', 'Install a water heater in the ground-floor bathroom'), status: 'done', at: '2026-09-28T09:00:00' },
 ]
 
 export function useBookings() {
