@@ -16,7 +16,7 @@ import { s } from './strings'
 import { cp } from './couponStrings'
 import { AuthModal } from './pages/AuthModal'
 import { CookieConsent } from './pages/CookieConsent'
-import { ck } from './miscStrings'
+import { ck, pm } from './miscStrings'
 
 // Adds or replaces the search term while keeping other query parameters such as ?clean=1.
 export const withQuery = (search: string, key: string, value: string) => {
@@ -152,6 +152,17 @@ export function Storefront({ children }: { children: ReactNode }) {
         items={home.categories.map((c) => ({ label: t(c), to: categoryTo(t(c)), active: activeCategory !== null && findPathByLabel(home.menu, t(c))?.[0] === activeCategory }))}
         prevLabel={t(s.scrollPrev)}
         nextLabel={t(s.scrollNext)}
+        end={
+          <DropdownMenu
+            trigger={t(pm.navLabel)}
+            label={t(pm.navLabel)}
+            items={[
+              { id: 'all', label: t(pm.menuAll), to: `${base}/promotions${search}` },
+              { id: 'coupons', label: t(pm.menuCoupons), to: `${base}/coupons${search}` },
+              { id: 'club', label: t(pm.menuClub), to: `${base}/account/club${search}` },
+            ]}
+          />
+        }
       />
       <main className="storefront-main">{children}</main>
       <SiteFooter

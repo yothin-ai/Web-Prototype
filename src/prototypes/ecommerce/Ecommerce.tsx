@@ -21,6 +21,7 @@ import { ClubPage } from './pages/ClubPage'
 import { ReviewsPage } from './pages/ReviewsPage'
 import { BookingPage } from './pages/BookingPage'
 import { MyBookingsPage } from './pages/MyBookingsPage'
+import { PromotionsPage } from './pages/PromotionsPage'
 import { ServicesPage } from './pages/ServicesPage'
 import { WalletPage } from './pages/WalletPage'
 import { CouponsPage } from './pages/CouponsPage'
@@ -55,6 +56,7 @@ export function Ecommerce() {
         <Route path="account/reviews" element={<ReviewsPage />} />
         <Route path="account/wallet" element={<WalletPage />} />
         <Route path="account/bookings" element={<MyBookingsPage />} />
+        <Route path="promotions" element={<PromotionsPage />} />
         <Route path="services" element={<ServicesPage />} />
         <Route path="services/book" element={<BookingPage />} />
         <Route path="coupons" element={<CouponsPage />} />

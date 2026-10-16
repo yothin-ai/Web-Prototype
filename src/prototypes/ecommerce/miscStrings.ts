@@ -28,3 +28,19 @@ export const ck = {
   closeModal: { th: 'ปิดหน้าต่างตั้งค่าคุกกี้', en: 'Close cookie settings' },
   demoNote: { th: 'เดโมนี้ไม่มีคุกกี้วิเคราะห์หรือการตลาดจริง การเลือกเก็บไว้ในเบราว์เซอร์นี้เท่านั้น', en: 'This demo has no real analytics or marketing cookies; your choice stays in this browser.' },
 } satisfies Record<string, Localized>
+
+export const pm = {
+  title: { th: 'โปรโมชั่นสำหรับคุณ', en: 'Promotions for you' },
+  sub: { th: 'รวมแคมเปญ ส่วนลด และสิทธิพิเศษของร้านไว้ในที่เดียว', en: 'Every campaign, discount and perk in one place' },
+  campaigns: { th: 'แคมเปญเด่น', en: 'Featured campaigns' },
+  quick: { th: 'โปรโมชั่นทางลัด', en: 'Promotion shortcuts' },
+  perks: { th: 'สิทธิพิเศษสำหรับคุณ', en: 'Perks for you' },
+  open: { th: 'ดูแคมเปญ', en: 'See the campaign' },
+  menuAll: { th: 'โปรโมชั่นทั้งหมด', en: 'All promotions' },
+  menuCoupons: { th: 'คูปองส่วนลด', en: 'Discount coupons' },
+  menuClub: { th: 'สิทธิประโยชน์สมาชิกคลับ', en: 'Club member perks' },
+  navLabel: { th: 'โปรโมชั่นสำหรับคุณ', en: 'Promotions for you' },
+  couponsText: { th: 'เก็บคูปองส่วนลดไว้ใช้ตอนชำระเงิน', en: 'Collect discount coupons for checkout' },
+  clubText: { th: 'สะสมคะแนน แลกคูปอง และรับสิทธิตามระดับ', en: 'Earn points, redeem coupons and get tier perks' },
+  servicesText: { th: 'ติดตั้งโดยช่างมืออาชีพ จองได้ทันที', en: 'Professional installation, bookable now' },
+} satisfies Record<string, Localized>
