@@ -586,6 +586,25 @@ export function Components() {
       <Block number="4.29" title={t(text.c429)} note={t(text.c429Note)}>
         <BalanceCard label="WALLET" caption={t(text.c429Caption)} amount="1,200" unit={t(text.c429Unit)} note={t(text.c429Ready)} />
       </Block>
+      <Block number="4.30" title={t(text.c430)} note={t(text.c430Note)}>
+        <Grid>
+          <Col span={{ base: 4, sm: 4, md: 4 }}>
+            <Card>
+              <div className="row"><IconCircle size="lg" icon="wrench" /><Badge>{t(text.c430From)}</Badge></div>
+              <h3>{t(text.c430Name)}</h3>
+              <span className="muted">{t(text.c430Desc)}</span>
+              <div><Button size="sm">{t(text.c430Book)}</Button></div>
+            </Card>
+          </Col>
+          <Col span={{ base: 4, sm: 4, md: 8 }}>
+            <Card>
+              <div className="row"><IconCircle size="md" icon="wrench" /><div className="stack row__grow"><h3>{t(text.c430Name)}</h3><span className="muted">SV-000000</span></div><Badge tone="warning">{t(text.c430Status)}</Badge></div>
+              <DataRow muted label={t(text.c430When)} value={t(text.c430WhenValue)} />
+              <div><Button size="sm" variant="secondary">{t(text.c430Cancel)}</Button></div>
+            </Card>
+          </Col>
+        </Grid>
+      </Block>
     </Chapter>
   )
 }

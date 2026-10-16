@@ -31,7 +31,7 @@ export const f = {
   ] as Localized[],
   // Where each footer link goes, in the same order as the lists above. 'soon' is the not-yet-built page.
   aboutTo: ['info/about', 'info/investor', 'info/investor-contact', 'info/careers', 'info/seller', 'info/sustainability', 'info/news'],
-  helpTo: ['info/faq', 'info/howto-order', 'info/click-collect', 'info/howto-payments', 'stores', 'info/installment', 'soon', 'coupons'],
+  helpTo: ['info/faq', 'info/howto-order', 'info/click-collect', 'info/howto-payments', 'stores', 'info/installment', 'services', 'coupons'],
   legalTo: ['info/privacy', 'info/cookie', 'info/terms', 'info/returns', 'info/cctv', 'info/privacy-request'],
   complaintTo: 'info/complaint',
   helpTitle: { th: 'คำถามและข้อสงสัย', en: 'Questions' },

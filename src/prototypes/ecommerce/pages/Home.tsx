@@ -17,6 +17,8 @@ const chunk = <T,>(items: T[], size: number): T[][] =>
 
 // The quick-link circle for extra discount coupons (the same place in every dataset) opens the coupon page.
 const couponCircle = 6
+// In the hardware dataset the sixth circle is the technician service.
+const technicianCircle = 5
 
 export function Home() {
   const { t, lang } = useLang()
@@ -27,7 +29,8 @@ export function Home() {
   const detailPath = (id: string) => `/${PROTOTYPE_ID}/product/${id}${search}`
   const add = useAddToCart()
   const { productById } = useEcommerce()
-  const { home } = useDataset().dataset.ecommerce
+  const { dataset } = useDataset()
+  const { home } = dataset.ecommerce
   const prev = t(s.scrollPrev)
   const next = t(s.scrollNext)
 
@@ -44,7 +47,7 @@ export function Home() {
               </Carousel>
               <ShortcutRow>
                 {home.shortcuts.map((x, i) => (
-                  <ShortcutCard key={i} title={t(x.title)} text={t(x.text)} tag={t(x.tag)} icon={(['ticket', 'hammer', 'crown'] as const)[i]} to={[`${base}/coupons${search}`, `${base}/soon${search}`, `${base}/account/club${search}`][i] ?? `${base}/soon${search}`} />
+                  <ShortcutCard key={i} title={t(x.title)} text={t(x.text)} tag={t(x.tag)} icon={(['ticket', 'hammer', 'crown'] as const)[i]} to={[`${base}/coupons${search}`, `${base}/services${search}`, `${base}/account/club${search}`][i] ?? `${base}/soon${search}`} />
                 ))}
               </ShortcutRow>
             </div>
@@ -77,7 +80,7 @@ export function Home() {
           <Col>
             <Carousel label={t(s.quickLinks)} count={7} minItem="96px" arrows={false} prevLabel={prev} nextLabel={next}>
               {home.circles.map((c, i) => (
-                <Link key={i} to={i === couponCircle ? `${base}/coupons${search}` : `${base}/campaign/circle-${i}${search}`} className="circle-link circle-link--link">
+                <Link key={i} to={i === couponCircle ? `${base}/coupons${search}` : i === technicianCircle && dataset.id === 'hardware' ? `${base}/services${search}` : `${base}/campaign/circle-${i}${search}`} className="circle-link circle-link--link">
                   <IconCircle size="lg" />
                   <span>{t(c)}</span>
                 </Link>

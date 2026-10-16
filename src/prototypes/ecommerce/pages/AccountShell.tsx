@@ -4,12 +4,13 @@ import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { AccountSidebar, BottomTabBar, Col, Grid, type IconName } from '../../../ui'
 import { a } from '../accountStrings'
+import { sv } from '../serviceStrings'
 import { useProfile, useSignedIn } from '../account'
 import { PROTOTYPE_ID } from '../cart'
 
-export type AccountPageId = 'home' | 'profile' | 'addresses' | 'orders' | 'reviews' | 'club' | 'coupons' | 'wallet' | 'menu'
+export type AccountPageId = 'home' | 'profile' | 'addresses' | 'orders' | 'reviews' | 'club' | 'coupons' | 'wallet' | 'bookings' | 'menu'
 
-const menuIcons: Record<AccountPageId, IconName> = { home: 'home', profile: 'user', addresses: 'pin', orders: 'orders', reviews: 'star', club: 'crown', coupons: 'ticket', wallet: 'wallet', menu: 'menu' }
+const menuIcons: Record<AccountPageId, IconName> = { home: 'home', profile: 'user', addresses: 'pin', orders: 'orders', reviews: 'star', club: 'crown', coupons: 'ticket', wallet: 'wallet', bookings: 'wrench', menu: 'menu' }
 
 // Builds the account menu once so the side menu, the tab bar and the menu page agree.
 export function useAccountMenu(active: AccountPageId) {
@@ -20,7 +21,7 @@ export function useAccountMenu(active: AccountPageId) {
   const groups = [
     { title: t(a.groupOverview), items: [item('home', '/account', t(a.menuHome))] },
     { title: t(a.groupAccount), items: [item('profile', '/account/profile', t(a.menuProfile)), item('addresses', '/account/addresses', t(a.menuAddresses))] },
-    { title: t(a.groupOrders), items: [item('orders', '/orders', t(a.menuOrderList)), item('reviews', '/account/reviews', t(a.menuReviews))] },
+    { title: t(a.groupOrders), items: [item('orders', '/orders', t(a.menuOrderList)), item('reviews', '/account/reviews', t(a.menuReviews)), item('bookings', '/account/bookings', t(sv.myTitle))] },
     { title: t(a.groupMember), items: [item('club', '/account/club', t(a.menuClub)), item('coupons', '/account/coupons', t(a.menuCoupons)), item('wallet', '/account/wallet', t(a.menuWallet))] },
   ]
   const tabs = [
