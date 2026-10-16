@@ -136,7 +136,6 @@ export const c = {
   paidDemo: { th: 'ชำระแล้ว (จำลอง)', en: 'I have paid (simulated)' },
   payLater: { th: 'ชำระภายหลัง', en: 'Pay later' },
   viewOrders: { th: 'ดูคำสั่งซื้อของฉัน', en: 'View my orders' },
-  noPending: { th: 'ไม่พบคำสั่งซื้อที่รอชำระเงิน', en: 'No order waiting for payment was found' },
   pickupAtBranch: { th: 'รับที่สาขา', en: 'Pick up in store' },
   installLine: { th: 'ผ่อน 0%', en: '0% instalments' },
 } satisfies Record<string, Localized>

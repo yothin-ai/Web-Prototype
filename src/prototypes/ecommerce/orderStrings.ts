@@ -77,6 +77,5 @@ export const o = {
   otherOrders: { th: 'ออเดอร์อื่น', en: 'Other orders' },
   secure: { th: 'ธุรกรรมปลอดภัย SSL', en: 'Secure SSL transactions' },
   refund: { th: 'รับประกันคืนเงิน', en: 'Money-back guarantee' },
-  notFound: { th: 'ไม่พบคำสั่งซื้อนี้', en: 'Order not found' },
   viewMyOrder: { th: 'ดูรายละเอียดคำสั่งซื้อ', en: 'View order details' },
 } satisfies Record<string, Localized>

@@ -1,13 +1,14 @@
 import { useLocation, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
-import { Breadcrumb, Button, Card, CategoryCard, Col, Grid, IconCircle, ProductImage } from '../../../ui'
+import { Breadcrumb, CategoryCard, Col, Grid, IconCircle, ProductImage } from '../../../ui'
 import { PROTOTYPE_ID, useEcommerce } from '../cart'
 import { productsFor } from '../category'
 import { jobGroups } from '../jobGroups'
 import { g } from '../listingStrings'
 import { s } from '../strings'
 import { ProductListing } from './ProductListing'
+import { NotFoundPage } from './NotFoundPage'
 
 // One job (cards of the product groups it needs) or, with a group in the address, that group's products.
 export function JobPage() {
@@ -24,18 +25,7 @@ export function JobPage() {
   const groupIndex = group === undefined ? -1 : Number(group)
   const picked = groups[groupIndex]
 
-  if (!item || (group !== undefined && !picked)) {
-    return (
-      <Grid>
-        <Col>
-          <Card>
-            <h3>{t(g.jobNotFound)}</h3>
-            <div><Button to={`${base}/jobs${search}`}>{t(g.backToJobs)}</Button></div>
-          </Card>
-        </Col>
-      </Grid>
-    )
-  }
+  if (!item || (group !== undefined && !picked)) return <NotFoundPage />
 
   const crumbs = [
     { label: t(s.home), to: `${base}${search}` },

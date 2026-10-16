@@ -1,12 +1,13 @@
 import { useLocation, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
-import { Breadcrumb, Button, Card, CategoryCard, CategoryPills, CategoryTile, Col, Grid, IconCircle, ProductImage } from '../../../ui'
+import { Breadcrumb, CategoryCard, CategoryPills, CategoryTile, Col, Grid, IconCircle, ProductImage } from '../../../ui'
 import { useEcommerce, PROTOTYPE_ID } from '../cart'
 import { joinLabels, nodeAt, productsFor, slugToPath, useCategoryLink } from '../category'
 import { g } from '../listingStrings'
 import { s } from '../strings'
 import { ProductListing } from './ProductListing'
+import { NotFoundPage } from './NotFoundPage'
 
 // The three category pages: main category (cards), subcategory (tiles) and item (product list).
 export function CategoryPage() {
@@ -21,18 +22,7 @@ export function CategoryPage() {
   const node = path.every((n) => Number.isInteger(n) && n >= 0) ? nodeAt(menu, path) : undefined
   const base = `/${PROTOTYPE_ID}`
 
-  if (!node) {
-    return (
-      <Grid>
-        <Col>
-          <Card>
-            <h3>{t(g.notFound)}</h3>
-            <div><Button to={`${base}${search}`}>{t(g.backHome)}</Button></div>
-          </Card>
-        </Col>
-      </Grid>
-    )
-  }
+  if (!node) return <NotFoundPage />
 
   const crumbs = [
     { label: t(s.home), to: `${base}${search}` },

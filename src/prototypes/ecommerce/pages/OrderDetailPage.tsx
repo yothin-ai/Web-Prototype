@@ -12,6 +12,7 @@ import { s } from '../strings'
 import { wl } from '../walletStrings'
 import { withQuery } from '../Storefront'
 import { AccountShell } from './AccountShell'
+import { NotFoundPage } from './NotFoundPage'
 
 const headerIcon = { pending: 'clock', preparing: 'package', ready: 'truck', delivered: 'check', cancelled: 'close' } as const
 const copy = {
@@ -34,16 +35,7 @@ export function OrderDetailPage() {
   const order = orders.find((x) => x.id === orderId)
   const base = `/${PROTOTYPE_ID}`
 
-  if (!order) {
-    return (
-      <AccountShell active="orders">
-        <Card>
-          <h3>{t(o.notFound)}</h3>
-          <div><Button to={`${base}/orders${search}`}>{t(o.allOrders)}</Button></div>
-        </Card>
-      </AccountShell>
-    )
-  }
+  if (!order) return <NotFoundPage />
 
   const st = statusOf(order)
   const pickup = order.fulfilment === 'pickup'

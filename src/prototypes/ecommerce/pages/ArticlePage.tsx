@@ -3,12 +3,13 @@ import { Link, useLocation, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { socialIcons } from '../../../assets/brand'
-import { ArticleBody, Badge, Breadcrumb, Button, Card, Carousel, Checkbox, Col, Grid, Icon, Notice, ProductCard, ProductImage, SectionHeader, ShareBar } from '../../../ui'
+import { ArticleBody, Badge, Breadcrumb, Button, Carousel, Checkbox, Col, Grid, Icon, Notice, ProductCard, ProductImage, SectionHeader, ShareBar } from '../../../ui'
 import { articleContent as ac } from '../articleContent'
 import { w } from '../articleStrings'
 import { formatMoney, PROTOTYPE_ID, useAddToCart, useEcommerce } from '../cart'
 import { productsFor } from '../category'
 import { s } from '../strings'
+import { NotFoundPage } from './NotFoundPage'
 
 const shareNames = ['Facebook', 'Line', 'X']
 
@@ -30,18 +31,7 @@ export function ArticlePage() {
     return () => window.clearTimeout(id)
   }, [note])
 
-  if (!article) {
-    return (
-      <Grid>
-        <Col>
-          <Card>
-            <h3>{t(w.notFound)}</h3>
-            <div><Button to={`${base}/ideas${search}`}>{t(w.backToIdeas)}</Button></div>
-          </Card>
-        </Col>
-      </Grid>
-    )
-  }
+  if (!article) return <NotFoundPage />
 
   const cat = t(article.category)
   const title = t(article.title)

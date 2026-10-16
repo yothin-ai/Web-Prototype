@@ -1,12 +1,12 @@
 import { useLocation, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
-import { Breadcrumb, Button, Card, Col, Grid } from '../../../ui'
+import { Breadcrumb } from '../../../ui'
 import { PROTOTYPE_ID, useEcommerce } from '../cart'
 import { productsFor } from '../category'
-import { g } from '../listingStrings'
 import { s } from '../strings'
 import { ProductListing } from './ProductListing'
+import { NotFoundPage } from './NotFoundPage'
 
 // A brand page: the products of that brand, or a fixed sample when the Dataset has none under that name.
 export function BrandPage() {
@@ -18,18 +18,7 @@ export function BrandPage() {
   const brand = dataset.ecommerce.home.brands[Number(index)]
   const base = `/${PROTOTYPE_ID}`
 
-  if (!brand) {
-    return (
-      <Grid>
-        <Col>
-          <Card>
-            <h3>{t(g.notFound)}</h3>
-            <div><Button to={`${base}${search}`}>{t(g.backHome)}</Button></div>
-          </Card>
-        </Col>
-      </Grid>
-    )
-  }
+  if (!brand) return <NotFoundPage />
   const own = products.filter((p) => p.brand?.th === brand.th)
   return (
     <ProductListing

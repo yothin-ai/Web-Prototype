@@ -7,6 +7,7 @@ import { formatMoney, PROTOTYPE_ID, useOrders } from '../cart'
 import { findPayment, usePayOrder } from '../checkout'
 import { c } from '../checkoutStrings'
 import '../checkout.css'
+import { NotFoundPage } from './NotFoundPage'
 
 const SAMPLE_OTP = '123456'
 
@@ -24,18 +25,7 @@ export function PaymentPage() {
   const [otp, setOtp] = useState('')
   const base = `/${PROTOTYPE_ID}`
 
-  if (!pending) {
-    return (
-      <Grid>
-        <Col span={{ base: 4, sm: 8, md: 8 }}>
-          <Card>
-            <h3>{t(c.noPending)}</h3>
-            <div><Button to={`${base}/orders${search}`}>{t(c.viewOrders)}</Button></div>
-          </Card>
-        </Col>
-      </Grid>
-    )
-  }
+  if (!pending) return <NotFoundPage />
 
   const method = findPayment(pending.paymentId)
   const paid = () => {

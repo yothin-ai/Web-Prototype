@@ -3,11 +3,11 @@ import { useLang } from '../../../i18n'
 import { Accordion, Breadcrumb, Button, Card, CategoryPills, Col, Grid, Notice } from '../../../ui'
 import { PROTOTYPE_ID } from '../cart'
 import { infoBySlug, infoPages } from '../info'
-import { g } from '../listingStrings'
 import { s } from '../strings'
 import { legalMeta } from '../legalContent'
 import { lg } from '../legalStrings'
 import { PrivacyRequestForm } from './PrivacyRequestForm'
+import { NotFoundPage } from './NotFoundPage'
 
 // One text page: title, sample sections and links to the other pages in its group.
 export function InfoPage() {
@@ -17,18 +17,7 @@ export function InfoPage() {
   const page = infoBySlug(slug)
   const base = `/${PROTOTYPE_ID}`
 
-  if (!page) {
-    return (
-      <Grid>
-        <Col>
-          <Card>
-            <h3>{t(g.notFound)}</h3>
-            <div><Button to={`${base}${search}`}>{t(g.backHome)}</Button></div>
-          </Card>
-        </Col>
-      </Grid>
-    )
-  }
+  if (!page) return <NotFoundPage />
   const siblings = infoPages.filter((x) => x.group === page.group)
   return (
     <Grid>

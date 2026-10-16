@@ -1,8 +1,6 @@
 import type { Localized } from '../../i18n'
 
 export const w = {
-  notFound: { th: 'ไม่พบบทความนี้', en: 'Article not found' },
-  backToIdeas: { th: 'กลับไปหน้าแรงบันดาลใจ', en: 'Back to inspiration' },
   share: { th: 'แชร์', en: 'Share' },
   copied: { th: 'คัดลอกลิงก์แล้ว', en: 'Link copied' },
   copyFailed: { th: 'คัดลอกลิงก์ไม่ได้ในเบราว์เซอร์นี้', en: 'This browser could not copy the link' },

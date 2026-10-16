@@ -12,6 +12,7 @@ import { rv } from '../reviewStrings'
 import { s } from '../strings'
 import { withQuery } from '../Storefront'
 import { useNarrow } from '../useNarrow'
+import { NotFoundPage } from './NotFoundPage'
 
 const FRAMES = 5
 const DEFAULT_UNIT: Localized = { th: 'ชิ้น', en: 'piece' }
@@ -69,16 +70,7 @@ export function ProductPage() {
     }
   }, [productId, p])
 
-  if (!p) {
-    return (
-      <div className="storefront-section">
-        <Card>
-          <h3>{t(s.productNotFound)}</h3>
-          <div><Button to={`${base}${search}`}>{t(s.home)}</Button></div>
-        </Card>
-      </div>
-    )
-  }
+  if (!p) return <NotFoundPage />
 
   const d = p.detail
   const unit = d?.unit ?? DEFAULT_UNIT

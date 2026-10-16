@@ -19,9 +19,6 @@ export const g = {
   bestSeller: { th: 'ขายดี', en: 'Best seller' },
   results: { th: 'รายการสินค้า', en: 'products' },
   noMatch: { th: 'ไม่มีสินค้าตรงกับตัวกรอง', en: 'No products match these filters' },
-  jobNotFound: { th: 'ไม่พบงานนี้', en: 'Job not found' },
-  backToJobs: { th: 'กลับไปรายการงาน', en: 'Back to the jobs' },
-  notFound: { th: 'ไม่พบหมวดหมู่นี้', en: 'Category not found' },
   backHome: { th: 'กลับหน้าแรก', en: 'Back to the home page' },
   discount: { th: 'ลด', en: 'Save' },
 } satisfies Record<string, Localized>
