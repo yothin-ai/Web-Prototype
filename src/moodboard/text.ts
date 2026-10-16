@@ -78,7 +78,7 @@ export const text = {
   c42: { th: 'ช่องกรอกข้อมูล (Form)', en: 'Form fields' },
   c42Note: { th: 'ช่องกรอกพร้อมข้อความช่วยเหลือ', en: 'An input with helper text.' },
   c43: { th: 'การ์ด (Card)', en: 'Card' },
-  c43Note: { th: 'การ์ดคือพื้นผิวมาตรฐานสำหรับจัดกลุ่มเนื้อหา ถ้าเป็นสินค้าให้ใช้การ์ดสินค้า (4.18)', en: 'The card is the standard surface for grouping content. For a product, use the product card (4.18).' },
+  c43Note: { th: 'การ์ดคือพื้นผิวมาตรฐานสำหรับจัดกลุ่มเนื้อหา ถ้าเป็นสินค้าให้ใช้การ์ดสินค้า (4.18) การ์ดที่กดไปหน้าอื่นได้ตอบสนองเมื่อชี้เมาส์หรือโฟกัส (กรอบสีเน้นหนาขึ้นด้านใน ชื่อเปลี่ยนสี) และกดได้ทั้งใบ', en: 'The card is the standard surface for grouping content. For a product, use the product card (4.18). A card that leads somewhere reacts to the pointer and to focus (the accent border thickens inward and the title turns accent), and the whole card can be clicked.' },
   cardTitle: { th: 'หัวข้อการ์ด', en: 'Card title' },
   cardBody: { th: 'ข้อความอธิบายสั้นๆ ของเนื้อหาในการ์ด', en: 'A short line explaining what is in the card.' },
   cardAction: { th: 'ตัวอย่างปุ่ม', en: 'Sample button' },

@@ -13,6 +13,7 @@
 7. **Add to cart looks the same everywhere.** Every add-to-cart button is `<Button icon="cart">`: the cart icon before the label, in the label's colour.
 8. **Product pictures are square.** A picture of a product (card, cart line, product page) is 1:1, shown with `<ProductImage square />`, and one 1000×1000px file serves them all. Pictures of articles and categories keep the 4:3 frame.
 9. **Brand pictures come in as props.** Third-party badges and logos (App Store, Google Play, payment and social logos, and popular-brand logos in `src/assets/brand/brands/`) live in `src/assets/brand/` and reach `SiteFooter` and `AppPromoCard` through their props; never place a logo file inside a component or a page. They are other companies' trademarks, used only so the prototype looks finished.
+10. **A card that leads somewhere reacts and is clickable as a whole.** `ProductCard`, a `Card` with `to`, the shortcut, flash-sale, article and category cards all take the shared hover and keyboard-focus state (accent border thickened inward, accent title) from `storefront.css`, and the whole card is the click target: the name or the read / shop button stretches its link over the card while real buttons stay on top. Do not write a hover style per page, and keep the ring inside the card because carousels clip anything outside it.
 
 ## Color roles
 
