@@ -6,7 +6,11 @@ import { findPayment } from '../checkout'
 import { c } from '../checkoutStrings'
 import { o } from '../orderStrings'
 import { paysOnDelivery, statusOf, stepsDone, useOrderBook, type StepKey } from '../orders'
+import { reviewKey, useReviews } from '../reviews'
+import { rv } from '../reviewStrings'
 import { s } from '../strings'
+import { wl } from '../walletStrings'
+import { withQuery } from '../Storefront'
 import { AccountShell } from './AccountShell'
 
 const headerIcon = { pending: 'clock', preparing: 'package', ready: 'truck', delivered: 'check', cancelled: 'close' } as const
@@ -25,6 +29,8 @@ export function OrderDetailPage() {
   const { orderId } = useParams()
   const { shippingMethods } = useEcommerce()
   const [orders] = useOrderBook()
+  const { pending } = useReviews()
+  const pendingKeys = new Set(pending.map((x) => x.key))
   const order = orders.find((x) => x.id === orderId)
   const base = `/${PROTOTYPE_ID}`
 
@@ -91,12 +97,13 @@ export function OrderDetailPage() {
             {order.lines.map((l, i) => (
               <DataRow
                 key={i}
-                label={<span className="stack">{l.productId ? <Link to={`${base}/product/${l.productId}${search}`} className="card-link"><strong>{t(l.name)}</strong></Link> : <strong>{t(l.name)}</strong>}<span className="muted">{t(o.qty)}: {l.qty}</span></span>}
+                label={<span className="stack">{l.productId ? <Link to={`${base}/product/${l.productId}${search}`} className="card-link"><strong>{t(l.name)}</strong></Link> : <strong>{t(l.name)}</strong>}<span className="muted">{t(o.qty)}: {l.qty}</span>{l.productId && pendingKeys.has(reviewKey(order.id, l.productId)) && <Link to={`${base}/account/reviews${withQuery(search, 'write', reviewKey(order.id, l.productId))}`}>{t(rv.write)}</Link>}</span>}
                 value={money(l.price * l.qty)}
               />
             ))}
             <DataRow muted label={t(o.itemsTotal)} value={money(order.subtotal)} />
             <DataRow muted label={t(o.discount)} value={`−${money(order.discount ?? 0)}`} />
+            {!!order.walletUsed && <DataRow muted label={t(wl.summaryLine)} value={`−${money(order.walletUsed)}`} />}
             <DataRow muted label={t(o.deliveryFee)} value={order.shippingPrice === 0 ? t(s.free) : money(order.shippingPrice)} />
             <DataRow strong label={<span className="stack"><span>{t(o.netTotal)}</span><span className="muted">{t(o.vat)}</span></span>} value={<span className="checkout-total">{money(order.total)}</span>} />
             <DataRow muted label={t(o.paymentTitle)} value={<span className="row">{payment ? t(payment.name) : order.paymentId}<Badge tone={st === 'pending' ? 'warning' : st === 'cancelled' ? undefined : 'success'}>{t(payState)}</Badge></span>} />

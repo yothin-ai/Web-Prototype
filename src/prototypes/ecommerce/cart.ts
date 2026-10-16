@@ -23,6 +23,8 @@ export type Order = {
   pickupMode?: 'counter' | 'locker'
   discount?: number
   couponTitle?: Localized
+  // Paid from the wallet (already taken off `total`).
+  walletUsed?: number
   points?: number
   installment?: { months: number; monthly: number }
   status?: OrderStatus

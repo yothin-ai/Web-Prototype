@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, Modal, CouponCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, Modal, CouponCard, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -12,6 +12,7 @@ import { text } from '../text'
 export function Components() {
   const { t } = useLang()
   const [modalOpen, setModalOpen] = useState(false)
+  const [stars, setStars] = useState(4)
   const [qty, setQty] = useState(1)
   const [choice, setChoice] = useState('a')
   const [switched, setSwitched] = useState(false)
@@ -575,6 +576,15 @@ export function Components() {
           <Card><div className="row"><h3 className="row__grow">{t(text.c427Gold)}</h3><Badge tone="success">{t(text.c427Yours)}</Badge></div><span className="muted">{t(text.c427Perk)}</span></Card>
           <Card><div className="row"><h3 className="row__grow">{t(text.c427Platinum)}</h3></div><span className="muted">{t(text.c427Perk)}</span></Card>
         </div>
+      </Block>
+      <Block number="4.28" title={t(text.c428)} note={t(text.c428Note)}>
+        <div className="stack">
+          <div className="row"><RatingStars value={4} label={t(text.c428Show)} /><span className="muted">4.0 · 12</span></div>
+          <div className="row"><RatingStars value={stars} onChange={setStars} label={t(text.c428Pick)} starLabel={(n) => String(n)} /><span className="muted">{stars}/5</span></div>
+        </div>
+      </Block>
+      <Block number="4.29" title={t(text.c429)} note={t(text.c429Note)}>
+        <BalanceCard label="WALLET" caption={t(text.c429Caption)} amount="1,200" unit={t(text.c429Unit)} note={t(text.c429Ready)} />
       </Block>
     </Chapter>
   )

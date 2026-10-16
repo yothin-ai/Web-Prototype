@@ -140,3 +140,17 @@ export function BottomTabBar({ label, items, inline }: { label: string; items: N
     </nav>
   )
 }
+
+// The balance a shopper can spend (a wallet): a caption, the amount, and a note such as how many credits are ready.
+export function BalanceCard({ label, caption, amount, unit, note }: { label: string; caption: string; amount: string; unit: string; note: string }) {
+  return (
+    <div className="balance-card">
+      <span className="balance-card__label">{label}</span>
+      <span>{caption}</span>
+      <div className="balance-card__row">
+        <span><strong className="balance-card__value">{amount}</strong><span className="balance-card__unit">{unit}</span></span>
+        <span className="badge">{note}</span>
+      </div>
+    </div>
+  )
+}

@@ -59,7 +59,8 @@ export function sampleOrders(products: Product[], parcelShippingId: string, parc
   return [
     make('ORD-0904', 2 * hour, [[0, 1], [1, 2]], { status: 'pending', paymentId: 'promptpay' }),
     make('ORD-0903', 2 * day, [[2, 1]], { status: 'ready', paymentId: 'transfer' }),
-    make('ORD-0902', 9 * day, [[3, 1], [4, 1]], { status: 'delivered', paymentId: 'branch', fulfilment: 'pickup', shippingId: 'pickup', pickupMode: 'counter', customer: { name: 'ผู้ใช้ตัวอย่าง', phone: '0800000000', address: 'สาขาตัวอย่าง ปทุมธานี' } }),
+    make('ORD-0902', 9 * day, [[3, 1], [4, 1], [6, 1]], { status: 'delivered', paymentId: 'branch', fulfilment: 'pickup', shippingId: 'pickup', pickupMode: 'counter', customer: { name: 'ผู้ใช้ตัวอย่าง', phone: '0800000000', address: 'สาขาตัวอย่าง ปทุมธานี' } }),
+    make('ORD-0899', 34 * day, [[7, 1], [8, 1]], { status: 'delivered', paymentId: 'transfer' }),
     make('ORD-0901', 20 * day, [[5, 2]], { status: 'cancelled', paymentId: 'cod' }),
   ]
 }

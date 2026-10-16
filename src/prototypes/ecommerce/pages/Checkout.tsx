@@ -15,6 +15,8 @@ import { c } from '../checkoutStrings'
 import { cp } from '../couponStrings'
 import { ClubLinkForm } from './ClubParts'
 import { useClubPoints } from '../club'
+import { useWallet } from '../wallet'
+import { wl } from '../walletStrings'
 import { isUsable, useCouponWallet } from '../coupons'
 import { s } from '../strings'
 import { branchById, branches, useBranch } from '../branches'
@@ -71,7 +73,12 @@ export function Checkout() {
   const coupon = walletCoupons.find((x) => x.id === couponId)
   const cut = couponDiscount(coupon, subtotal, shippingPrice, fulfil)
   const afterDiscount = subtotal - cut.items
-  const net = afterDiscount + shippingPrice - cut.shipping
+  const grossNet = afterDiscount + shippingPrice - cut.shipping
+  const wallet = useWallet()
+  const [useWalletOn, setUseWalletOn] = useState(false)
+  // The wallet pays as much as it holds but never the last baht, so a payment method is still needed.
+  const walletUse = useWalletOn ? Math.min(wallet.balance, Math.max(0, grossNet - 1)) : 0
+  const net = grossNet - walletUse
   const points = Math.floor(afterDiscount / home.app.earnBaht)
   const count = cartCount(cart)
   const club = t(home.app.club)
@@ -121,6 +128,7 @@ export function Checkout() {
       fulfilment: fulfil,
       pickupMode: fulfil === 'pickup' ? pickupMode : undefined,
       discount: cut.items + cut.shipping,
+      walletUsed: walletUse > 0 ? walletUse : undefined,
       couponTitle: coupon && cut.items + cut.shipping > 0 ? coupon.title : undefined,
       points,
       installment: activePay === 'card' && months > 0 ? { months, monthly: Math.ceil(net / months) } : undefined,
@@ -130,6 +138,7 @@ export function Checkout() {
     placed.current = true
     const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax })
     if (coupon && cut.items + cut.shipping > 0) markUsed(coupon.id)
+    if (walletUse > 0) wallet.spend(walletUse, order.id)
     if (clubLinked && points > 0) addPoints({ th: `คำสั่งซื้อ ${order.id}`, en: `Order ${order.id}` }, points)
     navigate(toPay ? `${base}/pay/${order.id}${search}` : `${base}/done/${order.id}${search}`)
   }
@@ -338,6 +347,8 @@ export function Checkout() {
             {cut.items + cut.shipping > 0 && <DataRow muted label={`${t(c.discountLabel)}${coupon ? ` · ${t(coupon.title)}` : ''}`} value={`-${formatMoney(cut.items + cut.shipping, lang)}`} />}
             <DataRow muted label={t(c.shippingLabel)} value={shippingPrice === 0 ? t(s.free) : formatMoney(shippingPrice, lang)} />
             <DataRow muted label={t(c.afterDiscount)} value={formatMoney(afterDiscount, lang)} />
+            {walletUse > 0 && <DataRow muted label={t(wl.summaryLine)} value={`-${formatMoney(walletUse, lang)}`} />}
+            <Switch checked={useWalletOn && wallet.balance > 0} onChange={(on) => wallet.balance > 0 && setUseWalletOn(on)} label={t(wl.switchLabel)} description={wallet.balance > 0 ? `${t(wl.switchHint)} ${formatMoney(wallet.balance, lang)}` : t(wl.switchNone)} />
             <DataRow muted label={t(c.pointsEarn)} value={`+${points} pts`} />
             <DataRow strong label={<span className="stack"><span>{t(c.netTotal)}</span><span className="muted">{t(c.vatNote)}</span></span>} value={<span className="checkout-total">{formatMoney(net, lang)}</span>} />
             {problems.length > 0 && attempted && <Notice tone="error" title={t(c.errFix)}>{problems.map((p) => p.message).join(' · ')}</Notice>}

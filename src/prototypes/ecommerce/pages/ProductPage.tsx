@@ -4,9 +4,11 @@ import { useDataset } from '../../../datasets/DatasetContext'
 import type { Localized } from '../../../i18n'
 import { useLang } from '../../../i18n'
 import {
-  Badge, Breadcrumb, Button, Card, Carousel, DataRow, IconCircle, ProductCard, ProductGallery, QuantityStepper, StickyActionBar, Tabs,
+  Badge, Breadcrumb, Button, Card, Carousel, DataRow, IconCircle, ProductCard, ProductGallery, QuantityStepper, RatingStars, StickyActionBar, Tabs,
 } from '../../../ui'
-import { formatMoney, PROTOTYPE_ID, skuOf, useAddToCart, useEcommerce } from '../cart'
+import { formatDate, formatMoney, PROTOTYPE_ID, skuOf, useAddToCart, useEcommerce } from '../cart'
+import { averageRating, useReviews } from '../reviews'
+import { rv } from '../reviewStrings'
 import { s } from '../strings'
 import { withQuery } from '../Storefront'
 import { useNarrow } from '../useNarrow'
@@ -34,6 +36,16 @@ export function ProductPage() {
   const [pastBuy, setPastBuy] = useState(false)
   const buyRef = useRef<HTMLDivElement>(null)
   const base = `/${PROTOTYPE_ID}`
+  const { forProduct, pending, mine } = useReviews()
+  const reviews = forProduct(productId)
+  const average = averageRating(reviews)
+  const [reviewHint, setReviewHint] = useState('')
+  // A review is written from the account page, and only for a product the shopper has received.
+  const writeReview = () => {
+    const ready = pending.find((x) => x.line.productId === productId)
+    if (ready) navigate(`${base}/account/reviews${withQuery(search, 'write', ready.key)}`)
+    else setReviewHint(t(mine.some((r) => r.productId === productId) ? rv.alreadyReviewed : rv.onlyAfterReceive))
+  }
   const p = productById(productId)
 
   useEffect(() => {
@@ -154,9 +166,14 @@ export function ProductPage() {
             </div>
             <h1>{t(p.name)}</h1>
             <div className="row">
-              <span className="muted">{t(s.noReviews)}</span>
-              <Button variant="ghost" size="sm">{t(s.writeFirstReview)}</Button>
+              {reviews.length > 0 ? (
+                <><RatingStars value={average} label={t(rv.ratingLabel)} /><span className="muted">{average.toFixed(1)} · {reviews.length} {t(rv.reviewsWord)}</span></>
+              ) : (
+                <span className="muted">{t(s.noReviews)}</span>
+              )}
+              <Button variant="ghost" size="sm" onClick={writeReview}>{reviews.length > 0 ? t(rv.write) : t(s.writeFirstReview)}</Button>
             </div>
+            {reviewHint && <span className="muted" role="status">{reviewHint}</span>}
 
             <Card>
               <div className="row">
@@ -250,11 +267,22 @@ export function ProductPage() {
             },
             {
               id: 'reviews',
-              label: `${t(s.tabReviews)} 0`,
+              label: `${t(s.tabReviews)} ${reviews.length}`,
               content: (
                 <Card>
-                  <p>{t(s.reviewsEmpty)}</p>
-                  <div><Button variant="secondary" size="sm">{t(s.writeFirstReview)}</Button></div>
+                  {reviews.length === 0 ? <p>{t(s.reviewsEmpty)}</p> : (
+                    <>
+                      <div className="row"><strong>{t(rv.productReviews)}</strong><RatingStars value={average} label={t(rv.ratingLabel)} /><span className="muted">{average.toFixed(1)} {t(rv.outOf)}</span></div>
+                      {reviews.map((r) => (
+                        <div key={r.id} className="stack">
+                          <div className="row"><strong>{r.mine ? t(rv.mine) : r.author}</strong><RatingStars value={r.rating} label={t(rv.ratingLabel)} /><Badge tone="success">{t(rv.verified)}</Badge></div>
+                          <p>{typeof r.text === 'string' ? r.text : t(r.text)}</p>
+                          <span className="muted">{formatDate(r.at, lang)}</span>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                  <div><Button variant="secondary" size="sm" onClick={writeReview}>{reviews.length > 0 ? t(rv.write) : t(s.writeFirstReview)}</Button></div>
                 </Card>
               ),
             },

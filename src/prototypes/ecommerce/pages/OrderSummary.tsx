@@ -5,6 +5,7 @@ import { formatMoney, PROTOTYPE_ID, useEcommerce, type Order } from '../cart'
 import { findPayment } from '../checkout'
 import { c } from '../checkoutStrings'
 import { s } from '../strings'
+import { wl } from '../walletStrings'
 
 export function OrderSummary({ order }: { order: Order }) {
   const { t, lang } = useLang()
@@ -21,6 +22,7 @@ export function OrderSummary({ order }: { order: Order }) {
       ))}
       <DataRow muted label={`${t(s.shipping)}${shippingName ? ` · ${t(shippingName)}` : ''}`} value={formatMoney(order.shippingPrice, lang)} />
       {!!order.discount && <DataRow muted label={`${t(c.discountLabel)}${order.couponTitle ? ` · ${t(order.couponTitle)}` : ''}`} value={`-${formatMoney(order.discount, lang)}`} />}
+      {!!order.walletUsed && <DataRow muted label={t(wl.summaryLine)} value={`-${formatMoney(order.walletUsed, lang)}`} />}
       {payment && <p className="muted">{t(s.paymentMethod)}: {t(payment.name)}</p>}
       {order.installment && <p className="muted">{t(c.installLine)} · {order.installment.months} {t(c.monthsWord)} · {formatMoney(order.installment.monthly, lang)} {t(c.perMonth)}</p>}
       <DataRow strong label={t(s.total)} value={formatMoney(order.total, lang)} />
