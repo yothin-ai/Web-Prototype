@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../../../i18n'
-import { Button, Card, Field, Notice, Select } from '../../../ui'
+import { Button, Card, Field, Notice, Select, Textarea } from '../../../ui'
 import { lg } from '../legalStrings'
 
 const EMAIL = /^\S+@\S+\.\S+$/
@@ -58,7 +58,7 @@ export function PrivacyRequestForm() {
         />
         <Field label={t(lg.formName)} id="dsr-name" placeholder="สมชาย ตัวอย่าง" value={form.name} hint={shown('name')} onChange={(e) => set('name', e.target.value)} />
         <Field label={t(lg.formEmail)} id="dsr-email" type="email" inputMode="email" placeholder="name@example.com" value={form.email} hint={shown('email')} onChange={(e) => set('email', e.target.value)} />
-        <Field label={t(lg.formDetails)} id="dsr-details" placeholder={t(lg.formDetailsPlaceholder)} value={form.details} hint={shown('details')} onChange={(e) => set('details', e.target.value)} />
+        <Textarea label={t(lg.formDetails)} id="dsr-details" placeholder={t(lg.formDetailsPlaceholder)} value={form.details} hint={shown('details')} onChange={(e) => set('details', e.target.value)} />
         <Button onClick={submit}>{t(lg.formSubmit)}</Button>
       </div>
     </Card>

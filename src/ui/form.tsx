@@ -1,4 +1,4 @@
-import type { ReactNode, SelectHTMLAttributes } from 'react'
+import type { ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes } from 'react'
 
 // "Step 2 of 3": a small pill that tells a shopper where they are in a flow.
 export function StepPill({ step, label, progress }: { step: number; label: string; progress: string }) {
@@ -29,6 +29,20 @@ export function Select({ label, options, placeholder, hint, id, ...rest }: Selec
           {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
+      {hint && <span className="field__hint">{hint}</span>}
+    </div>
+  )
+}
+
+type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; hint?: string }
+
+// A labelled box for text that runs over several lines (a review, a note). Same look as Field; it grows taller by dragging.
+export function Textarea({ label, hint, id, rows = 4, ...rest }: TextareaProps) {
+  const areaId = id ?? `textarea-${label}`
+  return (
+    <div className="field">
+      <label className="field__label" htmlFor={areaId}>{label}</label>
+      <textarea id={areaId} className="field__input field__textarea" rows={rows} {...rest} />
       {hint && <span className="field__hint">{hint}</span>}
     </div>
   )

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate, useLocation, useSearchParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { Breadcrumb, Button, Col, Field, Grid, Notice, Select } from '../../../ui'
+import { Breadcrumb, Button, Col, Field, Grid, Notice, Select, Textarea } from '../../../ui'
 import { useProfile, useSignedIn } from '../account'
 import { PROTOTYPE_ID } from '../cart'
 import { useAddresses } from '../checkout'
@@ -90,7 +90,7 @@ export function BookingPage() {
               )}
               <Field label={t(sv.fName)} id="bk-name" value={form.name} hint={shown('name')} onChange={(e) => set('name', e.target.value)} />
               <Field label={t(sv.fPhone)} id="bk-phone" type="tel" inputMode="tel" placeholder="0812345678" value={form.phone} hint={shown('phone')} onChange={(e) => set('phone', e.target.value.replace(/\D/g, '').slice(0, 10))} />
-              <Field label={t(sv.fNote)} id="bk-note" placeholder={t(sv.fNotePh)} value={form.note} onChange={(e) => set('note', e.target.value)} />
+              <Textarea label={t(sv.fNote)} id="bk-note" placeholder={t(sv.fNotePh)} value={form.note} onChange={(e) => set('note', e.target.value)} />
               <Button onClick={submit}>{t(sv.submit)}</Button>
               <span className="muted">{t(sv.demo)}</span>
               <Link to={`${base}/services${search}`}>{t(sv.backServices)}</Link>

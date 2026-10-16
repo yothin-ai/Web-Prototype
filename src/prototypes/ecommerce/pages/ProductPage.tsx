@@ -276,7 +276,7 @@ export function ProductPage() {
                       {reviews.map((r) => (
                         <div key={r.id} className="stack">
                           <div className="row"><strong>{r.mine ? t(rv.mine) : r.author}</strong><RatingStars value={r.rating} label={t(rv.ratingLabel)} /><Badge tone="success">{t(rv.verified)}</Badge></div>
-                          <p>{typeof r.text === 'string' ? r.text : t(r.text)}</p>
+                          <p className="keep-lines">{typeof r.text === 'string' ? r.text : t(r.text)}</p>
                           <span className="muted">{formatDate(r.at, lang)}</span>
                         </div>
                       ))}

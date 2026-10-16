@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { Button, Card, Field, Modal, Notice, ProductImage, RatingStars } from '../../../ui'
+import { Button, Card, Modal, Notice, ProductImage, RatingStars, Textarea } from '../../../ui'
 import { formatDate, PROTOTYPE_ID } from '../cart'
 import { useEcommerce } from '../cart'
 import { useReviews } from '../reviews'
@@ -83,7 +83,7 @@ export function ReviewsPage() {
                 <div className="review-item__body">
                   {product ? <Link to={`${base}/product/${product.id}${search}`} className="card-link"><strong>{t(product.name)}</strong></Link> : <strong>-</strong>}
                   <RatingStars value={r.rating} label={t(rv.ratingLabel)} />
-                  <p>{typeof r.text === 'string' ? r.text : t(r.text)}</p>
+                  <p className="keep-lines">{typeof r.text === 'string' ? r.text : t(r.text)}</p>
                   <span className="muted">{formatDate(r.at, lang)}{r.orderId ? ` · ${t(rv.order)} ${r.orderId}` : ''}</span>
                 </div>
               </div>
@@ -104,7 +104,7 @@ export function ReviewsPage() {
               <RatingStars value={rating} onChange={setRating} label={t(rv.ratingLabel)} starLabel={(n) => `${n} ${t(rv.star)}`} />
               {tried && rating < 1 && <span className="field__hint">{t(rv.errRating)}</span>}
             </div>
-            <Field label={t(rv.text)} id="review-text" placeholder={t(rv.textHint)} value={text} hint={tried && !text.trim() ? t(rv.errText) : undefined} onChange={(e) => setText(e.target.value)} />
+            <Textarea label={t(rv.text)} id="review-text" maxLength={500} placeholder={t(rv.textHint)} value={text} hint={tried && !text.trim() ? t(rv.errText) : undefined} onChange={(e) => setText(e.target.value)} />
             <Button onClick={submit}>{t(rv.submit)}</Button>
           </div>
         )}

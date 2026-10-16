@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, Modal, CouponCard, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -622,6 +622,12 @@ export function Components() {
             </div>
           </Card>
         </div>
+      </Block>
+      <Block number="4.33" title={t(text.c433)} note={t(text.c433Note)}>
+        <Grid>
+          <Col span={{ base: 4, sm: 4, md: 6 }}><Textarea label={t(text.c433Label)} hint={t(text.fieldHint)} id="mb-ta1" placeholder={t(text.c433Ph)} /></Col>
+          <Col span={{ base: 4, sm: 4, md: 6 }}><Textarea label={t(text.c433Label)} id="mb-ta2" defaultValue={t(text.c433Value)} disabled /></Col>
+        </Grid>
       </Block>
     </Chapter>
   )
