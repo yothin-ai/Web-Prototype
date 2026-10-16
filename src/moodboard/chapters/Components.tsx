@@ -613,6 +613,16 @@ export function Components() {
           <div className="row"><Button>{t(text.c431Home)}</Button><Button variant="secondary">{t(text.c431All)}</Button></div>
         </div>
       </Block>
+      <Block number="4.32" title={t(text.c432)} note={t(text.c432Note)}>
+        <div className="cookie-banner cookie-banner--inline">
+          <Card>
+            <div className="cookie-banner__body">
+              <div className="stack cookie-banner__text"><strong>{t(text.c432Title)}</strong><span className="muted">{t(text.c432Text)}</span></div>
+              <div className="cookie-banner__actions"><Button variant="ghost">{t(text.c432Settings)}</Button><Button variant="secondary">{t(text.c432Reject)}</Button><Button>{t(text.c432Accept)}</Button></div>
+            </div>
+          </Card>
+        </div>
+      </Block>
     </Chapter>
   )
 }

@@ -15,6 +15,8 @@ import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
 import { cp } from './couponStrings'
 import { AuthModal } from './pages/AuthModal'
+import { CookieConsent } from './pages/CookieConsent'
+import { ck } from './miscStrings'
 
 // Adds or replaces the search term while keeping other query parameters such as ?clean=1.
 export const withQuery = (search: string, key: string, value: string) => {
@@ -86,6 +88,7 @@ export function Storefront({ children }: { children: ReactNode }) {
   return (
     <>
       <AuthModal />
+      <CookieConsent />
       <PromoStrip>{t(home.promoStrip)}</PromoStrip>
       <UtilityBar
         items={[
@@ -176,7 +179,7 @@ export function Storefront({ children }: { children: ReactNode }) {
         hoursNote={t(f.hoursNote)}
         complaint={{ label: t(f.complaint), to: `${base}/${f.complaintTo}${search}` }}
         copyright={`© 2026 ${t(dataset.brandName)} · ${t(f.copyright)}`}
-        legal={f.legal.map((l, i) => ({ label: t(l), to: `${base}/${f.legalTo[i]}${search}` }))}
+        legal={[...f.legal.map((l, i) => ({ label: t(l), to: `${base}/${f.legalTo[i]}${search}` })), { label: t(ck.settings), to: `${pathname}${withQuery(search, 'cookies', '1')}` }]}
         payments={paymentStrip}
       />
     </>

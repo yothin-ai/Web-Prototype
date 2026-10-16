@@ -435,3 +435,11 @@
 /* Page not found: a large code over a short message, centred. */
 .not-found { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); padding: var(--space-7) var(--space-4); text-align: center; }
 .not-found__code { font-size: calc(var(--font-size-3xl) * 2); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); color: var(--color-accent); }
+
+/* Cookie notice: a card floating at the bottom of the page above every other fixed bar. */
+.cookie-banner { position: fixed; right: 0; bottom: var(--space-4); left: 0; z-index: 40; padding-inline: var(--space-4); }
+.cookie-banner--inline { position: static; padding: 0; }
+.cookie-banner .card { max-width: calc(var(--grid-max-width) * 0.8); margin-inline: auto; box-shadow: var(--shadow-md); }
+.cookie-banner__body { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-5); }
+.cookie-banner__text { flex: 1 1 calc(var(--space-8) * 6); min-width: 0; }
+.cookie-banner__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
