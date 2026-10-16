@@ -37,7 +37,7 @@ export const cp = {
   tabDone: { th: 'หมด', en: 'Used up' },
   empty: { th: 'คุณยังไม่มีคูปอง', en: 'You have no coupons yet' },
   emptyDone: { th: 'ยังไม่มีคูปองที่หมดอายุหรือใช้แล้ว', en: 'No expired or used coupons yet' },
-  allPromos: { th: 'ดูโปรโมชั่นทั้งหมด', en: 'See all promotions' },
+  allPromos: { th: 'ดูโปรโมชันทั้งหมด', en: 'See all promotions' },
   viewAll: { th: 'ดูคูปองทั้งหมด', en: 'See all coupons' },
   utilityLabel: { th: 'คูปอง', en: 'Coupons' },
   signInToClaim: { th: 'เข้าสู่ระบบเพื่อเก็บคูปอง', en: 'Sign in to collect coupons' },

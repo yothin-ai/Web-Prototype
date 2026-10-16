@@ -44,7 +44,7 @@ export const returnsSections: InfoSection[] = [
   sec(p('สินค้าที่ไม่รับเปลี่ยน–คืน', 'What we do not accept'), p('สินค้าที่ตัดหรือผสมตามคำสั่ง สินค้าที่ใช้งานแล้ว สินค้าที่เสียหายจากการใช้งานผิดวิธี และสินค้าโปรโมชันที่ระบุว่าไม่รับคืน', 'Items cut or mixed to order, used items, items damaged by misuse, and promotional items marked non-returnable.')),
   sec(p('สินค้าชำรุดหรือผิดรุ่น', 'Faulty or wrong items'), p('แจ้งภายใน 7 วันพร้อมรูปถ่าย เราเปลี่ยนสินค้าให้ใหม่หรือคืนเงินเต็มจำนวนโดยไม่คิดค่าขนส่ง', 'Tell us within 7 days with photos. We replace the item or refund in full, with no shipping fee.')),
   sec(p('ขั้นตอน', 'How to return'), p('ติดต่อทีมบริการลูกค้า แจ้งเลขคำสั่งซื้อ แล้วนำสินค้าไปที่สาขาหรือรอรับบริการเก็บสินค้า', 'Contact customer service with your order number, then bring the item to a store or wait for pickup.')),
-  sec(p('การคืนเงิน', 'Refunds'), p('คืนเงินช่องทางเดิมที่ชำระ ภายใน 7–14 วันทำการหลังเราตรวจสอบสินค้าแล้ว', 'Refunded to the original payment method within 7–14 working days after we inspect the item.')),
+  sec(p('การคืนเงิน', 'Refunds'), p('คืนเงินผ่านช่องทางเดิมที่ชำระ ภายใน 7–14 วันทำการหลังเราตรวจสอบสินค้าแล้ว', 'Refunded to the original payment method within 7–14 working days after we inspect the item.')),
 ]
 
 export const cctvSections: InfoSection[] = [

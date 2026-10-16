@@ -31,7 +31,7 @@ export const articleContent = {
     p('วัสดุและอุปกรณ์หลักที่ใช้กับงาน', 'The main materials and tools for the job'),
     p('พื้นที่ทำงานที่โล่งและปลอดภัย', 'A clear, safe place to work'),
   ],
-  checkTitle: p('เช็กง่าย ๆ ก่อนลงมือ', 'A quick check before you begin'),
+  checkTitle: p('เช็กง่ายๆ ก่อนลงมือ', 'A quick check before you begin'),
   checks: [
     p('วางแผนพื้นที่ใช้งานแล้ว', 'The space is planned'),
     p('เลือกวัสดุที่เหมาะกับงานแล้ว', 'Materials are chosen'),

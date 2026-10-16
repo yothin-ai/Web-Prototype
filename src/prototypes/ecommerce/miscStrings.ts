@@ -30,16 +30,16 @@ export const ck = {
 } satisfies Record<string, Localized>
 
 export const pm = {
-  title: { th: 'โปรโมชั่นสำหรับคุณ', en: 'Promotions for you' },
+  title: { th: 'โปรโมชันสำหรับคุณ', en: 'Promotions for you' },
   sub: { th: 'รวมแคมเปญ ส่วนลด และสิทธิพิเศษของร้านไว้ในที่เดียว', en: 'Every campaign, discount and perk in one place' },
   campaigns: { th: 'แคมเปญเด่น', en: 'Featured campaigns' },
-  quick: { th: 'โปรโมชั่นทางลัด', en: 'Promotion shortcuts' },
+  quick: { th: 'โปรโมชันทางลัด', en: 'Promotion shortcuts' },
   perks: { th: 'สิทธิพิเศษสำหรับคุณ', en: 'Perks for you' },
   open: { th: 'ดูแคมเปญ', en: 'See the campaign' },
-  menuAll: { th: 'โปรโมชั่นทั้งหมด', en: 'All promotions' },
+  menuAll: { th: 'โปรโมชันทั้งหมด', en: 'All promotions' },
   menuCoupons: { th: 'คูปองส่วนลด', en: 'Discount coupons' },
   menuClub: { th: 'สิทธิประโยชน์สมาชิกคลับ', en: 'Club member perks' },
-  navLabel: { th: 'โปรโมชั่นสำหรับคุณ', en: 'Promotions for you' },
+  navLabel: { th: 'โปรโมชันสำหรับคุณ', en: 'Promotions for you' },
   couponsText: { th: 'เก็บคูปองส่วนลดไว้ใช้ตอนชำระเงิน', en: 'Collect discount coupons for checkout' },
   clubText: { th: 'สะสมคะแนน แลกคูปอง และรับสิทธิตามระดับ', en: 'Earn points, redeem coupons and get tier perks' },
   servicesText: { th: 'ติดตั้งโดยช่างมืออาชีพ จองได้ทันที', en: 'Professional installation, bookable now' },

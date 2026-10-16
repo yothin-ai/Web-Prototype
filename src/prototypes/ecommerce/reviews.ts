@@ -19,7 +19,7 @@ const others: { index: number; rating: number; author: string; at: string; text:
 // The two reviews the sample shopper already wrote, on the products of the older delivered order.
 const mineSeed: { index: number; rating: number; at: string; text: Localized }[] = [
   { index: 7, rating: 5, at: '2026-09-18T20:10:00', text: p('คุ้มราคา ใช้มาสองสัปดาห์ยังดีอยู่', 'Worth the price and still good after two weeks.') },
-  { index: 8, rating: 4, at: '2026-09-18T20:15:00', text: p('ของดี ส่งไว มีติดขัดเรื่องคู่มือนิดหน่อย', 'Good product and fast delivery; the manual could be clearer.') },
+  { index: 8, rating: 4, at: '2026-09-18T20:15:00', text: p('ของดี ส่งไว แต่คู่มืออ่านเข้าใจยากไปนิด', 'Good product and fast delivery; the manual could be clearer.') },
 ]
 
 export const reviewKey = (orderId: string, productId: string) => `${orderId}:${productId}`

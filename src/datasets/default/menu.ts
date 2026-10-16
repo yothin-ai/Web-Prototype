@@ -171,7 +171,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'ราคาพิเศษวันนี้', en: 'Today\'s special prices' } },
         { label: { th: 'ซื้อ 1 แถม 1', en: 'Buy 1 get 1' } },
       ] },
-      { label: { th: 'โปรโมชั่นชุด', en: 'Bundle deals' }, children: [
+      { label: { th: 'โปรโมชันชุด', en: 'Bundle deals' }, children: [
         { label: { th: 'ชุดเครื่องเขียน', en: 'Stationery bundles' } },
         { label: { th: 'ชุดของขวัญ', en: 'Gift bundles' } },
         { label: { th: 'ชุดโต๊ะทำงาน', en: 'Desk bundles' } },

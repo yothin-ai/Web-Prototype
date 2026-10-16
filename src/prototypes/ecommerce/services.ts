@@ -31,7 +31,7 @@ export const portfolios: Portfolio[] = [
   { id: 'pf5', type: 'disinfect', title: p('ฉีดพ่นฆ่าเชื้อทั้งบ้าน', 'Whole-house disinfection'), ...place('ภูเก็ต', 'Phuket'), did: p('ฉีดพ่นฆ่าเชื้อบ้านสองชั้นและรถยนต์หนึ่งคัน ใช้เวลาประมาณสองชั่วโมง', 'Sprayed a two-storey house and one car in about two hours.') },
   { id: 'pf6', type: 'cctv', title: p('ติดตั้งกล้องวงจรปิด 4 จุด', 'Four-camera CCTV setup'), ...place('สงขลา', 'Songkhla'), did: p('ติดตั้งกล้อง 4 ตัวรอบบ้าน เชื่อมต่อเครื่องบันทึกและตั้งค่าดูผ่านมือถือ', 'Mounted four cameras around the house, linked the recorder and set up phone viewing.') },
   { id: 'pf7', type: 'sanitary', title: p('เปลี่ยนสุขภัณฑ์ห้องน้ำ', 'Bathroom fittings change'), ...place('กรุงเทพฯ', 'Bangkok'), did: p('เปลี่ยนโถสุขภัณฑ์ อ่างล้างหน้า และฝักบัว ทดสอบการรั่วซึมก่อนส่งมอบ', 'Swapped the toilet, basin and shower and tested for leaks before handover.') },
-  { id: 'pf8', type: 'door', title: p('ติดตั้งประตูและหน้าต่างอลูมิเนียม', 'Aluminium doors and windows'), ...place('ระยอง', 'Rayong'), did: p('ติดตั้งประตูบานเลื่อนและหน้าต่าง 3 บาน พร้อมอุดซีลกันน้ำรั่ว', 'Fitted a sliding door and three windows with waterproof sealing.') },
+  { id: 'pf8', type: 'door', title: p('ติดตั้งประตูและหน้าต่างอะลูมิเนียม', 'Aluminium doors and windows'), ...place('ระยอง', 'Rayong'), did: p('ติดตั้งประตูบานเลื่อนและหน้าต่าง 3 บาน พร้อมอุดซีลกันน้ำรั่ว', 'Fitted a sliding door and three windows with waterproof sealing.') },
 ]
 
 export const slots = ['morning', 'afternoon', 'evening'] as const

@@ -56,7 +56,7 @@ export type ColorToken = keyof typeof tokens.color
 export const colorUsage: Record<ColorToken, { th: string; en: string }> = {
   bg: { th: 'พื้นหลังของทั้งหน้า', en: 'Page background' },
   surface: { th: 'พื้นของการ์ด ฟอร์ม และแถบ', en: 'Cards, forms and bars' },
-  surfaceAlt: { th: 'พื้นรองหรือส่วนที่ต้องแยกออกเบา ๆ', en: 'Secondary or subtly separated areas' },
+  surfaceAlt: { th: 'พื้นรองหรือส่วนที่ต้องแยกออกเบาๆ', en: 'Secondary or subtly separated areas' },
   border: { th: 'เส้นขอบและเส้นแบ่ง', en: 'Borders and dividers' },
   text: { th: 'ข้อความหลัก', en: 'Primary text' },
   textMuted: { th: 'ข้อความรองและคำอธิบาย', en: 'Secondary text and captions' },

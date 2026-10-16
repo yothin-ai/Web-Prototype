@@ -35,8 +35,8 @@ export const jobGroups: Record<string, Localized[]> = {
     g('หินและทราย', 'Gravel and sand'), g('น้ำยากันซึมและผสมคอนกรีต', 'Waterproofing and concrete admixtures'), g('เครื่องผสมปูนและเครื่องจี้', 'Mixers and vibrators'), g('เครื่องมือวัดระดับ', 'Levelling tools'),
   ],
   'ติดตั้งฝ้า (ฝ้าฉาบเรียบ/ฝ้าหลุม)': [
-    g('แผ่นยิปซั่ม (ธรรมดา / กันชื้น / กันไฟ)', 'Gypsum boards (standard / moisture / fire)'), g('โครงคร่าว', 'Ceiling framing'), g('คิ้วเข้ามุม / อุปกรณ์ยึดโครงคร่าว / สกรู', 'Corner trims, framing fixings and screws'),
-    g('ปูนฉาบยิปซั่ม', 'Gypsum plaster'), g('ผ้าฉาบรอยต่อ', 'Joint tape'), g('สีรองพื้นและสีทาฝ้าเพดาน', 'Primer and ceiling paint'), g('ช่องเซอร์วิส', 'Access panels'),
+    g('แผ่นยิปซัม (ธรรมดา / กันชื้น / กันไฟ)', 'Gypsum boards (standard / moisture / fire)'), g('โครงคร่าว', 'Ceiling framing'), g('คิ้วเข้ามุม / อุปกรณ์ยึดโครงคร่าว / สกรู', 'Corner trims, framing fixings and screws'),
+    g('ปูนฉาบยิปซัม', 'Gypsum plaster'), g('ผ้าฉาบรอยต่อ', 'Joint tape'), g('สีรองพื้นและสีทาฝ้าเพดาน', 'Primer and ceiling paint'), g('ช่องเซอร์วิส', 'Access panels'),
     g('ไฟใต้ฝ้า', 'Ceiling lights'), g('สายไฟ', 'Electric cable'), g('สวิตช์', 'Switches'), g('เครื่องยกฝ้า (Panel Lift)', 'Panel lifts'),
     g('ตัดแผ่น / ตกแต่งแผ่น / เครื่องเจียร', 'Board cutters, trimmers and grinders'), g('กรรไกรตัดโครงคร่าว', 'Framing snips'), g('สว่านไฟฟ้าและดอกเจาะ', 'Drills and bits'), g('ไม้บรรทัดฉากและเชือกดิ่ง (วัดระดับ)', 'Set squares and plumb lines'),
   ],
@@ -57,7 +57,7 @@ export const jobGroups: Record<string, Localized[]> = {
     g('กระเบื้องและแผ่นมุงหลังคา', 'Roof tiles and sheets'), g('ฉนวนกันความร้อน', 'Thermal insulation'), g('บันไดและนั่งร้าน', 'Ladders and scaffolding'), g('เข็มขัดนิรภัย', 'Safety harnesses'),
   ],
   'กั้นห้องภายใน ผนังเบา': [
-    g('แผ่นยิปซั่มและแผ่นไฟเบอร์', 'Gypsum and fibre boards'), g('โครงคร่าวผนัง', 'Wall framing'), g('สกรูยิปซั่ม', 'Drywall screws'), g('ฉนวนกันเสียง', 'Acoustic insulation'),
+    g('แผ่นยิปซัมและแผ่นไฟเบอร์', 'Gypsum and fibre boards'), g('โครงคร่าวผนัง', 'Wall framing'), g('สกรูยิปซัม', 'Drywall screws'), g('ฉนวนกันเสียง', 'Acoustic insulation'),
     g('ปูนฉาบและผ้าฉาบรอยต่อ', 'Plaster and joint tape'), g('สีทาภายใน', 'Interior paint'), g('ประตูและวงกบ', 'Doors and frames'),
   ],
   'ปั๊มน้ำโซลาร์เซลล์ และอุปกรณ์ติดตั้ง': [
@@ -89,7 +89,7 @@ export const jobGroups: Record<string, Localized[]> = {
   'เตรียมประชุมทีม': [g('ไวท์บอร์ดและปากกา', 'Whiteboards and markers'), g('กระดาษโน้ตและโพสต์อิท', 'Sticky notes'), g('แฟ้มและคลิปหนีบ', 'Folders and clips'), g('ปากกาเน้นข้อความ', 'Highlighters'), g('ป้ายชื่อ', 'Name badges'), g('เครื่องเย็บกระดาษ', 'Staplers')],
   // Coffee Dataset
   'ชงดริปที่บ้าน': [g('เมล็ดกาแฟคั่ว', 'Roasted beans'), g('ดริปเปอร์และกระดาษกรอง', 'Drippers and filters'), g('กาดริปคอห่านและเครื่องชั่ง', 'Gooseneck kettles and scales'), g('เครื่องบดกาแฟมือหมุน', 'Hand grinders'), g('แก้วและเหยือกเซิร์ฟ', 'Cups and servers'), g('ที่เก็บเมล็ดกาแฟ', 'Bean storage')],
-  'เริ่มทำคาเฟ่เล็ก ๆ': [g('เครื่องชงเอสเปรสโซ', 'Espresso machines'), g('เครื่องบดกาแฟไฟฟ้า', 'Electric grinders'), g('เมล็ดกาแฟสำหรับร้าน', 'Beans for cafes'), g('แก้วและบรรจุภัณฑ์', 'Cups and packaging'), g('เหยือกตีนมและอุปกรณ์บาริสต้า', 'Milk jugs and barista tools'), g('ไซรัปและวัตถุดิบ', 'Syrups and ingredients'), g('ชุดตั้งโต๊ะและเก้าอี้', 'Tables and chairs')],
+  'เริ่มทำคาเฟ่เล็กๆ': [g('เครื่องชงเอสเปรสโซ', 'Espresso machines'), g('เครื่องบดกาแฟไฟฟ้า', 'Electric grinders'), g('เมล็ดกาแฟสำหรับร้าน', 'Beans for cafes'), g('แก้วและบรรจุภัณฑ์', 'Cups and packaging'), g('เหยือกตีนมและอุปกรณ์บาริสต้า', 'Milk jugs and barista tools'), g('ไซรัปและวัตถุดิบ', 'Syrups and ingredients'), g('ชุดตั้งโต๊ะและเก้าอี้', 'Tables and chairs')],
   'ของขวัญคนรักกาแฟ': [g('ชุดกาแฟของขวัญ', 'Coffee gift sets'), g('แก้วเซรามิก', 'Ceramic mugs'), g('ชุดดริปเริ่มต้น', 'Starter drip kits'), g('เมล็ดกาแฟคัดพิเศษ', 'Specialty beans'), g('กล่องของขวัญและการ์ด', 'Gift boxes and cards'), g('หนังสือกาแฟ', 'Coffee books')],
   'กาแฟระหว่างเดินทาง': [g('แก้วเก็บอุณหภูมิ', 'Insulated cups'), g('กาแฟดริปแบบซอง', 'Drip bag coffee'), g('เครื่องชงพกพา', 'Portable brewers'), g('กระบอกน้ำ', 'Bottles'), g('กาแฟสำเร็จรูป', 'Instant coffee'), g('ที่หุ้มแก้ว', 'Cup sleeves')],
   'ปาร์ตี้กาแฟกับเพื่อน': [g('เหยือกและเครื่องชงขนาดใหญ่', 'Large pitchers and brewers'), g('ชุดแก้วและจานรอง', 'Cup and saucer sets'), g('ขนมและคุกกี้', 'Snacks and cookies'), g('เมล็ดกาแฟหลายรสชาติ', 'Mixed-flavour beans'), g('ที่ตั้งแก้วและถาด', 'Coasters and trays'), g('นมและครีมเทียม', 'Milk and creamers')],

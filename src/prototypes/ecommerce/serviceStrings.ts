@@ -3,8 +3,8 @@ import type { Localized } from '../../i18n'
 export const sv = {
   title: { th: 'บริการติดตั้งและบริการเสริม', en: 'Installation and extra services' },
   sub: { th: 'ช่างมืออาชีพติดตั้งถึงที่ ตรวจสอบหน้างาน แล้วแจ้งราคาจริงก่อนเริ่มงาน', en: 'Professional technicians come to you, inspect the site and quote the real price before work starts' },
-  promoTitle: { th: 'โปรโมชั่นวันนี้', en: "Today's promotion" },
-  promo: { th: 'พื้นที่แบนเนอร์โปรโมชั่นบริการช่าง', en: 'Banner space for technician service promotions' },
+  promoTitle: { th: 'โปรโมชันวันนี้', en: "Today's promotion" },
+  promo: { th: 'พื้นที่แบนเนอร์โปรโมชันบริการช่าง', en: 'Banner space for technician service promotions' },
   typesTitle: { th: 'ประเภทบริการ', en: 'Service types' },
   from: { th: 'เริ่มต้น', en: 'From' },
   book: { th: 'จองช่าง', en: 'Book a technician' },

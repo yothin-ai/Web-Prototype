@@ -13,7 +13,7 @@ const dataset: Dataset = {
       utility: [
         { th: '0-0000-0000 · 24 ชม.', en: '0-0000-0000 · 24 hrs' },
         { th: 'สาขาตัวอย่าง', en: 'Sample branch' },
-        { th: 'ศูนย์ช่วยเหลือ', en: 'Help center' },
+        { th: 'ศูนย์ช่วยเหลือ', en: 'Help centre' },
       ],
       categories: [
         { th: 'เมล็ดกาแฟ', en: 'Beans' },
@@ -38,7 +38,7 @@ const dataset: Dataset = {
       shortcuts: [
         { title: { th: 'คูปองลดเพิ่ม', en: 'Extra discount coupons' }, text: { th: 'รับส่วนลดเพิ่มด้วยคูปองพิเศษ', en: 'Get more off with special coupons' }, tag: { th: 'HOT', en: 'HOT' } },
         { title: { th: 'คอร์สชงกาแฟ', en: 'Brewing classes' }, text: { th: 'เรียนรู้จากบาริสต้าตัวจริง', en: 'Learn from real baristas' }, tag: { th: 'PRO', en: 'PRO' } },
-        { title: { th: 'สมาชิกคลับกาแฟ', en: 'Coffee Club membership' }, text: { th: 'สมัครฟรี สะสมแต้ม รับสิทธิ์พิเศษ', en: 'Free to join, earn points, get perks' }, tag: { th: 'FREE', en: 'FREE' } },
+        { title: { th: 'สมาชิกคลับกาแฟ', en: 'Coffee Club membership' }, text: { th: 'สมัครฟรี สะสมแต้ม รับสิทธิพิเศษ', en: 'Free to join, earn points, get perks' }, tag: { th: 'FREE', en: 'FREE' } },
       ],
       circles: [
         { th: 'ส่งฟรี', en: 'Free delivery' },
@@ -54,7 +54,7 @@ const dataset: Dataset = {
       jobsTitle: { th: 'ช้อปตามการใช้งาน', en: 'Shop by use' },
       jobs: [
         { th: 'ชงดริปที่บ้าน', en: 'Pour-over at home' },
-        { th: 'เริ่มทำคาเฟ่เล็ก ๆ', en: 'Starting a small cafe' },
+        { th: 'เริ่มทำคาเฟ่เล็กๆ', en: 'Starting a small cafe' },
         { th: 'ของขวัญคนรักกาแฟ', en: 'Gifts for coffee lovers' },
         { th: 'กาแฟระหว่างเดินทาง', en: 'Coffee on the go' },
         { th: 'ปาร์ตี้กาแฟกับเพื่อน', en: 'A coffee get-together' },
@@ -132,7 +132,7 @@ const dataset: Dataset = {
       { id: 'c5', category: { th: 'อุปกรณ์', en: 'Gear' }, name: { th: 'เครื่องบดมือสแตนเลส', en: 'Stainless hand grinder' }, description: { th: 'ปรับความละเอียดได้ 15 ระดับ', en: '15 grind settings' }, price: 1490 , brand: { th: 'แบรนด์ E', en: 'Brand E' } },
       { id: 'c6', category: { th: 'อุปกรณ์', en: 'Gear' }, name: { th: 'กาต้มน้ำคอห่าน', en: 'Gooseneck kettle' }, description: { th: 'ควบคุมสายน้ำได้แม่นยำ จุ 600 มล.', en: 'Precise pour control, 600 ml' }, price: 1890 , brand: { th: 'แบรนด์ F', en: 'Brand F' } },
     ],
-    store: { stockDefault: 48, shelf: { th: 'ชั้น 57 · ฝั่งขวา · ล็อค 10', en: 'Shelf 57 · right side · bay 10' }, delivery: { th: '2-7 วัน', en: '2-7 days' }, pickupMinutes: 30, installmentMin: 3000, installmentMonths: 10 },
+    store: { stockDefault: 48, shelf: { th: 'ชั้น 57 · ฝั่งขวา · ล็อก 10', en: 'Shelf 57 · right side · bay 10' }, delivery: { th: '2-7 วัน', en: '2-7 days' }, pickupMinutes: 30, installmentMin: 3000, installmentMonths: 10 },
     account: { name: { th: 'กาแฟ ตัวอย่าง', en: 'Coffee Example' }, email: 'coffee.example@example.com', provider: { th: 'อีเมลตัวอย่าง', en: 'Sample email' }, memberNo: 'M-0000-0002', points: 640, tier: { th: 'สมาชิกระดับทอง', en: 'Gold member' }, nextTier: { th: 'แพลทินัม', en: 'Platinum' }, toNext: 12000, spent: 1800 },
     checkout: {
       coupons: sampleCoupons,
@@ -196,7 +196,7 @@ const dataset: Dataset = {
         lessons: [
           { id: 'b1', minutes: 6, title: { th: 'อุปกรณ์ที่ต้องมี', en: 'What you need' }, body: { th: 'ดริปเปอร์ กระดาษกรอง เครื่องชั่ง และกาต้มน้ำคอห่าน ก็เริ่มต้นได้แล้ว', en: 'A dripper, filters, a scale and a gooseneck kettle are enough to start.' } },
           { id: 'b2', minutes: 7, title: { th: 'อัตราส่วนกาแฟต่อน้ำ', en: 'Coffee-to-water ratio' }, body: { th: 'เริ่มจากกาแฟ 1 ส่วนต่อน้ำ 15 ส่วน แล้วปรับตามรสที่ชอบ', en: 'Start at 1 part coffee to 15 parts water, then adjust to taste.' } },
-          { id: 'b3', minutes: 8, title: { th: 'เทน้ำอย่างไรให้สม่ำเสมอ', en: 'Pouring evenly' }, body: { th: 'เทเป็นวงกลมช้า ๆ จากกลางออกขอบ และรอให้กาแฟบานก่อนเทรอบแรก', en: 'Pour slowly in circles from center outward, and let the coffee bloom first.' } },
+          { id: 'b3', minutes: 8, title: { th: 'เทน้ำอย่างไรให้สม่ำเสมอ', en: 'Pouring evenly' }, body: { th: 'เทเป็นวงกลมช้าๆ จากกลางออกขอบ และรอให้กาแฟบานก่อนเทรอบแรก', en: 'Pour slowly in circles from centre outward, and let the coffee bloom first.' } },
         ],
         quiz: [
           { id: 'q1', question: { th: 'อัตราส่วนเริ่มต้นที่แนะนำคือเท่าไหร่', en: 'What starting ratio is recommended?' }, correctId: 'a', options: [{ id: 'a', text: { th: '1 ต่อ 15', en: '1 to 15' } }, { id: 'b', text: { th: '1 ต่อ 2', en: '1 to 2' } }, { id: 'c', text: { th: '1 ต่อ 100', en: '1 to 100' } }] },

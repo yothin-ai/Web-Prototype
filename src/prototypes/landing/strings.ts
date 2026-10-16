@@ -7,7 +7,7 @@ export const s = {
   step: { th: 'ขั้นที่', en: 'Step' },
   testimonialsTitle: { th: 'เสียงจากผู้ใช้', en: 'What users say' },
   faqTitle: { th: 'คำถามที่พบบ่อย', en: 'Frequently asked questions' },
-  formIntro: { th: 'กรอกข้อมูลสั้น ๆ แล้วเริ่มใช้งานได้ทันที', en: 'Fill in a few details and start right away.' },
+  formIntro: { th: 'กรอกข้อมูลสั้นๆ แล้วเริ่มใช้งานได้ทันที', en: 'Fill in a few details and start right away.' },
   name: { th: 'ชื่อ-นามสกุล', en: 'Full name' },
   email: { th: 'อีเมล', en: 'Email' },
   required: { th: 'จำเป็นต้องกรอก', en: 'Required' },

@@ -12,10 +12,10 @@ export const f = {
     { title: { th: 'จัดส่งทั่วประเทศ', en: 'Nationwide delivery' }, text: { th: 'บริการจัดส่งรวดเร็ว', en: 'Fast delivery service' } },
     { title: { th: 'คืนสินค้าง่าย', en: 'Easy returns' }, text: { th: 'คืนได้ตามเงื่อนไขของร้าน', en: 'Returns under the store’s terms' } },
     { title: { th: 'ชำระเงินปลอดภัย', en: 'Secure payment' }, text: { th: 'หลากหลายช่องทาง', en: 'Many ways to pay' } },
-    { title: { th: 'Call Center 0-0000-0000', en: 'Call Center 0-0000-0000' }, text: { th: 'ทุกวัน 08:00 - 20:00 น.', en: 'Every day 08:00 - 20:00' } },
+    { title: { th: 'Call Center 0-0000-0000', en: 'Call centre 0-0000-0000' }, text: { th: 'ทุกวัน 08:00 - 20:00 น.', en: 'Every day 08:00 - 20:00' } },
   ],
   contact: [
-    { th: 'Call Center 0-0000-0000', en: 'Call Center 0-0000-0000' },
+    { th: 'Call Center 0-0000-0000', en: 'Call centre 0-0000-0000' },
     { th: 'hello@example.com', en: 'hello@example.com' },
     { th: 'สำนักงานใหญ่ (ตัวอย่าง): 000 หมู่ 0 ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 00000', en: 'Head office (sample): 000 Moo 0, Sample Subdistrict, Sample District, Sample Province 00000' },
   ],
@@ -65,7 +65,7 @@ export const f = {
   copyright: { th: 'สงวนลิขสิทธิ์ (ตัวอย่าง)', en: 'All rights reserved (sample)' },
   benefits: [
     { title: { th: 'CLICK & COLLECT', en: 'CLICK & COLLECT' }, text: { th: 'คลิกแอนด์คอลเลกต์', en: 'Click and collect' } },
-    { title: { th: 'CALL CENTER', en: 'CALL CENTER' }, text: { th: 'ศูนย์บริการลูกค้า 0-0000-0000', en: 'Customer service 0-0000-0000' } },
+    { title: { th: 'CALL CENTER', en: 'CALL CENTRE' }, text: { th: 'ศูนย์บริการลูกค้า 0-0000-0000', en: 'Customer service 0-0000-0000' } },
     { title: { th: 'SECURE PAYMENT', en: 'SECURE PAYMENT' }, text: { th: 'ชำระเงินง่ายและปลอดภัย', en: 'Easy and secure payment' } },
     { title: { th: 'DELIVERY SERVICE', en: 'DELIVERY SERVICE' }, text: { th: 'บริการจัดส่ง', en: 'Delivery service' } },
     { title: { th: 'EASY RETURN', en: 'EASY RETURN' }, text: { th: 'บริการคืนสินค้า', en: 'Easy returns' } },

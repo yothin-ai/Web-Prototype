@@ -59,7 +59,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'เหล็กแผ่นดำ', en: 'Black steel sheets' } },
         { label: { th: 'เหล็กแผ่นลาย', en: 'Checker plates' } },
         { label: { th: 'เหล็กแบน', en: 'Flat bars' } },
-        { label: { th: 'แผ่นอลูมิเนียม', en: 'Aluminium sheets' } },
+        { label: { th: 'แผ่นอะลูมิเนียม', en: 'Aluminium sheets' } },
         { label: { th: 'ท่อสแตนเลส', en: 'Stainless tubes' } },
         { label: { th: 'แผ่นสแตนเลส', en: 'Stainless sheets' } },
         { label: { th: 'เหล็กฉากเจาะรู', en: 'Slotted angle steel' } },
@@ -78,7 +78,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'ตาข่ายถักปม', en: 'Knotted netting' } },
         { label: { th: 'ตาข่ายสี่เหลี่ยม ตาข่ายหกเหลี่ยม', en: 'Square and hexagonal netting' } },
       ] },
-      { label: { th: 'รั้ว เเละอุปกรณ์', en: 'Fences and fittings' }, children: [
+      { label: { th: 'รั้ว และอุปกรณ์', en: 'Fences and fittings' }, children: [
         { label: { th: 'แผงรั้วเหล็ก', en: 'Steel fence panels' } },
         { label: { th: 'เสารั้วเหล็ก', en: 'Steel fence posts' } },
         { label: { th: 'เสารั้วคอนกรีต', en: 'Concrete fence posts' } },
@@ -97,11 +97,11 @@ export const menu: MenuNode[] = [
   {
     label: { th: 'หลังคา ผนังฝ้า และอุปกรณ์ติดตั้ง', en: 'Roofing, walls, ceilings and fixings' },
     children: [
-      { label: { th: 'กระเบื้องหลังคาคอนกรีต เเละอุปกรณ์', en: 'Concrete roof tiles and accessories' }, children: [
+      { label: { th: 'กระเบื้องหลังคาคอนกรีต และอุปกรณ์', en: 'Concrete roof tiles and accessories' }, children: [
         { label: { th: 'กระเบื้องหลังคาคอนกรีตแบบเรียบ', en: 'Flat concrete roof tiles' } },
         { label: { th: 'กระเบื้องหลังคาคอนกรีตแบบลอน', en: 'Profiled concrete roof tiles' } },
       ] },
-      { label: { th: 'กระเบื้องหลังคาลอนคู่ เเละอุปกรณ์', en: 'Double-profile roof tiles and accessories' }, children: [
+      { label: { th: 'กระเบื้องหลังคาลอนคู่ และอุปกรณ์', en: 'Double-profile roof tiles and accessories' }, children: [
         { label: { th: 'กระเบื้องซีเมนต์ลอนคู่', en: 'Double-profile cement tiles' } },
         { label: { th: 'ครอบกระเบื้องซีเมนต์', en: 'Cement tile ridge caps' } },
         { label: { th: 'กระเบื้องซีเมนต์ลอนเล็ก', en: 'Small-profile cement tiles' } },
@@ -157,29 +157,29 @@ export const menu: MenuNode[] = [
         { label: { th: 'รางน้ำPVC', en: 'PVC gutters' } },
         { label: { th: 'รางน้ำสังกะสี', en: 'Zinc gutters' } },
         { label: { th: 'รางน้ำไวนิล', en: 'Vinyl gutters' } },
-        { label: { th: 'รางน้ำอลูมิเนียม', en: 'Aluminium gutters' } },
+        { label: { th: 'รางน้ำอะลูมิเนียม', en: 'Aluminium gutters' } },
       ] },
-      { label: { th: 'งานยิปซั่มฝ้าฉาบเรียบ', en: 'Gypsum flat-plaster ceilings' }, children: [
-        { label: { th: 'แผ่นยิปซั่มทั่วไป', en: 'Standard gypsum boards' } },
-        { label: { th: 'แผ่นยิปซั่มชนิดทนชื้น', en: 'Moisture-resistant gypsum boards' } },
-        { label: { th: 'แผ่นยิปซั่มชนิดบุอลูมิเนียมฟรอยด์', en: 'Foil-backed gypsum boards' } },
-        { label: { th: 'แผ่นยิปซั่มกันร้อนพิเศษ', en: 'Heat-insulating gypsum boards' } },
-        { label: { th: 'แผ่นยิปซั่มทนทานสูง', en: 'High-durability gypsum boards' } },
-        { label: { th: 'แผ่นยิปซั่มดูดซัพเสียง', en: 'Sound-absorbing gypsum boards' } },
-        { label: { th: 'แผ่นยิปซั่มฟอกอากาศ', en: 'Air-purifying gypsum boards' } },
+      { label: { th: 'งานยิปซัมฝ้าฉาบเรียบ', en: 'Gypsum flat-plaster ceilings' }, children: [
+        { label: { th: 'แผ่นยิปซัมทั่วไป', en: 'Standard gypsum boards' } },
+        { label: { th: 'แผ่นยิปซัมชนิดทนชื้น', en: 'Moisture-resistant gypsum boards' } },
+        { label: { th: 'แผ่นยิปซัมชนิดบุอะลูมิเนียมฟรอยด์', en: 'Foil-backed gypsum boards' } },
+        { label: { th: 'แผ่นยิปซัมกันร้อนพิเศษ', en: 'Heat-insulating gypsum boards' } },
+        { label: { th: 'แผ่นยิปซัมทนทานสูง', en: 'High-durability gypsum boards' } },
+        { label: { th: 'แผ่นยิปซัมดูดซับเสียง', en: 'Sound-absorbing gypsum boards' } },
+        { label: { th: 'แผ่นยิปซัมฟอกอากาศ', en: 'Air-purifying gypsum boards' } },
       ] },
       { label: { th: 'งานฝ้าทีบาร์ 60x60', en: 'T-bar ceilings 60x60' }, children: [
-        { label: { th: 'ยิปซั่มเพดานธรรมดา', en: 'Standard gypsum ceiling tiles' } },
+        { label: { th: 'ยิปซัมเพดานธรรมดา', en: 'Standard gypsum ceiling tiles' } },
         { label: { th: 'แผ่นฝ้าปูนพาสเตอร์', en: 'Plaster ceiling tiles' } },
-        { label: { th: 'ยิปซั่มบุพีวีซี', en: 'PVC-faced gypsum tiles' } },
-        { label: { th: 'ยิปซั่มฝ้าเพดานดูดซับเสียง', en: 'Sound-absorbing gypsum ceiling tiles' } },
-        { label: { th: 'ยิปซั่มฝ้าเพดานทนไฟ', en: 'Fire-resistant gypsum ceiling tiles' } },
-        { label: { th: 'ยิปซั่มบุกระดาษเคลือบมัน', en: 'Gloss paper-faced gypsum tiles' } },
+        { label: { th: 'ยิปซัมบุพีวีซี', en: 'PVC-faced gypsum tiles' } },
+        { label: { th: 'ยิปซัมฝ้าเพดานดูดซับเสียง', en: 'Sound-absorbing gypsum ceiling tiles' } },
+        { label: { th: 'ยิปซัมฝ้าเพดานทนไฟ', en: 'Fire-resistant gypsum ceiling tiles' } },
+        { label: { th: 'ยิปซัมบุกระดาษเคลือบมัน', en: 'Gloss paper-faced gypsum tiles' } },
       ] },
-      { label: { th: 'อุปกรณ์งานงานยิปซั่ม เเละ ฝ้าทีบาร์', en: 'Gypsum and T-bar accessories' }, children: [
-        { label: { th: 'ปูนยิปซั่ม', en: 'Gypsum plaster' } },
+      { label: { th: 'อุปกรณ์งานงานยิปซัม และ ฝ้าทีบาร์', en: 'Gypsum and T-bar accessories' }, children: [
+        { label: { th: 'ปูนยิปซัม', en: 'Gypsum plaster' } },
         { label: { th: 'ช่องเซอร์วิส', en: 'Access panels' } },
-        { label: { th: 'เครื่องมือติดตั้งยิปซั่ม', en: 'Gypsum installation tools' } },
+        { label: { th: 'เครื่องมือติดตั้งยิปซัม', en: 'Gypsum installation tools' } },
       ] },
       { label: { th: 'โครงคร่าว และอุปกรณ์ติดตั้ง', en: 'Framing and installation accessories' }, children: [
         { label: { th: 'โครงคร่าว', en: 'Metal framing' } },
@@ -192,7 +192,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'ฉนวนใยแก้ว - หุ้มท่อปรับอากาศ', en: 'Glass wool duct wrap' } },
         { label: { th: 'ฉนวนใยแก้ว - ทนความร้อนสูง', en: 'High-temperature glass wool' } },
         { label: { th: 'ฉนวนใยแก้ว - กันเสียง', en: 'Acoustic glass wool' } },
-        { label: { th: 'ฉนวนอลูมิเนียมฟอยล์', en: 'Aluminium foil insulation' } },
+        { label: { th: 'ฉนวนอะลูมิเนียมฟอยล์', en: 'Aluminium foil insulation' } },
         { label: { th: 'ฉนวนBubble', en: 'Bubble insulation' } },
         { label: { th: 'แผ่นสะท้อนความร้อน', en: 'Heat-reflective sheets' } },
       ] },
@@ -236,7 +236,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'ถังเก็บน้ำไฟเบอร์กลาส', en: 'Fibreglass water tanks' } },
         { label: { th: 'ถังเก็บน้ำสแตนเลส', en: 'Stainless water tanks' } },
         { label: { th: 'ถังบำบัด', en: 'Treatment tanks' } },
-        { label: { th: 'อุปกรณ์ถังเก็บน้ำ เเละถังบำบัด', en: 'Tank and treatment accessories' } },
+        { label: { th: 'อุปกรณ์ถังเก็บน้ำ และถังบำบัด', en: 'Tank and treatment accessories' } },
         { label: { th: 'ถังดักไขมัน', en: 'Grease traps' } },
       ] },
       { label: { th: 'ท่อน้ำประปา / อุปกรณ์ข้อต่อ', en: 'Water pipes and fittings' }, children: [
@@ -364,7 +364,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'กระดาษทรายแผ่น', en: 'Sandpaper sheets' } },
         { label: { th: 'อุปกรณ์ขัดเงา', en: 'Polishing accessories' } },
         { label: { th: 'อุปกรณ์เครื่องอเนกประสงค์ Multi Funtion', en: 'Multi-function tool accessories' } },
-        { label: { th: 'แบตเตอรี่และแท่นชาร์จ', en: 'Batteries and chargers' } },
+        { label: { th: 'แบตเตอรีและแท่นชาร์จ', en: 'Batteries and chargers' } },
         { label: { th: 'ไฟฉายช่าง', en: 'Work torches' } },
       ] },
       { label: { th: 'เครื่องมือวัด /', en: 'Measuring tools' }, children: [
@@ -427,7 +427,7 @@ export const menu: MenuNode[] = [
       ] },
       { label: { th: 'อุปกรณ์ประตูและหน้าต่าง', en: 'Door and window hardware' }, children: [
         { label: { th: 'ลูกบิดประตู', en: 'Door knobs' } },
-        { label: { th: 'มอร์ทิสล็อค', en: 'Mortise locks' } },
+        { label: { th: 'มอร์ทิสล็อก', en: 'Mortise locks' } },
         { label: { th: 'บานพับ', en: 'Hinges' } },
         { label: { th: 'มือจับ', en: 'Handles' } },
         { label: { th: 'อุปกรณ์บานเลื่อนและบานเฟี้ยม', en: 'Sliding and folding door hardware' } },
@@ -437,7 +437,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'เส้นกันแมลง กันเสียง', en: 'Insect and sound seals' } },
         { label: { th: 'โช้คอัพ', en: 'Door closers' } },
         { label: { th: 'มุ้งลวดและอุปกรณ์', en: 'Insect screens and accessories' } },
-        { label: { th: 'อุปกรณ์ประตูหน้าต่างอลูมิเนียมและไวนิล', en: 'Aluminium and vinyl door and window hardware' } },
+        { label: { th: 'อุปกรณ์ประตูหน้าต่างอะลูมิเนียมและไวนิล', en: 'Aluminium and vinyl door and window hardware' } },
         { label: { th: 'ขอรับ ขอสับ', en: 'Latches and hasps' } },
         { label: { th: 'อุปกรณ์บานเกล็ด', en: 'Louvre hardware' } },
         { label: { th: 'อุปกรณ์ประตู และรั้วเหล็ก', en: 'Steel gate and fence hardware' } },
@@ -515,8 +515,8 @@ export const menu: MenuNode[] = [
         { label: { th: 'อุปกรณ์ไฟฟ้า', en: 'Electrical equipment' } },
       ] },
       { label: { th: 'สวิตช์และปลั๊กไฟ', en: 'Switches and sockets' }, children: [
-        { label: { th: 'สวิทซ์ ปลั๊ก บล๊อก', en: 'Switches, sockets and boxes' } },
-        { label: { th: 'อุปกรณ์สวิทช์ ปลั๊กไฟ', en: 'Switch and socket accessories' } },
+        { label: { th: 'สวิทซ์ ปลั๊ก บล็อก', en: 'Switches, sockets and boxes' } },
+        { label: { th: 'อุปกรณ์สวิตช์ ปลั๊กไฟ', en: 'Switch and socket accessories' } },
       ] },
       { label: { th: 'กริ่งสัญญาณไฟ', en: 'Doorbells and signal bells' }, children: [
         { label: { th: 'กริ่งสัญญาณไฟ', en: 'Doorbells and signal bells' } },
@@ -541,11 +541,11 @@ export const menu: MenuNode[] = [
     label: { th: 'โคมไฟและหลอดไฟ', en: 'Lamps and bulbs' },
     children: [
       { label: { th: 'โคมไฟภายใน', en: 'Indoor lighting' }, children: [
-        { label: { th: 'ดาวน์ไลท์', en: 'Downlights' } },
+        { label: { th: 'ดาวน์ไลต์', en: 'Downlights' } },
         { label: { th: 'โคมไฟเพดาน', en: 'Ceiling lamps' } },
         { label: { th: 'โคมกันน้ำกันฝุ่น, ตะแกรง, อกไก่ , สำนักงาน', en: 'Weatherproof, grille, batten and office luminaires' } },
         { label: { th: 'โคมไฟไฮเบย์-โลเบย์-ฝาชี', en: 'High-bay, low-bay and dome lights' } },
-        { label: { th: 'โคมไฟแทรกไลท์ / โคมสปอทไลท์', en: 'Track lights and spotlights' } },
+        { label: { th: 'โคมไฟแทรกไลต์ / โคมสปอตไลต์', en: 'Track lights and spotlights' } },
         { label: { th: 'โคมไฟแขวนใต้ฝ้า Crystal / Chandelier', en: 'Crystal pendants and chandeliers' } },
         { label: { th: 'โคมไฟแขวน', en: 'Pendant lamps' } },
         { label: { th: 'โคมผนัง', en: 'Wall lamps' } },
@@ -553,7 +553,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'พัดลมเพดาน', en: 'Ceiling fans' } },
       ] },
       { label: { th: 'โคมไฟภายนอก', en: 'Outdoor lighting' }, children: [
-        { label: { th: 'โคมฟลัดไลท์ / โคมสปอตไลท์', en: 'Floodlights and spotlights' } },
+        { label: { th: 'โคมฟลัดไลต์ / โคมสปอตไลต์', en: 'Floodlights and spotlights' } },
         { label: { th: 'โคมไฟถนน', en: 'Street lights' } },
         { label: { th: 'โคมผนัง', en: 'Wall lamps' } },
         { label: { th: 'โคมหัวเสา', en: 'Post-top lamps' } },
@@ -567,7 +567,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'อุปกรณ์หลอดไฟ', en: 'Bulb accessories' } },
       ] },
       { label: { th: 'โคมไฟโซลาร์เซลล์', en: 'Solar lamps' }, children: [
-        { label: { th: 'โคมไฟโซล่าร์เซลล์-สปอร์ตไลท์', en: 'Solar spotlights' } },
+        { label: { th: 'โคมไฟโซล่าร์เซลล์-สปอตไลต์', en: 'Solar spotlights' } },
         { label: { th: 'โคมไฟถนนโซล่าเซลล์', en: 'Solar street lights' } },
         { label: { th: 'โคมไฟหัวเสาโซล่าเซลล์', en: 'Solar post-top lamps' } },
         { label: { th: 'โคมไฟสนามโซล่าเซลล์', en: 'Solar garden lights' } },
@@ -591,7 +591,7 @@ export const menu: MenuNode[] = [
       ] },
       { label: { th: 'อุปกรณ์ประตูและหน้าต่าง', en: 'Door and window hardware' }, children: [
         { label: { th: 'ลูกบิดประตู', en: 'Door knobs' } },
-        { label: { th: 'มอร์ทิสล็อค', en: 'Mortise locks' } },
+        { label: { th: 'มอร์ทิสล็อก', en: 'Mortise locks' } },
         { label: { th: 'บานพับ', en: 'Hinges' } },
         { label: { th: 'มือจับ', en: 'Handles' } },
         { label: { th: 'อุปกรณ์บานเลื่อนและบานเฟี้ยม', en: 'Sliding and folding door hardware' } },
@@ -601,7 +601,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'เส้นกันแมลง กันเสียง', en: 'Insect and sound seals' } },
         { label: { th: 'โช้คอัพ', en: 'Door closers' } },
         { label: { th: 'มุ้งลวดและอุปกรณ์', en: 'Insect screens and accessories' } },
-        { label: { th: 'อุปกรณ์ประตูหน้าต่างอลูมิเนียมและไวนิล', en: 'Aluminium and vinyl door and window hardware' } },
+        { label: { th: 'อุปกรณ์ประตูหน้าต่างอะลูมิเนียมและไวนิล', en: 'Aluminium and vinyl door and window hardware' } },
         { label: { th: 'ขอรับ ขอสับ', en: 'Latches and hasps' } },
         { label: { th: 'อุปกรณ์บานเกล็ด', en: 'Louvre hardware' } },
         { label: { th: 'อุปกรณ์ประตู และรั้วเหล็ก', en: 'Steel gate and fence hardware' } },
@@ -652,14 +652,14 @@ export const menu: MenuNode[] = [
         { label: { th: 'กระเบื้องสีเรียบ', en: 'Plain-colour tiles' } },
         { label: { th: 'กระเบื้องลายบริค , outdoor', en: 'Brick-look and outdoor tiles' } },
         { label: { th: 'ลายหินขัด', en: 'Terrazzo-look tiles' } },
-        { label: { th: 'กระเบื้องลายกราฟฟิก', en: 'Graphic-pattern tiles' } },
+        { label: { th: 'กระเบื้องลายกราฟิก', en: 'Graphic-pattern tiles' } },
       ] },
       { label: { th: 'เลือกตามวัสดุสินค้า', en: 'Shop by material' }, children: [
         { label: { th: 'กระเบื้องเซรามิก', en: 'Ceramic tiles' } },
         { label: { th: 'กระเบื้องแกรนิตโต้', en: 'Granito tiles' } },
         { label: { th: 'กระเบื้องเกรซพอรซเลน', en: 'Glazed porcelain tiles' } },
         { label: { th: 'หินกาบ / หินตกแต่ง', en: 'Slate and decorative stone' } },
-        { label: { th: 'บล๊อกแก้ว', en: 'Glass blocks' } },
+        { label: { th: 'บล็อกแก้ว', en: 'Glass blocks' } },
         { label: { th: 'โมเสก', en: 'Mosaics' } },
         { label: { th: 'กระเบื้องภาพชุด', en: 'Mural tile sets' } },
       ] },
@@ -705,7 +705,7 @@ export const menu: MenuNode[] = [
       ] },
       { label: { th: 'ที่นอน', en: 'Mattresses' }, children: [
         { label: { th: 'ที่นอน', en: 'Mattresses' } },
-        { label: { th: 'ท็อปเปอร์ ที่นอนปิคนิค', en: 'Toppers and picnic mattresses' } },
+        { label: { th: 'ท็อปเปอร์ ที่นอนปิกนิก', en: 'Toppers and picnic mattresses' } },
       ] },
       { label: { th: 'ชุดเครื่องนอน', en: 'Bedding' }, children: [
         { label: { th: 'ชุดเครื่องนอน', en: 'Bedding sets' } },
@@ -765,11 +765,11 @@ export const menu: MenuNode[] = [
       { label: { th: 'ผ้าม่าน / มู่ลี่', en: 'Curtains and blinds' }, children: [
         { label: { th: 'ผ้าม่านสำเร็จ', en: 'Ready-made curtains' } },
         { label: { th: 'อุปกรณ์รางม่าน', en: 'Curtain rails and accessories' } },
-        { label: { th: 'ม่านปรับแสงเเละมู่ลี่', en: 'Light-control blinds and louvres' } },
+        { label: { th: 'ม่านปรับแสงและมู่ลี่', en: 'Light-control blinds and louvres' } },
       ] },
-      { label: { th: 'วอลเปเปอร์และสติ๊กเกอร์', en: 'Wallpaper and stickers' }, children: [
+      { label: { th: 'วอลเปเปอร์และสติกเกอร์', en: 'Wallpaper and stickers' }, children: [
         { label: { th: 'วอลเปเปอร์', en: 'Wallpaper' } },
-        { label: { th: 'สติ๊กเกอร์', en: 'Stickers' } },
+        { label: { th: 'สติกเกอร์', en: 'Stickers' } },
       ] },
       { label: { th: 'ฉากกั้น', en: 'Room dividers' }, children: [
         { label: { th: 'ฉากกั้นห้อง', en: 'Room dividers' } },
@@ -1002,7 +1002,7 @@ export const menu: MenuNode[] = [
     label: { th: 'ห้องครัว', en: 'Kitchen' },
     children: [
       { label: { th: 'เฟอร์นิเจอร์ครัว', en: 'Kitchen furniture' }, children: [
-        { label: { th: 'บานซิงค์ / ตู้แขวน', en: 'Sink doors and wall cabinets' } },
+        { label: { th: 'บานซิงก์ / ตู้แขวน', en: 'Sink doors and wall cabinets' } },
         { label: { th: 'ตู้ครัวตั้งพื้น / ตู้แขวน', en: 'Base and wall kitchen cabinets' } },
         { label: { th: 'ชุดครัวสำเร็จรูป', en: 'Ready-made kitchens' } },
         { label: { th: 'ตู้กับข้าว', en: 'Food cabinets' } },
@@ -1029,7 +1029,7 @@ export const menu: MenuNode[] = [
       { label: { th: 'อุปกรณ์ประกอบอาหาร', en: 'Cooking equipment' }, children: [
         { label: { th: 'หม้อและกระทะ', en: 'Pots and pans' } },
         { label: { th: 'อุปกรณ์ตัดแต่ง/ อุปกรณ์ตักอาหาร', en: 'Cutting and serving utensils' } },
-        { label: { th: 'อ่างอาหาร/ชามผสม /ถาด / ชั่งตวง /อุปกรณ์เบเกอรี่', en: 'Mixing bowls, trays, scales and baking tools' } },
+        { label: { th: 'อ่างอาหาร/ชามผสม /ถาด / ชั่งตวง /อุปกรณ์เบเกอรี', en: 'Mixing bowls, trays, scales and baking tools' } },
       ] },
       { label: { th: 'อุปกรณ์ใช้บนโต๊ะอาหาร', en: 'Tableware' }, children: [
         { label: { th: 'จาน ชาม', en: 'Plates and bowls' } },
@@ -1172,7 +1172,7 @@ export const menu: MenuNode[] = [
       { label: { th: 'น้ำยาเคลือบและป้องกันรักษาเนื้อไม้', en: 'Wood coatings and preservatives' }, children: [
         { label: { th: 'แชล็คและเกล็ดแชล็ค', en: 'Shellac and shellac flakes' } },
         { label: { th: 'น้ำมันถนอมเนื้อไม้', en: 'Wood preserving oil' } },
-        { label: { th: 'แลคเกอร์', en: 'Lacquer' } },
+        { label: { th: 'แล็กเกอร์', en: 'Lacquer' } },
         { label: { th: 'วานิช', en: 'Varnish' } },
         { label: { th: 'สีโป๊วไม้', en: 'Wood filler' } },
         { label: { th: 'โพลียูรีเทนงานไม้', en: 'Wood polyurethane' } },
@@ -1186,15 +1186,15 @@ export const menu: MenuNode[] = [
         { label: { th: 'สีทองคำ', en: 'Gold paint' } },
         { label: { th: 'สีทากระเบื้อง', en: 'Tile paint' } },
         { label: { th: 'สีทาไฟเบอร์ซิเมนต์', en: 'Fibre cement paint' } },
-        { label: { th: 'สีโป๊วอะครีลิค', en: 'Acrylic filler' } },
+        { label: { th: 'สีโป๊วอะคริลิก', en: 'Acrylic filler' } },
         { label: { th: 'สีฝุ่น/ดินสี/ดินสอพอง', en: 'Powder pigments, earth pigments and chalk' } },
         { label: { th: 'สีพ่นเกล็ด', en: 'Textured spray paint' } },
         { label: { th: 'สีทาถนน สีจราจร', en: 'Road and traffic paint' } },
       ] },
-      { label: { th: 'สีอุตสาหกรรมและสีอีพ๊อกซี่', en: 'Industrial and epoxy paint' }, children: [
-        { label: { th: 'สีงานอุตสาหกรรมและสีอีพ๊อกซี่อื่นๆ', en: 'Other industrial and epoxy paints' } },
-        { label: { th: 'สีอีพ๊อกซี่', en: 'Epoxy paint' } },
-        { label: { th: 'สีรองพื้นอุตาหกรรมและสีอีพ๊อกซี่', en: 'Industrial and epoxy primers' } },
+      { label: { th: 'สีอุตสาหกรรมและสีอีพอกซี', en: 'Industrial and epoxy paint' }, children: [
+        { label: { th: 'สีงานอุตสาหกรรมและสีอีพอกซีอื่นๆ', en: 'Other industrial and epoxy paints' } },
+        { label: { th: 'สีอีพอกซี', en: 'Epoxy paint' } },
+        { label: { th: 'สีรองพื้นอุตาหกรรมและสีอีพอกซี', en: 'Industrial and epoxy primers' } },
         { label: { th: 'สีพ่นอุตสาหรกรรม', en: 'Industrial spray paint' } },
       ] },
       { label: { th: 'สีสร้างลาย', en: 'Textured finishes' }, children: [
@@ -1235,15 +1235,15 @@ export const menu: MenuNode[] = [
       { label: { th: 'กาว', en: 'Adhesives' }, children: [
         { label: { th: 'กาวปูกระเบื้อง', en: 'Tile adhesive' } },
         { label: { th: 'กาวพลังตะปู', en: 'Construction adhesive' } },
-        { label: { th: 'กาวอีพ๊อกซี่', en: 'Epoxy adhesive' } },
+        { label: { th: 'กาวอีพอกซี', en: 'Epoxy adhesive' } },
         { label: { th: 'กาวยางอเนกประสงค์', en: 'Multi-purpose rubber glue' } },
         { label: { th: 'กาวร้อน/กาวตราช้าง', en: 'Super glue' } },
         { label: { th: 'กาวลาเท็กซ์', en: 'Latex glue' } },
       ] },
-      { label: { th: 'งานซ่อมโครงสร้างและงานเกราท์และอีพ๊อกซี่', en: 'Structural repair, grout and epoxy' }, children: [
+      { label: { th: 'งานซ่อมโครงสร้างและงานเกราท์และอีพอกซี', en: 'Structural repair, grout and epoxy' }, children: [
         { label: { th: 'ปูนซ่อมแซม', en: 'Repair mortar' } },
         { label: { th: 'ปูนนอนชริ้งค์เกราท์', en: 'Non-shrink grout' } },
-        { label: { th: 'ปูนอีพ๊อกซี่', en: 'Epoxy mortar' } },
+        { label: { th: 'ปูนอีพอกซี', en: 'Epoxy mortar' } },
       ] },
       { label: { th: 'งานพื้นและผนัง', en: 'Floor and wall finishing' }, children: [
         { label: { th: 'งานโป๊ว', en: 'Skim filler work' } },
@@ -1303,7 +1303,7 @@ export const menu: MenuNode[] = [
       { label: { th: 'Lifestyle', en: 'Lifestyle' }, children: [
         { label: { th: 'สุขภาพและความงาม (Health beauty)', en: 'Health and beauty' } },
         { label: { th: 'ของใช้ภายในบ้าน (Lifestyle Department Store)', en: 'Household items (lifestyle department store)' } },
-        { label: { th: 'เครื่องประดับแฟชั่น (Fashion Accessories)', en: 'Fashion accessories' } },
+        { label: { th: 'เครื่องประดับแฟชัน (Fashion Accessories)', en: 'Fashion accessories' } },
         { label: { th: 'สินค้าตามฤดูกาล (Seasonal Product)', en: 'Seasonal products' } },
         { label: { th: 'ดิจิตอลและอีเล็คทรอนิคส์ (Digital Electronics)', en: 'Digital and electronics' } },
         { label: { th: 'ประดับตกแต่งบ้าน (Creative Home)', en: 'Creative home decor' } },
@@ -1339,10 +1339,10 @@ export const menu: MenuNode[] = [
         { label: { th: 'บริการติดตั้งหม้อต้มน้ำร้อน', en: 'Boiler installation' } },
       ] },
       { label: { th: 'บริการติดตั้งเครื่องครัว', en: 'Kitchen appliance installation' }, children: [
-        { label: { th: 'บริการติดตั้ง เครื่องล้างจาน / อ่างซิงค์', en: 'Dishwasher and sink installation' } },
+        { label: { th: 'บริการติดตั้ง เครื่องล้างจาน / อ่างซิงก์', en: 'Dishwasher and sink installation' } },
         { label: { th: 'บริการติดตั้ง เครื่องดูดควัน', en: 'Cooker hood installation' } },
         { label: { th: 'บริการติดตั้ง เตาอบ / เตาไฟฟ้า', en: 'Oven and electric hob installation' } },
-        { label: { th: 'บริการติดตั้ง ตู้แขวน / เคาน์เตอร์ / ตู้บานซิงค์', en: 'Wall cabinet, countertop and sink cabinet installation' } },
+        { label: { th: 'บริการติดตั้ง ตู้แขวน / เคาน์เตอร์ / ตู้บานซิงก์', en: 'Wall cabinet, countertop and sink cabinet installation' } },
       ] },
       { label: { th: 'บริการติดตั้งสุขภัณฑ์', en: 'Sanitaryware installation' }, children: [
         { label: { th: 'บริการติดตั้งฉากกั้นอาบน้ำ / ฝักบัว', en: 'Shower screen and shower installation' } },

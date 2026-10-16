@@ -62,7 +62,7 @@ export const menu: MenuNode[] = [
         { label: { th: 'ใบมีดสำรอง', en: 'Spare burrs' } },
         { label: { th: 'แปรงทำความสะอาด', en: 'Cleaning brushes' } },
       ] },
-      { label: { th: 'อุปกรณ์อื่น ๆ', en: 'Other gear' }, children: [
+      { label: { th: 'อุปกรณ์อื่นๆ', en: 'Other gear' }, children: [
         { label: { th: 'เฟรนช์เพรส', en: 'French presses' } },
         { label: { th: 'โมก้าพอท', en: 'Moka pots' } },
         { label: { th: 'ที่ตีฟองนม', en: 'Milk frothers' } },
