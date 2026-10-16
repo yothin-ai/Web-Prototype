@@ -25,6 +25,7 @@ import { ServicesPage } from './pages/ServicesPage'
 import { WalletPage } from './pages/WalletPage'
 import { CouponsPage } from './pages/CouponsPage'
 import { MyCouponsPage } from './pages/MyCouponsPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 import { InfoPage } from './pages/InfoPage'
 import { OrderDetailPage } from './pages/OrderDetailPage'
 import { OrdersPage } from './pages/OrdersPage'
@@ -72,6 +73,7 @@ export function Ecommerce() {
         <Route path="soon" element={<SoonPage />} />
         <Route path="orders" element={<OrdersPage />} />
         <Route path="orders/:orderId" element={<OrderDetailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Storefront>
   )

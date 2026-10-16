@@ -431,3 +431,7 @@
 .balance-card__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-3); }
 .balance-card__value { font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); }
 .balance-card__unit { font-size: var(--font-size-md); margin-left: var(--space-2); }
+
+/* Page not found: a large code over a short message, centred. */
+.not-found { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); padding: var(--space-7) var(--space-4); text-align: center; }
+.not-found__code { font-size: calc(var(--font-size-3xl) * 2); font-weight: var(--font-weight-bold); line-height: var(--line-height-tight); color: var(--color-accent); }

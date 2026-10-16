@@ -605,6 +605,14 @@ export function Components() {
           </Col>
         </Grid>
       </Block>
+      <Block number="4.31" title={t(text.c431)} note={t(text.c431Note)}>
+        <div className="not-found">
+          <span className="not-found__code" aria-hidden="true">404</span>
+          <h3>{t(text.c431Title)}</h3>
+          <span className="muted">{t(text.c431Text)}</span>
+          <div className="row"><Button>{t(text.c431Home)}</Button><Button variant="secondary">{t(text.c431All)}</Button></div>
+        </div>
+      </Block>
     </Chapter>
   )
 }
