@@ -14,8 +14,8 @@ import type { CouponCardState } from '../../../ui'
 const iconOf = (c: Coupon): IconName => (c.kind === 'percent' ? 'percent' : c.kind === 'freeship' ? 'truck' : 'ticket')
 
 // A grid of coupon tickets and the details window that opens from one. `shop` shows what can be collected;
-// `wallet` shows what the shopper holds and whether it can still be used.
-export function CouponGrid({ coupons, mode }: { coupons: Coupon[]; mode: 'shop' | 'wallet' }) {
+// `wallet` shows what the shopper holds and whether it can still be used; `redeem` shows coupons bought with points.
+export function CouponGrid({ coupons, mode, redeem }: { coupons: Coupon[]; mode: 'shop' | 'wallet' | 'redeem'; redeem?: { balance: number; onRedeem: (c: Coupon) => void } }) {
   const { t, lang } = useLang()
   const { entryOf, claim } = useCouponWallet()
   const [signedIn] = useSignedIn()
@@ -29,6 +29,12 @@ export function CouponGrid({ coupons, mode }: { coupons: Coupon[]; mode: 'shop' 
   // The state of the ticket, the small status at its corner and the main action of the details window.
   const view = (c: Coupon): { state: CouponCardState; status: React.ReactNode; action?: React.ReactNode } => {
     const e = entryOf(c.id)
+    if (mode === 'redeem' && redeem) {
+      if (e && !e.used) return { state: 'ready', status: t(cp.redeemOwned) }
+      const cost = c.redeemCost ?? 0
+      if (redeem.balance < cost) return { state: 'full', status: t(cp.redeemShort) }
+      return { state: 'ready', status: <Button size="sm" onClick={() => redeem.onRedeem(c)}>{t(cp.redeemBtn)} {cost}</Button>, action: <Button onClick={() => { redeem.onRedeem(c); setOpenId(null) }}>{t(cp.redeemBtn)} {cost} {t(cp.pointsUnit)}</Button> }
+    }
     if (e && mode === 'wallet') {
       const state = walletState(c, e)
       if (state === 'ready') {
@@ -49,13 +55,13 @@ export function CouponGrid({ coupons, mode }: { coupons: Coupon[]; mode: 'shop' 
         {coupons.map((c) => {
           const v = view(c)
           return (
-            <Col key={c.id} span={{ base: 4, sm: 4, md: mode === 'wallet' ? 6 : 4 }}>
+            <Col key={c.id} span={{ base: 4, sm: 4, md: mode === 'shop' ? 4 : 6 }}>
               <CouponCard
                 icon={iconOf(c)}
                 iconLabel={t(cp.iconLabel)}
                 title={t(c.title)}
                 condition={`${t(cp.minSpend)} ${formatMoney(c.minSpend, lang)}`}
-                validity={`${t(cp.validUntil)} ${shortDate(c.expires, lang)}`}
+                validity={mode === 'redeem' ? `${t(cp.redeemUse)} ${c.redeemCost} ${t(cp.pointsUnit)}` : `${t(cp.validUntil)} ${shortDate(c.expires, lang)}`}
                 badge={c.memberOnly ? t(cp.member) : undefined}
                 state={v.state}
                 status={v.status}

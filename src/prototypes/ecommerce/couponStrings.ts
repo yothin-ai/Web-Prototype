@@ -44,5 +44,10 @@ export const cp = {
   checkoutMore: { th: 'ไปเก็บคูปองเพิ่ม', en: 'Collect more coupons' },
   checkoutNone: { th: 'ยังไม่มีคูปองในกระเป๋าที่ใช้ได้', en: 'No usable coupons in your wallet' },
   needMember: { th: 'ต้องเชื่อมบัตรสมาชิกก่อน', en: 'Link your member card first' },
+  pointsUnit: { th: 'คะแนน', en: 'points' },
+  redeemUse: { th: 'ใช้', en: 'Costs' },
+  redeemBtn: { th: 'แลก', en: 'Redeem' },
+  redeemOwned: { th: 'มีในกระเป๋าแล้ว', en: 'In your wallet' },
+  redeemShort: { th: 'คะแนนไม่พอ', en: 'Not enough points' },
   closeDetail: { th: 'ปิดรายละเอียด', en: 'Close details' },
 } satisfies Record<string, Localized>

@@ -7,6 +7,7 @@ import { formatDate, formatMoney, PROTOTYPE_ID } from '../cart'
 import { isUsable, useCouponWallet } from '../coupons'
 import { useOrderBook } from '../orders'
 import { useClubLinked } from '../checkout'
+import { useClubBalance } from '../club'
 import { AccountShell, useAccountIdentity } from './AccountShell'
 
 export function AccountHome() {
@@ -19,7 +20,8 @@ export function AccountHome() {
   const who = useAccountIdentity()
   const base = `/${PROTOTYPE_ID}`
   const first = who.name.split(' ')[0]
-  const points = linked ? account.points : 0
+  const { balance } = useClubBalance()
+  const points = balance
   const total = account.spent + account.toNext
   const remaining = linked ? account.toNext : total
   const progress = linked ? (account.spent / total) * 100 : 0

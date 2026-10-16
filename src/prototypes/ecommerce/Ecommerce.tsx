@@ -17,6 +17,7 @@ import { JobPage } from './pages/JobPage'
 import { JobsPage } from './pages/JobsPage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
+import { ClubPage } from './pages/ClubPage'
 import { CouponsPage } from './pages/CouponsPage'
 import { MyCouponsPage } from './pages/MyCouponsPage'
 import { InfoPage } from './pages/InfoPage'
@@ -44,6 +45,7 @@ export function Ecommerce() {
         <Route path="account/addresses" element={<AccountPage focus="address" />} />
         <Route path="account/menu" element={<AccountMenuPage />} />
         <Route path="account/coupons" element={<MyCouponsPage />} />
+        <Route path="account/club" element={<ClubPage />} />
         <Route path="coupons" element={<CouponsPage />} />
         <Route path="account/:page" element={<ComingSoon />} />
         <Route path="idea/:index" element={<ArticlePage />} />

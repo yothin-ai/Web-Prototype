@@ -213,6 +213,8 @@ type AppPromoCardProps = {
   clubBadge: string
   earnText: ReactNode
   joinLabel: string
+  // Where the button goes; without it the button is only a picture of one (as on the Moodboard).
+  joinTo?: string
 }
 
 export function AppPromoCard(p: AppPromoCardProps) {
@@ -242,7 +244,11 @@ export function AppPromoCard(p: AppPromoCardProps) {
             <p className="muted">{p.earnText}</p>
           </div>
         </div>
-        <button type="button" className="btn btn--primary">{p.joinLabel}<Icon name="right" size="sm" /></button>
+        {p.joinTo ? (
+          <Link to={p.joinTo} className="btn btn--primary">{p.joinLabel}<Icon name="right" size="sm" /></Link>
+        ) : (
+          <button type="button" className="btn btn--primary">{p.joinLabel}<Icon name="right" size="sm" /></button>
+        )}
       </div>
     </div>
   )

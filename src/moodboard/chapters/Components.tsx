@@ -565,6 +565,17 @@ export function Components() {
           <Col span={{ base: 4, sm: 4, md: 4 }}><CouponCard icon="ticket" iconLabel={t(text.c426Icon)} title={t(text.c426Value)} condition={t(text.c426Cond)} validity={t(text.c426Valid)} state="expired" status={t(text.c426Expired)} onOpen={() => {}} /></Col>
         </Grid>
       </Block>
+      <Block number="4.27" title={t(text.c427)} note={t(text.c427Note)}>
+        <Card>
+          <div className="row"><IconCircle size="md" icon="crown" /><h3 className="row__grow">{t(text.c427Card)}</h3><Badge tone="success">{t(text.c427Gold)}</Badge></div>
+          <DataRow muted label={t(text.c427No)} value="M-0000-0001" />
+        </Card>
+        <div className="stat-grid">
+          <Card><div className="row"><h3 className="row__grow">{t(text.c427Silver)}</h3></div><span className="muted">{t(text.c427Perk)}</span></Card>
+          <Card><div className="row"><h3 className="row__grow">{t(text.c427Gold)}</h3><Badge tone="success">{t(text.c427Yours)}</Badge></div><span className="muted">{t(text.c427Perk)}</span></Card>
+          <Card><div className="row"><h3 className="row__grow">{t(text.c427Platinum)}</h3></div><span className="muted">{t(text.c427Perk)}</span></Card>
+        </div>
+      </Block>
     </Chapter>
   )
 }

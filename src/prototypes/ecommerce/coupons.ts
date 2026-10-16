@@ -13,6 +13,8 @@ export function useCouponWallet() {
     wallet,
     entryOf,
     claim: (id: string) => { if (!entryOf(id)) setWallet([...wallet, { id }]) },
+    // Gives a spent coupon back (a coupon bought again with points).
+    restore: (id: string) => setWallet(wallet.map((w) => (w.id === id ? { id } : w))),
     markUsed: (id: string) => setWallet(wallet.map((w) => (w.id === id ? { ...w, used: true } : w))),
   }
 }

@@ -15,7 +15,7 @@ export function CouponsPage() {
   const { dataset } = useDataset()
   const [channel, setChannel] = useState<'online' | 'store'>('online')
   const base = `/${PROTOTYPE_ID}`
-  const coupons = dataset.ecommerce.checkout.coupons.filter((c) => c.channel === channel && !c.expired)
+  const coupons = dataset.ecommerce.checkout.coupons.filter((c) => c.channel === channel && !c.expired && !c.redeemCost)
 
   return (
     <Grid>

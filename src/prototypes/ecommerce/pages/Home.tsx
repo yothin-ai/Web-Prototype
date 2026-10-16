@@ -66,6 +66,7 @@ export function Home() {
                 </>
               }
               joinLabel={`${t(s.join)}${t(home.app.club)}`}
+              joinTo={`${base}/account/club${search}`}
             />
           </Col>
         </Grid>

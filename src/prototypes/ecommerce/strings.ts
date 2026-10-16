@@ -52,7 +52,7 @@ export const s = {
   baht: { th: 'บาท', en: 'baht' },
   earnAfter: { th: 'รับ', en: 'to earn' },
   onePoint: { th: '1 คะแนน', en: '1 point' },
-  join: { th: 'สมัครสมาชิก', en: 'Join' },
+  join: { th: 'ดูสมาชิก', en: 'View ' },
   bannerList: { th: 'แบนเนอร์โปรโมชั่น', en: 'Promotion banners' },
   shortcuts: { th: 'ทางลัด', en: 'Shortcuts' },
   quickLinks: { th: 'เมนูลัด', en: 'Quick links' },

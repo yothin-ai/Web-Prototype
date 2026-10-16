@@ -16,4 +16,7 @@ export const sampleCoupons: Coupon[] = [
   { id: 'store100', title: p('ลด ฿100', '฿100 off'), detail: p('ใช้ที่หน้าร้าน เมื่อซื้อครบ ฿1,000', 'Use in store when you spend ฿1,000'), kind: 'amount', value: 100, minSpend: 1000, channel: 'store', ...base },
   { id: 'store5', title: p('ลด 5%', '5% off'), detail: p('ใช้ที่หน้าร้าน สูงสุด ฿200 เมื่อซื้อครบ ฿2,000', 'Use in store, up to ฿200 when you spend ฿2,000'), kind: 'percent', value: 5, cap: 200, minSpend: 2000, channel: 'store', memberOnly: true, ...base },
   { id: 'store50', title: p('ลด ฿50', '฿50 off'), detail: p('ใช้ที่หน้าร้าน เมื่อซื้อครบ ฿300', 'Use in store when you spend ฿300'), kind: 'amount', value: 50, minSpend: 300, channel: 'store', ...base },
+  { id: 'pts50', title: p('ลด ฿50', '฿50 off'), detail: p('แลกด้วย 200 คะแนน ใช้เมื่อซื้อครบ ฿500', 'Redeemed with 200 points, when you spend ฿500'), kind: 'amount', value: 50, minSpend: 500, channel: 'online', redeemCost: 200, ...base },
+  { id: 'pts150', title: p('ลด ฿150', '฿150 off'), detail: p('แลกด้วย 500 คะแนน ใช้เมื่อซื้อครบ ฿1,500', 'Redeemed with 500 points, when you spend ฿1,500'), kind: 'amount', value: 150, minSpend: 1500, channel: 'online', redeemCost: 500, ...base },
+  { id: 'ptsship', title: p('ส่งฟรี', 'Free delivery'), detail: p('แลกด้วย 300 คะแนน ฟรีค่าจัดส่งเมื่อซื้อครบ ฿500 (เฉพาะจัดส่งพัสดุ)', 'Redeemed with 300 points; free delivery when you spend ฿500 (parcel delivery only)'), kind: 'freeship', value: 0, minSpend: 500, channel: 'online', redeemCost: 300, ...base },
 ]

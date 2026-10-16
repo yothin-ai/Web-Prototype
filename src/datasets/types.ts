@@ -35,6 +35,8 @@ export type Coupon = {
   expired?: boolean
   // All the coupons are taken; it cannot be claimed any more.
   full?: boolean
+  // Points a member pays to get this coupon; such a coupon is not on the public coupon page.
+  redeemCost?: number
 }
 
 // Checkout content: coupons, instalment banks and the bank-transfer account (all placeholders).

@@ -13,6 +13,8 @@ import {
 import { a } from '../accountStrings'
 import { c } from '../checkoutStrings'
 import { cp } from '../couponStrings'
+import { ClubLinkForm } from './ClubParts'
+import { useClubPoints } from '../club'
 import { isUsable, useCouponWallet } from '../coupons'
 import { s } from '../strings'
 import { branchById, branches, useBranch } from '../branches'
@@ -53,8 +55,7 @@ export function Checkout() {
   const [payId, setPayId] = useState<PayId | ''>(payTypeFromParam(params.get('payType')))
   const [bank, setBank] = useState('')
   const [months, setMonths] = useState(0)
-  const [clubTab, setClubTab] = useState<'phone' | 'id'>('phone')
-  const [clubValue, setClubValue] = useState('')
+  const { add: addPoints } = useClubPoints()
   const [couponOpen, setCouponOpen] = useState(false)
   const [couponId, setCouponId] = useState('')
   const [attempted, setAttempted] = useState(false)
@@ -129,6 +130,7 @@ export function Checkout() {
     placed.current = true
     const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax })
     if (coupon && cut.items + cut.shipping > 0) markUsed(coupon.id)
+    if (clubLinked && points > 0) addPoints({ th: `คำสั่งซื้อ ${order.id}`, en: `Order ${order.id}` }, points)
     navigate(toPay ? `${base}/pay/${order.id}${search}` : `${base}/done/${order.id}${search}`)
   }
 
@@ -303,14 +305,7 @@ export function Checkout() {
             {clubLinked ? (
               <div><Button variant="ghost" size="sm" onClick={() => setClubLinked(false)}>{t(c.disconnect)}</Button></div>
             ) : (
-              <>
-                <div className="row">
-                  <Button size="sm" variant={clubTab === 'phone' ? 'primary' : 'secondary'} aria-pressed={clubTab === 'phone'} onClick={() => setClubTab('phone')}>{t(c.tabPhone)}</Button>
-                  <Button size="sm" variant={clubTab === 'id' ? 'primary' : 'secondary'} aria-pressed={clubTab === 'id'} onClick={() => setClubTab('id')}>{t(c.tabNationalId)}</Button>
-                </div>
-                <Field label={clubTab === 'phone' ? t(c.tabPhone) : t(c.tabNationalId)} id="club-value" inputMode="numeric" placeholder={clubTab === 'phone' ? t(c.phonePlaceholder) : t(c.idPlaceholder)} value={clubValue} onChange={(e) => setClubValue(e.target.value.replace(/\D/g, '').slice(0, clubTab === 'phone' ? 10 : 13))} />
-                <Button onClick={() => { setClubLinked(true); setClubValue('') }}>{t(c.connect)}</Button>
-              </>
+              <ClubLinkForm />
             )}
           </Card>
 
