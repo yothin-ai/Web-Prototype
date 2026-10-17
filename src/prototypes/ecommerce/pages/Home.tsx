@@ -6,6 +6,7 @@ import {
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
 import { f } from '../footer'
 import { storeBadges } from '../../../assets/brand'
+import { categoryImage } from '../../../assets/categories'
 import { brandLogo } from '../../../assets/brand/brands'
 import { s } from '../strings'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -132,7 +133,7 @@ export function Home() {
         <Carousel label={t(s.categoriesRow)} count={6} minItem="96px" rows={2} dots prevLabel={prev} nextLabel={next}>
           {home.categories.map((c) => (
             <Link key={t(c)} to={categoryTo(t(c))} className="category-tile">
-              <ProductImage label={t(c)} />
+              <ProductImage label={t(c)} src={categoryImage(c)} />
               <span>{t(c)}</span>
             </Link>
           ))}

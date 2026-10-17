@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 dist-offline
+
+# Originals of the category pictures (about 2.5 MB each); the shop uses the resized copies in src/assets/categories
+src/assets/brand/Categories/

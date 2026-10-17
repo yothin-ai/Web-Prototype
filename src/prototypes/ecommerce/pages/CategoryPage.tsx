@@ -1,6 +1,7 @@
 import { useLocation, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
+import { categoryImage } from '../../../assets/categories'
 import { Breadcrumb, CategoryCard, CategoryPills, CategoryTile, Col, Grid, IconCircle, ProductImage } from '../../../ui'
 import { useEcommerce, PROTOTYPE_ID } from '../cart'
 import { joinLabels, nodeAt, productsFor, slugToPath, useCategoryLink } from '../category'
@@ -29,7 +30,7 @@ export function CategoryPage() {
     ...path.slice(0, -1).map((_, i) => ({ label: t(nodeAt(menu, path.slice(0, i + 1))!.label), to: link(path.slice(0, i + 1)) })),
     { label: t(node.label) },
   ]
-  const thumb = (label: string) => <ProductImage label={label} />
+  const thumb = (label: string, src?: string) => <ProductImage label={label} src={src} />
   const title = (
     <div className="category-title">
       <IconCircle size="lg" />
@@ -50,7 +51,7 @@ export function CategoryPage() {
         <Col>{heading}</Col>
         {children.map((c, i) => (
           <Col key={i} span={{ base: 4, sm: 8, md: 6 }}>
-            <CategoryCard title={t(c.label)} text={joinLabels(c.children, t)} actionLabel={t(g.shopNow)} to={link([...path, i])} thumb={thumb(t(c.label))} />
+            <CategoryCard title={t(c.label)} text={joinLabels(c.children, t)} actionLabel={t(g.shopNow)} to={link([...path, i])} thumb={thumb(t(c.label), categoryImage(c.label))} />
           </Col>
         ))}
       </Grid>
@@ -64,7 +65,7 @@ export function CategoryPage() {
         <Col>
           <div className="listing-grid">
             {children.map((c, i) => (
-              <CategoryTile key={i} title={t(c.label)} to={link([...path, i])} thumb={thumb(t(c.label))} />
+              <CategoryTile key={i} title={t(c.label)} to={link([...path, i])} thumb={thumb(t(c.label), categoryImage(c.label))} />
             ))}
           </div>
         </Col>
