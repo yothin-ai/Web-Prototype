@@ -12,6 +12,7 @@ import job09 from './job-09.jpg'
 import job10 from './job-10.jpg'
 import job11 from './job-11.jpg'
 import job12 from './job-12.jpg'
+import job13 from './job-13.jpg'
 import job14 from './job-14.jpg'
 import job15 from './job-15.jpg'
 import job16 from './job-16.jpg'
@@ -33,6 +34,7 @@ const jobImages: { th: string; src: string }[] = [
   { th: 'งานตีเส้นจราจรด่วน / ทางม้าลาย', src: job10 },
   { th: 'งานโครงหลังคา', src: job11 },
   { th: 'กั้นห้องภายใน ผนังเบา', src: job12 },
+  { th: 'ปั๊มน้ำโซลาร์เซลล์ และอุปกรณ์ติดตั้ง', src: job13 },
   { th: 'งานดูแลสวนบ้าน', src: job14 },
   { th: 'กลุ่มงานระบายน้ำ ป้องกันตลิ่ง และบดอัดด่วน', src: job15 },
   { th: 'กลุ่มงาน PPE & เซฟตี้หน้างานซ่อมฉุกเฉิน', src: job16 },
