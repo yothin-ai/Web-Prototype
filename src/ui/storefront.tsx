@@ -12,7 +12,9 @@ export function IconCircle({ size = 'md', tone = 'accent', icon, children }: { s
 }
 
 // A placeholder frame where an advertising banner will go.
-export function PromoStrip({ children }: { children: ReactNode }) {
+// With `image` the strip is a picture that already carries its text; `children` then becomes its text alternative.
+export function PromoStrip({ children, image }: { children: ReactNode; image?: string }) {
+  if (image) return <div className="promo-strip promo-strip--image"><img src={image} alt={typeof children === 'string' ? children : ''} /></div>
   return <div className="promo-strip"><span className="promo-strip__text">{children}</span></div>
 }
 
@@ -148,14 +150,21 @@ export function Carousel({ children, label, count = 1, minItem = '160px', dots =
 }
 
 // A banner placeholder: a frame with the promotion's headline, standing in for the real artwork.
-export function BannerSlide({ title, text, to }: { title: string; text?: string; to?: string }) {
-  const body = (
+// With `image` the banner is a picture that already carries its headline; the title and text stay in the page for screen readers.
+export function BannerSlide({ title, text, to, image }: { title: string; text?: string; to?: string; image?: string }) {
+  const body = image ? (
+    <>
+      <img className="banner-slide__image" src={image} alt="" />
+      <span className="visually-hidden">{title}{text ? `. ${text}` : ''}</span>
+    </>
+  ) : (
     <>
       <strong className="banner-slide__title">{title}</strong>
       {text && <span className="banner-slide__text">{text}</span>}
     </>
   )
-  return to ? <Link to={to} className="banner-slide banner-slide--link">{body}</Link> : <div className="banner-slide">{body}</div>
+  const cls = `banner-slide${image ? ' banner-slide--image' : ''}`
+  return to ? <Link to={to} className={`${cls} banner-slide--link`}>{body}</Link> : <div className={cls}>{body}</div>
 }
 
 // The category strip: each item is a link; the one for the page you are in is marked.

@@ -14,6 +14,7 @@ import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
 import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
 import { cp } from './couponStrings'
+import { promoStripImages } from '../../assets/banners'
 import { AuthModal } from './pages/AuthModal'
 import { CookieConsent } from './pages/CookieConsent'
 import { ck, pm } from './miscStrings'
@@ -89,7 +90,7 @@ export function Storefront({ children }: { children: ReactNode }) {
     <>
       <AuthModal />
       <CookieConsent />
-      <PromoStrip>{t(home.promoStrip)}</PromoStrip>
+      <PromoStrip image={lang === 'th' ? promoStripImages[dataset.id] : undefined}>{t(home.promoStrip)}</PromoStrip>
       <UtilityBar
         items={[
           <><IconCircle size="sm" tone="muted" icon="phone" />{t(home.utility[0])}</>,

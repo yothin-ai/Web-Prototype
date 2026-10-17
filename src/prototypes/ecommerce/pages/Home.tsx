@@ -6,6 +6,7 @@ import {
 import { formatMoney, useAddToCart, useEcommerce } from '../cart'
 import { f } from '../footer'
 import { storeBadges } from '../../../assets/brand'
+import { slideImages } from '../../../assets/banners'
 import { categoryImage } from '../../../assets/categories'
 import { brandLogo } from '../../../assets/brand/brands'
 import { s } from '../strings'
@@ -43,7 +44,7 @@ export function Home() {
             <div className="stack">
               <Carousel label={t(s.bannerList)} dots prevLabel={prev} nextLabel={next}>
                 {home.slides.map((slide, i) => (
-                  <BannerSlide key={i} title={t(slide.title)} text={t(slide.text)} to={`${base}/campaign/slide-${i}${search}`} />
+                  <BannerSlide key={i} title={t(slide.title)} text={t(slide.text)} to={`${base}/campaign/slide-${i}${search}`} image={lang === 'th' ? slideImages[dataset.id]?.[i] : undefined} />
                 ))}
               </Carousel>
               <ShortcutRow>
