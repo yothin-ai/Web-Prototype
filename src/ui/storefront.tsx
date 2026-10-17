@@ -336,14 +336,18 @@ export function FlashSaleCard(p: FlashSaleCardProps) {
   )
 }
 
-// One page of tiles: the first is large, the rest fill in around it.
-export function TileMosaic({ tiles, onSelect }: { tiles: string[]; onSelect: (tile: string) => void }) {
+// One page of tiles: the first is large, the rest fill in around it. A tile with a `src` shows that picture with its label on a dark band.
+export function TileMosaic({ tiles, onSelect }: { tiles: { label: string; src?: string }[]; onSelect: (tile: string) => void }) {
   return (
     <div className="tile-mosaic">
       <div className="tile-mosaic__grid">
-        {tiles.map((label) => (
-          <button key={label} type="button" className="tile" onClick={() => onSelect(label)}>
-            <span className="tile__image" aria-hidden="true">{Array.from(label).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span>
+        {tiles.map(({ label, src }) => (
+          <button key={label} type="button" className={`tile${src ? ' tile--picture' : ''}`} onClick={() => onSelect(label)}>
+            {src ? (
+              <img className="tile__picture" src={src} alt="" />
+            ) : (
+              <span className="tile__image" aria-hidden="true">{Array.from(label).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span>
+            )}
             <span className="tile__label">{label}</span>
           </button>
         ))}

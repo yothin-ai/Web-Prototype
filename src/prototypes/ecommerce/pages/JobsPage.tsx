@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
+import { jobImage } from '../../../assets/jobs'
 import { Breadcrumb, CategoryTile, Col, Grid, ProductImage } from '../../../ui'
 import { PROTOTYPE_ID } from '../cart'
 import { s } from '../strings'
@@ -23,7 +24,7 @@ export function JobsPage() {
       <Col>
         <div className="listing-grid">
           {home.jobs.map((job, i) => (
-            <CategoryTile key={i} overlay title={t(job)} to={`${base}/job/${i}${search}`} thumb={<ProductImage label={t(job)} />} />
+            <CategoryTile key={i} overlay title={t(job)} to={`${base}/job/${i}${search}`} thumb={<ProductImage label={t(job)} src={jobImage(job)} />} />
           ))}
         </div>
       </Col>

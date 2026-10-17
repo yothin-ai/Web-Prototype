@@ -5,6 +5,7 @@ import {
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
+import { jobImage } from '../../assets/jobs'
 import { brandLogo } from '../../assets/brand/brands'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
@@ -254,7 +255,7 @@ export function Components() {
             </Col>
             <Col span={{ base: 4, sm: 8, md: 9 }}>
               <p className="mb-caption">{t(text.tileMosaic)}</p>
-              <TileMosaic tiles={[t(text.tileA), t(text.tileB), t(text.tileC), t(text.tileD), t(text.tileE)]} onSelect={() => {}} />
+              <TileMosaic tiles={[{ label: t(text.tileA), src: jobImage({ th: 'งานซ่อมถนนคอนกรีต / ซ่อม Joint ด่วน', en: '' }) }, { label: t(text.tileB) }, { label: t(text.tileC) }, { label: t(text.tileD) }, { label: t(text.tileE) }]} onSelect={() => {}} />
             </Col>
           </Grid>
           <p className="mb-caption">{t(text.brandChip)}</p>

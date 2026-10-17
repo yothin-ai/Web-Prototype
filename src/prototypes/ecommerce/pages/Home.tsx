@@ -8,6 +8,7 @@ import { f } from '../footer'
 import { storeBadges } from '../../../assets/brand'
 import { slideImages } from '../../../assets/banners'
 import { categoryImage } from '../../../assets/categories'
+import { jobImage } from '../../../assets/jobs'
 import { brandLogo } from '../../../assets/brand/brands'
 import { s } from '../strings'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -145,7 +146,7 @@ export function Home() {
         <SectionHeader title={t(home.jobsTitle)} action={<Button to={`${base}/jobs${search}`} size="sm">{t(s.viewAll)}</Button>} />
         <Carousel label={t(s.jobsRow)} dots prevLabel={prev} nextLabel={next}>
           {chunk(home.jobs, 9).map((page, i) => (
-            <TileMosaic key={i} tiles={page.map((j) => t(j))} onSelect={(label) => navigate(`${base}/job/${Math.max(0, home.jobs.findIndex((j) => t(j) === label))}${search}`)} />
+            <TileMosaic key={i} tiles={page.map((j) => ({ label: t(j), src: jobImage(j) }))} onSelect={(label) => navigate(`${base}/job/${Math.max(0, home.jobs.findIndex((j) => t(j) === label))}${search}`)} />
           ))}
         </Carousel>
       </div>
