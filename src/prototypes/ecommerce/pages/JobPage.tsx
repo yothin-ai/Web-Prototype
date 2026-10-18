@@ -1,6 +1,7 @@
 import { useLocation, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
+import { jobImage } from '../../../assets/jobs'
 import { Breadcrumb, CategoryCard, Col, Grid, IconCircle, ProductImage } from '../../../ui'
 import { PROTOTYPE_ID, useEcommerce } from '../cart'
 import { productsFor } from '../category'
@@ -60,7 +61,7 @@ export function JobPage() {
       </Col>
       {groups.map((grp, i) => (
         <Col key={i} span={{ base: 4, sm: 8, md: 6 }}>
-          <CategoryCard title={t(grp)} text="" actionLabel={t(g.shopNow)} to={`${base}/job/${index}/${i}${search}`} thumb={<ProductImage label={t(grp)} />} />
+          <CategoryCard title={t(grp)} text="" actionLabel={t(g.shopNow)} to={`${base}/job/${index}/${i}${search}`} thumb={<ProductImage label={t(grp)} src={jobImage(item)} />} />
         </Col>
       ))}
     </Grid>

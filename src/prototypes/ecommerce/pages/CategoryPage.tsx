@@ -30,7 +30,9 @@ export function CategoryPage() {
     ...path.slice(0, -1).map((_, i) => ({ label: t(nodeAt(menu, path.slice(0, i + 1))!.label), to: link(path.slice(0, i + 1)) })),
     { label: t(node.label) },
   ]
-  const thumb = (label: string, src?: string) => <ProductImage label={label} src={src} />
+  // A subcategory has no picture of its own yet, so it shows the picture of the top-level category it belongs to.
+  const topPicture = categoryImage(nodeAt(menu, [path[0]])?.label)
+  const thumb = (label: string, src?: string) => <ProductImage label={label} src={src ?? topPicture} />
   const title = (
     <div className="category-title">
       <IconCircle size="lg" />
