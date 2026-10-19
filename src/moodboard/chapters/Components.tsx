@@ -5,6 +5,7 @@ import {
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
+import { categoryImage } from '../../assets/categories'
 import { ideaImage } from '../../assets/ideas'
 import { jobImage } from '../../assets/jobs'
 import { brandLogo } from '../../assets/brand/brands'
@@ -308,6 +309,7 @@ export function Components() {
           nodes={[
             {
               label: t(text.megaCat1),
+              image: categoryImage({ th: 'บริการติดตั้ง' }),
               children: [
                 { label: t(text.megaSub1), children: [{ label: t(text.megaLeaf1) }, { label: t(text.megaLeaf2) }, { label: t(text.megaLeaf3) }] },
                 { label: t(text.megaSub2), children: [{ label: t(text.megaLeaf2) }, { label: t(text.megaLeaf3) }] },

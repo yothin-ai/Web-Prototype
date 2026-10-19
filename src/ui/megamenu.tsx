@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { tokens } from '../tokens/tokens'
 
-export type MegaNode = { label: string; children?: MegaNode[] }
+// `image` on a top-level node is the picture its small leaf circles show (a leaf can carry its own).
+export type MegaNode = { label: string; image?: string; children?: MegaNode[] }
 
 type MegaMenuProps = {
   id?: string
@@ -156,7 +157,7 @@ export function MegaMenu({ id, nodes, title, viewAllLabel, backLabel, emptyText,
           <div className="mega-menu__leaves">
             {leaves.map((leaf, k) => (
               <button key={leaf.label} type="button" data-item className="mega-menu__leaf" onClick={() => onSelect(leaf.label, [a1, a2, k])}>
-                <span className="mega-menu__circle" aria-hidden="true">{initial(leaf.label)}</span>
+                <span className="mega-menu__circle" aria-hidden="true">{(leaf.image ?? cat.image) ? <img src={leaf.image ?? cat.image} alt="" /> : initial(leaf.label)}</span>
                 <span>{leaf.label}</span>
               </button>
             ))}

@@ -15,6 +15,7 @@ import { cartCount, PROTOTYPE_ID, useCart } from './cart'
 import { s } from './strings'
 import { cp } from './couponStrings'
 import { promoStripImages } from '../../assets/banners'
+import { categoryImage } from '../../assets/categories'
 import { AuthModal } from './pages/AuthModal'
 import { CookieConsent } from './pages/CookieConsent'
 import { ck, pm } from './miscStrings'
@@ -58,7 +59,7 @@ export function Storefront({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const nodes = useMemo(() => {
     const toNode = (n: MenuNode): MegaNode => ({ label: t(n.label), children: n.children?.map(toNode) })
-    return home.menu.map(toNode)
+    return home.menu.map((n) => ({ ...toNode(n), image: categoryImage(n.label) }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [home.menu, lang])
 
