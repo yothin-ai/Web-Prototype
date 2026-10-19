@@ -1,5 +1,6 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
+import { ideaImage } from '../../../assets/ideas'
 import { useLang } from '../../../i18n'
 import { ArticleCard, Breadcrumb, CategoryPills, Col, Grid, Card } from '../../../ui'
 import { w } from '../articleStrings'
@@ -9,7 +10,7 @@ import { withQuery } from '../Storefront'
 
 // Every article, with pills to narrow the list to one group.
 export function IdeasPage() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const { search } = useLocation()
   const navigate = useNavigate()
   const [params] = useSearchParams()
@@ -35,7 +36,7 @@ export function IdeasPage() {
         {shown.length === 0 && <Card><p>{t(w.empty)}</p></Card>}
         <div className="article-grid" aria-label={t(s.articlesRow)}>
           {shown.map(({ a, index }) => (
-            <ArticleCard key={index} category={t(a.category)} views={a.views} viewsLabel={t(s.articleViews)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/idea/${index}${search}`)} />
+            <ArticleCard key={index} category={t(a.category)} views={a.views} viewsLabel={t(s.articleViews)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/idea/${index}${search}`)} image={lang === 'th' ? ideaImage(a.title) : undefined} />
           ))}
         </div>
       </Col>

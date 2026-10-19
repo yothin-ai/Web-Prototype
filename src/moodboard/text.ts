@@ -206,6 +206,7 @@ export const text = {
   c410: { th: 'เนื้อหาและส่วนท้ายเว็บ (Content & footer)', en: 'Content and footer blocks' },
   c410Note: { th: 'การ์ดบทความ แถบความมั่นใจ และส่วนท้ายเว็บ', en: 'Article card, benefit bar and site footer.' },
   articleCard: { th: 'การ์ดบทความ', en: 'Article card' },
+  articleCardPicture: { th: 'การ์ดบทความที่มีรูปปก (3:2)', en: 'Article card with a cover picture (3:2)' },
   benefitBar: { th: 'แถบความมั่นใจ', en: 'Benefit bar' },
   siteFooter: { th: 'ส่วนท้ายเว็บ', en: 'Site footer' },
   articleCategory: { th: 'หมวดบทความ', en: 'Article category' },

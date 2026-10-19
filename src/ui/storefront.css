@@ -126,6 +126,7 @@
 .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
 
 .article-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.article-card--picture .product-image, .article-cover .product-image { aspect-ratio: 3 / 2; }
 .article-card__meta { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: var(--font-size-xs); }
 .article-card__title { font-size: var(--font-size-md); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .article-card__views { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--color-text-muted); }

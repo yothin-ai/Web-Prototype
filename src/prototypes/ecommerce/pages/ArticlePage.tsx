@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
+import { ideaImage } from '../../../assets/ideas'
 import { socialIcons } from '../../../assets/brand'
 import { ArticleBody, Badge, Breadcrumb, Button, Carousel, Checkbox, Col, Grid, Icon, Notice, ProductCard, ProductImage, SectionHeader, ShareBar } from '../../../ui'
 import { articleContent as ac } from '../articleContent'
+import { articleText } from '../articleTexts'
 import { w } from '../articleStrings'
 import { formatMoney, PROTOTYPE_ID, useAddToCart, useEcommerce } from '../cart'
 import { productsFor } from '../category'
@@ -34,6 +36,12 @@ export function ArticlePage() {
   if (!article) return <NotFoundPage />
 
   const cat = t(article.category)
+  const own = articleText(article.title)
+  const intro = own?.intro ?? ac.intro
+  const sections = own?.sections ?? ac.sections
+  const listIntro = own?.listIntro ?? ac.listIntro
+  const bullets = own?.bullets ?? ac.bullets
+  const cover = lang === 'th' ? ideaImage(article.title) : undefined
   const title = t(article.title)
   const fill = (text: { th?: string; en?: string }) => t(text).replaceAll('{cat}', cat).replaceAll('{title}', title)
   const share = async () => {
@@ -62,8 +70,8 @@ export function ArticlePage() {
         <div className="article-layout">
           <div className="article-main stack">
             <Breadcrumb label={t(s.breadcrumbLabel)} items={[{ label: t(s.home), to: `${base}${search}` }, { label: t(home.ideasTitle), to: `${base}/ideas${search}` }, { label: title }]} />
-            <figure className="stack">
-              <ProductImage label={title} wide />
+            <figure className={`stack${cover ? ' article-cover' : ''}`}>
+              <ProductImage label={title} wide src={cover} alt={title} />
               <figcaption className="muted">{title}</figcaption>
             </figure>
             <div className="stack">
@@ -77,8 +85,8 @@ export function ArticlePage() {
             <Notice tone="info">{t(w.sampleNote)}</Notice>
             {note && <Notice tone={note === 'copied' ? 'success' : 'error'}>{t(note === 'copied' ? w.copied : w.copyFailed)}</Notice>}
             <ArticleBody>
-              {ac.intro.map((x, i) => <p key={i}>{fill(x)}</p>)}
-              {ac.sections.map((sec, i) => (
+              {intro.map((x, i) => <p key={i}>{fill(x)}</p>)}
+              {sections.map((sec, i) => (
                 <div key={i} className="stack">
                   <h3>{i + 1}. {fill(sec.title)}</h3>
                   {sec.body.map((x, j) => <p key={j}>{fill(x)}</p>)}
@@ -90,8 +98,8 @@ export function ArticlePage() {
                   )}
                 </div>
               ))}
-              <p><strong>{t(ac.listIntro)}</strong></p>
-              <ul>{ac.bullets.map((x, i) => <li key={i}>{t(x)}</li>)}</ul>
+              <p><strong>{t(listIntro)}</strong></p>
+              <ul>{bullets.map((x, i) => <li key={i}>{t(x)}</li>)}</ul>
               <h2>{t(ac.checkTitle)}</h2>
               <div className="article-body__checks">
                 {ac.checks.map((x, i) => <Checkbox key={i} checked disabled onChange={() => {}} label={t(x)} />)}

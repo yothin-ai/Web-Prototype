@@ -8,6 +8,7 @@ import { f } from '../footer'
 import { storeBadges } from '../../../assets/brand'
 import { slideImages } from '../../../assets/banners'
 import { categoryImage } from '../../../assets/categories'
+import { ideaImage } from '../../../assets/ideas'
 import { jobImage } from '../../../assets/jobs'
 import { brandLogo } from '../../../assets/brand/brands'
 import { s } from '../strings'
@@ -177,7 +178,7 @@ export function Home() {
         <SectionHeader title={t(home.ideasTitle)} action={<Button to={`${base}/ideas${search}`} size="sm">{t(s.viewAll)}</Button>} />
         <div className="article-grid" aria-label={t(s.articlesRow)}>
           {home.articles.map((a, i) => (
-            <ArticleCard key={i} category={t(a.category)} views={a.views} viewsLabel={t(s.articleViews)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/idea/${i}${search}`)} />
+            <ArticleCard key={i} category={t(a.category)} views={a.views} viewsLabel={t(s.articleViews)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/idea/${i}${search}`)} image={lang === 'th' ? ideaImage(a.title) : undefined} />
           ))}
         </div>
       </div>

@@ -5,6 +5,7 @@ import {
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
+import { ideaImage } from '../../assets/ideas'
 import { jobImage } from '../../assets/jobs'
 import { brandLogo } from '../../assets/brand/brands'
 import { Block, Chapter, TableWrap } from '../shared'
@@ -273,8 +274,12 @@ export function Components() {
         <div className="stack">
           <Grid>
             <Col span={{ base: 4, sm: 4, md: 4 }}>
-              <p className="mb-caption">{t(text.articleCard)}</p>
-              <ArticleCard category={t(text.articleCategory)} views="4.19k" viewsLabel={t(text.articleViews)} title={t(text.articleTitle)} readLabel={t(text.readMore)} onRead={() => {}} />
+              <div className="stack">
+                <p className="mb-caption">{t(text.articleCard)}</p>
+                <ArticleCard category={t(text.articleCategory)} views="4.19k" viewsLabel={t(text.articleViews)} title={t(text.articleTitle)} readLabel={t(text.readMore)} onRead={() => {}} />
+                <p className="mb-caption">{t(text.articleCardPicture)}</p>
+                <ArticleCard category={t(text.articleCategory)} views="4.19k" viewsLabel={t(text.articleViews)} title={t(text.articleTitle)} readLabel={t(text.readMore)} onRead={() => {}} image={ideaImage({ th: 'แต่งห้องนั่งเล่นให้อบอุ่นน่าอยู่' })} />
+              </div>
             </Col>
             <Col span={{ base: 4, sm: 4, md: 8 }}>
               <p className="mb-caption">{t(text.benefitBar)}</p>
