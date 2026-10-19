@@ -17,6 +17,7 @@ import appliances from './modern-home-appliance-collection.jpg'
 import bathroom from './modern-minimalist-bathroom-vignette.jpg'
 import outletLiving from './neutral-home-and-outdoor-living-collection.jpg'
 import sports from './ultimate-sports-gear-collection.jpg'
+import installation from './hvac-technician-installing-ceiling-cassette.jpg'
 
 // Pictures of the top-level categories of the hardware shop (resized copies of the originals in src/assets/brand/Categories).
 // They are looked up by the Thai category name; a category with no picture here keeps the letter frame.
@@ -39,6 +40,7 @@ const categoryImages: { th: string; src: string }[] = [
   { th: 'สีและเคมีภัณฑ์ก่อสร้าง', src: paint },
   { th: 'กีฬา และสันทนาการ', src: sports },
   { th: 'Outlet and Living', src: outletLiving },
+  { th: 'บริการติดตั้ง', src: installation },
 ]
 
 export const categoryImage = (label: Localized | undefined) => categoryImages.find((c) => c.th === label?.th)?.src
