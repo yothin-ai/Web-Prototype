@@ -8,6 +8,7 @@ import { statusOf, statusOrder, useOrderBook } from '../orders'
 import { s } from '../strings'
 import { withQuery } from '../Storefront'
 import { AccountShell } from './AccountShell'
+import { useProductPicture } from '../productPicture'
 
 export const statusLabel = (status: OrderStatus) => ({ pending: o.pending, preparing: o.preparing, ready: o.ready, delivered: o.delivered, cancelled: o.cancelled })[status]
 export const statusTone = (status: OrderStatus) => (status === 'pending' || status === 'preparing' ? 'warning' : status === 'cancelled' ? undefined : 'success') as 'warning' | 'success' | undefined
@@ -17,6 +18,7 @@ const MAX_PICTURES = 5
 // Every order as a card, with chips to narrow the list to one status.
 export function OrdersPage() {
   const { t, lang } = useLang()
+  const picture = useProductPicture()
   const { search } = useLocation()
   const [params] = useSearchParams()
   const [orders] = useOrderBook()
@@ -60,7 +62,7 @@ export function OrdersPage() {
             total={formatMoney(order.total, lang)}
             thumbs={
               <>
-                {order.lines.slice(0, MAX_PICTURES).map((l, i) => <ProductImage key={i} label={t(l.name)} square />)}
+                {order.lines.slice(0, MAX_PICTURES).map((l, i) => <ProductImage key={i} label={t(l.name)} src={picture} square />)}
                 {extra > 0 && <span className="muted">+{extra} {t(o.more)}</span>}
               </>
             }

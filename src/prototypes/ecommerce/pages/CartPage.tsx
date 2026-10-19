@@ -6,9 +6,11 @@ import { k } from '../cartStrings'
 import { c } from '../checkoutStrings'
 import { s } from '../strings'
 import { useNarrow } from '../useNarrow'
+import { useProductPicture } from '../productPicture'
 
 export function CartPage() {
   const { t, lang } = useLang()
+  const picture = useProductPicture()
   const { search } = useLocation()
   const { productById } = useEcommerce()
   const { cart, chosen, stockOf, available } = useChosenCart()
@@ -33,7 +35,7 @@ export function CartPage() {
       <SectionHeader title={t(k.mayLike)} action={<Button to={`${base}/products${search}`} size="sm" variant="secondary">{t(s.viewAll)}</Button>} />
       <Carousel label={t(k.mayLikeRow)} count={5} minItem="180px" prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
         {suggestions.map((p) => (
-          <ProductCard key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
+          <ProductCard image={picture} key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
         ))}
       </Carousel>
     </div>
@@ -95,7 +97,7 @@ export function CartPage() {
                 onCheck={(v) => tick(line.productId, v)}
                 checkLabel={t(k.selectItem)}
                 disabled={out}
-                thumb={<ProductImage label={t(p.name)} square />}
+                thumb={<ProductImage label={t(p.name)} src={picture} square />}
                 skuLabel={t(k.sku)}
                 sku={skuOf(p)}
                 name={<Link to={detail(p.id)} className="card-link"><strong>{t(p.name)}</strong></Link>}

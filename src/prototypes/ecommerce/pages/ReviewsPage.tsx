@@ -8,12 +8,14 @@ import { useReviews } from '../reviews'
 import { rv } from '../reviewStrings'
 import { withQuery } from '../Storefront'
 import { AccountShell } from './AccountShell'
+import { useProductPicture } from '../productPicture'
 
 type Tab = 'pending' | 'done'
 
 // The shopper's reviews: products of delivered orders waiting for one, and the reviews already written.
 export function ReviewsPage() {
   const { t, lang } = useLang()
+  const picture = useProductPicture()
   const { search, pathname } = useLocation()
   const [params] = useSearchParams()
   const navigate = useNavigate()
@@ -63,7 +65,7 @@ export function ReviewsPage() {
           ) : pending.map((x) => (
             <Card key={x.key}>
               <div className="review-item">
-                <div className="review-item__thumb"><ProductImage label={t(x.line.name)} square /></div>
+                <div className="review-item__thumb"><ProductImage label={t(x.line.name)} src={picture} square /></div>
                 <div className="review-item__body">
                   <strong>{t(x.line.name)}</strong>
                   <span className="muted">{t(rv.order)} {x.order.id} · {t(rv.received)} {formatDate(x.order.placedAt, lang)}</span>
@@ -79,7 +81,7 @@ export function ReviewsPage() {
           return (
             <Card key={r.id}>
               <div className="review-item">
-                <div className="review-item__thumb"><ProductImage label={product ? t(product.name) : ''} square /></div>
+                <div className="review-item__thumb"><ProductImage label={product ? t(product.name) : ''} src={picture} square /></div>
                 <div className="review-item__body">
                   {product ? <Link to={`${base}/product/${product.id}${search}`} className="card-link"><strong>{t(product.name)}</strong></Link> : <strong>-</strong>}
                   <RatingStars value={r.rating} label={t(rv.ratingLabel)} />
@@ -96,7 +98,7 @@ export function ReviewsPage() {
           <div className="stack">
             <h2>{t(rv.formTitle)}</h2>
             <div className="review-item">
-              <div className="review-item__thumb"><ProductImage label={t(target.line.name)} square /></div>
+              <div className="review-item__thumb"><ProductImage label={t(target.line.name)} src={picture} square /></div>
               <div className="review-item__body"><strong>{t(target.line.name)}</strong><span className="muted">{t(rv.order)} {target.order.id}</span></div>
             </div>
             <div className="stack">

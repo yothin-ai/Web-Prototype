@@ -12,12 +12,14 @@ import { formatMoney, PROTOTYPE_ID, useAddToCart, useEcommerce } from '../cart'
 import { productsFor } from '../category'
 import { s } from '../strings'
 import { NotFoundPage } from './NotFoundPage'
+import { useProductPicture } from '../productPicture'
 
 const shareNames = ['Facebook', 'Line', 'X']
 
 // One article: cover, sample text in the shape of the original, share buttons and related products.
 export function ArticlePage() {
   const { t, lang } = useLang()
+  const picture = useProductPicture()
   const { search } = useLocation()
   const { index = '' } = useParams()
   const { dataset } = useDataset()
@@ -127,7 +129,7 @@ export function ArticlePage() {
             <p className="muted">{t(w.relatedSub)}</p>
             <Carousel label={t(w.relatedRow)} count={5} minItem="176px" prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
               {related.map((p) => (
-                <ProductCard key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
+                <ProductCard image={picture} key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
               ))}
             </Carousel>
           </div>

@@ -18,10 +18,10 @@ export function Breadcrumb({ label, items }: { label: string; items: { label: st
   )
 }
 
-type GalleryProps = { name: string; frameLabels: string[]; prevLabel: string; nextLabel: string }
+type GalleryProps = { name: string; frameLabels: string[]; prevLabel: string; nextLabel: string; image?: string }
 
 // A main picture frame with thumbnails: beside it on a wide column, below it on a narrow one.
-export function ProductGallery({ name, frameLabels, prevLabel, nextLabel }: GalleryProps) {
+export function ProductGallery({ name, frameLabels, prevLabel, nextLabel, image }: GalleryProps) {
   const [index, setIndex] = useState(0)
   const count = frameLabels.length
   const go = (i: number) => setIndex((i + count) % count)
@@ -41,13 +41,13 @@ export function ProductGallery({ name, frameLabels, prevLabel, nextLabel }: Gall
         <div className="gallery__thumbs" role="tablist" aria-orientation="vertical" onKeyDown={onThumbKey}>
           {frameLabels.map((frame, i) => (
             <button key={frame} type="button" role="tab" aria-selected={i === index} aria-label={frame} tabIndex={i === index ? 0 : -1} className="gallery__thumb" onClick={() => setIndex(i)}>
-              <span aria-hidden="true">{letter}</span>
+              {image ? <img src={image} alt="" /> : <span aria-hidden="true">{letter}</span>}
             </button>
           ))}
         </div>
         <div className="gallery__main" role="img" aria-label={`${name} · ${frameLabels[index]}`}>
-          <span className="gallery__letter" aria-hidden="true">{letter}</span>
-          <span className="gallery__frame-name">{frameLabels[index]}</span>
+          {image ? <img className="gallery__picture" src={image} alt="" /> : <span className="gallery__letter" aria-hidden="true">{letter}</span>}
+          <span className={`gallery__frame-name${image ? ' gallery__frame-name--over' : ''}`}>{frameLabels[index]}</span>
           <button type="button" className="carousel__arrow carousel__arrow--prev" aria-label={prevLabel} onClick={() => go(index - 1)}>‹</button>
           <button type="button" className="carousel__arrow carousel__arrow--next" aria-label={nextLabel} onClick={() => go(index + 1)}>›</button>
           <span className="gallery__counter">{index + 1} / {count}</span>
@@ -118,10 +118,10 @@ export function StickyActionBar({ visible, name, price, actions, inline, thumb =
 
 // A product in a grid: picture, badges, name, then price and action pinned to the bottom edge,
 // so prices and buttons line up across a row however long the names are.
-export function ProductCard({ to, imageLabel, badges, name, price, action }: { to: string; imageLabel: string; badges: ReactNode; name: string; price: string; action: ReactNode }) {
+export function ProductCard({ to, imageLabel, badges, name, price, action, image }: { to: string; imageLabel: string; badges: ReactNode; name: string; price: string; action: ReactNode; image?: string }) {
   return (
     <div className="card product-card">
-      <Link to={to} className="card-link"><ProductImage label={imageLabel} square /></Link>
+      <Link to={to} className="card-link"><ProductImage label={imageLabel} src={image} square /></Link>
       <span className="row">{badges}</span>
       <Link to={to} className="card-link"><h3 className="article-card__title">{name}</h3></Link>
       <div className="product-card__foot">

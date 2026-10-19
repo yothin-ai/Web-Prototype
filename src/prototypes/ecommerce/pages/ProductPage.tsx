@@ -13,6 +13,7 @@ import { s } from '../strings'
 import { withQuery } from '../Storefront'
 import { useNarrow } from '../useNarrow'
 import { NotFoundPage } from './NotFoundPage'
+import { useProductPicture } from '../productPicture'
 
 const FRAMES = 5
 const DEFAULT_UNIT: Localized = { th: 'ชิ้น', en: 'piece' }
@@ -24,6 +25,7 @@ function List({ items }: { items: Localized[] }) {
 
 export function ProductPage() {
   const { t, lang } = useLang()
+  const picture = useProductPicture()
   const { productId = '' } = useParams()
   const { search } = useLocation()
   const navigate = useNavigate()
@@ -143,7 +145,7 @@ export function ProductPage() {
         <Breadcrumb label={t(s.breadcrumbLabel)} items={crumbs} />
 
         <div className="product-layout">
-          <ProductGallery
+          <ProductGallery image={picture}
             name={t(p.name)}
             frameLabels={Array.from({ length: FRAMES }, (_, i) => `${t(s.galleryLabel)} ${i + 1}`)}
             prevLabel={t(s.galleryPrev)}
@@ -288,6 +290,7 @@ export function ProductPage() {
               {related.map((r) => (
                 <ProductCard
                   key={r!.id}
+                  image={picture}
                   to={detailPath(r!.id)}
                   imageLabel={t(r!.name)}
                   badges={<Badge>{t(r!.brand ?? r!.category)}</Badge>}

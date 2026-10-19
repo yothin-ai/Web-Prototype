@@ -15,6 +15,7 @@ import { s } from '../strings'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { PROTOTYPE_ID } from '../cart'
 import { useCategoryTo } from '../category'
+import { useProductPicture } from '../productPicture'
 
 const chunk = <T,>(items: T[], size: number): T[][] =>
   Array.from({ length: Math.ceil(items.length / size) }, (_, i) => items.slice(i * size, i * size + size))
@@ -26,6 +27,7 @@ const technicianCircle = 5
 
 export function Home() {
   const { t, lang } = useLang()
+  const picture = useProductPicture()
   const navigate = useNavigate()
   const base = `/${PROTOTYPE_ID}`
   const categoryTo = useCategoryTo()
@@ -109,7 +111,7 @@ export function Home() {
                 const sold = p.sold ?? 0
                 const stock = p.stock ?? 0
                 return (
-                  <FlashSaleCard
+                  <FlashSaleCard image={picture}
                     key={id}
                     flashLabel={t(s.flashTag)}
                     imageLabel={t(p.name)}
@@ -168,7 +170,7 @@ export function Home() {
             const p = productById(id)
             if (!p) return null
             return (
-              <ProductCard key={id} to={detailPath(id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(id)}>{t(s.add)}</Button>} />
+              <ProductCard image={picture} key={id} to={detailPath(id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(id)}>{t(s.add)}</Button>} />
             )
           })}
         </div>

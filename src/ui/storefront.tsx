@@ -304,21 +304,27 @@ type FlashSaleCardProps = {
   buyLabel: string
   onBuy: () => void
   to?: string
+  image?: string
 }
 
 export function FlashSaleCard(p: FlashSaleCardProps) {
   const progressLabel = `${p.soldText} · ${p.stockText}`
+  const flashPicture = p.image ? (
+    <div className="product-image"><img src={p.image} alt="" /></div>
+  ) : (
+    <div className="product-image" role="img" aria-label={p.imageLabel}><span aria-hidden="true">{Array.from(p.imageLabel).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+  )
   return (
     <article className="flash-card">
       <span className="flash-card__tag">{p.flashLabel}</span>
       {p.to ? (
         <Link to={p.to} className="card-link">
-          <div className="product-image" role="img" aria-label={p.imageLabel}><span aria-hidden="true">{Array.from(p.imageLabel).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+          {flashPicture}
           <h3 className="flash-card__name">{p.name}</h3>
         </Link>
       ) : (
         <>
-          <div className="product-image" role="img" aria-label={p.imageLabel}><span aria-hidden="true">{Array.from(p.imageLabel).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+          {flashPicture}
           <h3 className="flash-card__name">{p.name}</h3>
         </>
       )}

@@ -6,6 +6,7 @@ import { Badge, Button, Card, Col, FilterGroup, Grid, ProductCard, Select } from
 import { formatMoney, PROTOTYPE_ID, useAddToCart, useCart } from '../cart'
 import { g } from '../listingStrings'
 import { s } from '../strings'
+import { useProductPicture } from '../productPicture'
 
 type Sort = 'best' | 'low' | 'high' | 'name'
 const onSale = (p: Product) => p.originalPrice !== undefined && p.originalPrice > p.price
@@ -29,6 +30,7 @@ function bands(products: Product[]): { id: string; lo: number; hi: number }[] {
 // `head` is whatever sits above it: breadcrumb, title, category pills.
 export function ProductListing({ products, head }: { products: Product[]; head?: React.ReactNode }) {
   const { t, lang } = useLang()
+  const picture = useProductPicture()
   const { search } = useLocation()
   const [cart] = useCart()
   const add = useAddToCart()
@@ -115,6 +117,7 @@ export function ProductListing({ products, head }: { products: Product[]; head?:
               return (
                 <ProductCard
                   key={p.id}
+                  image={picture}
                   to={detail(p.id)}
                   imageLabel={t(p.name)}
                   badges={<><Badge>{t(p.brand ?? p.category)}</Badge>{cut > 0 && <Badge tone="warning">{t(g.discount)} {cut}%</Badge>}{qty > 0 && <Badge tone="success">{t(s.inCart)}: {qty}</Badge>}</>}
