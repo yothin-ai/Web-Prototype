@@ -1,5 +1,6 @@
 import type { Dataset } from '../types'
 import { sampleCoupons } from '../coupons'
+import { landing } from './landing'
 import { menu } from './menu'
 
 const dataset: Dataset = {
@@ -231,41 +232,7 @@ const dataset: Dataset = {
       { id: 'cod', name: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' }, detail: { th: 'ชำระเมื่อได้รับสินค้า', en: 'Pay when it arrives' } },
     ],
   },
-  landing: {
-    badge: { th: 'ใบเสนอราคาภายใน 24 ชั่วโมง', en: 'Quote within 24 hours' },
-    featuresTitle: { th: 'ทำไมผู้รับเหมาเลือกเรา', en: 'Why contractors choose us' },
-    finalTitle: { th: 'พร้อมรับราคาวัสดุสำหรับงานของคุณแล้วหรือยัง', en: 'Ready to get prices for your job?' },
-    formTitle: { th: 'ขอใบเสนอราคาวัสดุ', en: 'Request a materials quote' },
-    companyLabel: { th: 'ชื่อบริษัทหรือโครงการ (ไม่บังคับ)', en: 'Company or project name (optional)' },
-    interestLabel: { th: 'ขนาดงานของคุณ', en: 'Size of your job' },
-    headline: { th: 'ได้ราคาวัสดุก่อสร้างสำหรับงานโครงการ ภายใน 24 ชั่วโมง', en: 'Get construction material prices for your project within 24 hours' },
-    subheadline: { th: 'ส่งรายการวัสดุที่ต้องใช้ ทีมงานตอบกลับพร้อมราคาและกำหนดส่ง', en: 'Send your materials list and our team replies with prices and delivery dates.' },
-    cta: { th: 'ขอใบเสนอราคา', en: 'Request a quote' },
-    features: [
-      { title: { th: 'ราคาสำหรับงานโครงการ', en: 'Project pricing' }, body: { th: 'ยิ่งสั่งมาก ราคายิ่งดี', en: 'The more you order, the better the price' } },
-      { title: { th: 'ส่งตรงถึงหน้างาน', en: 'Delivered to site' }, body: { th: 'นัดวันและเวลาส่งได้', en: 'Pick the day and time' } },
-      { title: { th: 'มีที่ปรึกษาประจำโครงการ', en: 'A dedicated adviser' }, body: { th: 'ช่วยคำนวณปริมาณวัสดุ', en: 'Helps estimate material quantities' } },
-    ],
-    steps: [
-      { title: { th: 'ส่งรายการวัสดุ', en: 'Send your list' }, body: { th: 'กรอกฟอร์มสั้นๆ ในไม่กี่นาที', en: 'A short form that takes minutes' } },
-      { title: { th: 'รับใบเสนอราคา', en: 'Receive the quote' }, body: { th: 'ภายใน 24 ชั่วโมงทำการ', en: 'Within 24 business hours' } },
-      { title: { th: 'ยืนยันและนัดส่ง', en: 'Confirm and schedule' }, body: { th: 'เลือกวันส่งที่สะดวก', en: 'Choose a delivery day that suits you' } },
-    ],
-    testimonials: [
-      { quote: { th: 'ได้ราคาเร็ว วัสดุมาถึงตรงเวลา งานไม่ต้องหยุดรอ', en: 'Quick quotes and on-time delivery meant no downtime on site.' }, author: { th: 'ผู้รับเหมาบ้านจัดสรร', en: 'Housing developer contractor' } },
-      { quote: { th: 'ที่ปรึกษาช่วยคำนวณปริมาณจนไม่ต้องสั่งเกิน', en: 'The adviser helped size the order so we did not over-buy.' }, author: { th: 'ผู้ดูแลโครงการต่อเติม', en: 'Renovation project lead' } },
-    ],
-    faqs: [
-      { question: { th: 'ขอใบเสนอราคาต้องเสียค่าใช้จ่ายไหม', en: 'Does a quote cost anything?' }, answer: { th: 'ไม่มีค่าใช้จ่าย', en: 'No, it is free.' } },
-      { question: { th: 'ต้องมีรายการวัสดุครบก่อนไหม', en: 'Do I need a complete list first?' }, answer: { th: 'ไม่จำเป็น ที่ปรึกษาช่วยเติมรายการได้', en: 'No, the adviser can help complete it.' } },
-      { question: { th: 'ราคาในใบเสนอราคาคงอยู่กี่วัน', en: 'How long is a quote valid?' }, answer: { th: '15 วันนับจากวันที่ออก', en: '15 days from the issue date.' } },
-    ],
-    interests: [
-      { id: 'small', name: { th: 'งานเล็ก', en: 'Small job' }, detail: { th: 'ต่อเติมหรือซ่อมแซมบ้าน', en: 'Home extension or repair' } },
-      { id: 'medium', name: { th: 'งานกลาง', en: 'Medium job' }, detail: { th: 'สร้างบ้านหนึ่งหลัง', en: 'Building one house' } },
-      { id: 'large', name: { th: 'งานโครงการ', en: 'Large project' }, detail: { th: 'หลายหลังหรืออาคาร', en: 'Several houses or a building' } },
-    ],
-  },
+  landing,
   education: {
     courses: [
       {

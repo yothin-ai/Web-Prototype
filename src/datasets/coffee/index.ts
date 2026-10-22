@@ -1,5 +1,6 @@
 import type { Dataset } from '../types'
 import { sampleCoupons } from '../coupons'
+import { landing } from './landing'
 import { menu } from './menu'
 
 const dataset: Dataset = {
@@ -151,41 +152,7 @@ const dataset: Dataset = {
       { id: 'cod', name: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' }, detail: { th: 'ชำระเมื่อได้รับสินค้า', en: 'Pay when it arrives' } },
     ],
   },
-  landing: {
-    badge: { th: 'ลด 20% ในออเดอร์แรก', en: '20% off your first order' },
-    featuresTitle: { th: 'ทำไมถึงติดใจ', en: 'Why people keep coming back' },
-    finalTitle: { th: 'พร้อมได้กาแฟสดใหม่ทุกเดือนหรือยัง', en: 'Ready for fresh coffee every month?' },
-    formTitle: { th: 'สมัครสมาชิกกาแฟรายเดือน', en: 'Join the monthly coffee club' },
-    companyLabel: { th: 'ชื่อร้านหรือบริษัท (ไม่บังคับ)', en: 'Shop or company name (optional)' },
-    interestLabel: { th: 'ความถี่ในการจัดส่ง', en: 'How often should we deliver?' },
-    headline: { th: 'กาแฟคั่วสดใหม่ ส่งถึงบ้านทุกเดือน', en: 'Freshly roasted coffee, delivered monthly' },
-    subheadline: { th: 'คั่วตามออเดอร์ทุกสัปดาห์ ส่งภายใน 24 ชั่วโมงหลังคั่ว เพื่อรสชาติที่สดที่สุด', en: 'Roasted to order every week and shipped within 24 hours so it tastes its freshest.' },
-    cta: { th: 'เริ่มสมัครสมาชิก', en: 'Start my subscription' },
-    features: [
-      { title: { th: 'คั่วตามออเดอร์', en: 'Roasted to order' }, body: { th: 'ไม่มีเมล็ดค้างสต็อก ได้รสสดทุกถุง', en: 'No old stock, every bag is fresh.' } },
-      { title: { th: 'คัดเมล็ดจากฟาร์มภาคเหนือ', en: 'Beans from northern farms' }, body: { th: 'ซื้อตรงจากเกษตรกร รู้ที่มาทุกถุง', en: 'Bought directly from growers, traceable on every bag.' } },
-      { title: { th: 'เลื่อนหรือหยุดได้ทุกเมื่อ', en: 'Skip or pause any time' }, body: { th: 'ปรับรอบจัดส่งได้เองโดยไม่มีค่าธรรมเนียม', en: 'Change your schedule with no fee.' } },
-    ],
-    steps: [
-      { title: { th: 'เลือกเมล็ดที่ชอบ', en: 'Pick your beans' }, body: { th: 'คั่วอ่อน กลาง หรือเข้ม', en: 'Light, medium or dark roast.' } },
-      { title: { th: 'เลือกรอบจัดส่ง', en: 'Choose a schedule' }, body: { th: 'ทุกสัปดาห์ สองสัปดาห์ หรือทุกเดือน', en: 'Weekly, fortnightly or monthly.' } },
-      { title: { th: 'รับกาแฟถึงบ้าน', en: 'Receive it at home' }, body: { th: 'เปิดถุงแล้วชงได้ทันที', en: 'Open the bag and brew.' } },
-    ],
-    testimonials: [
-      { quote: { th: 'กลิ่นหอมมากตั้งแต่เปิดถุง เหมือนซื้อจากร้านโดยตรง', en: 'The aroma hits you as soon as you open the bag, just like buying in the shop.' }, author: { th: 'สมาชิกมา 1 ปี', en: 'Member for a year' } },
-      { quote: { th: 'เลื่อนรอบจัดส่งได้ง่าย ไม่ต้องโทรหาใคร', en: 'Skipping a delivery is easy, no phone calls needed.' }, author: { th: 'คนทำงานที่บ้าน', en: 'Works from home' } },
-    ],
-    faqs: [
-      { question: { th: 'ส่งฟรีไหม', en: 'Is shipping free?' }, answer: { th: 'ฟรีเมื่อสั่งตั้งแต่ 600 บาท', en: 'Free on orders from 600 baht.' } },
-      { question: { th: 'ขอเมล็ดบดได้ไหม', en: 'Can I get it ground?' }, answer: { th: 'ได้ เลือกความละเอียดตอนสมัคร', en: 'Yes, choose the grind when you sign up.' } },
-      { question: { th: 'ยกเลิกได้เมื่อไหร่', en: 'When can I cancel?' }, answer: { th: 'ทุกเมื่อ ก่อนรอบจัดส่งถัดไป 3 วัน', en: 'Any time, up to 3 days before the next delivery.' } },
-    ],
-    interests: [
-      { id: 'monthly', name: { th: 'ทุกเดือน', en: 'Monthly' }, detail: { th: '1 ถุงต่อเดือน', en: 'One bag a month' } },
-      { id: 'fortnight', name: { th: 'ทุกสองสัปดาห์', en: 'Fortnightly' }, detail: { th: '2 ถุงต่อเดือน', en: 'Two bags a month' } },
-      { id: 'weekly', name: { th: 'ทุกสัปดาห์', en: 'Weekly' }, detail: { th: '4 ถุงต่อเดือน', en: 'Four bags a month' } },
-    ],
-  },
+  landing,
   education: {
     courses: [
       {

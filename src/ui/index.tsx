@@ -123,14 +123,25 @@ export function ChoiceCard({ title, detail, price, selected, onSelect }: ChoiceC
 }
 
 // The opening block of a page: one oversized headline, a lead sentence and the main actions.
-export function Hero({ badge, title, subtitle, actions }: { badge?: ReactNode; title: string; subtitle?: string; actions?: ReactNode }) {
-  return (
-    <div className="hero">
+// `lead` is a first line set above the headline in the soft accent colour. With tone="on-dark" the block becomes a
+// full-width band on the accent colour, with `media` (a picture) beside the text from md up.
+export function Hero({ badge, title, subtitle, actions, lead, media, tone }: { badge?: ReactNode; title: string; subtitle?: string; actions?: ReactNode; lead?: string; media?: ReactNode; tone?: 'default' | 'on-dark' }) {
+  const body = (
+    <div className={`hero${tone === 'on-dark' ? ' hero--on-dark' : ''}`}>
       {badge}
-      <h1 className="hero__title">{title}</h1>
+      <h1 className="hero__title">{lead && <span className="hero__lead">{lead}</span>}{title}</h1>
       {subtitle && <p className="hero__subtitle">{subtitle}</p>}
       {actions && <div className="hero__actions">{actions}</div>}
     </div>
+  )
+  if (tone !== 'on-dark') return body
+  return (
+    <section className="hero-band">
+      <div className="hero-band__inner">
+        {body}
+        {media && <div className="hero-band__media">{media}</div>}
+      </div>
+    </section>
   )
 }
 
@@ -203,3 +214,4 @@ export * from './order'
 export * from './modal'
 export * from './coupon'
 export * from './rating'
+export * from './landing'

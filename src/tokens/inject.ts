@@ -44,6 +44,12 @@ function gridCss(): string {
     at(breakpoint.sm, `.grid { grid-template-columns: repeat(${grid.columns.sm}, minmax(0, 1fr)); } .col-sm-full { grid-column: 1 / -1; } ${spans('col-sm', grid.columns.sm)}`),
     mosaic,
     gallery,
+    // Company landing page: the nav shows its links from sm, the opening band gets its picture from md, products sit picture beside text from md.
+    `.site-nav__links, .site-nav__action { display: none; } .site-nav__toggle { display: inline-grid; } .hero-band__media { display: none; }`,
+    at(breakpoint.sm, `.site-nav__links { display: flex; } .site-nav__action { display: block; } .site-nav__toggle, .site-nav__panel { display: none; }`),
+    at(breakpoint.md, `.hero-band__inner { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } .hero-band__media { display: block; } .feature-showcase { grid-template-columns: repeat(2, minmax(0, 1fr)); } .feature-showcase--reverse .feature-showcase__media { order: 2; } .contact-footer__inner { grid-template-columns: minmax(0, 2fr); grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }`),
+    // Sections of the landing page slide up as they enter the screen, where the browser supports scroll-driven animation and the visitor has not asked for less motion.
+    `@media (prefers-reduced-motion: no-preference) { @supports (animation-timeline: view()) { .reveal { animation: reveal-up linear both; animation-timeline: view(); animation-range: entry 0% entry 35%; } } } @keyframes reveal-up { from { opacity: 0; transform: translateY(var(--space-5)); } to { opacity: 1; transform: none; } }`,
     `.site-header { position: relative; }`,
     // From the sm breakpoint the site header follows the page, just under the Shell bar.
     at(breakpoint.sm, `.site-header { position: sticky; top: var(--shell-bar-height, 0px); }`),

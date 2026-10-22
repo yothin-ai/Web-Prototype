@@ -1,5 +1,6 @@
 import type { Dataset } from '../types'
 import { sampleCoupons } from '../coupons'
+import { landing } from './landing'
 import { menu } from './menu'
 
 const dataset: Dataset = {
@@ -152,44 +153,7 @@ const dataset: Dataset = {
       { id: 'cod', name: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' }, detail: { th: 'ชำระเมื่อได้รับสินค้า', en: 'Pay when it arrives' } },
     ],
   },
-  landing: {
-    badge: { th: 'ทดลองใช้ฟรี 14 วัน', en: 'Free for 14 days' },
-    featuresTitle: { th: 'ทำไมทีมถึงเลือกใช้', en: 'Why teams choose it' },
-    finalTitle: { th: 'พร้อมวางแผนงานให้เป็นระเบียบแล้วหรือยัง', en: 'Ready to get your work in order?' },
-    formTitle: { th: 'สมัครทดลองใช้ฟรี', en: 'Start your free trial' },
-    companyLabel: { th: 'บริษัทหรือทีม (ไม่บังคับ)', en: 'Company or team (optional)' },
-    interestLabel: { th: 'ขนาดทีมของคุณ', en: 'Your team size' },
-    headline: { th: 'วางแผนงานของทีมไว้ในที่เดียว', en: 'Plan your team’s work in one place' },
-    subheadline: {
-      th: 'รวมงาน กำหนดส่ง และการสื่อสารของทีมไว้ด้วยกัน ให้ทุกคนเห็นภาพเดียวกันโดยไม่ต้องไล่ถามในแชต',
-      en: 'Bring tasks, deadlines and team conversations together so everyone sees the same picture without chasing answers in chat.',
-    },
-    cta: { th: 'เริ่มทดลองใช้ฟรี', en: 'Start your free trial' },
-    features: [
-      { title: { th: 'บอร์ดงานที่เข้าใจง่าย', en: 'A board anyone can read' }, body: { th: 'ลากงานข้ามสถานะได้ทันที เห็นว่าใครถืองานอะไรอยู่', en: 'Drag work across stages and see who owns what.' } },
-      { title: { th: 'เตือนก่อนถึงกำหนด', en: 'Reminders before deadlines' }, body: { th: 'แจ้งเตือนอัตโนมัติ ไม่มีงานหลุดโดยไม่มีใครรู้', en: 'Automatic nudges so nothing slips by unnoticed.' } },
-      { title: { th: 'สรุปความคืบหน้าให้เอง', en: 'Progress summaries, automatically' }, body: { th: 'ได้รายงานประจำสัปดาห์โดยไม่ต้องทำสไลด์', en: 'A weekly report without building a slide deck.' } },
-    ],
-    steps: [
-      { title: { th: 'สมัครและสร้างทีม', en: 'Sign up and create a team' }, body: { th: 'ใช้เวลาไม่ถึงสองนาที', en: 'It takes under two minutes.' } },
-      { title: { th: 'เชิญเพื่อนร่วมงาน', en: 'Invite your colleagues' }, body: { th: 'แชร์ลิงก์เดียว ทุกคนเข้าร่วมได้เลย', en: 'Share one link and everyone can join.' } },
-      { title: { th: 'เริ่มวางแผนงานแรก', en: 'Plan your first project' }, body: { th: 'เริ่มจากแม่แบบสำเร็จรูปหรือสร้างเอง', en: 'Start from a ready-made template or build your own.' } },
-    ],
-    testimonials: [
-      { quote: { th: 'ประชุมสั้นลงครึ่งหนึ่ง เพราะทุกคนเห็นสถานะงานตรงกัน', en: 'Our meetings got half as long because everyone sees the same status.' }, author: { th: 'ผู้จัดการโครงการ ทีมการตลาด', en: 'Project manager, marketing team' } },
-      { quote: { th: 'เปลี่ยนมาใช้แล้วไม่ต้องตามงานในไลน์อีกเลย', en: 'We stopped chasing work over chat the day we switched.' }, author: { th: 'หัวหน้าทีมออกแบบ', en: 'Design team lead' } },
-    ],
-    faqs: [
-      { question: { th: 'ต้องใส่บัตรเครดิตตอนทดลองใช้ไหม', en: 'Do I need a credit card for the trial?' }, answer: { th: 'ไม่ต้อง ทดลองใช้ได้ฟรีโดยไม่ต้องผูกบัตร', en: 'No. The trial is free and needs no card.' } },
-      { question: { th: 'ย้ายข้อมูลจากเครื่องมือเดิมได้ไหม', en: 'Can I move data from my current tool?' }, answer: { th: 'นำเข้าจากไฟล์ CSV ได้ในไม่กี่คลิก', en: 'Yes, import from a CSV file in a few clicks.' } },
-      { question: { th: 'ยกเลิกได้เมื่อไหร่', en: 'When can I cancel?' }, answer: { th: 'ยกเลิกได้ทุกเมื่อ ไม่มีค่าธรรมเนียม', en: 'Any time, with no fee.' } },
-    ],
-    interests: [
-      { id: 'small', name: { th: 'ทีมเล็ก', en: 'Small team' }, detail: { th: '1–10 คน', en: '1–10 people' } },
-      { id: 'growing', name: { th: 'ทีมกำลังเติบโต', en: 'Growing team' }, detail: { th: '11–50 คน', en: '11–50 people' } },
-      { id: 'company', name: { th: 'ทั้งองค์กร', en: 'Whole company' }, detail: { th: 'มากกว่า 50 คน', en: 'More than 50 people' } },
-    ],
-  },
+  landing,
   education: {
     courses: [
       {

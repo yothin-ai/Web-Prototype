@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -636,6 +636,41 @@ export function Components() {
           <Col span={{ base: 4, sm: 4, md: 6 }}><Textarea label={t(text.c433Label)} hint={t(text.fieldHint)} id="mb-ta1" placeholder={t(text.c433Ph)} /></Col>
           <Col span={{ base: 4, sm: 4, md: 6 }}><Textarea label={t(text.c433Label)} id="mb-ta2" defaultValue={t(text.c433Value)} disabled /></Col>
         </Grid>
+      </Block>
+      <Block number="4.34" title={t(text.c434)} note={t(text.c434Note)}>
+        <div className="stack">
+          <SiteNav brand={t(text.brandName)} label={t(text.c434Menu)} menuLabel={t(text.c434Menu)} links={[{ label: t(text.c434Nav1), onSelect: () => {} }, { label: t(text.c434Nav2), onSelect: () => {} }]} action={<Button size="sm">{t(text.c434Cta)}</Button>} />
+          <Hero tone="on-dark" lead={t(text.c434Lead)} title={t(text.c434Title)} subtitle={t(text.c434Text)} actions={<><Button>{t(text.c434Cta)}</Button><Button variant="secondary">{t(text.c434Nav1)}</Button></>} media={<ProductImage label={t(text.brandName)} wide />} />
+        </div>
+      </Block>
+      <Block number="4.35" title={t(text.c435)} note={t(text.c435Note)}>
+        <LogoWall title={t(text.c435Title)} groups={[{ label: t(text.c435Group1), names: ['Alpha Bank', 'Delta Credit', 'Summit Insurance'] }, { label: t(text.c435Group2), names: ['Mega Mart', 'Fresh Basket'] }]} />
+      </Block>
+      <Block number="4.36" title={t(text.c436)} note={t(text.c436Note)}>
+        <FeatureShowcase
+          headline={t(text.c436Headline)}
+          name={t(text.c436Name)}
+          tagline={t(text.c436Tagline)}
+          imageLabel={t(text.c436Name)}
+          features={[{ icon: 'package', title: t(text.c436F1), text: t(text.c436FText) }, { icon: 'shield', title: t(text.c436F2), text: t(text.c436FText) }]}
+          action={<Button>{t(text.c434Cta)}</Button>}
+        />
+      </Block>
+      <Block number="4.37" title={t(text.c437)} note={t(text.c437Note)}>
+        <Grid>
+          <Col span={{ base: 4, sm: 4, md: 4 }}><CourseCard to="/moodboard" imageLabel={t(text.c437Title)} tag={t(text.c437Tag)} title={t(text.c437Title)} meta={t(text.c437Meta)} /></Col>
+          <Col span={{ base: 4, sm: 4, md: 4 }}><CourseCard to="/moodboard" imageLabel={t(text.c437Title)} tag={t(text.c437Tag)} title={t(text.c437Title)} meta={t(text.c437Meta)} /></Col>
+        </Grid>
+      </Block>
+      <Block number="4.38" title={t(text.c438)} note={t(text.c438Note)}>
+        <ContactFooter
+          brand={t(text.brandName)}
+          company={t(text.c438Company)}
+          address={t(text.c438Address)}
+          contacts={[{ icon: 'phone', label: '0-0000-0000', href: 'tel:000000000' }, { icon: 'mail', label: 'hello@example.com', href: 'mailto:hello@example.com' }]}
+          columns={[{ title: t(text.c438Col), links: [{ label: t(text.c434Nav1), onSelect: () => {} }, { label: t(text.c434Nav2), onSelect: () => {} }] }]}
+          copyright={`© 2026 ${t(text.c438Company)}`}
+        />
       </Block>
     </Chapter>
   )
