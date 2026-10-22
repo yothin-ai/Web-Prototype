@@ -469,8 +469,8 @@
 .banner-slide__image { display: block; width: 100%; height: 100%; object-fit: cover; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 /* No taller than the strip is wide divided by the picture's own shape (about 9:1), so a phone shows the whole picture and a wide screen shows its middle. */
-.promo-strip--image { display: block; min-height: 0; padding: 0; overflow: hidden; background: var(--color-surface-alt); }
-.promo-strip--image img { display: block; width: 100%; max-width: var(--grid-max-width); height: auto; aspect-ratio: 2000 / 218; margin-inline: auto; object-fit: cover; }
+.promo-strip--image { display: block; min-height: 0; padding: 0; height: min(var(--space-8), 10.9vw); overflow: hidden; background: var(--color-surface-alt); }
+.promo-strip--image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
 /* A shop-by-job tile with a picture: the picture fills the tile and the label sits on a dark band, like the category tiles. */
 .tile__picture { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
