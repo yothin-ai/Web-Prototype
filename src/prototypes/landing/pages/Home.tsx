@@ -84,7 +84,7 @@ export function Home() {
             </div>
           </Col>
           <Col span={{ base: 4, sm: 8, md: 4 }}>
-            <div className="landing-stack reveal">
+            <div className="course-stack reveal">
               {content.academy.courses.map((c, i) => (
                 <CourseCard key={i} to={to('course')} imageLabel={t(c.title)} tag={t(c.tag)} title={t(c.title)} meta={t(c.meta)} />
               ))}

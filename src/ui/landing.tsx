@@ -82,7 +82,7 @@ export function FeatureShowcase({ headline, name, tagline, features, action, ima
 }) {
   return (
     <article className={`feature-showcase${reverse ? ' feature-showcase--reverse' : ''}`}>
-      <div className="feature-showcase__media"><ProductImage label={imageLabel} src={image} alt={imageLabel} /></div>
+      <div className="feature-showcase__media"><ProductImage label={imageLabel} src={image} alt={imageLabel} wide /></div>
       <div className="feature-showcase__body">
         <h3 className="feature-showcase__headline">{headline}</h3>
         <div className="feature-showcase__product">

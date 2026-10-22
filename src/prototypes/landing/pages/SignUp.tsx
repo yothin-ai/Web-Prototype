@@ -38,6 +38,7 @@ export function SignUp() {
           <Field label={t(s.name)} id="su-name" value={form.name} hint={nameError} onChange={(e) => setForm({ ...form, name: e.target.value })} />
           <Field label={t(s.email)} id="su-email" type="email" value={form.email} hint={emailError} onChange={(e) => setForm({ ...form, email: e.target.value })} />
           <Field label={t(content.form.companyLabel)} id="su-company" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
+          <strong>{t(content.form.interestLabel)}</strong>
           <ChoiceGroup label={t(content.form.interestLabel)}>
             {content.form.interests.map((i) => (
               <ChoiceCard key={i.id} title={t(i.name)} detail={t(i.detail)} selected={i.id === interestId} onSelect={() => setInterestId(i.id)} />
