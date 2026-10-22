@@ -2,7 +2,7 @@ import {
   Banknote, Bell, Check, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, CircleHelp, ClipboardList, Clock, CreditCard, Crown, Eye, Gift, Globe,
   Hammer, Headset, Heart, House, Info, LayoutGrid, Lightbulb, Lock, LogOut, Mail, MapPin, Menu, Minus, Package, Pencil, Percent, Phone, Plus,
   QrCode, Receipt, RotateCcw, Search, Settings, ShieldCheck, ShoppingCart, Smartphone, Star, Store, Tag, Ticket, Trash2, TriangleAlert, Truck,
-  User, Wallet, Wrench, X, Landmark, type LucideIcon,
+  User, Wallet, Wrench, X, Landmark, ArrowUpRight, type LucideIcon,
 } from 'lucide-react'
 import { tokens } from '../tokens/tokens'
 
@@ -14,7 +14,7 @@ export const icons = {
   truck: Truck, shield: ShieldCheck, returns: RotateCcw, card: CreditCard, qr: QrCode, bank: Landmark, cash: Banknote, package: Package, receipt: Receipt,
   ticket: Ticket, star: Star, crown: Crown, wallet: Wallet, home: House, orders: ClipboardList, logout: LogOut, bell: Bell, info: Info, warning: TriangleAlert,
   store: Store, hammer: Hammer, wrench: Wrench, idea: Lightbulb, gift: Gift, help: CircleHelp, mail: Mail, clock: Clock, tag: Tag, percent: Percent,
-  settings: Settings, view: Eye, lock: Lock, phoneApp: Smartphone, globe: Globe,
+  settings: Settings, view: Eye, lock: Lock, phoneApp: Smartphone, globe: Globe, external: ArrowUpRight,
 } satisfies Record<string, LucideIcon>
 
 export type IconName = keyof typeof icons

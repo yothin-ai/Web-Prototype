@@ -1,4 +1,4 @@
-import { tokens } from './tokens'
+import { landingTheme, tokens } from './tokens'
 
 const STYLE_ID = 'design-tokens'
 
@@ -14,7 +14,9 @@ function cssVars(): string {
   for (const [name, value] of Object.entries(tokens.radius)) lines.push(`--radius-${name}: ${value};`)
   for (const [name, value] of Object.entries(tokens.shadow)) lines.push(`--shadow-${name}: ${value};`)
   lines.push(`--grid-gutter: ${tokens.grid.gutter};`, `--grid-max-width: ${tokens.grid.maxWidth};`)
-  return `:root {\n  ${lines.join('\n  ')}\n}`
+  for (const [name, value] of Object.entries(landingTheme.extra)) lines.push(`--color-${kebab(name)}: ${value};`)
+  const theme = [...Object.entries(landingTheme.color).map(([name, value]) => `--color-${kebab(name)}: ${value};`), `--font-family: ${landingTheme.font};`]
+  return `:root {\n  ${lines.join('\n  ')}\n}\n.theme-landing {\n  ${theme.join('\n  ')}\n}`
 }
 
 // The grid is generated here because media queries cannot read CSS variables.
@@ -44,10 +46,10 @@ function gridCss(): string {
     at(breakpoint.sm, `.grid { grid-template-columns: repeat(${grid.columns.sm}, minmax(0, 1fr)); } .col-sm-full { grid-column: 1 / -1; } ${spans('col-sm', grid.columns.sm)}`),
     mosaic,
     gallery,
-    // Company landing page: the nav shows its links from sm, the opening band gets its picture from md, products sit picture beside text from md.
-    `.site-nav__links, .site-nav__action { display: none; } .site-nav__toggle { display: inline-grid; } .hero-band__media { display: none; }`,
-    at(breakpoint.sm, `.site-nav__links { display: flex; } .site-nav__action { display: block; } .site-nav__toggle, .site-nav__panel { display: none; }`),
-    at(breakpoint.md, `.hero-band__inner { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } .hero-band__media { display: block; } .feature-showcase { grid-template-columns: repeat(2, minmax(0, 1fr)); } .feature-showcase--reverse .feature-showcase__media { order: 2; } .contact-footer__inner { grid-template-columns: minmax(0, 2fr); grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }`),
+    // Company landing page: the nav is a button on a phone and a three-part bar from sm; the opening band and section titles grow from md; products sit picture beside text from md.
+    `.site-nav__inner { display: flex; } .site-nav__links, .site-nav__action { display: none; } .site-nav__toggle { display: inline-grid; } .hero-band__media { display: none; } .hero__lead, .hero__emphasis { font-size: var(--font-size-3xl); } .landing-heading h2, .landing-title { font-size: var(--font-size-2xl); }`,
+    at(breakpoint.sm, `.site-nav__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); } .site-nav__links { display: flex; } .site-nav__action { display: block; justify-self: end; } .site-nav__toggle, .site-nav__panel { display: none; }`),
+    at(breakpoint.md, `.hero__lead, .hero__emphasis { font-size: var(--font-size-4xl); } .landing-heading h2, .landing-title { font-size: var(--font-size-3xl); } .hero-band__inner { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } .hero-band__media { display: block; } .feature-showcase { grid-template-columns: repeat(2, minmax(0, 1fr)); } .feature-showcase--reverse .feature-showcase__media { order: 2; } .contact-footer__inner { grid-template-columns: minmax(0, 2fr); grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }`),
     // Sections of the landing page slide up as they enter the screen, where the browser supports scroll-driven animation and the visitor has not asked for less motion.
     `@media (prefers-reduced-motion: no-preference) { @supports (animation-timeline: view()) { .reveal { animation: reveal-up linear both; animation-timeline: view(); animation-range: entry 0% entry 35%; } } } @keyframes reveal-up { from { opacity: 0; transform: translateY(var(--space-5)); } to { opacity: 1; transform: none; } }`,
     `.site-header { position: relative; }`,

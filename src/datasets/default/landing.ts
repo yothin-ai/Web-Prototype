@@ -4,7 +4,9 @@ import type { LandingContent } from '../types'
 export const landing: LandingContent = {
   hero: {
     lead: { th: 'เปลี่ยน', en: 'Transform' },
-    title: { th: 'วิธีทำงานขององค์กรด้วย AI', en: 'how your organisation works with AI' },
+    title: { th: 'วิธีทำงานขององค์กร', en: 'How your organisation' },
+    emphasis: { th: 'ด้วย AI', en: 'works with AI' },
+    highlight: { th: 'AI', en: 'AI' },
     text: {
       th: 'ทีมของเราช่วยวางแผน ฝึกคน และสร้างเครื่องมือ AI ให้ทำงานจริงในองค์กร เพื่อให้เห็นผลลัพธ์ที่วัดได้ ไม่ใช่แค่การทดลองใช้',
       en: 'We help you plan, train people and build AI tools that do real work in your organisation, so you see results you can measure, not just a trial.',
@@ -59,13 +61,14 @@ export const landing: LandingContent = {
       en: 'Courses designed from executives to front-line teams, so people can apply what they learn to their own work straight away.',
     },
     viewAll: { th: 'ดูหลักสูตรทั้งหมด', en: 'See all courses' },
+    gallery: [
+      { th: 'อบรมผู้บริหารและทีมงาน', en: 'Training executives and teams' },
+      { th: 'เวิร์กช็อปลงมือทำจริง', en: 'Hands-on workshops' },
+      { th: 'ผู้เรียนจากหลายองค์กร', en: 'Learners from many organisations' },
+    ],
     courses: [
       { tag: { th: 'ผู้บริหาร', en: 'Executives' }, title: { th: 'AI สำหรับผู้บริหาร: ตัดสินใจอย่างมีทิศทาง', en: 'AI for executives: decide with direction' }, meta: { th: '1 วัน · ที่องค์กรหรือออนไลน์', en: '1 day · on site or online' } },
       { tag: { th: 'ทีมงาน', en: 'Teams' }, title: { th: 'ผู้ช่วย AI ในงานประจำวัน', en: 'AI assistants in everyday work' }, meta: { th: '1 วัน · ที่องค์กรหรือออนไลน์', en: '1 day · on site or online' } },
-      { tag: { th: 'นักพัฒนา', en: 'Builders' }, title: { th: 'สร้างระบบด้วย AI สำหรับธุรกิจ', en: 'Build business tools with AI' }, meta: { th: '2 วัน · ออนไลน์', en: '2 days · online' } },
-      { tag: { th: 'ข้อมูล', en: 'Data' }, title: { th: 'วิเคราะห์ข้อมูลด้วย AI', en: 'Analyse data with AI' }, meta: { th: '1 วัน · ออนไลน์', en: '1 day · online' } },
-      { tag: { th: 'พื้นฐาน', en: 'Basics' }, title: { th: 'เขียนคำสั่งให้ได้ผลลัพธ์ที่ต้องการ', en: 'Write prompts that get the result you want' }, meta: { th: 'ครึ่งวัน · ออนไลน์', en: 'Half a day · online' } },
-      { tag: { th: 'ความปลอดภัย', en: 'Safety' }, title: { th: 'ใช้ AI อย่างปลอดภัยในองค์กร', en: 'Using AI safely at work' }, meta: { th: 'ครึ่งวัน · ที่องค์กร', en: 'Half a day · on site' } },
     ],
   },
   partners: {

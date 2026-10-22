@@ -3,8 +3,10 @@ import type { LandingContent } from '../types'
 // The coffee dataset's landing page: the roaster selling to cafés and offices (sample text, mock names).
 export const landing: LandingContent = {
   hero: {
-    lead: { th: 'กาแฟสดใหม่', en: 'Fresh coffee' },
-    title: { th: 'สำหรับร้านและออฟฟิศของคุณ', en: 'for your café and your office' },
+    lead: { th: 'กาแฟคั่วสด', en: 'Fresh roast' },
+    title: { th: 'ส่งตรงถึงร้านและออฟฟิศ', en: 'delivered to your café and office' },
+    emphasis: { th: 'ทุกสัปดาห์', en: 'every week' },
+    highlight: { th: 'ทุกสัปดาห์', en: 'every week' },
     text: {
       th: 'คั่วตามออเดอร์ทุกสัปดาห์ ส่งถึงร้านภายใน 24 ชั่วโมงหลังคั่ว พร้อมทีมช่วยปรับสูตรและดูแลเครื่องชงให้ต่อเนื่อง',
       en: 'Roasted to order every week and delivered within 24 hours of roasting, with a team that helps tune your recipe and look after your machine.',
@@ -58,13 +60,14 @@ export const landing: LandingContent = {
       en: 'Workshops for café owners and barista teams, brewing for real on the same machines and beans you use in your shop.',
     },
     viewAll: { th: 'ดูเวิร์กช็อปทั้งหมด', en: 'See all workshops' },
+    gallery: [
+      { th: 'เวิร์กช็อปที่โรงคั่ว', en: 'Workshops at the roastery' },
+      { th: 'ฝึกชงกับเครื่องจริง', en: 'Brewing on real machines' },
+      { th: 'ทีมบาริสต้าจากหลายร้าน', en: 'Barista teams from many cafés' },
+    ],
     courses: [
       { tag: { th: 'พื้นฐาน', en: 'Basics' }, title: { th: 'บาริสต้าเบื้องต้น', en: 'Barista basics' }, meta: { th: '1 วัน · ที่โรงคั่ว', en: '1 day · at the roastery' } },
       { tag: { th: 'ลาเต้อาร์ต', en: 'Latte art' }, title: { th: 'ตีนมและลาเต้อาร์ต', en: 'Milk steaming and latte art' }, meta: { th: 'ครึ่งวัน · ที่โรงคั่ว', en: 'Half a day · at the roastery' } },
-      { tag: { th: 'ชงมือ', en: 'Pour-over' }, title: { th: 'กาแฟดริปและชงมือ', en: 'Drip and pour-over coffee' }, meta: { th: 'ครึ่งวัน · ที่โรงคั่ว', en: 'Half a day · at the roastery' } },
-      { tag: { th: 'เจ้าของร้าน', en: 'Owners' }, title: { th: 'ตั้งราคาและคุมต้นทุนเมนูกาแฟ', en: 'Pricing and cost control for coffee menus' }, meta: { th: '1 วัน · ออนไลน์', en: '1 day · online' } },
-      { tag: { th: 'รสชาติ', en: 'Taste' }, title: { th: 'ชิมกาแฟและแยกกลิ่นรส', en: 'Cupping and tasting notes' }, meta: { th: 'ครึ่งวัน · ที่โรงคั่ว', en: 'Half a day · at the roastery' } },
-      { tag: { th: 'ดูแลเครื่อง', en: 'Care' }, title: { th: 'ดูแลเครื่องชงเบื้องต้น', en: 'Everyday machine care' }, meta: { th: 'ครึ่งวัน · ที่ร้านของคุณ', en: 'Half a day · at your shop' } },
     ],
   },
   partners: {

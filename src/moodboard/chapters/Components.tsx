@@ -640,7 +640,7 @@ export function Components() {
       <Block number="4.34" title={t(text.c434)} note={t(text.c434Note)}>
         <div className="stack">
           <SiteNav brand={t(text.brandName)} label={t(text.c434Menu)} menuLabel={t(text.c434Menu)} links={[{ label: t(text.c434Nav1), onSelect: () => {} }, { label: t(text.c434Nav2), onSelect: () => {} }]} action={<Button size="sm">{t(text.c434Cta)}</Button>} />
-          <Hero tone="on-dark" lead={t(text.c434Lead)} title={t(text.c434Title)} subtitle={t(text.c434Text)} actions={<><Button>{t(text.c434Cta)}</Button><Button variant="secondary">{t(text.c434Nav1)}</Button></>} media={<ProductImage label={t(text.brandName)} wide />} />
+          <Hero tone="on-dark" lead={t(text.c434Lead)} title={t(text.c434Title)} emphasis={t(text.c434Emphasis)} highlight={t(text.c434Highlight)} subtitle={t(text.c434Text)} actions={<><Button>{t(text.c434Cta)}</Button><Button variant="secondary">{t(text.c434Nav1)}</Button></>} media={<ProductImage label={t(text.brandName)} wide />} />
         </div>
       </Block>
       <Block number="4.35" title={t(text.c435)} note={t(text.c435Note)}>
@@ -668,7 +668,7 @@ export function Components() {
           company={t(text.c438Company)}
           address={t(text.c438Address)}
           contacts={[{ icon: 'phone', label: '0-0000-0000', href: 'tel:000000000' }, { icon: 'mail', label: 'hello@example.com', href: 'mailto:hello@example.com' }]}
-          columns={[{ title: t(text.c438Col), links: [{ label: t(text.c434Nav1), onSelect: () => {} }, { label: t(text.c434Nav2), onSelect: () => {} }] }]}
+          columns={[{ title: t(text.c438Col), links: [{ label: t(text.c434Nav1), onSelect: () => {} }] }, { title: t(text.c434Nav2), onSelect: () => {} }]}
           copyright={`© 2026 ${t(text.c438Company)}`}
         />
       </Block>

@@ -372,14 +372,24 @@ export function BrandChip({ name, logo, onSelect }: { name: string; logo?: strin
   )
 }
 
-export function ArticleCard({ category, views, viewsLabel, title, readLabel, onRead, image }: { category: string; views?: string; viewsLabel?: string; title: string; readLabel: string; onRead: () => void; image?: string }) {
+// With `plain` the card is only its picture and title, and the whole card is the link (no category, views or read button).
+export function ArticleCard({ category, views, viewsLabel, title, readLabel, onRead, image, plain }: { category: string; views?: string; viewsLabel?: string; title: string; readLabel: string; onRead: () => void; image?: string; plain?: boolean }) {
+  const picture = image ? (
+    <div className="product-image"><img src={image} alt="" /></div>
+  ) : (
+    <div className="product-image" role="img" aria-label={title}><span aria-hidden="true">{Array.from(title).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
+  )
+  if (plain) {
+    return (
+      <article className="article-card article-card--plain article-card--picture">
+        {picture}
+        <h3 className="article-card__title"><button type="button" className="article-card__link" onClick={onRead}>{title}</button></h3>
+      </article>
+    )
+  }
   return (
     <article className={`article-card${image ? ' article-card--picture' : ''}`}>
-      {image ? (
-        <div className="product-image"><img src={image} alt="" /></div>
-      ) : (
-        <div className="product-image" role="img" aria-label={title}><span aria-hidden="true">{Array.from(title).find((c) => /\p{L}/u.test(c) && !'เแโใไ'.includes(c)) ?? ''}</span></div>
-      )}
+      {picture}
       <div className="article-card__meta"><span className="badge">{category}</span>{views && <span className="article-card__views" title={viewsLabel} aria-label={`${views} ${viewsLabel}`}>{views}<Icon name="view" size="sm" /></span>}</div>
       <h3 className="article-card__title">{title}</h3>
       <button type="button" className="article-card__read" onClick={onRead}>{readLabel} →</button>

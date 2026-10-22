@@ -3,8 +3,10 @@ import type { LandingContent } from '../types'
 // The hardware dataset's landing page: the building-materials shop selling to contractors (sample text, mock names).
 export const landing: LandingContent = {
   hero: {
-    lead: { th: 'วัสดุก่อสร้างครบ', en: 'Every building material' },
-    title: { th: 'ส่งตรงถึงไซต์งานของผู้รับเหมา', en: 'delivered straight to the contractor’s site' },
+    lead: { th: 'วัสดุก่อสร้างครบ', en: 'Every material' },
+    title: { th: 'ส่งตรงถึงไซต์งาน', en: 'delivered to site' },
+    emphasis: { th: 'ของผู้รับเหมา', en: 'for contractors' },
+    highlight: { th: 'ผู้รับเหมา', en: 'contractors' },
     text: {
       th: 'สั่งเหล็ก ปูน หลังคา และอุปกรณ์ในใบสั่งเดียว ได้ราคาโครงการ เครดิตสำหรับผู้รับเหมา และทีมดูแลที่ตามงานให้ถึงวันส่งมอบ',
       en: 'Order steel, cement, roofing and fittings on one order, with project pricing, credit for contractors and a team that follows the job to handover.',
@@ -58,13 +60,14 @@ export const landing: LandingContent = {
       en: 'Workshops for technicians and foremen, learned on the real materials used on site and ready to apply straight away.',
     },
     viewAll: { th: 'ดูเวิร์กช็อปทั้งหมด', en: 'See all workshops' },
+    gallery: [
+      { th: 'ฝึกทีมช่างที่ศูนย์ฝึก', en: 'Crew training at the centre' },
+      { th: 'ลงมือกับวัสดุจริง', en: 'Hands on real materials' },
+      { th: 'ช่างและหัวหน้างานจากหลายทีม', en: 'Technicians and foremen from many crews' },
+    ],
     courses: [
       { tag: { th: 'โครงสร้าง', en: 'Structure' }, title: { th: 'งานคอนกรีตและปูนให้แข็งแรง', en: 'Strong concrete and cement work' }, meta: { th: '1 วัน · ที่ศูนย์ฝึก', en: '1 day · at the training centre' } },
       { tag: { th: 'หลังคา', en: 'Roofing' }, title: { th: 'ติดตั้งหลังคาและรางน้ำให้ไม่รั่ว', en: 'Roofs and gutters that do not leak' }, meta: { th: '1 วัน · ที่ศูนย์ฝึก', en: '1 day · at the training centre' } },
-      { tag: { th: 'ประปา', en: 'Plumbing' }, title: { th: 'ระบบประปาและวาล์วเบื้องต้น', en: 'Plumbing and valve basics' }, meta: { th: 'ครึ่งวัน · ที่ศูนย์ฝึก', en: 'Half a day · at the training centre' } },
-      { tag: { th: 'ไฟฟ้า', en: 'Electrical' }, title: { th: 'งานไฟฟ้าในบ้านอย่างปลอดภัย', en: 'Safe home electrical work' }, meta: { th: '1 วัน · ที่ศูนย์ฝึก', en: '1 day · at the training centre' } },
-      { tag: { th: 'ความปลอดภัย', en: 'Safety' }, title: { th: 'ความปลอดภัยในไซต์ก่อสร้าง', en: 'Safety on a construction site' }, meta: { th: 'ครึ่งวัน · ที่ไซต์ของคุณ', en: 'Half a day · at your site' } },
-      { tag: { th: 'หัวหน้างาน', en: 'Foremen' }, title: { th: 'ถอดแบบและคำนวณวัสดุ', en: 'Reading plans and estimating materials' }, meta: { th: '1 วัน · ออนไลน์', en: '1 day · online' } },
     ],
   },
   partners: {

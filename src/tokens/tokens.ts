@@ -29,6 +29,7 @@ export const tokens = {
       xl: '1.5rem',
       '2xl': '2rem',
       '3xl': '2.75rem',
+      '4xl': '4.5rem',
     },
     weight: { regular: 400, medium: 500, bold: 700 },
     lineHeight: { tight: 1.25, normal: 1.65 },
@@ -48,6 +49,33 @@ export const tokens = {
     gutter: '16px',
     maxWidth: '1200px',
   },
+} as const
+
+// The look of the company landing page, a theme that applies only inside `.theme-landing` (the rest of the
+// prototypes keep the colours and font above). The extra colours are the sky of the opening band, its accent
+// words, the soft blue behind the FAQ and the dark foot of the page.
+export const landingTheme = {
+  color: {
+    bg: '#ffffff',
+    surface: '#ffffff',
+    surfaceAlt: '#f1f4f8',
+    border: '#dfe5ec',
+    text: '#030213',
+    textMuted: '#5a6272',
+    accent: '#c73d43',
+    accentHover: '#a8323a',
+    accentText: '#ffffff',
+    accentSoft: '#fbe6e7',
+  },
+  extra: {
+    skyTop: '#2f6cae',
+    skyBottom: '#a9cdea',
+    skySoft: '#c8ddef',
+    heroLead: '#a5dcff',
+    heroAccent: '#ee6a3b',
+    ink: '#071829',
+  },
+  font: "'DM Sans Variable', 'Noto Sans Thai', system-ui, sans-serif",
 } as const
 
 export type ColorToken = keyof typeof tokens.color

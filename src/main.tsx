@@ -1,4 +1,5 @@
 import '@fontsource-variable/inter'
+import '@fontsource-variable/dm-sans'
 import '@fontsource/noto-sans-thai/400.css'
 import '@fontsource/noto-sans-thai/500.css'
 import '@fontsource/noto-sans-thai/700.css'

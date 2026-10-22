@@ -49,9 +49,9 @@ export function SiteNav({ brand, label, links, action, menuLabel, overlay }: { b
 }
 
 // A title and groups of client names, shown as plain tiles (not real logos).
-export function LogoWall({ title, groups }: { title?: string; groups: { label?: string; names: string[] }[] }) {
+export function LogoWall({ title, groups, large }: { title?: string; groups: { label?: string; names: string[] }[]; large?: boolean }) {
   return (
-    <section className="logo-wall">
+    <section className={`logo-wall${large ? ' logo-wall--large' : ''}`}>
       {title && <p className="logo-wall__title">{title}</p>}
       <div className="logo-wall__groups">
         {groups.map((g, i) => (
@@ -114,12 +114,13 @@ export function CourseCard({ to, image, imageLabel, tag, title, meta }: { to: st
 }
 
 // The foot of a company page: who they are, how to reach them, and the page's own links.
+// A column with no links is a single link: its title is the button. Contacts are round icon buttons.
 export function ContactFooter({ brand, company, address, contacts, columns, copyright }: {
   brand: string
   company: string
   address: string
   contacts: { icon: IconName; label: string; href: string }[]
-  columns: { title: string; links: NavLink[] }[]
+  columns: { title: string; onSelect?: () => void; links?: NavLink[] }[]
   copyright: string
 }) {
   return (
@@ -131,16 +132,18 @@ export function ContactFooter({ brand, company, address, contacts, columns, copy
           <p>{address}</p>
           <ul className="contact-footer__contacts">
             {contacts.map((c) => (
-              <li key={c.href}><a href={c.href}><Icon name={c.icon} size="sm" />{c.label}</a></li>
+              <li key={c.href}><a href={c.href} aria-label={c.label} title={c.label}><Icon name={c.icon} size="sm" /></a></li>
             ))}
           </ul>
         </div>
         {columns.map((col) => (
           <div key={col.title} className="contact-footer__column">
-            <strong>{col.title}</strong>
-            <ul>
-              {col.links.map((l) => <li key={l.label}><button type="button" onClick={l.onSelect}>{l.label}</button></li>)}
-            </ul>
+            {col.onSelect ? <button type="button" className="contact-footer__heading" onClick={col.onSelect}>{col.title}</button> : <strong className="contact-footer__heading">{col.title}</strong>}
+            {col.links && (
+              <ul>
+                {col.links.map((l) => <li key={l.label}><button type="button" onClick={l.onSelect}>{l.label}</button></li>)}
+              </ul>
+            )}
           </div>
         ))}
       </div>

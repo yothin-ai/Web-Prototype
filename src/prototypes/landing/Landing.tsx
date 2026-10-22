@@ -42,7 +42,7 @@ export function Landing() {
   const phone = content.contact.phone
 
   return (
-    <>
+    <div className="theme-landing">
       <SiteNav
         brand={brand}
         label={t(s.navLabel)}
@@ -68,10 +68,11 @@ export function Landing() {
         ]}
         columns={[
           { title: t(s.navSolutions), links: content.solutions.products.map((p) => ({ label: t(p.name), onSelect: goTo('solutions') })) },
-          { title: t(s.footerExplore), links: links.slice(1) },
+          { title: t(s.navArticles), onSelect: goTo('articles') },
+          { title: t(s.navFaq), onSelect: goTo('faq') },
         ]}
         copyright={`© 2026 ${t(content.contact.company)}. ${t(s.rights)}`}
       />
-    </>
+    </div>
   )
 }
