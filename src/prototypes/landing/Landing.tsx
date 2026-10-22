@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { Button, ContactFooter, SiteNav } from '../../ui'
-import { PROTOTYPE_ID, scrollToSection, signupPath, useLanding } from './lead'
+import { homeSearch, PROTOTYPE_ID, scrollToSection, signupPath, useLanding } from './lead'
 import { ArticlePage } from './pages/ArticlePage'
 import { Home } from './pages/Home'
 import { SignUp } from './pages/SignUp'
@@ -45,6 +45,8 @@ export function Landing() {
     <div className="theme-landing">
       <SiteNav
         brand={brand}
+        brandTo={`${base}${homeSearch(search)}`}
+        onBrandClick={() => window.scrollTo(0, 0)}
         label={t(s.navLabel)}
         menuLabel={t(s.menu)}
         overlay={isHome}

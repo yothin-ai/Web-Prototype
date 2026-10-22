@@ -21,3 +21,11 @@ export function scrollToSection(id: string) {
   const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   el.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' })
 }
+
+// The address search without the form's ?interest=, for links that go back to the home page.
+export const homeSearch = (search: string) => {
+  const params = new URLSearchParams(search)
+  params.delete('interest')
+  const rest = params.toString()
+  return rest ? `?${rest}` : ''
+}

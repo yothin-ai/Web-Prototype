@@ -10,7 +10,7 @@ type NavLink = { label: string; onSelect: () => void }
 
 // The bar at the top of the page, with the menu behind a button on a phone. With `overlay` it floats over the
 // opening band and is see-through until the page scrolls; without it the bar is solid from the start.
-export function SiteNav({ brand, label, links, action, menuLabel, overlay }: { brand: string; label: string; links: NavLink[]; action: ReactNode; menuLabel: string; overlay?: boolean }) {
+export function SiteNav({ brand, brandTo, onBrandClick, label, links, action, menuLabel, overlay }: { brand: string; brandTo?: string; onBrandClick?: () => void; label: string; links: NavLink[]; action: ReactNode; menuLabel: string; overlay?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   useEffect(() => {
@@ -27,7 +27,9 @@ export function SiteNav({ brand, label, links, action, menuLabel, overlay }: { b
   return (
     <nav className={`site-nav${overlay ? ' site-nav--overlay' : ''}${solid ? ' site-nav--solid' : ''}`} aria-label={label}>
       <div className="site-nav__inner">
-        <span className="site-nav__brand"><Logo name={brand} tone={solid ? 'default' : 'on-dark'} /></span>
+        <span className="site-nav__brand">
+          {brandTo ? <Link to={brandTo} className="site-nav__home" aria-label={brand} onClick={onBrandClick}><Logo name={brand} tone={solid ? 'default' : 'on-dark'} /></Link> : <Logo name={brand} tone={solid ? 'default' : 'on-dark'} />}
+        </span>
         <ul className="site-nav__links">
           {links.map((l) => <li key={l.label}><button type="button" className="site-nav__link" onClick={() => pick(l)}>{l.label}</button></li>)}
         </ul>
