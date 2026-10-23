@@ -2,6 +2,7 @@ import type { Localized } from '../i18n'
 
 export const strings = {
   backToHub: { th: '← กลับ Hub', en: '← Back to Hub' },
+  newTab: { th: '(เปิดในแท็บใหม่)', en: '(opens in a new tab)' },
   reset: { th: 'Reset เดโม', en: 'Reset demo' },
   resetConfirm: { th: 'ยืนยัน Reset?', en: 'Confirm reset?' },
   resetAll: { th: 'Reset ทั้งหมด', en: 'Reset all' },

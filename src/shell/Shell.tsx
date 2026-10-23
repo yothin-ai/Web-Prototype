@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom'
 import { useLang } from '../i18n'
 import { resetPrototype } from '../state/demoState'
 import type { PrototypeManifest } from '../prototypes/types'
-import { Button } from '../ui'
 import { ConfirmButton } from './ConfirmButton'
 import { LanguageToggle } from './LanguageToggle'
 import { strings } from './strings'
@@ -49,7 +48,6 @@ export function Shell({ prototype, children }: { prototype: PrototypeManifest; c
       {!clean && (
         <header className="topbar" ref={barRef}>
           <div className="topbar__inner">
-            <Button to="/" variant="ghost" size="sm">{t(strings.backToHub)}</Button>
             <span className="topbar__title">{t(prototype.title)}</span>
             <LanguageToggle />
             <ConfirmButton label={strings.reset} onConfirm={() => resetPrototype(prototype.id)} />

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { datasets, defaultDataset } from '.'
 import type { Dataset } from './types'
 
@@ -20,6 +20,15 @@ const Context = createContext<DatasetContext | null>(null)
 
 export function DatasetProvider({ children }: { children: ReactNode }) {
   const [id, setId] = useState(readId)
+
+  // A choice made in another tab of this browser applies here too.
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY || e.key === null) setId(readId())
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
 
   const setDatasetId = useCallback((next: string) => {
     setId(next)

@@ -672,6 +672,19 @@ export function Components() {
           copyright={`© 2026 ${t(text.c438Company)}`}
         />
       </Block>
+      <Block number="4.39" title={t(text.c439)} note={t(text.c439Note)}>
+        <Grid>
+          <Col span={{ base: 4, sm: 4, md: 5 }}>
+            <Card to="/moodboard" newTab newTabLabel={t(text.c439Warn)}>
+              <h2>{t(text.c439Title)}</h2>
+              <p className="muted">{t(text.c439Text)}</p>
+            </Card>
+          </Col>
+          <Col span={{ base: 4, sm: 4, md: 7 }}>
+            <div className="row"><Button to="/moodboard" variant="ghost" size="sm" newTab newTabLabel={t(text.c439Warn)}>{t(text.c439Title)}</Button></div>
+          </Col>
+        </Grid>
+      </Block>
     </Chapter>
   )
 }

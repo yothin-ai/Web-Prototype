@@ -15,7 +15,7 @@ export function Hub() {
       <PageHeader
         extra={
           <>
-            <Button to="/moodboard" variant="ghost" size="sm">{t(strings.moodboard)}</Button>
+            <Button to="/moodboard" variant="ghost" size="sm" newTab newTabLabel={t(strings.newTab)}>{t(strings.moodboard)}</Button>
             <ConfirmButton label={strings.resetAll} onConfirm={() => resetAll(prototypes.map((p) => p.id))} />
           </>
         }
@@ -50,7 +50,7 @@ export function Hub() {
       <Grid>
         {prototypes.map((p) => (
           <Col key={p.id} span={{ base: 4, sm: 4, md: 4 }}>
-            <Card to={`/${p.id}`}>
+            <Card to={`/${p.id}`} newTab newTabLabel={t(strings.newTab)}>
               <Badge tone={p.status === 'ready' ? 'success' : 'warning'}>{t(strings[p.status])}</Badge>
               <h2>{t(p.title)}</h2>
               <p className="muted">{t(p.summary)}</p>

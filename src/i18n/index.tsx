@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 
 export type Lang = 'th' | 'en'
 export type Localized = { th?: string; en?: string }
@@ -24,6 +24,15 @@ const warned = new Set<string>()
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(readLang)
+
+  // A choice made in another tab of this browser applies here too.
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY || e.key === null) setLangState(readLang())
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next)

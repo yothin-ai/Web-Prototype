@@ -12,17 +12,32 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon?: IconName
   // An address outside the app (tel:, mailto:); the button then renders as a link.
   href?: string
+  // With `to`, opens the page in a new tab. `newTabLabel` is the spoken warning ("opens in a new tab").
+  newTab?: boolean
+  newTabLabel?: string
 }
 
-export function Button({ variant = 'primary', size = 'md', to, href, icon, className, children, ...rest }: ButtonProps) {
+export function Button({ variant = 'primary', size = 'md', to, href, icon, className, children, newTab, newTabLabel, ...rest }: ButtonProps) {
   const cls = `btn btn--${variant}${size === 'sm' ? ' btn--sm' : ''}${className ? ` ${className}` : ''}`
   const body = <>{icon && <Icon name={icon} size="sm" />}{children}</>
   if (href) return <a href={href} className={cls}>{body}</a>
+  if (to && newTab) return <a href={`#${to}`} target="_blank" rel="noopener noreferrer" className={cls}>{body}<Icon name="external" size="sm" />{newTabLabel && <span className="visually-hidden">{newTabLabel}</span>}</a>
   if (to) return <Link to={to} className={cls}>{body}</Link>
   return <button type="button" className={cls} {...rest}>{body}</button>
 }
 
-export function Card({ to, children }: { to?: string; children: ReactNode }) {
+// With `to` the whole card is a link. With `newTab` it opens in a new tab, shows a small arrow in its corner and
+// carries `newTabLabel` as a spoken warning.
+export function Card({ to, newTab, newTabLabel, children }: { to?: string; newTab?: boolean; newTabLabel?: string; children: ReactNode }) {
+  if (to && newTab) {
+    return (
+      <a href={`#${to}`} target="_blank" rel="noopener noreferrer" className="card card--interactive card--external">
+        {children}
+        <span className="card__external" aria-hidden="true"><Icon name="external" size="sm" /></span>
+        {newTabLabel && <span className="visually-hidden">{newTabLabel}</span>}
+      </a>
+    )
+  }
   if (to) return <Link to={to} className="card card--interactive">{children}</Link>
   return <div className="card">{children}</div>
 }
