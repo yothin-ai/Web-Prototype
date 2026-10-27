@@ -25,7 +25,9 @@
 .site-nav__panel .site-nav__link { width: 100%; padding: var(--space-3) 0; text-align: left; }
 
 .hero-band { display: flex; align-items: center; min-height: min(80vh, calc(var(--space-8) * 11)); padding: calc(var(--space-8) + var(--space-6)) 0 var(--space-8); background: linear-gradient(180deg, var(--color-sky-top), var(--color-sky-bottom)); color: var(--color-accent-text); }
-.hero-band--picture { background-color: var(--color-sky-top); background-position: center; background-size: cover; }
+.hero-band--picture { position: relative; background-color: var(--color-sky-top); background-position: 72% center; background-size: cover; }
+.hero-band--picture::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--color-sky-top) 70%, transparent), color-mix(in srgb, var(--color-sky-top) var(--hero-veil-end), transparent) 70%); }
+.hero-band--picture > * { position: relative; }
 .hero-band__inner { display: grid; flex: 1; gap: var(--space-6); align-items: center; max-width: var(--grid-max-width); margin-inline: auto; padding-inline: var(--space-4); }
 .hero--on-dark .hero__title { color: var(--color-accent-text); }
 .hero--on-dark .hero__subtitle { max-width: calc(var(--space-8) * 8); color: var(--color-accent-text); }

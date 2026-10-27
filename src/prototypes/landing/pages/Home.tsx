@@ -1,4 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import { heroImages } from '../../../assets/landing'
+import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { Accordion, ArticleCard, BannerSlide, Button, Carousel, Col, CourseCard, FeatureShowcase, Grid, Hero, Icon, LogoWall } from '../../../ui'
 import type { IconName } from '../../../ui'
@@ -10,6 +12,7 @@ const featureIcons: IconName[][] = [['package', 'idea', 'wrench'], ['globe', 'sh
 
 export function Home() {
   const { t } = useLang()
+  const { dataset } = useDataset()
   const content = useLanding()
   const { search } = useLocation()
   const navigate = useNavigate()
@@ -21,6 +24,7 @@ export function Home() {
     <>
       <Hero
         tone="on-dark"
+        background={heroImages[dataset.id]}
         lead={t(content.hero.lead)}
         title={t(content.hero.title)}
         emphasis={t(content.hero.emphasis)}
