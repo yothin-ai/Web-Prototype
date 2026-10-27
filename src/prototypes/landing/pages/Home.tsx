@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { heroImage } from '../../../assets/landing'
+import { courseImages, galleryImages, heroImage, productImages } from '../../../assets/landing'
 import { useLang } from '../../../i18n'
 import { Accordion, ArticleCard, BannerSlide, Button, Carousel, Col, CourseCard, FeatureShowcase, Grid, Hero, Icon, LogoWall } from '../../../ui'
 import type { IconName } from '../../../ui'
@@ -60,6 +60,7 @@ export function Home() {
                   headline={t(p.headline)}
                   name={t(p.name)}
                   tagline={t(p.tagline)}
+                  image={productImages[i]}
                   imageLabel={t(p.name)}
                   features={p.features.map((f, j) => ({ icon: featureIcons[i]?.[j], title: t(f.title), text: t(f.body) }))}
                   action={<Button to={to(`product${i + 1}`)}>{t(p.cta)}<Icon name="external" size="sm" /></Button>}
@@ -81,14 +82,14 @@ export function Home() {
           <Col span={{ base: 4, sm: 8, md: 8 }}>
             <div className="reveal landing-gallery">
               <Carousel label={t(s.coursesRow)} count={1} dots prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
-                {content.academy.gallery.map((caption, i) => <BannerSlide key={i} title={t(caption)} />)}
+                {content.academy.gallery.map((caption, i) => <BannerSlide key={i} title={t(caption)} image={galleryImages[i]} />)}
               </Carousel>
             </div>
           </Col>
           <Col span={{ base: 4, sm: 8, md: 4 }}>
             <div className="course-stack reveal">
               {content.academy.courses.map((c, i) => (
-                <CourseCard key={i} to={to('course')} imageLabel={t(c.title)} tag={t(c.tag)} title={t(c.title)} meta={t(c.meta)} />
+                <CourseCard key={i} to={to('course')} image={courseImages[i]} imageLabel={t(c.title)} tag={t(c.tag)} title={t(c.title)} meta={t(c.meta)} />
               ))}
             </div>
           </Col>

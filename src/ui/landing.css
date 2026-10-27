@@ -101,6 +101,7 @@ button.contact-footer__heading:hover { text-decoration: underline; }
 .landing-heading--start { margin-right: auto; margin-left: 0; text-align: left; }
 .landing-sky { background: linear-gradient(180deg, var(--color-bg), color-mix(in srgb, var(--color-sky-soft) 45%, var(--color-bg))); }
 .landing-faq { background: linear-gradient(180deg, var(--color-bg), var(--color-sky-soft)); }
+.landing-gallery .banner-slide { aspect-ratio: 16 / 9; }
 .landing-stack { display: flex; flex-direction: column; gap: var(--space-4); }
 .landing-actions { display: flex; justify-content: flex-end; margin-top: var(--space-4); }
 .theme-landing .btn--soft { background: var(--color-sky-soft); border-color: transparent; color: var(--color-ink); }
