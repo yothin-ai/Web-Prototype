@@ -99,6 +99,11 @@ export const landingContent: LandingContent = {
         title: { th: 'เว็บที่ AI สร้างให้ ต้องตรวจอะไรก่อนเปิดใช้จริง', en: 'What to check before you launch a site an AI built' },
         summary: { th: 'เช็กลิสต์สั้นๆ เรื่องรหัสผ่าน ข้อมูลลูกค้า และการอัปเดต เพื่อไม่ให้ปัญหาซ่อนอยู่ในโค้ดที่คุณไม่ได้อ่าน', en: 'A short checklist on passwords, customer data and updates, so problems do not hide in code you never read.' },
       },
+      {
+        category: { th: 'ตัวอย่างงาน', en: 'Examples' },
+        title: { th: 'ใช้ AI ทำหน้าเว็บขายของให้ร้านเล็กๆ ได้ในหนึ่งวัน', en: 'Using AI to build a small shop page in one day' },
+        summary: { th: 'เล่าขั้นตอนตั้งแต่เขียนโจทย์ ให้ AI ร่างหน้า ปรับทีละส่วน จนเปิดรับออเดอร์ได้ พร้อมสิ่งที่ควรเตรียมก่อนเริ่ม', en: 'The steps from writing the brief and getting a first draft to refining it section by section and taking orders, with what to prepare beforehand.' },
+      },
     ],
   },
   faq: {
