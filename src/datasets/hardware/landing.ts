@@ -49,7 +49,7 @@ export const landing: LandingContent = {
           { title: { th: 'รถให้เหมาะกับของ', en: 'The right truck' }, body: { th: 'รถบรรทุกติดเครน รถกระบะ หรือรถพ่วง ตามชนิดและน้ำหนักวัสดุ', en: 'A crane truck, flatbed or pickup, chosen by material type and weight.' } },
           { title: { th: 'ติดตามสถานะ', en: 'Track the delivery' }, body: { th: 'ดูว่ารถถึงไหนแล้วและเวลาคาดว่าจะถึง', en: 'See where the truck is and when it should arrive.' } },
         ],
-        cta: { th: 'สนใจข้อมูลเพิ่มเติม', en: 'Find out more' },
+        cta: { th: 'ดูรายละเอียด Site Delivery', en: 'Learn more about Site Delivery' },
       },
     ],
   },

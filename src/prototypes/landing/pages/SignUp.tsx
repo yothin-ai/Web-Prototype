@@ -18,8 +18,8 @@ export function SignUp() {
   const [interestId, setInterestId] = useState(content.form.interests.find((i) => i.id === params.get('interest'))?.id ?? content.form.interests[0].id)
   const [touched, setTouched] = useState(false)
 
-  const nameError = touched && !form.name.trim() ? t(s.required) : undefined
-  const emailError = touched ? (!form.email.trim() ? t(s.required) : !EMAIL.test(form.email) ? t(s.badEmail) : undefined) : undefined
+  const nameError = touched && !form.name.trim() ? t(s.nameRequired) : undefined
+  const emailError = touched ? (!form.email.trim() ? t(s.emailRequired) : !EMAIL.test(form.email) ? t(s.badEmail) : undefined) : undefined
 
   const submit = () => {
     setTouched(true)

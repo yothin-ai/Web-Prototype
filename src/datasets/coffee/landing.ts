@@ -46,10 +46,10 @@ export const landing: LandingContent = {
         tagline: { th: 'บริการดูแลเครื่องชง', en: 'Machine care service' },
         features: [
           { title: { th: 'ติดตั้งและสอนใช้', en: 'Installed and explained' }, body: { th: 'ทีมช่างติดตั้งถึงที่และสอนทีมงานของคุณชงให้ได้มาตรฐาน', en: 'Our technicians install on site and show your staff how to brew to standard.' } },
-          { title: { th: 'ตรวจและล้างตามรอบ', en: 'Regular checks and cleaning' }, body: { th: 'ล้างระบบและเปลี่ยนไส้กรองตามกำหนด ลดโอกาสเครื่องเสียกลางวัน', en: 'We clean the system and replace filters on schedule, so the machine rarely fails mid-day.' } },
+          { title: { th: 'ตรวจและล้างตามรอบ', en: 'Regular checks and cleaning' }, body: { th: 'ล้างระบบและเปลี่ยนไส้กรองตามกำหนด ลดโอกาสเครื่องเสียระหว่างวัน', en: 'We clean the system and replace filters on schedule, so the machine rarely fails mid-day.' } },
           { title: { th: 'เครื่องสำรองระหว่างซ่อม', en: 'A spare while we repair' }, body: { th: 'ร้านไม่ต้องหยุดขาย เรามีเครื่องสำรองให้ยืมใช้', en: 'You never have to close: we lend you a spare machine.' } },
         ],
-        cta: { th: 'สนใจข้อมูลเพิ่มเติม', en: 'Find out more' },
+        cta: { th: 'ดูรายละเอียด Brew Care', en: 'Learn more about Brew Care' },
       },
     ],
   },
