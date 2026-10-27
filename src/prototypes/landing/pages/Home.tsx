@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { courseImages, galleryImages, heroImage, productImages } from '../../../assets/landing'
+import { articleImages, courseImages, galleryImages, heroImage, productImages } from '../../../assets/landing'
 import { useLang } from '../../../i18n'
 import { Accordion, ArticleCard, BannerSlide, Button, Carousel, Col, CourseCard, FeatureShowcase, Grid, Hero, Icon, LogoWall } from '../../../ui'
 import type { IconName } from '../../../ui'
@@ -124,7 +124,7 @@ export function Home() {
           <Col>
             <div className="article-grid reveal">
               {content.articles.items.map((a, i) => (
-                <ArticleCard plain key={i} category={t(a.category)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/article/${i}${search}`)} />
+                <ArticleCard plain key={i} image={articleImages[i]} category={t(a.category)} title={t(a.title)} readLabel={t(s.readMore)} onRead={() => navigate(`${base}/article/${i}${search}`)} />
               ))}
             </div>
           </Col>

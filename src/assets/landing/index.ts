@@ -6,6 +6,10 @@ import gallery2 from './gallery-2.jpg'
 import gallery3 from './gallery-3.jpg'
 import course1 from './course-1.jpg'
 import course2 from './course-2.jpg'
+import article1 from './article-1.jpg'
+import article2 from './article-2.jpg'
+import article3 from './article-3.jpg'
+import article4 from './article-4.jpg'
 
 // The pictures of the Landing page (resized copies of the originals in src/assets/brand/Landing). None of them
 // carries text, so they are shown in both languages. Lists follow the order of the items in content.ts.
@@ -21,3 +25,6 @@ export const galleryImages = [gallery1, gallery2, gallery3]
 
 // One cover per course in `academy.courses`.
 export const courseImages = [course1, course2]
+
+// One cover per article in `articles.items`.
+export const articleImages = [article1, article2, article3, article4]
