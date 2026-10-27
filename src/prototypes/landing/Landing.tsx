@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { Button, ContactFooter, SiteNav } from '../../ui'
 import { homeSearch, PROTOTYPE_ID, scrollToSection, signupPath, useLanding } from './lead'
@@ -12,7 +11,6 @@ import { s } from './strings'
 
 export function Landing() {
   const { t } = useLang()
-  const { dataset } = useDataset()
   const content = useLanding()
   const { pathname, search } = useLocation()
   const navigate = useNavigate()
@@ -32,7 +30,7 @@ export function Landing() {
       window.setTimeout(() => scrollToSection(id), 80)
     }
   }
-  const brand = t(dataset.brandName)
+  const brand = t(content.brand)
   const links = [
     { label: t(s.navSolutions), onSelect: goTo('solutions') },
     { label: t(s.navCourses), onSelect: goTo('courses') },

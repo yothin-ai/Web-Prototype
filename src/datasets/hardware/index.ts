@@ -1,6 +1,5 @@
 import type { Dataset } from '../types'
 import { sampleCoupons } from '../coupons'
-import { landing } from './landing'
 import { menu } from './menu'
 
 const dataset: Dataset = {
@@ -232,7 +231,6 @@ const dataset: Dataset = {
       { id: 'cod', name: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' }, detail: { th: 'ชำระเมื่อได้รับสินค้า', en: 'Pay when it arrives' } },
     ],
   },
-  landing,
   education: {
     courses: [
       {

@@ -1,10 +1,11 @@
-import { useDataset } from '../../datasets/DatasetContext'
+import { landingContent } from './content'
 import { useDemoState } from '../../state/demoState'
 
 export const PROTOTYPE_ID = 'landing'
 export type Lead = { name: string; email: string; company: string; interestId: string }
 
-export const useLanding = () => useDataset().dataset.landing
+// The Landing page's copy lives in the prototype, not in a Dataset.
+export const useLanding = () => landingContent
 export const useLead = () => useDemoState<Lead | null>(PROTOTYPE_ID, 'lead', null)
 
 // The form's interest ids are fixed (see LandingContent); a button picks one with ?interest=.

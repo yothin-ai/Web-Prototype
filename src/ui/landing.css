@@ -33,7 +33,7 @@
 .hero--on-dark .hero__subtitle { max-width: calc(var(--space-8) * 8); color: var(--color-accent-text); }
 .hero__lead { display: block; color: var(--color-hero-lead); }
 .hero__line { display: block; margin-block: var(--space-2); font-size: var(--font-size-2xl); }
-.hero__highlight { color: var(--color-hero-accent); }
+.hero__highlight { color: var(--color-hero-accent); white-space: nowrap; }
 .hero--on-dark .btn--secondary { background: transparent; border-color: color-mix(in srgb, var(--color-accent-text) 65%, transparent); color: var(--color-accent-text); }
 .hero--on-dark .btn--secondary:hover { background: color-mix(in srgb, var(--color-accent-text) 15%, transparent); }
 
