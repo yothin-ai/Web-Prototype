@@ -44,7 +44,7 @@
 .logo-wall__label { color: var(--color-text-muted); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); }
 .logo-wall__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(calc(var(--space-8) * 2), 1fr)); gap: var(--space-5) var(--space-4); width: 100%; margin: 0; padding: 0; list-style: none; }
 .logo-wall__item { color: var(--color-text-muted); font-size: var(--font-size-md); font-weight: var(--font-weight-bold); }
-.logo-wall__item--logo { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-1) var(--space-2); min-width: 0; }
+.logo-wall__item--logo { display: flex; align-items: center; justify-content: center; gap: var(--space-2); white-space: nowrap; }
 .logo-wall__logo { display: block; flex: none; width: auto; height: var(--space-6); }
 .logo-wall__note { color: var(--color-text-muted); font-size: var(--font-size-xs); }
 .logo-wall--large .logo-wall__item { color: var(--color-text); font-size: var(--font-size-xl); }

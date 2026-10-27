@@ -62,7 +62,7 @@ export function LogoWall({ title, groups, large, note }: { title?: string; group
         {groups.map((g, i) => (
           <div key={i} className="logo-wall__group">
             {g.label && <span className="logo-wall__label">{g.label}</span>}
-            <ul className="logo-wall__list">
+            <ul className={`logo-wall__list${g.names.some((n) => typeof n !== 'string') ? ' logo-wall__list--logos' : ''}`}>
               {g.names.map((n) => {
                 const name = typeof n === 'string' ? n : n.name
                 return (
