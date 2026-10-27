@@ -10,7 +10,7 @@ export type LandingContent = {
   clients: { title: Localized; groups: { label: Localized; names: string[] }[] }
   solutions: { title: Localized; text: Localized; products: LandingProduct[] }
   academy: { title: Localized; text: Localized; viewAll: Localized; gallery: Localized[]; courses: { tag: Localized; title: Localized; meta: Localized }[] }
-  partners: { title: Localized; text: Localized; names: string[] }
+  partners: { title: Localized; text: Localized; groups: { label: Localized; tools: { name: string; logo: string }[] }[]; note: Localized }
   articles: { title: Localized; text: Localized; items: { category: Localized; title: Localized; summary: Localized }[] }
   faq: { title: Localized; text: Localized; items: { question: Localized; answer: Localized }[] }
   contact: { company: Localized; address: Localized; phone: string; email: string }

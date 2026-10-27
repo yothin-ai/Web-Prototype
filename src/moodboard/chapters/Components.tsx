@@ -8,6 +8,7 @@ import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
 import { categoryImage } from '../../assets/categories'
 import { ideaImage } from '../../assets/ideas'
 import { jobImage } from '../../assets/jobs'
+import { toolLogos } from '../../assets/landing'
 import { brandLogo } from '../../assets/brand/brands'
 import { Block, Chapter, TableWrap } from '../shared'
 import { text } from '../text'
@@ -644,7 +645,10 @@ export function Components() {
         </div>
       </Block>
       <Block number="4.35" title={t(text.c435)} note={t(text.c435Note)}>
-        <LogoWall title={t(text.c435Title)} groups={[{ label: t(text.c435Group1), names: ['Alpha Bank', 'Delta Credit', 'Summit Insurance'] }, { label: t(text.c435Group2), names: ['Mega Mart', 'Fresh Basket'] }]} />
+        <div className="stack">
+          <LogoWall title={t(text.c435Title)} groups={[{ label: t(text.c435Group1), names: ['Alpha Bank', 'Delta Credit', 'Summit Insurance'] }, { label: t(text.c435Group2), names: ['Mega Mart', 'Fresh Basket'] }]} />
+          <LogoWall title={t(text.c435Tools)} note={t(text.c435ToolsNote)} groups={[{ label: t(text.c435ToolsGroup), names: [{ name: 'Claude', logo: toolLogos.claude }, { name: 'GitHub', logo: toolLogos.github }] }]} />
+        </div>
       </Block>
       <Block number="4.36" title={t(text.c436)} note={t(text.c436Note)}>
         <FeatureShowcase

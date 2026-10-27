@@ -50,8 +50,11 @@ export function SiteNav({ brand, brandTo, onBrandClick, label, links, action, me
   )
 }
 
-// A title and groups of client names, shown as plain tiles (not real logos).
-export function LogoWall({ title, groups, large }: { title?: string; groups: { label?: string; names: string[] }[]; large?: boolean }) {
+// A title and groups of names, shown as plain tiles. A name can come with a `logo` picture (an owner's own mark,
+// shown unchanged beside the name); `note` is the small line under the wall, for who owns the marks.
+export type LogoWallName = string | { name: string; logo: string }
+
+export function LogoWall({ title, groups, large, note }: { title?: string; groups: { label?: string; names: LogoWallName[] }[]; large?: boolean; note?: string }) {
   return (
     <section className={`logo-wall${large ? ' logo-wall--large' : ''}`}>
       {title && <p className="logo-wall__title">{title}</p>}
@@ -60,11 +63,20 @@ export function LogoWall({ title, groups, large }: { title?: string; groups: { l
           <div key={i} className="logo-wall__group">
             {g.label && <span className="logo-wall__label">{g.label}</span>}
             <ul className="logo-wall__list">
-              {g.names.map((n) => <li key={n} className="logo-wall__item">{n}</li>)}
+              {g.names.map((n) => {
+                const name = typeof n === 'string' ? n : n.name
+                return (
+                  <li key={name} className={`logo-wall__item${typeof n === 'string' ? '' : ' logo-wall__item--logo'}`}>
+                    {typeof n !== 'string' && <img className="logo-wall__logo" src={n.logo} alt="" />}
+                    {name}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         ))}
       </div>
+      {note && <p className="logo-wall__note">{note}</p>}
     </section>
   )
 }

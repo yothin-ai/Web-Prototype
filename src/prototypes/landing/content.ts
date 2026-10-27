@@ -78,7 +78,15 @@ export const landingContent: LandingContent = {
       th: 'เราเลือกผู้ช่วยเขียนโค้ดด้วย AI โฮสติ้ง และฐานข้อมูลที่ใช้งานง่าย เปลี่ยนได้ และดูแลต่อได้ ไม่ผูกคุณไว้กับเจ้าใดเจ้าหนึ่ง',
       en: 'We choose AI coding assistants, hosting and databases that are easy to use, easy to swap and easy to maintain, so you are never locked in to one vendor.',
     },
-    names: ['PromptPilot', 'CloudNest', 'DataShelf', 'LaunchPad'],
+    groups: [
+      { label: { th: 'ผู้ช่วยเขียนโค้ดด้วย AI', en: 'AI coding assistants' }, tools: [{ name: 'Claude', logo: 'claude' }, { name: 'OpenAI', logo: 'openai' }, { name: 'Cursor', logo: 'cursor' }] },
+      { label: { th: 'โฮสติ้ง', en: 'Hosting' }, tools: [{ name: 'Vercel', logo: 'vercel' }, { name: 'Netlify', logo: 'netlify' }, { name: 'Cloudflare', logo: 'cloudflare' }] },
+      { label: { th: 'ฐานข้อมูลและโค้ด', en: 'Database and code' }, tools: [{ name: 'Supabase', logo: 'supabase' }, { name: 'GitHub', logo: 'github' }] },
+    ],
+    note: {
+      th: 'โลโก้เป็นเครื่องหมายการค้าของเจ้าของแต่ละราย ใช้เพื่อระบุชื่อเครื่องมือเท่านั้น ไม่ได้หมายความว่าได้รับการรับรองจากเจ้าของ (ข้อมูลตัวอย่าง)',
+      en: 'Logos are trademarks of their owners, used only to name the tools. They do not mean the owners endorse us (sample information).',
+    },
   },
   articles: {
     title: { th: 'บทความ', en: 'Articles' },

@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { articleImages, courseImages, galleryImages, heroImage, productImages } from '../../../assets/landing'
+import { articleImages, courseImages, galleryImages, heroImage, productImages, toolLogos } from '../../../assets/landing'
 import { useLang } from '../../../i18n'
 import { Accordion, ArticleCard, BannerSlide, Button, Carousel, Col, CourseCard, FeatureShowcase, Grid, Hero, Icon, LogoWall } from '../../../ui'
 import type { IconName } from '../../../ui'
@@ -108,7 +108,7 @@ export function Home() {
             </div>
           </Col>
           <Col>
-            <LogoWall large groups={[{ names: content.partners.names }]} />
+            <LogoWall large note={t(content.partners.note)} groups={content.partners.groups.map((g) => ({ label: t(g.label), names: g.tools.map((tool) => ({ name: tool.name, logo: toolLogos[tool.logo] })) }))} />
           </Col>
         </Grid>
       </div>
