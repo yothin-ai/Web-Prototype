@@ -96,6 +96,7 @@ button.contact-footer__heading:hover { text-decoration: underline; }
 .contact-footer__column button:not(.contact-footer__heading):hover { color: var(--color-bg); text-decoration: underline; }
 .contact-footer__copy { max-width: var(--grid-max-width); margin-inline: auto; padding: var(--space-4); border-top: 1px solid color-mix(in srgb, var(--color-bg) 20%, transparent); color: var(--color-border); font-size: var(--font-size-xs); text-align: center; }
 
+.theme-landing .article-main figure { margin: 0; }
 .landing-anchor { scroll-margin-top: calc(var(--shell-bar-height, 0px) + var(--space-8)); }
 .landing-block { padding-block: var(--space-8); }
 .landing-heading { display: flex; flex-direction: column; gap: var(--space-3); max-width: calc(var(--space-8) * 11); margin-inline: auto; text-align: center; }
