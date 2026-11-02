@@ -35,9 +35,9 @@ export function SignUp() {
         <Card>
           <h1>{t(content.form.title)}</h1>
           <p className="muted">{t(s.formIntro)}</p>
-          <Field label={t(s.name)} id="su-name" value={form.name} hint={nameError} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <Field label={t(s.email)} id="su-email" type="email" value={form.email} hint={emailError} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-          <Field label={t(content.form.companyLabel)} id="su-company" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
+          <Field label={t(s.name)} id="su-name" placeholder={t(s.namePlaceholder)} value={form.name} hint={nameError} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <Field label={t(s.email)} id="su-email" type="email" placeholder={t(s.emailPlaceholder)} value={form.email} hint={emailError} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <Field label={t(content.form.companyLabel)} id="su-company" placeholder={t(s.companyPlaceholder)} value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
           <strong>{t(content.form.interestLabel)}</strong>
           <ChoiceGroup label={t(content.form.interestLabel)}>
             {content.form.interests.map((i) => (
