@@ -30,6 +30,7 @@ export const ac = {
   kindDaily: { th: 'สรุปยอดขายประจำวัน', en: 'Daily sales summary' },
   kindExpense: { th: 'ค่าใช้จ่าย', en: 'Expense' },
   kindPurchase: { th: 'ซื้อสินค้า', en: 'Purchase' },
+  kindRefund: { th: 'คืนเงิน', en: 'Refund' },
   chCash: { th: 'เงินสดที่สาขา', en: 'Cash at the branch' },
   chCod: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' },
   chTransfer: { th: 'โอน/พร้อมเพย์/Wallet', en: 'Transfer, PromptPay, wallet' },
@@ -174,7 +175,7 @@ export const ac = {
 
 export const channelLabel = (c: Channel) => ({ cash: ac.chCash, cod: ac.chCod, transfer: ac.chTransfer, card: ac.chCard })[c]
 export const categoryLabel = (c: ExpenseCategory) => ({ shipping: ac.catShipping, advertising: ac.catAdvertising, rent: ac.catRent, utilities: ac.catUtilities, fees: ac.catFees, other: ac.catOther })[c]
-export const kindLabel = (k: LedgerKind) => ({ sale: ac.kindSale, daily: ac.kindDaily, expense: ac.kindExpense, purchase: ac.kindPurchase })[k]
+export const kindLabel = (k: LedgerKind) => ({ sale: ac.kindSale, daily: ac.kindDaily, expense: ac.kindExpense, purchase: ac.kindPurchase, refund: ac.kindRefund })[k]
 const samplePayees: Record<string, Localized> = { '@courier': ac.payCourier, '@ads': ac.payAds, '@landlord': ac.payLandlord, '@utility': ac.payUtility, '@payments': ac.payPayments, '@shop': ac.payShop }
 // A sample expense stores a marker for its payee so it reads in either language; one the visitor typed is shown as typed.
 export const payeeText = (payee: string | undefined, t: (x: Localized) => string) => (payee?.startsWith('@') ? t(samplePayees[payee] ?? {}) : (payee ?? ''))

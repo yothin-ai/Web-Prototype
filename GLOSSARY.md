@@ -92,3 +92,10 @@ _Avoid_: Detail page, PDP
 **Made product**:
 A product a Viewer adds in the Back Office. It lives in the browser beside the chosen Dataset's own products (one list per Dataset) and is cleared by a Reset. It shows in stock, the books and the Storefront's full list and search, but never changes the Dataset's made-up history, and a Dataset's own products cannot be edited, only hidden from the Storefront. A made product with history (opening stock, orders, receipts or transfers) is hidden rather than deleted.
 _Avoid_: Custom product, new item
+
+**Return**:
+Goods a shopper gives back after an order was handed over. It refunds money (cash, transfer or the store wallet), either puts the goods back on a shelf or writes them off, and has a sample credit note. In the books it takes back part of the sale and the VAT in it on the day of the return; goods put back on the shelf stop counting as sold.
+_Avoid_: Reversal, cancellation (an order is cancelled before it is handed over)
+
+**Price cut**:
+A lowered selling price for one product between two moments, set in the Back Office: a plain discount, or a Flash Sale with a number of pieces on offer that ends early when they are sold. The shop, the cart and the home page follow it; the made-up past sales and the estimated cost keep working from the price before it.

@@ -24,6 +24,8 @@ export function useWallet() {
     debits: state.debits,
     balance,
     readyCount: state.credits.filter((c) => c.remaining > 0).length,
+    // Puts money into the wallet (a refund paid back as store credit).
+    credit: (amount: number, title: Localized) => setState({ ...state, credits: [{ id: `w-${Date.now()}`, at: new Date().toISOString(), title, amount, remaining: amount }, ...state.credits] }),
     // Pays `amount` from the oldest credits first and records what it paid for.
     spend: (amount: number, orderId: string) => {
       let left = amount

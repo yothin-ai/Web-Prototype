@@ -1,4 +1,5 @@
 import type { Product } from '../datasets/types'
+import type { Return } from '../returns/useReturns'
 import type { Order } from '../prototypes/ecommerce/cart'
 import { costOf, purchaseTotal, type PurchaseOrder } from '../stock/stock'
 
@@ -125,7 +126,7 @@ export function seedExpenses(products: Product[], now = Date.now()): Expense[] {
   return rows
 }
 
-export type LedgerKind = 'sale' | 'daily' | 'expense' | 'purchase'
+export type LedgerKind = 'sale' | 'daily' | 'expense' | 'purchase' | 'refund'
 export type LedgerEntry = {
   id: string
   at: string
@@ -140,14 +141,16 @@ export type LedgerEntry = {
   moneyOut: number
   // The VAT inside the money: output VAT of a sale, input VAT of a cost.
   vat: number
-  // What the goods cost the shop, for a sale.
+  // What the goods cost the shop, for a sale. A refund carries it negative for goods that went back on the shelf.
   cogs: number
+  // A refund: the sales it takes back, VAT included (the money may go to the store wallet instead of out of the till).
+  refundGross?: number
   sample?: boolean
 }
 
 export type Books = { entries: LedgerEntry[]; receivables: { orderId: string; at: string; amount: number }[] }
 
-export function buildBooks(products: Product[], orders: Order[], purchases: PurchaseOrder[], expenses: Expense[], now = Date.now(), policy: VatPolicy = DEFAULT_VAT): Books {
+export function buildBooks(products: Product[], orders: Order[], purchases: PurchaseOrder[], expenses: Expense[], now = Date.now(), policy: VatPolicy = DEFAULT_VAT, returns: Return[] = []): Books {
   const entries: LedgerEntry[] = []
   for (let d = 0; d < DAYS_BACK; d++) {
     const date = shiftDays(d, now)
@@ -184,6 +187,13 @@ export function buildBooks(products: Product[], orders: Order[], purchases: Purc
     if (po.receipts) po.receipts.forEach((r, i) => pay(po, `-${i}`, r.at, cost(po, r.lines)))
     else if (po.status === 'received') pay(po, '', po.receivedAt ?? po.expectedAt ?? po.at, purchaseTotal(po, products))
   }
+  // A return takes back part of a sale: sales and the VAT in them go down by what was given back, and the goods that returned to the shelf stop counting as sold.
+  for (const r of returns) {
+    const order = orders.find((o) => o.id === r.orderId)
+    const rate = policy.rateAt(order ? paidAtOf(order) : r.at)
+    const cogs = r.destination === 'restock' ? r.lines.reduce((n, l) => n + (l.productId ? (costById.get(l.productId) ?? 0) : 0) * l.qty, 0) : 0
+    entries.push({ id: `refund-${r.id}`, at: r.at, day: dayKey(r.at), kind: 'refund', ref: r.orderId, channel: r.method === 'cash' ? 'cash' : r.method === 'transfer' ? 'transfer' : undefined, moneyIn: 0, moneyOut: r.method === 'wallet' ? 0 : r.amount, vat: -vatIncluded(r.amount, rate), cogs: -round2(cogs), refundGross: r.amount })
+  }
   return { entries: entries.sort((a, b) => b.at.localeCompare(a.at)), receivables }
 }
 
@@ -206,9 +216,9 @@ export type MonthReport = {
 export function monthReport(books: Books, month: string): MonthReport {
   const inMonth = books.entries.filter((e) => e.day.startsWith(month))
   const sum = (rows: LedgerEntry[], pick: (e: LedgerEntry) => number) => round2(rows.reduce((n, e) => n + pick(e), 0))
-  const sales = inMonth.filter((e) => e.kind === 'sale' || e.kind === 'daily')
+  const sales = inMonth.filter((e) => e.kind === 'sale' || e.kind === 'daily' || e.kind === 'refund')
   const costs = inMonth.filter((e) => e.kind === 'expense' || e.kind === 'purchase')
-  const grossSales = sum(sales, (e) => e.moneyIn)
+  const grossSales = sum(sales, (e) => (e.kind === 'refund' ? -(e.refundGross ?? 0) : e.moneyIn))
   const outputVat = sum(sales, (e) => e.vat)
   const netSales = round2(grossSales - outputVat)
   const cogs = sum(sales, (e) => e.cogs)
@@ -327,6 +337,8 @@ export function dayReport(books: Books, products: Product[], day: string, now = 
     }
     // Rent, advertising and fees are paid by transfer; delivery, utilities and the rest come out of the till.
     if (e.kind === 'expense' && e.category && cashCategories.includes(e.category)) costs += e.moneyOut
+    // Cash paid back to a shopper leaves the till.
+    if (e.kind === 'refund' && e.channel === 'cash') costs += e.moneyOut
   }
   return { day, byChannel, received: round2(channels.reduce((n, c) => n + byChannel[c], 0)), costs: round2(costs), expected: round2(byChannel.cash + byChannel.cod - costs) }
 }

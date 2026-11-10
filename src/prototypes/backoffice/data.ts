@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useReturns } from '../../returns/useReturns'
 import { useSettings } from '../../settings/useSettings'
 import { useProducts } from '../../products/useProducts'
 import { useLocation } from 'react-router-dom'
@@ -130,7 +131,8 @@ export function useBooks() {
   const [purchases] = usePurchaseBook()
   const [expenses] = useExpenses()
   const { policy } = useSettings()
-  return useMemo(() => buildBooks(products, orders, purchases, expenses, Date.now(), policy), [products, orders, purchases, expenses, policy])
+  const [returns] = useReturns()
+  return useMemo(() => buildBooks(products, orders, purchases, expenses, Date.now(), policy, returns), [products, orders, purchases, expenses, policy, returns])
 }
 
 export const useInvoiceRecords = () => useDemoState<InvoiceRecord[]>(PROTOTYPE_ID, 'invoices', NO_INVOICES)

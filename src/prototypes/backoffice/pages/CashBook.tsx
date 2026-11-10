@@ -27,12 +27,12 @@ export function CashBook() {
   const report = monthReport(books, month)
   const rows = books.entries.filter((e) => e.day.startsWith(month) && (!kind || e.kind === kind))
   const date = (iso: string) => new Intl.DateTimeFormat(lang === 'th' ? 'th-TH' : 'en-GB', { dateStyle: 'medium' }).format(new Date(iso))
-  const describe = (e: LedgerEntry) => (e.kind === 'expense' ? `${t(categoryLabel(e.category!))} · ${payeeText(e.payee, t)}` : e.kind === 'sale' || e.kind === 'purchase' ? e.ref! : t(kindLabel(e.kind)))
+  const describe = (e: LedgerEntry) => (e.kind === 'expense' ? `${t(categoryLabel(e.category!))} · ${payeeText(e.payee, t)}` : e.kind === 'sale' || e.kind === 'purchase' || e.kind === 'refund' ? e.ref! : t(kindLabel(e.kind)))
   const columns: DataColumn<LedgerEntry>[] = [
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.at.localeCompare(y.at), render: (e) => date(e.at) },
     { key: 'kind', header: t(b.colType), render: (e) => <span className="row"><Badge tone={e.moneyIn > 0 ? 'success' : undefined}>{t(kindLabel(e.kind))}</Badge>{e.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
-    { key: 'desc', wrap: true, header: t(ac.colDesc), render: (e) => (e.kind === 'sale' ? <Link to={`${base}/orders/${e.ref}${search}`}>{e.ref}</Link> : e.kind === 'purchase' ? <Link to={`${base}/purchase-orders/${e.ref}${search}`}>{e.ref}</Link> : describe(e)) },
-    { key: 'channel', header: t(ac.colChannel), render: (e) => (e.channel && e.kind === 'sale' ? t(channelLabel(e.channel)) : '-') },
+    { key: 'desc', wrap: true, header: t(ac.colDesc), render: (e) => (e.kind === 'sale' || e.kind === 'refund' ? <Link to={`${base}/orders/${e.ref}${search}`}>{e.ref}</Link> : e.kind === 'purchase' ? <Link to={`${base}/purchase-orders/${e.ref}${search}`}>{e.ref}</Link> : describe(e)) },
+    { key: 'channel', header: t(ac.colChannel), render: (e) => (e.channel && (e.kind === 'sale' || e.kind === 'refund') ? t(channelLabel(e.channel)) : '-') },
     { key: 'in', header: t(ac.colIn), end: true, sort: (x, y) => x.moneyIn - y.moneyIn, render: (e) => (e.moneyIn ? formatMoney(e.moneyIn, lang) : '-') },
     { key: 'out', header: t(ac.colOut), end: true, sort: (x, y) => x.moneyOut - y.moneyOut, render: (e) => (e.moneyOut ? formatMoney(e.moneyOut, lang) : '-') },
     { key: 'vat', header: t(ac.colVat), end: true, render: (e) => (e.vat ? formatMoney(e.vat, lang) : '-') },

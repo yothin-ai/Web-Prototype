@@ -11,6 +11,8 @@ import { useEcommerce } from '../../ecommerce/cart'
 import { locationName, PROTOTYPE_ID, useBackOrders, useUpdateOrder, useSearch } from '../data'
 import { b } from '../strings'
 import { po_ } from '../posStrings'
+import { rt } from '../returnStrings'
+import { useReturns } from '../../../returns/useReturns'
 
 type Line = { productId?: string; name: { th?: string; en?: string }; price: number; qty: number }
 
@@ -21,6 +23,7 @@ export function OrderDetail() {
   const base = `/${PROTOTYPE_ID}`
   const order = useBackOrders().find((o) => o.id === orderId)
   const update = useUpdateOrder()
+  const [returns] = useReturns()
   const book = useStock()
   const { productById } = useEcommerce()
   if (!order) {
@@ -74,6 +77,7 @@ export function OrderDetail() {
               {st === 'preparing' && <Button disabled={short.length > 0} onClick={() => update(order.id, { status: 'ready', packed: true, packedAt: new Date().toISOString(), stockLoc: loc })}>{t(b.pack)}</Button>}
               {st === 'ready' && <Button onClick={() => update(order.id, { status: 'delivered' })}>{t(b.handOver)}</Button>}
               {(st === 'pending' || st === 'preparing') && <Button variant="secondary" onClick={() => update(order.id, { status: 'cancelled' })}>{t(b.cancelOrder)}</Button>}
+              {st === 'delivered' && !order.sample && <Button variant="secondary" to={`${base}/orders/${order.id}/return${search}`}>{t(rt.startReturn)}</Button>}
             </div>
           </div>
           <Card>
@@ -84,6 +88,12 @@ export function OrderDetail() {
               <DataRow label={t(b.takenFrom)} value={t(locationName(loc))} />
               <DataRow label={t(b.paymentLabel)} value={findPayment(order.paymentId) ? t(findPayment(order.paymentId)!.name) : order.paymentId} />
               <DataRow strong label={t(b.totalLabel)} value={formatMoney(order.total, lang)} />
+              {returns.some((r) => r.orderId === order.id) && (
+                <>
+                  <h3>{t(rt.ordersReturns)}</h3>
+                  {returns.filter((r) => r.orderId === order.id).map((r) => <DataRow key={r.id} label={<Link to={`${base}/returns/${r.id}${search}`}>{r.id}</Link>} value={formatMoney(r.amount, lang)} />)}
+                </>
+              )}
             </div>
           </Card>
         </CardGrid>

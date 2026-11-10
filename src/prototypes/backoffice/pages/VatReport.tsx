@@ -23,14 +23,14 @@ export function VatReport() {
   const [month, setMonth] = useState(months[0])
   const report = monthReport(books, month)
   const inMonth = books.entries.filter((e) => e.day.startsWith(month))
-  const output = inMonth.filter((e) => e.kind === 'sale' || e.kind === 'daily').sort((x, y) => y.at.localeCompare(x.at))
+  const output = inMonth.filter((e) => e.kind === 'sale' || e.kind === 'daily' || e.kind === 'refund').sort((x, y) => y.at.localeCompare(x.at))
   const input = inMonth.filter((e) => (e.kind === 'expense' || e.kind === 'purchase') && e.vat > 0).sort((x, y) => y.at.localeCompare(x.at))
   const date = (iso: string) => new Intl.DateTimeFormat(lang === 'th' ? 'th-TH' : 'en-GB', { dateStyle: 'medium' }).format(new Date(iso))
-  const baseOf = (e: LedgerEntry) => (e.kind === 'sale' || e.kind === 'daily' ? e.moneyIn : e.moneyOut) - e.vat
+  const baseOf = (e: LedgerEntry) => (e.kind === 'refund' ? -(e.refundGross ?? 0) : e.kind === 'sale' || e.kind === 'daily' ? e.moneyIn : e.moneyOut) - e.vat
   const source = (e: LedgerEntry) => (e.kind === 'expense' ? `${t(categoryLabel(e.category!))} · ${payeeText(e.payee, t)}` : e.ref ? e.ref : t(kindLabel(e.kind)))
   const columns: DataColumn<LedgerEntry>[] = [
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.at.localeCompare(y.at), render: (e) => date(e.at) },
-    { key: 'source', header: t(ac.vatSource), render: (e) => (e.kind === 'sale' ? <Link to={`${base}/orders/${e.ref}${search}`}>{e.ref}</Link> : e.kind === 'purchase' ? <Link to={`${base}/purchase-orders/${e.ref}${search}`}>{e.ref}</Link> : <span className="row">{source(e)}{e.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span>) },
+    { key: 'source', header: t(ac.vatSource), render: (e) => (e.kind === 'sale' || e.kind === 'refund' ? <Link to={`${base}/orders/${e.ref}${search}`}>{e.ref}</Link> : e.kind === 'purchase' ? <Link to={`${base}/purchase-orders/${e.ref}${search}`}>{e.ref}</Link> : <span className="row">{source(e)}{e.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span>) },
     { key: 'base', header: t(ac.vatBase), end: true, sort: (x, y) => baseOf(x) - baseOf(y), render: (e) => formatMoney(baseOf(e), lang) },
     { key: 'vat', header: t(ac.colVat), end: true, sort: (x, y) => x.vat - y.vat, render: (e) => <strong>{formatMoney(e.vat, lang)}</strong> },
   ]
