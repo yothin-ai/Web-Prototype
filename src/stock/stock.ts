@@ -35,7 +35,7 @@ export function receivedQtyOf(po: PurchaseOrder, productId: string) {
 export const remainingQtyOf = (po: PurchaseOrder, productId: string) => Math.max(0, (po.lines.find((l) => l.productId === productId)?.qty ?? 0) - receivedQtyOf(po, productId))
 
 // A made-up cost price, between 55% and 75% of the selling price, the same every time for a product.
-export const costOf = (p: Product) => p.cost ?? Math.round(p.price * (0.55 + (hash(`${p.id}:c`) % 21) / 100))
+export const costOf = (p: Product) => p.cost ?? Math.round((p.basePrice ?? p.price) * (0.55 + (hash(`${p.id}:c`) % 21) / 100))
 export const purchaseTotal = (po: PurchaseOrder, products: Product[]) => po.lines.reduce((n, l) => n + l.qty * costOf(products.find((p) => p.id === l.productId) ?? ({ id: l.productId, price: 0 } as Product)), 0)
 
 export const remainingValue = (po: PurchaseOrder, products: Product[]) => purchaseTotal({ ...po, lines: po.lines.map((l) => ({ ...l, qty: remainingQtyOf(po, l.productId) })) }, products)

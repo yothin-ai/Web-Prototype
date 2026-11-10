@@ -73,6 +73,8 @@ export type Product = {
   stock?: number
   detail?: ProductDetail
   // Set only on a product made in the Back Office (kept in the browser, never in a Dataset).
+  // The price the Dataset gave, kept when the Back Office changed the selling price; the made-up history is worked out from this one.
+  basePrice?: number
   custom?: boolean
   // Pictures made from an upload in the Back Office, as small data addresses; the first is the main one.
   images?: string[]

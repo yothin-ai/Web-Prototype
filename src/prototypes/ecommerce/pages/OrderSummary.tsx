@@ -9,7 +9,7 @@ import { wl } from '../walletStrings'
 
 export function OrderSummary({ order }: { order: Order }) {
   const { t, lang } = useLang()
-  const { paymentMethods, shippingMethods } = useEcommerce()
+  const { paymentMethods, allShippingMethods: shippingMethods } = useEcommerce()
   const { search } = useLocation()
   const shipping = shippingMethods.find((m) => m.id === order.shippingId)
   const payment = findPayment(order.paymentId) ?? paymentMethods.find((m) => m.id === order.paymentId)

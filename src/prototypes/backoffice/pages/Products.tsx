@@ -16,7 +16,7 @@ export function Products() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const { all, remove, setShown, isHidden } = useProducts()
+  const { all, remove, setShown, isHidden, edits } = useProducts()
   const book = useStock()
   const [movements] = useMovements()
   const [orders, transfers, purchases] = [useBackOrders(), useTransferBook()[0], usePurchaseBook()[0]]
@@ -38,7 +38,7 @@ export function Products() {
     { key: 'name', wrap: true, header: t(pr.colName), sort: (x, y) => t(x.name).localeCompare(t(y.name)), render: (p) => <Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link> },
     { key: 'cat', header: t(pr.colCategory), sort: (x, y) => t(x.category).localeCompare(t(y.category)), render: (p) => t(p.category) },
     { key: 'unit', header: t(pr.colUnit), render: (p) => (p.unit ? t(p.unit) : '-') },
-    { key: 'price', header: t(pr.colPrice), end: true, sort: (x, y) => x.price - y.price, render: (p) => formatMoney(p.price, lang) },
+    { key: 'price', header: t(pr.colPrice), end: true, sort: (x, y) => x.price - y.price, render: (p) => <span className="row">{edits[p.id] && <Badge tone="info">{t(pr.sampleChanged)}</Badge>}{formatMoney(p.price, lang)}</span> },
     { key: 'cost', header: t(pr.colCost), end: true, render: (p) => formatMoney(costOf(p), lang) },
     { key: 'stock', header: t(pr.colStock), end: true, sort: (x, y) => book.total(x.id).available - book.total(y.id).available, render: (p) => <strong>{book.total(p.id).available}</strong> },
     { key: 'info', header: t(pr.colInfo), render: (p) => (p.custom ? (missingParts(p).length === 0 ? <Badge tone="success">{t(pr.infoComplete)}</Badge> : <Badge tone="warning">{t(pr.infoMissing)} ({missingParts(p).length})</Badge>) : '-') },
@@ -48,7 +48,7 @@ export function Products() {
       header: t(pr.colAction),
       render: (p) => (
         <span className="row">
-          {p.custom && <Button size="sm" variant="secondary" to={`${base}/products/${p.id}/edit${search}`}>{t(pr.edit)}</Button>}
+          <Button size="sm" variant="secondary" to={`${base}/products/${p.id}/edit${search}`}>{t(pr.edit)}</Button>
           <Button size="sm" variant="secondary" onClick={() => setShown(p.id, isHidden(p.id))}>{t(isHidden(p.id) ? pr.show : pr.hide)}</Button>
           {p.custom && <Button size="sm" variant="ghost" onClick={() => { setMessage(''); setDeleting(p) }}>{t(pr.delete)}</Button>}
         </span>

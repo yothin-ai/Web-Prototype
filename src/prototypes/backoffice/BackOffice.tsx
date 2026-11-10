@@ -22,6 +22,8 @@ import { Valuation } from './pages/Valuation'
 import { PurchaseOrderDetail } from './pages/PurchaseOrderDetail'
 import { PurchaseOrders } from './pages/PurchaseOrders'
 import { SupplierForm } from './pages/SupplierForm'
+import { Settings } from './pages/Settings'
+import { st } from './settingStrings'
 import { Suppliers } from './pages/Suppliers'
 import { TransferDetail } from './pages/TransferDetail'
 import { Transfers } from './pages/Transfers'
@@ -38,7 +40,7 @@ export function BackOffice() {
   const base = `/${PROTOTYPE_ID}`
   const counts = useCounts()
   const here = pathname.replace(base, '') || '/'
-  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check' | 'grid', badge?: number, badgeLabel?: string) => ({
+  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check' | 'grid' | 'settings', badge?: number, badgeLabel?: string) => ({
     to: `${base}${to}${search}`,
     label,
     icon,
@@ -61,6 +63,7 @@ export function BackOffice() {
             { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
             { title: t(b.groupReports), items: [item('/reports/valuation', t(b.navValuation), 'cash'), item('/reports/movements', t(b.navMovements), 'receipt')] },
             { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/invoices', t(ac.navInvoices), 'receipt'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank'), item('/accounting/close', t(ac.navClose), 'check')] },
+            { title: t(st.group), items: [item('/settings', t(st.nav), 'settings')] },
           ]}
         />
       }
@@ -103,6 +106,7 @@ export function BackOffice() {
           <Route path="accounting/profit" element={<ProfitLoss />} />
           <Route path="reports/valuation" element={<Valuation />} />
           <Route path="reports/movements" element={<Movements />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="receive" element={<Receive />} />
           <Route path="*" element={<Navigate to={`${base}${search}`} replace />} />
         </Routes>

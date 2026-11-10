@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useSettings } from '../../settings/useSettings'
 import { useProducts } from '../../products/useProducts'
 import { useLocation } from 'react-router-dom'
 import type { Localized } from '../../i18n'
@@ -128,7 +129,8 @@ export function useBooks() {
   const orders = useBackOrders()
   const [purchases] = usePurchaseBook()
   const [expenses] = useExpenses()
-  return useMemo(() => buildBooks(products, orders, purchases, expenses), [products, orders, purchases, expenses])
+  const { policy } = useSettings()
+  return useMemo(() => buildBooks(products, orders, purchases, expenses, Date.now(), policy), [products, orders, purchases, expenses, policy])
 }
 
 export const useInvoiceRecords = () => useDemoState<InvoiceRecord[]>(PROTOTYPE_ID, 'invoices', NO_INVOICES)
@@ -139,7 +141,10 @@ export function useInvoices() {
   const products = useProducts().all
   const orders = useBackOrders()
   const [records] = useInvoiceRecords()
-  return useMemo(() => buildInvoices(products, orders, records), [products, orders, records])
+  const { policy, vatNow } = useSettings()
+  const built = useMemo(() => buildInvoices(products, orders, records, Date.now(), policy), [products, orders, records, policy])
+  // A shop that is not registered for VAT issues no new tax invoice.
+  return useMemo(() => (vatNow.registered ? built : built.map((i) => (i.status === 'pending' ? { ...i, canIssue: false } : i))), [built, vatNow.registered])
 }
 
 // The moves a transfer goes through. Approving takes stock out of the source, so it needs enough available there.

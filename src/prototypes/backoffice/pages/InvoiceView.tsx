@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { useSettings } from '../../../settings/useSettings'
 import { useLang } from '../../../i18n'
 import { nextInvoiceNo, type InvoiceLine } from '../../../accounting/accounting'
 import { Badge, Breadcrumb, Button, Card, Col, DataRow, DataTable, Grid, Notice, type DataColumn } from '../../../ui'
@@ -15,6 +16,7 @@ export function InvoiceView() {
   const base = `/${PROTOTYPE_ID}`
   const { invoiceId = '' } = useParams()
   const invoice = useInvoices().find((i) => i.id === invoiceId)
+  const { shop } = useSettings()
   const [records, setRecords] = useInvoiceRecords()
   if (!invoice) {
     return (
@@ -62,9 +64,10 @@ export function InvoiceView() {
             <DataRow label={t(ac.invDate)} value={date} />
             <div className="stack">
               <h3>{t(ac.invSeller)}</h3>
-              <strong>{t(ac.sellerName)}</strong>
-              <span className="muted">{t(ac.invTaxId)} {t(ac.sellerTaxId)} · {t(ac.sellerBranch)}</span>
-              <span className="muted">{t(ac.sellerAddress)}</span>
+              <strong>{shop.name || t(ac.sellerName)}</strong>
+              <span className="muted">{t(ac.invTaxId)} {shop.taxId || t(ac.sellerTaxId)} · {shop.branch || t(ac.sellerBranch)}</span>
+              <span className="muted">{shop.address || t(ac.sellerAddress)}</span>
+              {shop.phone && <span className="muted">{shop.phone}</span>}
             </div>
             <div className="stack">
               <h3>{t(ac.invBuyer)}</h3>

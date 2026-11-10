@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useSettings } from '../../../settings/useSettings'
 import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
@@ -38,6 +39,7 @@ export function Checkout() {
   const { dataset } = useDataset()
   const { home, store, checkout } = dataset.ecommerce
   const { productById, shippingMethods } = useEcommerce()
+  const { paymentOff, vatNow } = useSettings()
   const { chosen: cart } = useChosenCart()
   const commit = useCommitOrder()
   const [addresses] = useAddresses()
@@ -88,7 +90,7 @@ export function Checkout() {
   const stockBook = useStock()
   const branch = t(branchById(branchId).name)
   const eligible = net >= store.installmentMin
-  const modes = paymentOptions.filter((p) => p.modes.includes(fulfil))
+  const modes = paymentOptions.filter((p) => p.modes.includes(fulfil) && !paymentOff.includes(p.id))
   const activePay = payId && modes.some((p) => p.id === payId) ? payId : ''
 
   const problems: Problem[] = []
@@ -144,7 +146,7 @@ export function Checkout() {
     // Card, PromptPay and transfer wait for payment on the pay page; the others are placed straight away.
     const toPay = needsPaymentPage(activePay as PayId)
     placed.current = true
-    const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax, taxBuyer: etax ? { id: tax.id, name: tax.name.trim() } : undefined })
+    const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax: etax && vatNow.registered, taxBuyer: etax && vatNow.registered ? { id: tax.id, name: tax.name.trim() } : undefined })
     if (coupon && cut.items + cut.shipping > 0) markUsed(coupon.id)
     if (walletUse > 0) wallet.spend(walletUse, order.id)
     if (clubLinked && points > 0) addPoints({ th: `คำสั่งซื้อ ${order.id}`, en: `Order ${order.id}` }, points)
@@ -231,8 +233,8 @@ export function Checkout() {
               </>
             )}
 
-            <Switch checked={etax} onChange={setEtax} label={t(c.etaxTitle)} description={t(c.etaxDesc)} />
-            {etax && (
+            {vatNow.registered && <Switch checked={etax} onChange={setEtax} label={t(c.etaxTitle)} description={t(c.etaxDesc)} />}
+            {etax && vatNow.registered && (
               <div className="checkout-panel stack">
                 <Grid>
                   <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.taxId)} id="tx-id" inputMode="numeric" aria-invalid={shown('tx-id')} hint={err(tax.id.length !== 13, t(c.errTaxId))} value={tax.id} onChange={(e) => setTax({ ...tax, id: e.target.value.replace(/\D/g, '').slice(0, 13) })} /></Col>

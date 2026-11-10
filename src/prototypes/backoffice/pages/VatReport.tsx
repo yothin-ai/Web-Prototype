@@ -8,6 +8,8 @@ import { PageHead } from '../PageHead'
 import { ac, categoryLabel, kindLabel, payeeText } from '../accStrings'
 import { downloadCsv } from '../csv'
 import { b } from '../strings'
+import { useSettings } from '../../../settings/useSettings'
+import { st } from '../settingStrings'
 import { PROTOTYPE_ID, useBooks, useSearch } from '../data'
 import { monthLabel } from './CashBook'
 
@@ -16,6 +18,7 @@ export function VatReport() {
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const books = useBooks()
+  const { vatNow } = useSettings()
   const months = monthsBack(6)
   const [month, setMonth] = useState(months[0])
   const report = monthReport(books, month)
@@ -53,7 +56,7 @@ export function VatReport() {
       <Col>
         <PageHead title={t(ac.vatTitle)} text={`${t(ac.vatText)} ${t(b.sample)}`} actions={<Button variant="secondary" icon="receipt" onClick={exportRows}>{t(ac.exportCsv)}</Button>} />
       </Col>
-      <Col><Notice tone="info">{t(ac.vatRateNote)} {t(ac.notAdvice)}</Notice></Col>
+      <Col><Notice tone="info">{t(ac.vatRateNote)} {t(ac.notAdvice)} {t(st.rateLine)} {vatNow.registered ? `${Math.round(vatNow.rate * 10000) / 100}%` : t(st.vatNone)}</Notice></Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>
         <Select label={t(ac.month)} value={month} onChange={(e) => setMonth(e.target.value)} options={months.map((m) => ({ value: m, label: monthLabel(m, lang) }))} />
       </Col>

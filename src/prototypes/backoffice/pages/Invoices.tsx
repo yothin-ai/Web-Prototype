@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { nextInvoiceNo, type Invoice } from '../../../accounting/accounting'
-import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Select, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Select, Notice, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { ac, buyerText, invoiceStatusLabel, invoiceStatusTone } from '../accStrings'
 import { b } from '../strings'
+import { useSettings } from '../../../settings/useSettings'
+import { st } from '../settingStrings'
 import { PROTOTYPE_ID, useInvoiceRecords, useInvoices, useSearch } from '../data'
 
 export function Invoices() {
@@ -14,6 +16,7 @@ export function Invoices() {
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const invoices = useInvoices()
+  const { vatNow } = useSettings()
   const [records, setRecords] = useInvoiceRecords()
   const [q, setQ] = useState('')
   const [status, setStatus] = useState('')
@@ -49,6 +52,7 @@ export function Invoices() {
       <Col>
         <PageHead title={t(ac.invTitle)} text={`${t(ac.invText)} (${invoices.length} ${t(b.records)}) ${t(b.sample)}`} />
       </Col>
+      {!vatNow.registered && <Col><Notice tone="info">{t(st.noInvoices)}</Notice></Col>}
       <Col>
         <CardGrid size="small">
           <StatCard icon="clock" label={t(ac.invPending)} value={String(invoices.filter((i) => i.status === 'pending').length)} note={t(b.records)} />

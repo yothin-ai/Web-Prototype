@@ -25,7 +25,7 @@ export const pr = {
   deleteConfirm: { th: 'ลบสินค้า', en: 'Delete the product' },
   cancel: { th: 'ยกเลิก', en: 'Cancel' },
   cannotDelete: { th: 'ลบไม่ได้เพราะมีประวัติแล้ว ใช้ซ่อนจากหน้าร้านแทน', en: 'It has history, so it cannot be deleted. Hide it from the shop instead.' },
-  readOnly: { th: 'สินค้าตัวอย่างแก้ไขไม่ได้ แต่ซ่อนจากหน้าร้านได้', en: 'A sample product cannot be edited, but it can be hidden from the shop.' },
+  readOnly: { th: 'สินค้าตัวอย่างแก้ได้เฉพาะราคาขาย ราคาทุน และจุดสั่งซื้อซ้ำ และซ่อนจากหน้าร้านได้', en: 'A sample product can only have its price, cost and reorder level changed, and can be hidden from the shop.' },
   saved: { th: 'บันทึกสินค้าแล้ว สินค้านี้อยู่ในสต็อกและหน้าร้านค้าแล้ว เก็บในเบราว์เซอร์นี้เท่านั้น', en: 'The product is saved and is now in stock and in the shop. It is kept only in this browser.' },
   updated: { th: 'แก้ไขสินค้าแล้ว', en: 'The product is updated.' },
   removed: { th: 'ลบสินค้าแล้ว', en: 'The product is deleted.' },
@@ -137,4 +137,14 @@ export const pr = {
   partInstall: { th: 'วิธีใช้', en: 'how to use' },
   partWarranty: { th: 'รับประกัน', en: 'warranty' },
   partCaution: { th: 'ข้อควรระวัง', en: 'cautions' },
+  // Changing a sample product
+  sampleTitle: { th: 'แก้ราคาสินค้าตัวอย่าง', en: 'Change a sample product' },
+  sampleText: { th: 'แก้ได้เฉพาะราคาขาย ราคาทุน และจุดสั่งซื้อซ้ำ ชื่อ รูป และรายละเอียดมาจากชุดข้อมูลจึงแก้ไม่ได้ ค่าที่แก้เก็บในเบราว์เซอร์นี้เท่านั้น', en: 'Only the price, the cost and the reorder level can be changed. The name, pictures and details come from the Dataset. Changes are kept only in this browser.' },
+  sampleOriginal: { th: 'ค่าเดิมของชุดข้อมูล', en: 'The Dataset’s own value' },
+  sampleSave: { th: 'บันทึกการแก้ไข', en: 'Save the changes' },
+  sampleRestore: { th: 'คืนค่าเดิม', en: 'Restore the original' },
+  sampleSaved: { th: 'บันทึกค่าของสินค้าตัวอย่างแล้ว', en: 'The sample product’s values are saved.' },
+  sampleRestored: { th: 'คืนค่าเดิมของสินค้าแล้ว', en: 'The original values are back.' },
+  sampleChanged: { th: 'แก้แล้ว', en: 'Changed' },
+  sampleNote: { th: 'ตัวเลขตัวอย่างของยอดขายและกำไรในอดีตยังคำนวณจากราคาเดิม', en: 'The made-up past sales and profit are still worked out from the original price.' },
 } satisfies Record<string, Localized>

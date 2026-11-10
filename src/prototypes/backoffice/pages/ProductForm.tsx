@@ -6,10 +6,10 @@ import type { Product, ProductDetail } from '../../../datasets/types'
 import { missingParts, productParts, type ProductPart } from '../../../products/completeness'
 import { IMAGE_TYPES, MAX_IMAGES, resizeImage, storageUsed, STORAGE_LIMIT } from '../../../products/resizeImage'
 import { useProducts } from '../../../products/useProducts'
-import { locationIds } from '../../../stock/stock'
+import { costOf, locationIds, reorderPoint } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
 import { Badge, Breadcrumb, Button, Card, Col, Field, Grid, Notice, ProductImage, ProgressBar, Select, Textarea } from '../../../ui'
-import { skuOf } from '../../ecommerce/cart'
+import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { pr } from '../productStrings'
@@ -74,8 +74,10 @@ export function ProductForm() {
   const { productId } = useParams()
   const { all } = useProducts()
   const editing = productId ? all.find((p) => p.id === productId && p.custom) : undefined
+  const sample = productId ? all.find((p) => p.id === productId && !p.custom) : undefined
   const base = `/${PROTOTYPE_ID}`
   const search = useSearch()
+  if (sample) return <SampleForm key={sample.id} product={sample} />
   if (productId && !editing) {
     return (
       <Grid>
@@ -90,6 +92,7 @@ export function ProductForm() {
   }
   return <Form key={editing?.id ?? 'new'} product={editing} />
 }
+
 
 function Form({ product }: { product?: Product }) {
   const { t } = useLang()
@@ -337,3 +340,57 @@ function Form({ product }: { product?: Product }) {
   )
 }
 
+
+// A product of the Dataset: only its price, cost and reorder level can change, kept beside the Dataset's own values.
+function SampleForm({ product }: { product: Product }) {
+  const { t, lang } = useLang()
+  const navigate = useNavigate()
+  const { editSample, originalOf, edits } = useProducts()
+  const base = `/${PROTOTYPE_ID}`
+  const search = useSearch()
+  const original = originalOf(product.id) ?? product
+  const [price, setPrice] = useState(String(product.price))
+  const [cost, setCost] = useState(String(costOf(product)))
+  const [reorder, setReorder] = useState(String(reorderPoint(product)))
+  const [tried, setTried] = useState(false)
+  const priceNum = Number(price)
+  const priceOk = price.trim() !== '' && Number.isFinite(priceNum) && priceNum > 0
+  const costOk = cost.trim() !== '' && Number.isFinite(Number(cost)) && Number(cost) >= 0
+  const reorderOk = /^\d+$/.test(reorder.trim())
+  const save = () => {
+    setTried(true)
+    if (!priceOk || !costOk || !reorderOk) return
+    editSample(product.id, { price: Math.round(priceNum * 100) / 100, cost: Math.round(Number(cost) * 100) / 100, reorderAt: Number(reorder) })
+    navigate(`${base}/products${search}`, { state: { notice: t(pr.sampleSaved) } })
+  }
+  const restore = () => {
+    editSample(product.id, null)
+    navigate(`${base}/products${search}`, { state: { notice: t(pr.sampleRestored) } })
+  }
+  const title = `${t(pr.sampleTitle)}: ${t(product.name)}`
+  return (
+    <Grid>
+      <Col>
+        <div className="stack">
+          <Breadcrumb label={t(pr.breadcrumb)} items={[{ label: t(pr.title), to: `${base}/products${search}` }, { label: t(product.name) }]} />
+          <PageHead title={title} text={t(pr.sampleText)} />
+        </div>
+      </Col>
+      <Col>
+        <Card>
+          <div className="stack">
+            <Field label={t(pr.price)} id="prd-price" type="number" min={0} step="0.01" inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} hint={tried && !priceOk ? t(pr.errPrice) : `${t(pr.sampleOriginal)}: ${formatMoney(original.price, lang)}`} />
+            <Field label={t(pr.cost)} id="prd-cost" type="number" min={0} step="0.01" inputMode="decimal" value={cost} onChange={(e) => setCost(e.target.value)} hint={tried && !costOk ? t(pr.errCost) : undefined} />
+            <Field label={t(pr.reorderAt)} id="prd-reorder" type="number" min={0} inputMode="numeric" value={reorder} onChange={(e) => setReorder(e.target.value)} hint={tried && !reorderOk ? t(pr.errReorder) : undefined} />
+            <span className="muted">{t(pr.sampleNote)}</span>
+            <div className="row">
+              <Button onClick={save}>{t(pr.sampleSave)}</Button>
+              {edits[product.id] && <Button variant="secondary" onClick={restore}>{t(pr.sampleRestore)}</Button>}
+              <Button variant="ghost" to={`${base}/products${search}`}>{t(pr.cancel)}</Button>
+            </div>
+          </div>
+        </Card>
+      </Col>
+    </Grid>
+  )
+}

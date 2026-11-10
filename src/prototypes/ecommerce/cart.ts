@@ -1,4 +1,5 @@
 import { readDemoState, useDemoState } from '../../state/demoState'
+import { useSettings } from '../../settings/useSettings'
 import { useProducts } from '../../products/useProducts'
 import { useDataset } from '../../datasets/DatasetContext'
 import { useStock } from '../../stock/useStock'
@@ -48,8 +49,10 @@ export type Order = {
 export const useEcommerce = () => {
   const { shippingMethods, paymentMethods } = useDataset().dataset.ecommerce
   const { all, shop, shopSeed } = useProducts()
+  const { shippingOff } = useSettings()
   const productById = (id: string) => all.find((p) => p.id === id)
-  return { products: shopSeed, catalog: shop, shippingMethods, paymentMethods, productById }
+  // `shippingMethods` are the ones the shop has switched on, to choose from; `allShippingMethods` finds the one an old order used.
+  return { products: shopSeed, catalog: shop, shippingMethods: shippingMethods.filter((m) => !shippingOff.includes(m.id)), allShippingMethods: shippingMethods, paymentMethods, productById }
 }
 
 export const useCart = () => useDemoState<CartLine[]>(PROTOTYPE_ID, 'cart', [])

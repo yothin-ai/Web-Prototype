@@ -28,7 +28,7 @@ export function OrderDetailPage() {
   const { t, lang } = useLang()
   const { search } = useLocation()
   const { orderId } = useParams()
-  const { shippingMethods } = useEcommerce()
+  const { allShippingMethods: shippingMethods } = useEcommerce()
   const [orders] = useOrderBook()
   const { pending } = useReviews()
   const pendingKeys = new Set(pending.map((x) => x.key))
