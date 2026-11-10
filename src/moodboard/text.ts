@@ -78,7 +78,7 @@ export const text = {
   c41: { th: 'ปุ่ม (Buttons)', en: 'Buttons' },
   c41Note: { th: 'ปุ่มทุกแบบและสถานะ ปุ่มอันตรายไม่มีสถานะชี้เมาส์แยก', en: 'Every button style and state. The danger button has no separate hover.' },
   c42: { th: 'ช่องกรอกข้อมูล (Form)', en: 'Form fields' },
-  c42Note: { th: 'ช่องกรอกพร้อมข้อความช่วยเหลือ', en: 'An input with helper text.' },
+  c42Note: { th: 'ช่องกรอกพร้อมข้อความช่วยเหลือ ช่องวันที่และเวลาเปิดปฏิทินเมื่อกดตรงไหนของช่องก็ได้ ไม่ต้องกดที่ไอคอน', en: 'An input with helper text. A date or time field opens its calendar when pressed anywhere, not only on the icon.' },
   c43: { th: 'การ์ด (Card)', en: 'Card' },
   c43Note: { th: 'การ์ดคือพื้นผิวมาตรฐานสำหรับจัดกลุ่มเนื้อหา ถ้าเป็นสินค้าให้ใช้การ์ดสินค้า (4.18) การ์ดที่กดไปหน้าอื่นได้ตอบสนองเมื่อชี้เมาส์หรือโฟกัส (กรอบสีเน้นหนาขึ้นด้านใน ชื่อเปลี่ยนสี) และกดได้ทั้งใบ', en: 'The card is the standard surface for grouping content. For a product, use the product card (4.18). A card that leads somewhere reacts to the pointer and to focus (the accent border thickens inward and the title turns accent), and the whole card can be clicked.' },
   cardTitle: { th: 'หัวข้อการ์ด', en: 'Card title' },

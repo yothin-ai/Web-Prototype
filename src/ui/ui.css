@@ -121,3 +121,5 @@ a { color: var(--color-accent); }
 .search-select__option[data-active='true'] { background: var(--color-accent-soft); }
 .search-select__option[aria-selected='true'] { font-weight: var(--font-weight-bold); }
 .search-select__empty { margin: 0; padding: var(--space-3); text-align: center; }
+
+.field__input--picker { cursor: pointer; }

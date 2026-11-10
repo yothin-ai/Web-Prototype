@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, MouseEvent, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon, type IconName } from './icon'
 import './ui.css'
@@ -48,12 +48,25 @@ export function Badge({ tone, children }: { tone?: 'success' | 'warning' | 'dang
 
 type FieldProps = InputHTMLAttributes<HTMLInputElement> & { label: string; hint?: string }
 
-export function Field({ label, hint, id, ...rest }: FieldProps) {
+const PICKER_TYPES = ['date', 'datetime-local', 'month', 'time']
+
+// A labelled box. A date or time field opens its calendar when pressed anywhere (not only on the small icon); the keyboard still types and tabs as usual.
+export function Field({ label, hint, id, onClick, className, ...rest }: FieldProps) {
   const inputId = id ?? `field-${label}`
+  const picker = PICKER_TYPES.includes(rest.type ?? '')
+  const openPicker = (e: MouseEvent<HTMLInputElement>) => {
+    onClick?.(e)
+    if (!picker || e.defaultPrevented) return
+    try {
+      e.currentTarget.showPicker()
+    } catch {
+      // A browser that cannot open it from here keeps its own icon.
+    }
+  }
   return (
     <div className="field">
       <label className="field__label" htmlFor={inputId}>{label}</label>
-      <input id={inputId} className="field__input" {...rest} />
+      <input id={inputId} className={`field__input${picker ? ' field__input--picker' : ''}${className ? ` ${className}` : ''}`} onClick={openPicker} {...rest} />
       {hint && <span className="field__hint">{hint}</span>}
     </div>
   )
