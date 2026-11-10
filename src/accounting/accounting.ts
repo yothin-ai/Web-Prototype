@@ -227,3 +227,71 @@ export const sampleCloseCounted = (day: string, expected: number) => expected + 
 export function isClosed(day: string, closes: Close[], reopened: string[], now = Date.now()) {
   return closes.some((c) => c.day === day) || (sampleCloseDays(now).includes(day) && !reopened.includes(day))
 }
+
+// A tax invoice for an order that asked for one at checkout. The number is given when it is issued, in order, with no gaps.
+// The page shows a sample of the document, not a real tax document.
+export type InvoiceStatus = 'pending' | 'issued' | 'cancelled'
+export type InvoiceRecord = { orderId: string; no: string; issuedAt: string; status: 'issued' | 'cancelled' }
+export type InvoiceLine = { name: { th?: string; en?: string }; qty: number; unitNet: number; net: number }
+export type Invoice = {
+  id: string
+  orderId?: string
+  no?: string
+  status: InvoiceStatus
+  at: string
+  buyerName: string
+  buyerTaxId: string
+  buyerAddress?: string
+  lines: InvoiceLine[]
+  net: number
+  vat: number
+  gross: number
+  // A live invoice can be issued once the money is in.
+  canIssue: boolean
+  sample?: boolean
+}
+
+export const nextInvoiceNo = (records: InvoiceRecord[], now = Date.now()) => `INV-${new Date(now).getFullYear()}-${String(1001 + records.length).padStart(4, '0')}`
+
+// Splits gross amounts (VAT included) into net amounts that add up exactly to the net of the total.
+function netLines(grossParts: { name: InvoiceLine['name']; qty: number; gross: number }[]): { lines: InvoiceLine[]; net: number; vat: number; gross: number } {
+  const gross = round2(grossParts.reduce((n, l) => n + l.gross, 0))
+  const vat = vatIncluded(gross)
+  const net = round2(gross - vat)
+  let left = net
+  const lines = grossParts.map((l, i) => {
+    const lineNet = i === grossParts.length - 1 ? round2(left) : round2(netOfVat(l.gross))
+    left = round2(left - lineNet)
+    return { name: l.name, qty: l.qty, unitNet: round2(lineNet / Math.max(1, l.qty)), net: lineNet }
+  })
+  return { lines, net, vat, gross }
+}
+
+const shippingName = { th: 'ค่าจัดส่ง', en: 'Delivery' }
+const discountName = { th: 'ส่วนลด', en: 'Discount' }
+
+export function buildInvoices(products: Product[], orders: Order[], records: InvoiceRecord[], now = Date.now()): Invoice[] {
+  const rows: Invoice[] = []
+  for (const o of orders) {
+    if (o.sample || !o.etax || !o.taxBuyer) continue
+    const status = o.status ?? 'preparing'
+    const record = records.find((r) => r.orderId === o.id)
+    if (status === 'cancelled' && !record) continue
+    const parts = [
+      ...o.lines.map((l) => ({ name: l.name, qty: l.qty, gross: l.price * l.qty })),
+      ...(o.shippingPrice > 0 ? [{ name: shippingName, qty: 1, gross: o.shippingPrice }] : []),
+      ...((o.discount ?? 0) > 0 ? [{ name: discountName, qty: 1, gross: -(o.discount ?? 0) }] : []),
+    ]
+    const doc = netLines(parts)
+    rows.push({ id: o.id, orderId: o.id, no: record?.no, status: record?.status ?? 'pending', at: record?.issuedAt ?? o.placedAt, buyerName: o.taxBuyer.name, buyerTaxId: o.taxBuyer.id, buyerAddress: o.customer.address, ...doc, canIssue: saleState(o) === 'paid', sample: false })
+  }
+  const ranked = [...products].sort((a, b) => hash(`${a.id}:inv`) - hash(`${b.id}:inv`))
+  const plan: [string, number, number][] = [['@buyer1', 3, 2], ['@buyer2', 9, 1], ['@buyer3', 16, 3]]
+  plan.forEach(([buyer, days, qty], i) => {
+    const p = ranked[i]
+    if (!p) return
+    const doc = netLines([{ name: p.name, qty, gross: p.price * qty }])
+    rows.push({ id: `INV-SAMPLE-${i + 1}`, no: `INV-${new Date(now).getFullYear()}-090${i + 1}`, status: 'issued', at: shiftDays(days, now).toISOString(), buyerName: buyer, buyerTaxId: '0000000000000', ...doc, canIssue: false, sample: true })
+  })
+  return rows.sort((a, b) => b.at.localeCompare(a.at))
+}

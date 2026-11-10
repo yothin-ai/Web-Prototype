@@ -6,6 +6,8 @@ import { Overview } from './pages/Overview'
 import { OrderDetail } from './pages/OrderDetail'
 import { Adjustments } from './pages/Adjustments'
 import { CashBook } from './pages/CashBook'
+import { InvoiceView } from './pages/InvoiceView'
+import { Invoices } from './pages/Invoices'
 import { ProfitLoss } from './pages/ProfitLoss'
 import { VatReport } from './pages/VatReport'
 import { ac } from './accStrings'
@@ -51,7 +53,7 @@ export function BackOffice() {
             { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
             { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
             { title: t(b.groupReports), items: [item('/reports/valuation', t(b.navValuation), 'cash'), item('/reports/movements', t(b.navMovements), 'receipt')] },
-            { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank')] },
+            { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/invoices', t(ac.navInvoices), 'receipt'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank')] },
           ]}
         />
       }
@@ -59,7 +61,7 @@ export function BackOffice() {
       <Grid>
         <Col>
           <div className="stack">
-        <div className="row">
+        <div className="row no-print">
           <span className="muted row__grow">{t(b.owner)}</span>
           <Button to={`${base}/stock?level=alert${search ? `&${search.slice(1)}` : ''}`} variant="ghost" size="sm" icon="bell">
             <span className="visually-hidden">{t(b.alerts)}</span>
@@ -80,6 +82,8 @@ export function BackOffice() {
           <Route path="purchase-orders/:poId" element={<PurchaseOrderDetail />} />
           <Route path="suppliers" element={<Suppliers />} />
           <Route path="accounting/cash-book" element={<CashBook />} />
+          <Route path="accounting/invoices" element={<Invoices />} />
+          <Route path="accounting/invoices/:invoiceId" element={<InvoiceView />} />
           <Route path="accounting/vat" element={<VatReport />} />
           <Route path="accounting/profit" element={<ProfitLoss />} />
           <Route path="reports/valuation" element={<Valuation />} />

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDataset } from '../../datasets/DatasetContext'
 import type { Localized } from '../../i18n'
-import { buildBooks, seedSales, type Close, type Expense } from '../../accounting/accounting'
+import { buildBooks, buildInvoices, seedSales, type Close, type Expense, type InvoiceRecord } from '../../accounting/accounting'
 import { CENTRAL } from '../../stock/stock'
 import { useEffect } from 'react'
 import { samplePurchaseOrders, sampleTransfers, type PurchaseOrder, type Transfer } from '../../stock/stock'
@@ -131,4 +131,15 @@ export function useBooks() {
   const [purchases] = usePurchaseBook()
   const [expenses] = useExpenses()
   return useMemo(() => buildBooks(products, orders, purchases, expenses), [products, orders, purchases, expenses])
+}
+
+export const useInvoiceRecords = () => useDemoState<InvoiceRecord[]>(PROTOTYPE_ID, 'invoices', NO_INVOICES)
+const NO_INVOICES: InvoiceRecord[] = []
+
+// The tax invoices: those asked for at checkout, and three made-up past ones.
+export function useInvoices() {
+  const products = useDataset().dataset.ecommerce.products
+  const orders = useBackOrders()
+  const [records] = useInvoiceRecords()
+  return useMemo(() => buildInvoices(products, orders, records), [products, orders, records])
 }

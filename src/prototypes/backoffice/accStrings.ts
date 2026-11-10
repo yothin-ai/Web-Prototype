@@ -82,6 +82,47 @@ export const ac = {
   overviewRevenueNote: { th: 'ไม่รวม VAT', en: 'Without VAT' },
   overviewProfit: { th: 'กำไรสุทธิเดือนนี้', en: 'Net profit this month' },
   overviewProfitNote: { th: 'หลังต้นทุนและค่าใช้จ่าย', en: 'After goods and costs' },
+  // Tax invoices
+  invTitle: { th: 'ใบกำกับภาษี', en: 'Tax invoices' },
+  invText: { th: 'ใบกำกับภาษีของคำสั่งซื้อที่ลูกค้าขอไว้ตอนสั่งซื้อ ออกได้เมื่อได้รับเงินแล้ว เลขที่ใบกำกับภาษีให้ตอนออก เรียงต่อกันไม่ข้ามเลข', en: 'Tax invoices for orders where the shopper asked for one at checkout. You can issue one once the money has arrived. The number is given when it is issued, in order, with none skipped.' },
+  invPending: { th: 'เตรียมออก', en: 'To issue' },
+  invIssued: { th: 'ออกแล้ว', en: 'Issued' },
+  invCancelled: { th: 'ยกเลิก', en: 'Cancelled' },
+  invLabel: { th: 'รายการใบกำกับภาษี', en: 'Tax invoice list' },
+  invEmpty: { th: 'ไม่พบใบกำกับภาษี', en: 'No tax invoices found' },
+  invSearch: { th: 'ค้นหา', en: 'Search' },
+  invSearchHint: { th: 'เลขที่ ชื่อผู้ซื้อ หรือเลขที่คำสั่งซื้อ', en: 'Number, buyer or order' },
+  colInvNo: { th: 'เลขที่ใบกำกับภาษี', en: 'Invoice number' },
+  colBuyer: { th: 'ผู้ซื้อ', en: 'Buyer' },
+  colNet: { th: 'ก่อนภาษี', en: 'Before VAT' },
+  invIssue: { th: 'ออกใบกำกับภาษี', en: 'Issue the invoice' },
+  invCancelBtn: { th: 'ยกเลิกใบกำกับภาษี', en: 'Cancel the invoice' },
+  invOpen: { th: 'ดู', en: 'View' },
+  invPrint: { th: 'พิมพ์', en: 'Print' },
+  invWaitPay: { th: 'ออกได้เมื่อได้รับเงินแล้ว', en: 'Can be issued once paid' },
+  invEmailNote: { th: 'ออกแล้ว (จำลองการส่งอีเมลถึงผู้ซื้อ ไม่มีการส่งจริง)', en: 'Issued (the email to the buyer is only simulated; nothing is sent)' },
+  invSampleBanner: { th: 'ตัวอย่างเอกสารสำหรับเดโม ไม่ใช่ใบกำกับภาษีจริง', en: 'A sample document for the demo, not a real tax invoice' },
+  invHeading: { th: 'ใบกำกับภาษี / Tax invoice', en: 'Tax invoice' },
+  invSeller: { th: 'ผู้ขาย', en: 'Seller' },
+  invBuyer: { th: 'ผู้ซื้อ', en: 'Buyer' },
+  invTaxId: { th: 'เลขประจำตัวผู้เสียภาษี', en: 'Tax ID' },
+  invNo: { th: 'เลขที่', en: 'Number' },
+  invDate: { th: 'วันที่', en: 'Date' },
+  invItem: { th: 'รายการ', en: 'Item' },
+  invUnit: { th: 'ราคาต่อหน่วย (ก่อนภาษี)', en: 'Unit price (before VAT)' },
+  invAmount: { th: 'จำนวนเงิน', en: 'Amount' },
+  invSubtotal: { th: 'มูลค่าก่อนภาษี', en: 'Subtotal before VAT' },
+  invVat: { th: 'ภาษีมูลค่าเพิ่ม 7%', en: 'VAT 7%' },
+  invTotal: { th: 'รวมทั้งสิ้น', en: 'Total' },
+  invNotNumbered: { th: '(ยังไม่ได้ออกเลขที่)', en: '(not numbered yet)' },
+  sellerName: { th: 'บริษัท ตัวอย่าง จำกัด', en: 'Sample Co., Ltd.' },
+  sellerTaxId: { th: '0-0000-00000-00-0', en: '0-0000-00000-00-0' },
+  sellerBranch: { th: 'สำนักงานใหญ่', en: 'Head office' },
+  sellerAddress: { th: 'เลขที่ 123 ถนนตัวอย่าง กรุงเทพมหานคร 10000', en: '123 Sample Road, Bangkok 10000' },
+  buyer1: { th: 'บริษัท ลูกค้าตัวอย่าง หนึ่ง จำกัด', en: 'Sample Customer One Co., Ltd.' },
+  buyer2: { th: 'บริษัท ลูกค้าตัวอย่าง สอง จำกัด', en: 'Sample Customer Two Co., Ltd.' },
+  buyer3: { th: 'ห้างหุ้นส่วนตัวอย่าง สาม', en: 'Sample Customer Three Partnership' },
+  invBack: { th: 'ใบกำกับภาษี', en: 'Tax invoices' },
   // Expense form
   expAdd: { th: 'บันทึกค่าใช้จ่าย', en: 'Record an expense' },
   expEditTitle: { th: 'แก้ไขค่าใช้จ่าย', en: 'Edit the expense' },
@@ -111,3 +152,8 @@ export const kindLabel = (k: LedgerKind) => ({ sale: ac.kindSale, daily: ac.kind
 const samplePayees: Record<string, Localized> = { '@courier': ac.payCourier, '@ads': ac.payAds, '@landlord': ac.payLandlord, '@utility': ac.payUtility, '@payments': ac.payPayments, '@shop': ac.payShop }
 // A sample expense stores a marker for its payee so it reads in either language; one the visitor typed is shown as typed.
 export const payeeText = (payee: string | undefined, t: (x: Localized) => string) => (payee?.startsWith('@') ? t(samplePayees[payee] ?? {}) : (payee ?? ''))
+
+const sampleBuyers: Record<string, Localized> = { '@buyer1': ac.buyer1, '@buyer2': ac.buyer2, '@buyer3': ac.buyer3 }
+export const buyerText = (name: string, t: (x: Localized) => string) => (name.startsWith('@') ? t(sampleBuyers[name] ?? {}) : name)
+export const invoiceStatusLabel = (s: 'pending' | 'issued' | 'cancelled') => ({ pending: ac.invPending, issued: ac.invIssued, cancelled: ac.invCancelled })[s]
+export const invoiceStatusTone = (s: 'pending' | 'issued' | 'cancelled') => ({ pending: 'warning', issued: 'success', cancelled: 'danger' })[s] as 'warning' | 'success' | 'danger'
