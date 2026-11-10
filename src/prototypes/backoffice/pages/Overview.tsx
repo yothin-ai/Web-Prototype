@@ -41,7 +41,9 @@ export function Overview() {
               <div className="row">
                 <Button to={`${base}/orders${search}`} variant="secondary" icon="orders">{t(b.quickOrders)}</Button>
                 <Button to={`${base}/receive${search}`} variant="secondary" icon="plus">{t(b.quickReceive)}</Button>
-                <Button to={`${base}/stock${search}`} variant="secondary" icon="edit">{t(b.quickAdjust)}</Button>
+                <Button to={`${base}/adjustments${search}`} variant="secondary" icon="edit">{t(b.quickAdjust)}</Button>
+                <Button to={`${base}/purchase-orders/new${search}`} variant="secondary" icon="receipt">{t(b.poNew)}</Button>
+                <Button to={`${base}/transfers${search}`} variant="secondary" icon="truck">{t(b.trfNew)}</Button>
               </div>
             </div>
           </Card>

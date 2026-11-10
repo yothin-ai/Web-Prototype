@@ -20,6 +20,15 @@ export type HistoryEntry = { id: string; at: string; productId: string; loc: str
 export type TransferStatus = 'pending' | 'transit' | 'done' | 'cancelled'
 export type Transfer = { id: string; at: string; productId: string; qty: number; from: string; to: string; status: TransferStatus; outAt?: string; inAt?: string; note?: string; sample?: boolean }
 
+// A purchase from a supplier. Goods reach `loc` when it is received (`receivedAt`); the made-up past ones carry no date,
+// because their stock is already in the starting figures.
+export type PurchaseStatus = 'draft' | 'ordered' | 'received' | 'cancelled'
+export type PurchaseOrder = { id: string; at: string; supplierId: string; loc: string; lines: { productId: string; qty: number }[]; status: PurchaseStatus; expectedAt?: string; receivedAt?: string; note?: string; sample?: boolean }
+
+// A made-up cost price, between 55% and 75% of the selling price, the same every time for a product.
+export const costOf = (p: Product) => Math.round(p.price * (0.55 + (hash(`${p.id}:c`) % 21) / 100))
+export const purchaseTotal = (po: PurchaseOrder, products: Product[]) => po.lines.reduce((n, l) => n + l.qty * costOf(products.find((p) => p.id === l.productId) ?? ({ id: l.productId, price: 0 } as Product)), 0)
+
 export type Cell = { onHand: number; reserved: number; available: number }
 export type StockStatus = 'out' | 'low' | 'ok'
 
@@ -69,7 +78,7 @@ export type StockBook = {
   status: (productId: string) => StockStatus
 }
 
-export function buildStock(products: Product[], orders: Order[], movements: Movement[], transfers: Transfer[] = []): StockBook {
+export function buildStock(products: Product[], orders: Order[], movements: Movement[], transfers: Transfer[] = [], purchases: PurchaseOrder[] = []): StockBook {
   const flags = flagsFor(products)
   const book = new Map<string, Map<string, { onHand: number; reserved: number }>>()
   for (const p of products) {
@@ -80,6 +89,13 @@ export function buildStock(products: Product[], orders: Order[], movements: Move
   for (const m of movements) {
     const place = book.get(m.productId)?.get(m.loc)
     if (place) place.onHand += m.qty
+  }
+  for (const po of purchases) {
+    if (!po.receivedAt) continue
+    for (const l of po.lines) {
+      const place = book.get(l.productId)?.get(po.loc)
+      if (place) place.onHand += l.qty
+    }
   }
   for (const tr of transfers) {
     if (tr.outAt) {
@@ -129,7 +145,7 @@ const dayAt = (daysAgo: number, now: number) => {
 }
 
 // What happened to one product, newest first. The two made-up past lines (a receipt and a sale) are marked as samples.
-export function historyOf(productId: string, orders: Order[], movements: Movement[], transfers: Transfer[] = [], now = Date.now()): HistoryEntry[] {
+export function historyOf(productId: string, orders: Order[], movements: Movement[], transfers: Transfer[] = [], purchases: PurchaseOrder[] = [], now = Date.now()): HistoryEntry[] {
   const h = hash(productId)
   const rows: HistoryEntry[] = [
     { id: `seed-in-${productId}`, at: dayAt(6 + (h % 20), now), productId, loc: CENTRAL, kind: 'in', qty: 20 + (h % 40), supplierId: supplierIds[h % supplierIds.length], sample: true },
@@ -140,6 +156,10 @@ export function historyOf(productId: string, orders: Order[], movements: Movemen
     if (orderEffect(o) !== 'cut') continue
     const line = o.lines.find((l) => l.productId === productId)
     if (line) rows.push({ id: `order-${o.id}`, at: o.packedAt ?? o.placedAt, productId, loc: orderLocation(o), kind: 'order', qty: -line.qty, ref: o.id })
+  }
+  for (const po of purchases) {
+    const line = po.lines.find((l) => l.productId === productId)
+    if (line && po.receivedAt) rows.push({ id: `po-${po.id}`, at: po.receivedAt, productId, loc: po.loc, kind: 'in', qty: line.qty, ref: po.id, supplierId: po.supplierId })
   }
   for (const tr of transfers) {
     if (tr.productId !== productId) continue
@@ -169,4 +189,28 @@ export function sampleTransfers(products: Product[], now = Date.now()): Transfer
   return plan.flatMap(([status, qty, from, to, days], i) =>
     ranked[i] ? [{ id: `TRF-090${i + 1}`, at: dayAt(days, now), productId: ranked[i].id, qty, from, to, status, sample: true }] : [],
   )
+}
+
+// Five made-up purchase orders: two received, one placed and waiting, one draft and one cancelled.
+export function samplePurchaseOrders(products: Product[], now = Date.now()): PurchaseOrder[] {
+  const flags = flagsFor(products)
+  const ranked = [...products].filter((p) => !flags.has(p.id)).sort((a, b) => hash(`${a.id}:po`) - hash(`${b.id}:po`))
+  const at = (i: number) => ranked[i % Math.max(1, ranked.length)]?.id ?? ''
+  const plan: { status: PurchaseStatus; supplierId: string; days: number; lines: [number, number][] }[] = [
+    { status: 'received', supplierId: 's1', days: 18, lines: [[0, 40], [1, 24]] },
+    { status: 'received', supplierId: 's2', days: 11, lines: [[2, 30]] },
+    { status: 'ordered', supplierId: 's3', days: 4, lines: [[3, 50], [4, 20]] },
+    { status: 'draft', supplierId: 's4', days: 1, lines: [[5, 36]] },
+    { status: 'cancelled', supplierId: 's1', days: 7, lines: [[6, 15]] },
+  ]
+  return plan.filter(() => ranked.length > 0).map((x, i) => ({
+    id: `PO-090${i + 1}`,
+    at: dayAt(x.days, now),
+    supplierId: x.supplierId,
+    loc: CENTRAL,
+    lines: x.lines.map(([k, qty]) => ({ productId: at(k), qty })),
+    status: x.status,
+    expectedAt: dayAt(x.days - 6, now),
+    sample: true,
+  }))
 }

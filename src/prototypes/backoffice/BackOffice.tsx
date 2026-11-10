@@ -5,7 +5,11 @@ import { PROTOTYPE_ID, useCounts, useSearch } from './data'
 import { Overview } from './pages/Overview'
 import { OrderDetail } from './pages/OrderDetail'
 import { Adjustments } from './pages/Adjustments'
+import { NewPurchaseOrder } from './pages/NewPurchaseOrder'
 import { Orders } from './pages/Orders'
+import { PurchaseOrderDetail } from './pages/PurchaseOrderDetail'
+import { PurchaseOrders } from './pages/PurchaseOrders'
+import { Suppliers } from './pages/Suppliers'
 import { Transfers } from './pages/Transfers'
 import { Receive } from './pages/Receive'
 import { StockDetail } from './pages/StockDetail'
@@ -20,7 +24,7 @@ export function BackOffice() {
   const base = `/${PROTOTYPE_ID}`
   const counts = useCounts()
   const here = pathname.replace(base, '') || '/'
-  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck', badge?: number) => ({
+  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store', badge?: number) => ({
     to: `${base}${to}${search}`,
     label,
     icon,
@@ -39,6 +43,7 @@ export function BackOffice() {
             { title: t(b.groupOverview), items: [item('/', t(b.navOverview), 'home')] },
             { title: t(b.groupOrders), items: [item('/orders', t(b.navOrders), 'orders', counts.toPack)] },
             { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
+            { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
           ]}
         />
       }
@@ -62,6 +67,10 @@ export function BackOffice() {
           <Route path="stock/:productId" element={<StockDetail />} />
           <Route path="adjustments" element={<Adjustments />} />
           <Route path="transfers" element={<Transfers />} />
+          <Route path="purchase-orders" element={<PurchaseOrders />} />
+          <Route path="purchase-orders/new" element={<NewPurchaseOrder />} />
+          <Route path="purchase-orders/:poId" element={<PurchaseOrderDetail />} />
+          <Route path="suppliers" element={<Suppliers />} />
           <Route path="receive" element={<Receive />} />
           <Route path="*" element={<Navigate to={`${base}${search}`} replace />} />
         </Routes>

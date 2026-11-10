@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { historyOf, locationIds, reorderPoint, type HistoryEntry } from '../../../stock/stock'
-import { useMovements, useStock, useTransfers } from '../../../stock/useStock'
+import { useMovements, usePurchases, useStock, useTransfers } from '../../../stock/useStock'
 import { Badge, Breadcrumb, Button, Card, Col, DataRow, DataTable, Grid, Notice, type DataColumn } from '../../../ui'
 import { formatDate, formatMoney, skuOf } from '../../ecommerce/cart'
 import { AdjustModal, reasonLabel } from '../AdjustModal'
@@ -23,6 +23,7 @@ export function StockDetail() {
   const orders = useBackOrders()
   const [movements] = useMovements()
   const [transfers] = useTransfers()
+  const [purchases] = usePurchases()
   const [adjusting, setAdjusting] = useState(false)
   const [saved, setSaved] = useState(false)
   if (!product) {
@@ -38,7 +39,7 @@ export function StockDetail() {
   const total = book.total(product.id)
   const status = book.status(product.id)
   const places = locationIds.map((id) => ({ id, ...book.cell(product.id, id) }))
-  const history = historyOf(product.id, orders, movements, transfers)
+  const history = historyOf(product.id, orders, movements, transfers, purchases)
   const placeColumns: DataColumn<(typeof places)[number]>[] = [
     { key: 'place', header: t(b.place), render: (p) => t(locationName(p.id)) },
     { key: 'onhand', header: t(b.colOnHand), end: true, render: (p) => p.onHand },

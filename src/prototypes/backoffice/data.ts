@@ -5,8 +5,8 @@ import type { Product } from '../../datasets/types'
 import type { Localized } from '../../i18n'
 import { CENTRAL } from '../../stock/stock'
 import { useEffect } from 'react'
-import { sampleTransfers, type Transfer } from '../../stock/stock'
-import { useStock, useTransfers } from '../../stock/useStock'
+import { samplePurchaseOrders, sampleTransfers, type PurchaseOrder, type Transfer } from '../../stock/stock'
+import { usePurchases, useStock, useTransfers } from '../../stock/useStock'
 import { readDemoState, useDemoState } from '../../state/demoState'
 import { branchById } from '../ecommerce/branches'
 import { useOrders, type Order } from '../ecommerce/cart'
@@ -69,6 +69,7 @@ export function useSearch() {
   const params = new URLSearchParams(search)
   params.delete('product')
   params.delete('level')
+  params.delete('supplier')
   const rest = params.toString()
   return rest ? `?${rest}` : ''
 }
@@ -111,4 +112,19 @@ export function useTransferBook(): [Transfer[], (next: Transfer[]) => void] {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seeded])
   return [[...transfers].sort((a, c) => c.at.localeCompare(a.at)), setTransfers]
+}
+
+// The purchase orders, newest first, filled with the made-up ones the first time.
+export function usePurchaseBook(): [PurchaseOrder[], (next: PurchaseOrder[]) => void] {
+  const products = useDataset().dataset.ecommerce.products
+  const [purchases, setPurchases] = usePurchases()
+  const [seeded, setSeeded] = useDemoState<boolean>(PROTOTYPE_ID, 'purchasesSeeded', false)
+  useEffect(() => {
+    if (seeded || readDemoState<boolean>(PROTOTYPE_ID, 'purchasesSeeded', false)) return
+    setSeeded(true)
+    if (readDemoState<PurchaseOrder[]>(PROTOTYPE_ID, 'purchases', []).length > 0) return
+    setPurchases(samplePurchaseOrders(products))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seeded])
+  return [[...purchases].sort((a, c) => c.at.localeCompare(a.at)), setPurchases]
 }
