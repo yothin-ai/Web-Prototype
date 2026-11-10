@@ -48,6 +48,23 @@ export const ac = {
   payShop: { th: 'ร้านตัวอย่าง', en: 'Sample shop' },
   exportCsv: { th: 'ส่งออก CSV', en: 'Export CSV' },
 
+  // VAT
+  vatTitle: { th: 'ภาษีมูลค่าเพิ่ม', en: 'Value added tax' },
+  vatText: { th: 'ภาษีขายจากยอดที่ได้รับเงิน หักภาษีซื้อจากการซื้อสินค้าและค่าใช้จ่ายที่มี VAT ได้ภาษีที่ต้องชำระหรือเครดิตของเดือน', en: 'Output VAT on the money received, less input VAT on purchases and costs that carry VAT, gives the tax to pay or the credit for the month.' },
+  vatRateNote: { th: 'ใช้อัตรา 7% ซึ่งรัฐบาลขยายเวลาไว้ถึง 30 กันยายน 2570 ตัวเลขนี้ใช้เตรียมข้อมูลเท่านั้น ไม่ใช่การยื่นภาษี', en: 'Uses the 7% rate that the government has extended to 30 September 2027. The figures help prepare data only; this is not a tax filing.' },
+  vatOutput: { th: 'ภาษีขาย', en: 'Output VAT' },
+  vatInput: { th: 'ภาษีซื้อ', en: 'Input VAT' },
+  vatPayable: { th: 'ภาษีที่ต้องชำระ', en: 'VAT to pay' },
+  vatCredit: { th: 'ภาษีที่เป็นเครดิต', en: 'VAT credit' },
+  vatNetSales: { th: 'ยอดขายก่อนภาษี', en: 'Sales before VAT' },
+  vatSummary: { th: 'สรุปประจำเดือน', en: 'Month summary' },
+  vatOutputList: { th: 'รายการภาษีขาย', en: 'Output VAT entries' },
+  vatInputList: { th: 'รายการภาษีซื้อ', en: 'Input VAT entries' },
+  vatOutputLabel: { th: 'ตารางภาษีขาย', en: 'Output VAT table' },
+  vatInputLabel: { th: 'ตารางภาษีซื้อ', en: 'Input VAT table' },
+  vatBase: { th: 'ฐานภาษี', en: 'Base' },
+  vatNoRows: { th: 'ไม่มีรายการในเดือนนี้', en: 'No entries this month' },
+  vatSource: { th: 'ที่มา', en: 'Source' },
   // Expense form
   expAdd: { th: 'บันทึกค่าใช้จ่าย', en: 'Record an expense' },
   expEditTitle: { th: 'แก้ไขค่าใช้จ่าย', en: 'Edit the expense' },
