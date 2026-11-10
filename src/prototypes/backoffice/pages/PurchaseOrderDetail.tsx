@@ -6,13 +6,15 @@ import { costOf, purchaseTotal, receivedQtyOf, remainingQtyOf, type PurchaseOrde
 import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Modal, Notice, type DataColumn } from '../../../ui'
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { locationName, PROTOTYPE_ID, usePurchaseBook, useSearch } from '../data'
-import { b, supplierNames } from '../strings'
+import { b } from '../strings'
+import { useSuppliers } from '../suppliers'
 import { poStatusLabel, poStatusTone } from './PurchaseOrders'
 
 type Line = PurchaseOrder['lines'][number]
 
 export function PurchaseOrderDetail() {
   const { t, lang } = useLang()
+  const { nameOf } = useSuppliers()
   const search = useSearch()
   const { poId = '' } = useParams()
   const base = `/${PROTOTYPE_ID}`
@@ -82,7 +84,7 @@ export function PurchaseOrderDetail() {
           </div>
           <Card>
             <div className="stack">
-              <DataRow label={t(b.colSupplier)} value={t(supplierNames[po.supplierId])} />
+              <DataRow label={t(b.colSupplier)} value={t(nameOf(po.supplierId))} />
               <DataRow label={t(b.colOrdered)} value={date(po.at)} />
               <DataRow label={t(b.colExpected)} value={date(po.expectedAt)} />
               <DataRow label={t(b.poPlace)} value={t(locationName(po.loc))} />

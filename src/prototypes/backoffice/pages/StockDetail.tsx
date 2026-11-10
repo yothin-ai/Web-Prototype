@@ -8,13 +8,15 @@ import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Gri
 import { formatDate, formatMoney, skuOf } from '../../ecommerce/cart'
 import { AdjustModal, reasonLabel } from '../AdjustModal'
 import { locationName, PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
-import { b, supplierNames } from '../strings'
+import { b } from '../strings'
+import { useSuppliers } from '../suppliers'
 import { levelLabel } from './StockList'
 
 const typeLabel = (k: HistoryEntry['kind']) => ({ in: b.typeIn, adjust: b.typeAdjust, sale: b.typeSale, order: b.typeOrder, transferOut: b.typeTransferOut, transferIn: b.typeTransferIn })[k]
 
 export function StockDetail() {
   const { t, lang } = useLang()
+  const { nameOf: supplierName } = useSuppliers()
   const search = useSearch()
   const { productId = '' } = useParams()
   const base = `/${PROTOTYPE_ID}`
@@ -51,7 +53,7 @@ export function StockDetail() {
     { key: 'type', header: t(b.colType), render: (h) => <span className="row"><Badge tone={h.qty > 0 ? 'success' : undefined}>{t(typeLabel(h.kind))}</Badge>{h.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
     { key: 'place', header: t(b.place), render: (h) => t(locationName(h.loc)) },
     { key: 'qty', header: t(b.colQtyChange), end: true, render: (h) => <strong>{h.qty > 0 ? `+${h.qty}` : h.qty}</strong> },
-    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={(h.ref.startsWith('TRF-') ? `${base}/transfers/${h.ref}${search}` : `${base}/${h.ref.startsWith('PO-') ? 'purchase-orders' : 'orders'}/${h.ref}${search}`)}>{h.ref}</Link> : h.supplierId ? t(supplierNames[h.supplierId]) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-')) },
+    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={(h.ref.startsWith('TRF-') ? `${base}/transfers/${h.ref}${search}` : `${base}/${h.ref.startsWith('PO-') ? 'purchase-orders' : 'orders'}/${h.ref}${search}`)}>{h.ref}</Link> : h.supplierId ? t(supplierName(h.supplierId)) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-')) },
   ]
   return (
     <Grid>

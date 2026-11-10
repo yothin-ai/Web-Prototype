@@ -10,7 +10,8 @@ import { reasonLabel } from '../AdjustModal'
 import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
-import { b, supplierNames } from '../strings'
+import { b } from '../strings'
+import { useSuppliers } from '../suppliers'
 
 const kinds: HistoryEntry['kind'][] = ['in', 'order', 'sale', 'adjust', 'transferOut', 'transferIn']
 const kindLabel = (k: HistoryEntry['kind']) => ({ in: b.typeIn, adjust: b.typeAdjust, sale: b.typeSale, order: b.typeOrder, transferOut: b.typeTransferOut, transferIn: b.typeTransferIn })[k]
@@ -18,6 +19,7 @@ const isoDay = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padSt
 
 export function Movements() {
   const { t, lang } = useLang()
+  const { nameOf: supplierName } = useSuppliers()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const products = useProducts().all
@@ -36,7 +38,7 @@ export function Movements() {
   const end = new Date(`${to}T23:59:59`).getTime()
   const rows = all.filter((h) => { const at = new Date(h.at).getTime(); return at >= start && at <= end && (!kind || h.kind === kind) }).sort((a, c) => c.at.localeCompare(a.at))
   const nameOf = (id: string) => t(products.find((p) => p.id === id)?.name ?? {})
-  const refText = (h: HistoryEntry) => h.ref ?? (h.supplierId ? t(supplierNames[h.supplierId]) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-'))
+  const refText = (h: HistoryEntry) => h.ref ?? (h.supplierId ? t(supplierName(h.supplierId)) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-'))
   const columns: DataColumn<HistoryEntry>[] = [
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.at.localeCompare(y.at), render: (h) => formatDate(h.at, lang) },
     { key: 'product', wrap: true, header: t(b.colProduct), render: (h) => <Link to={`${base}/stock/${h.productId}${search}`}>{nameOf(h.productId)}</Link> },

@@ -2,16 +2,18 @@ import { useState } from 'react'
 import { useProducts } from '../../../products/useProducts'
 import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { locationIds, supplierIds, type Movement } from '../../../stock/stock'
+import { locationIds, type Movement } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
 import { Button, Card, CardGrid, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
 import { formatDate, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
-import { b, supplierNames } from '../strings'
+import { b } from '../strings'
+import { useSuppliers } from '../suppliers'
 
 export function Receive() {
   const { t, lang } = useLang()
+  const { active, nameOf: supplierName } = useSuppliers()
   const { search: rawSearch } = useLocation()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
@@ -39,7 +41,7 @@ export function Receive() {
   const columns: DataColumn<Movement>[] = [
     { key: 'date', header: t(b.colDate), render: (m) => formatDate(m.at, lang) },
     { key: 'product', wrap: true, header: t(b.colProduct), render: (m) => <Link to={`${base}/stock/${m.productId}${search}`}>{t(nameOf(m.productId))}</Link> },
-    { key: 'supplier', wrap: true, header: t(b.supplier), render: (m) => (m.supplierId ? t(supplierNames[m.supplierId]) : '-') },
+    { key: 'supplier', wrap: true, header: t(b.supplier), render: (m) => (m.supplierId ? t(supplierName(m.supplierId)) : '-') },
     { key: 'place', header: t(b.place), render: (m) => t(locationName(m.loc)) },
     { key: 'qty', header: t(b.colQtyChange), end: true, render: (m) => <strong>+{m.qty}</strong> },
   ]
@@ -58,7 +60,7 @@ export function Receive() {
                 </Notice>
               )}
               <Select label={t(b.product)} id="rc-product" value={productId} placeholder={t(b.pickProduct)} onChange={(e) => setProductId(e.target.value)} hint={tried && !productId ? t(b.errProduct) : undefined} options={products.map((p) => ({ value: p.id, label: `${t(p.name)} (${skuOf(p)})` }))} />
-              <Select label={t(b.supplier)} id="rc-supplier" value={supplierId} placeholder={t(b.pickSupplier)} onChange={(e) => setSupplierId(e.target.value)} hint={tried && !supplierId ? t(b.errSupplier) : undefined} options={supplierIds.map((id) => ({ value: id, label: t(supplierNames[id]) }))} />
+              <Select label={t(b.supplier)} id="rc-supplier" value={supplierId} placeholder={t(b.pickSupplier)} onChange={(e) => setSupplierId(e.target.value)} hint={tried && !supplierId ? t(b.errSupplier) : undefined} options={active.map((s) => ({ value: s.id, label: t(s.name) }))} />
               <Select label={t(b.receiveTo)} id="rc-place" value={loc} onChange={(e) => setLoc(e.target.value)} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
               <Field label={t(b.quantity)} id="rc-qty" type="number" min={1} inputMode="numeric" value={qty} onChange={(e) => setQty(e.target.value)} hint={tried && !qtyOk ? t(b.errQty) : undefined} />
               <div><Button onClick={save}>{t(b.saveReceipt)}</Button></div>

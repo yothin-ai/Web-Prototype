@@ -21,6 +21,7 @@ import { pr } from './productStrings'
 import { Valuation } from './pages/Valuation'
 import { PurchaseOrderDetail } from './pages/PurchaseOrderDetail'
 import { PurchaseOrders } from './pages/PurchaseOrders'
+import { SupplierForm } from './pages/SupplierForm'
 import { Suppliers } from './pages/Suppliers'
 import { TransferDetail } from './pages/TransferDetail'
 import { Transfers } from './pages/Transfers'
@@ -92,6 +93,8 @@ export function BackOffice() {
           <Route path="purchase-orders/:poId/edit" element={<EditPurchaseOrder />} />
           <Route path="purchase-orders/:poId" element={<PurchaseOrderDetail />} />
           <Route path="suppliers" element={<Suppliers />} />
+          <Route path="suppliers/new" element={<SupplierForm />} />
+          <Route path="suppliers/:supplierId/edit" element={<SupplierForm />} />
           <Route path="accounting/cash-book" element={<CashBook />} />
           <Route path="accounting/invoices" element={<Invoices />} />
           <Route path="accounting/invoices/:invoiceId" element={<InvoiceView />} />

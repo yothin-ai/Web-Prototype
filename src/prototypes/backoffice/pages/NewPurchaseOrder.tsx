@@ -7,7 +7,7 @@ import { Breadcrumb, Button, Card, CardGrid, Col, DataRow, Field, Grid, Select }
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, usePurchaseBook, useSearch } from '../data'
-import { suppliers } from '../suppliers'
+import { useSuppliers } from '../suppliers'
 import { b } from '../strings'
 
 type Draft = { productId: string; qty: string }
@@ -30,6 +30,7 @@ export function EditPurchaseOrder() {
 
 function PurchaseOrderForm({ existing }: { existing?: PurchaseOrder }) {
   const { t, lang } = useLang()
+  const { all } = useSuppliers()
   const search = useSearch()
   const navigate = useNavigate()
   const base = `/${PROTOTYPE_ID}`
@@ -70,7 +71,7 @@ function PurchaseOrderForm({ existing }: { existing?: PurchaseOrder }) {
         <CardGrid size="large">
           <Card>
             <div className="stack">
-              <Select label={t(b.colSupplier)} id="po-supplier" value={supplierId} placeholder={t(b.pickSupplier)} onChange={(e) => setSupplierId(e.target.value)} hint={tried && !supplierId ? t(b.poErrSupplier) : undefined} options={suppliers.map((s) => ({ value: s.id, label: t(s.name) }))} />
+              <Select label={t(b.colSupplier)} id="po-supplier" value={supplierId} placeholder={t(b.pickSupplier)} onChange={(e) => setSupplierId(e.target.value)} hint={tried && !supplierId ? t(b.poErrSupplier) : undefined} options={all.filter((s) => !s.inactive || s.id === existing?.supplierId).map((s) => ({ value: s.id, label: t(s.name) }))} />
               <h3>{t(b.poLines)}</h3>
               {lines.map((l, i) => (
                 <div key={i} className="stack">
