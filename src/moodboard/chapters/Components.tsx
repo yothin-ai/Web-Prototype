@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  BarChart, DataTable, AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  BarChart, DataTable, SideNav, SideNavLayout, AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -113,6 +113,8 @@ export function Components() {
           <Badge>{t(text.ready)}</Badge>
           <Badge tone="success">{t(text.success)}</Badge>
           <Badge tone="warning">{t(text.warning)}</Badge>
+          <Badge tone="danger">{t(text.danger)}</Badge>
+          <Badge tone="info">{t(text.info)}</Badge>
         </div>
       </Block>
 
@@ -713,6 +715,23 @@ export function Components() {
         <Card>
           <BarChart label={t(text.c441Label)} items={[{ label: 'M', value: 1200, text: '1.2K' }, { label: 'T', value: 1800, text: '1.8K' }, { label: 'W', value: 900, text: '900' }, { label: 'T', value: 1500, text: '1.5K' }, { label: 'F', value: 2100, text: '2.1K' }]} />
         </Card>
+      </Block>
+      <Block number="4.42" title={t(text.c442)} note={t(text.c442Note)}>
+        <SideNavLayout
+          menu={
+            <SideNav
+              label={t(text.c442Menu)}
+              menuLabel={t(text.c442Menu)}
+              brand={<Logo name={t(text.brandName)} tone="on-dark" />}
+              groups={[
+                { title: t(text.c442Group1), items: [{ to: '/moodboard', label: t(text.c442Item1), icon: 'home', active: true }] },
+                { title: t(text.c442Group2), items: [{ to: '/moodboard', label: t(text.c442Item2), icon: 'package', active: false, badge: '5' }, { to: '/moodboard', label: t(text.c442Item3), icon: 'truck', active: false }] },
+              ]}
+            />
+          }
+        >
+          <Card><p className="muted">{t(text.c442Page)}</p></Card>
+        </SideNavLayout>
       </Block>
     </Chapter>
   )

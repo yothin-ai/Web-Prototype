@@ -42,7 +42,7 @@ export function Card({ to, newTab, newTabLabel, children }: { to?: string; newTa
   return <div className="card">{children}</div>
 }
 
-export function Badge({ tone, children }: { tone?: 'success' | 'warning'; children: ReactNode }) {
+export function Badge({ tone, children }: { tone?: 'success' | 'warning' | 'danger' | 'info'; children: ReactNode }) {
   return <span className={`badge${tone ? ` badge--${tone}` : ''}`}>{children}</span>
 }
 
@@ -252,3 +252,4 @@ export * from './coupon'
 export * from './rating'
 export * from './landing'
 export * from './backoffice'
+export * from './sidenav'

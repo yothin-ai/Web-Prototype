@@ -17,6 +17,7 @@ export const tokens = {
     success: '#1f8a5b',
     warning: '#9a6212',
     danger: '#c2392f',
+    info: '#2a62b4',
   },
   font: {
     family: "'Inter Variable', 'Noto Sans Thai', system-ui, sans-serif",
@@ -95,6 +96,7 @@ export const colorUsage: Record<ColorToken, { th: string; en: string }> = {
   success: { th: 'สำเร็จ', en: 'Success' },
   warning: { th: 'คำเตือน', en: 'Warning' },
   danger: { th: 'ข้อผิดพลาดและการกระทำที่ลบหรือล้าง', en: 'Errors and destructive actions' },
+  info: { th: 'ข้อมูลและงานที่กำลังดำเนินการ', en: 'Information and work in progress' },
 }
 
 type Text = { th: string; en: string }

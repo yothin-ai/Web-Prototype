@@ -84,7 +84,7 @@ export function Colors() {
         </div>
       </Block>
       <Block number="1.2" title={t(text.c12)} note={t(text.c12Note)}>
-        <Group names={['success', 'warning', 'danger']} />
+        <Group names={['success', 'warning', 'danger', 'info']} />
       </Block>
       <Block number="1.3" title={t(text.c13)} note={t(text.c13Note)}>
         <Group names={['bg', 'surface', 'surfaceAlt', 'border', 'text', 'textMuted']} />

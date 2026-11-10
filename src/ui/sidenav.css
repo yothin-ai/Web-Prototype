@@ -1,0 +1,15 @@
+/* Back office menu: SideNav and its layout. What changes with the screen width is set in src/tokens/inject.ts. */
+
+.side-nav { background: var(--color-ink); color: var(--color-bg); }
+.side-nav__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+.side-nav__brand { min-width: 0; }
+.side-nav__toggle { place-items: center; width: var(--space-7); height: var(--space-7); border: 0; border-radius: var(--radius-pill); background: transparent; color: inherit; cursor: pointer; }
+.side-nav__panel { flex-direction: column; gap: var(--space-4); padding: var(--space-2) var(--space-3) var(--space-5); }
+.side-nav__group { display: flex; flex-direction: column; gap: var(--space-1); }
+.side-nav__title { padding: var(--space-1) var(--space-3); color: color-mix(in srgb, var(--color-bg) 60%, transparent); font-size: var(--font-size-xs); }
+.side-nav__link { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); color: inherit; font-size: var(--font-size-sm); text-decoration: none; }
+.side-nav__link:hover { background: color-mix(in srgb, var(--color-bg) 12%, transparent); }
+.side-nav__link[aria-current='page'] { background: var(--color-accent); color: var(--color-accent-text); font-weight: var(--font-weight-bold); }
+.side-nav__label { flex: 1; min-width: 0; }
+.side-nav__badge { padding: 0 var(--space-2); border-radius: var(--radius-pill); background: var(--color-danger); color: var(--color-accent-text); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); }
+.side-nav-layout__main { padding-block: var(--space-4); }
