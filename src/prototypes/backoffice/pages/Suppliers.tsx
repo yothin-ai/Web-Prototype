@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
-import { purchaseTotal } from '../../../stock/stock'
+import { remainingValue } from '../../../stock/stock'
 import { Button, Card, Col, DataRow, Field, Grid, IconCircle } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
@@ -26,8 +26,8 @@ export function Suppliers() {
       <Col><Field label={t(b.supplierSearch)} id="sup-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       {shown.length === 0 && <Col><p className="muted">{t(b.supNone)}</p></Col>}
       {shown.map((s) => {
-        const open = purchases.filter((po) => po.supplierId === s.id && po.status === 'ordered')
-        const value = open.reduce((n, po) => n + purchaseTotal(po, products), 0)
+        const open = purchases.filter((po) => po.supplierId === s.id && po.status === 'ordered' || po.status === 'partial')
+        const value = open.reduce((n, po) => n + remainingValue(po, products), 0)
         return (
           <Col key={s.id} span={{ base: 4, sm: 4, md: 4 }}>
             <Card>

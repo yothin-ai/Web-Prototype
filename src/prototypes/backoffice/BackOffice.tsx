@@ -12,7 +12,7 @@ import { Invoices } from './pages/Invoices'
 import { ProfitLoss } from './pages/ProfitLoss'
 import { VatReport } from './pages/VatReport'
 import { ac } from './accStrings'
-import { NewPurchaseOrder } from './pages/NewPurchaseOrder'
+import { EditPurchaseOrder, NewPurchaseOrder } from './pages/NewPurchaseOrder'
 import { Movements } from './pages/Movements'
 import { Orders } from './pages/Orders'
 import { Valuation } from './pages/Valuation'
@@ -80,6 +80,7 @@ export function BackOffice() {
           <Route path="transfers" element={<Transfers />} />
           <Route path="purchase-orders" element={<PurchaseOrders />} />
           <Route path="purchase-orders/new" element={<NewPurchaseOrder />} />
+          <Route path="purchase-orders/:poId/edit" element={<EditPurchaseOrder />} />
           <Route path="purchase-orders/:poId" element={<PurchaseOrderDetail />} />
           <Route path="suppliers" element={<Suppliers />} />
           <Route path="accounting/cash-book" element={<CashBook />} />

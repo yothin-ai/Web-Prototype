@@ -20,14 +20,25 @@ export type HistoryEntry = { id: string; at: string; productId: string; loc: str
 export type TransferStatus = 'pending' | 'transit' | 'done' | 'cancelled'
 export type Transfer = { id: string; at: string; productId: string; qty: number; from: string; to: string; status: TransferStatus; outAt?: string; inAt?: string; note?: string; sample?: boolean }
 
-// A purchase from a supplier. Goods reach `loc` when it is received (`receivedAt`); the made-up past ones carry no date,
-// because their stock is already in the starting figures.
-export type PurchaseStatus = 'draft' | 'ordered' | 'received' | 'cancelled'
-export type PurchaseOrder = { id: string; at: string; supplierId: string; loc: string; lines: { productId: string; qty: number }[]; status: PurchaseStatus; expectedAt?: string; receivedAt?: string; note?: string; sample?: boolean }
+// A purchase from a supplier. Goods reach `loc` as they are received, in one receipt or several. An order made before receipts
+// existed carries only `receivedAt` and counts as received in full. The made-up past ones carry neither, because their stock is
+// already in the starting figures.
+export type PurchaseStatus = 'draft' | 'ordered' | 'partial' | 'received' | 'cancelled'
+export type PurchaseReceipt = { at: string; lines: { productId: string; qty: number }[] }
+export type PurchaseOrder = { id: string; at: string; supplierId: string; loc: string; lines: { productId: string; qty: number }[]; status: PurchaseStatus; expectedAt?: string; receivedAt?: string; receipts?: PurchaseReceipt[]; note?: string; sample?: boolean }
+
+// How many of a product the order has received so far.
+export function receivedQtyOf(po: PurchaseOrder, productId: string) {
+  if (po.receipts) return po.receipts.reduce((n, r) => n + (r.lines.find((l) => l.productId === productId)?.qty ?? 0), 0)
+  return po.receivedAt ? (po.lines.find((l) => l.productId === productId)?.qty ?? 0) : 0
+}
+export const remainingQtyOf = (po: PurchaseOrder, productId: string) => Math.max(0, (po.lines.find((l) => l.productId === productId)?.qty ?? 0) - receivedQtyOf(po, productId))
 
 // A made-up cost price, between 55% and 75% of the selling price, the same every time for a product.
 export const costOf = (p: Product) => Math.round(p.price * (0.55 + (hash(`${p.id}:c`) % 21) / 100))
 export const purchaseTotal = (po: PurchaseOrder, products: Product[]) => po.lines.reduce((n, l) => n + l.qty * costOf(products.find((p) => p.id === l.productId) ?? ({ id: l.productId, price: 0 } as Product)), 0)
+
+export const remainingValue = (po: PurchaseOrder, products: Product[]) => purchaseTotal({ ...po, lines: po.lines.map((l) => ({ ...l, qty: remainingQtyOf(po, l.productId) })) }, products)
 
 export type Cell = { onHand: number; reserved: number; available: number }
 export type StockStatus = 'out' | 'low' | 'ok'
@@ -91,10 +102,10 @@ export function buildStock(products: Product[], orders: Order[], movements: Move
     if (place) place.onHand += m.qty
   }
   for (const po of purchases) {
-    if (!po.receivedAt) continue
     for (const l of po.lines) {
-      const place = book.get(l.productId)?.get(po.loc)
-      if (place) place.onHand += l.qty
+      const got = receivedQtyOf(po, l.productId)
+      const place = got > 0 ? book.get(l.productId)?.get(po.loc) : undefined
+      if (place) place.onHand += got
     }
   }
   for (const tr of transfers) {
@@ -158,8 +169,15 @@ export function historyOf(productId: string, orders: Order[], movements: Movemen
     if (line) rows.push({ id: `order-${o.id}`, at: o.packedAt ?? o.placedAt, productId, loc: orderLocation(o), kind: 'order', qty: -line.qty, ref: o.id })
   }
   for (const po of purchases) {
-    const line = po.lines.find((l) => l.productId === productId)
-    if (line && po.receivedAt) rows.push({ id: `po-${po.id}`, at: po.receivedAt, productId, loc: po.loc, kind: 'in', qty: line.qty, ref: po.id, supplierId: po.supplierId })
+    if (po.receipts) {
+      po.receipts.forEach((r, i) => {
+        const line = r.lines.find((l) => l.productId === productId)
+        if (line && line.qty > 0) rows.push({ id: `po-${po.id}-${i}`, at: r.at, productId, loc: po.loc, kind: 'in', qty: line.qty, ref: po.id, supplierId: po.supplierId })
+      })
+    } else {
+      const line = po.lines.find((l) => l.productId === productId)
+      if (line && po.receivedAt) rows.push({ id: `po-${po.id}`, at: po.receivedAt, productId, loc: po.loc, kind: 'in', qty: line.qty, ref: po.id, supplierId: po.supplierId })
+    }
   }
   for (const tr of transfers) {
     if (tr.productId !== productId) continue

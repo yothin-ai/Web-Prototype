@@ -164,12 +164,15 @@ export function buildBooks(products: Product[], orders: Order[], purchases: Purc
     const at = noonOf(e.date)
     entries.push({ id: `expense-${e.id}`, at, day: e.date, kind: 'expense', expenseId: e.id, category: e.category, payee: e.payee, moneyIn: 0, moneyOut: e.amount, vat: e.vat ? vatIncluded(e.amount) : 0, cogs: 0, sample: e.sample })
   }
-  for (const po of purchases) {
-    if (po.status !== 'received') continue
-    const net = purchaseTotal(po, products)
+  // Each receipt of a purchase order is a payment of the goods that came in; one placed before receipts existed, or a made-up one, is one payment.
+  const cost = (po: PurchaseOrder, lines: { productId: string; qty: number }[]) => purchaseTotal({ ...po, lines }, products)
+  const pay = (po: PurchaseOrder, idSuffix: string, at: string, net: number) => {
     const vat = round2(net * VAT_RATE)
-    const at = po.receivedAt ?? po.expectedAt ?? po.at
-    entries.push({ id: `purchase-${po.id}`, at, day: dayKey(at), kind: 'purchase', ref: po.id, moneyIn: 0, moneyOut: round2(net + vat), vat, cogs: 0, sample: po.sample })
+    entries.push({ id: `purchase-${po.id}${idSuffix}`, at, day: dayKey(at), kind: 'purchase', ref: po.id, moneyIn: 0, moneyOut: round2(net + vat), vat, cogs: 0, sample: po.sample })
+  }
+  for (const po of purchases) {
+    if (po.receipts) po.receipts.forEach((r, i) => pay(po, `-${i}`, r.at, cost(po, r.lines)))
+    else if (po.status === 'received') pay(po, '', po.receivedAt ?? po.expectedAt ?? po.at, purchaseTotal(po, products))
   }
   return { entries: entries.sort((a, b) => b.at.localeCompare(a.at)), receivables }
 }

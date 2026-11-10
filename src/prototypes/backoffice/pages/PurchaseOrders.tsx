@@ -10,9 +10,9 @@ import { PROTOTYPE_ID, usePurchaseBook, useSearch } from '../data'
 import { suppliers } from '../suppliers'
 import { b, supplierNames } from '../strings'
 
-export const poStatuses: PurchaseStatus[] = ['draft', 'ordered', 'received', 'cancelled']
-export const poStatusLabel = (s: PurchaseStatus) => ({ draft: b.poDraft, ordered: b.poOrdered, received: b.poReceived, cancelled: b.poCancelled })[s]
-export const poStatusTone = (s: PurchaseStatus) => ({ draft: undefined, ordered: 'info', received: 'success', cancelled: 'danger' })[s] as 'info' | 'success' | 'danger' | undefined
+export const poStatuses: PurchaseStatus[] = ['draft', 'ordered', 'partial', 'received', 'cancelled']
+export const poStatusLabel = (s: PurchaseStatus) => ({ draft: b.poDraft, ordered: b.poOrdered, partial: b.poPartial, received: b.poReceived, cancelled: b.poCancelled })[s]
+export const poStatusTone = (s: PurchaseStatus) => ({ draft: undefined, ordered: 'info', partial: 'warning', received: 'success', cancelled: 'danger' })[s] as 'info' | 'warning' | 'success' | 'danger' | undefined
 
 export function PurchaseOrders() {
   const { t, lang } = useLang()
