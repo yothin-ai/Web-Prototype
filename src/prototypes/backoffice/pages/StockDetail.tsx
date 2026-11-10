@@ -6,7 +6,7 @@ import { historyOf, locationIds, reorderPoint, type HistoryEntry } from '../../.
 import { useMovements, useStock } from '../../../stock/useStock'
 import { Badge, Breadcrumb, Button, Card, Col, DataRow, DataTable, Grid, Notice, type DataColumn } from '../../../ui'
 import { formatDate, formatMoney, skuOf } from '../../ecommerce/cart'
-import { AdjustModal } from '../AdjustModal'
+import { AdjustModal, reasonLabel } from '../AdjustModal'
 import { locationName, PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
 import { b, supplierNames } from '../strings'
 import { levelLabel } from './StockList'
@@ -49,7 +49,7 @@ export function StockDetail() {
     { key: 'type', header: t(b.colType), render: (h) => <span className="row"><Badge tone={h.qty > 0 ? 'success' : undefined}>{t(typeLabel(h.kind))}</Badge>{h.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
     { key: 'place', header: t(b.place), render: (h) => t(locationName(h.loc)) },
     { key: 'qty', header: t(b.colQtyChange), end: true, render: (h) => <strong>{h.qty > 0 ? `+${h.qty}` : h.qty}</strong> },
-    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={`${base}/orders/${h.ref}${search}`}>{h.ref}</Link> : h.supplierId ? t(supplierNames[h.supplierId]) : (h.note ?? '-')) },
+    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={`${base}/${h.ref.startsWith('PO-') ? 'purchase-orders' : 'orders'}/${h.ref}${search}`}>{h.ref}</Link> : h.supplierId ? t(supplierNames[h.supplierId]) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-')) },
   ]
   return (
     <Grid>

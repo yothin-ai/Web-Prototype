@@ -9,9 +9,11 @@ export const branchIds = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6']
 export const locationIds = [CENTRAL, ...branchIds]
 
 // A movement the Back Office recorded: goods received (+) or a count that corrected a place's figure (+ or -).
-export type Movement = { id: string; at: string; productId: string; loc: string; kind: 'in' | 'adjust'; qty: number; supplierId?: string; note?: string }
+export type AdjustmentReason = 'damaged' | 'expired' | 'lost' | 'count' | 'other'
+export const adjustmentReasons: AdjustmentReason[] = ['count', 'damaged', 'expired', 'lost', 'other']
+export type Movement = { id: string; at: string; productId: string; loc: string; kind: 'in' | 'adjust'; qty: number; supplierId?: string; note?: string; reason?: AdjustmentReason; poId?: string }
 // One line of a product's history: the recorded movements, the made-up past sales and receipts, and orders that took stock out.
-export type HistoryEntry = { id: string; at: string; productId: string; loc: string; kind: 'in' | 'adjust' | 'sale' | 'order'; qty: number; ref?: string; supplierId?: string; note?: string; sample?: boolean }
+export type HistoryEntry = { id: string; at: string; productId: string; loc: string; kind: 'in' | 'adjust' | 'sale' | 'order'; qty: number; ref?: string; supplierId?: string; note?: string; reason?: AdjustmentReason; sample?: boolean }
 
 export type Cell = { onHand: number; reserved: number; available: number }
 export type StockStatus = 'out' | 'low' | 'ok'
@@ -117,12 +119,24 @@ export function historyOf(productId: string, orders: Order[], movements: Movemen
   const rows: HistoryEntry[] = [
     { id: `seed-in-${productId}`, at: dayAt(6 + (h % 20), now), productId, loc: CENTRAL, kind: 'in', qty: 20 + (h % 40), supplierId: supplierIds[h % supplierIds.length], sample: true },
     { id: `seed-sale-${productId}`, at: dayAt(1 + (h % 5), now), productId, loc: CENTRAL, kind: 'sale', qty: -(1 + (h % 4)), sample: true },
-    ...movements.filter((m) => m.productId === productId).map((m): HistoryEntry => ({ ...m })),
+    ...movements.filter((m) => m.productId === productId).map((m): HistoryEntry => ({ ...m, ref: m.poId })),
   ]
   for (const o of orders) {
     if (orderEffect(o) !== 'cut') continue
     const line = o.lines.find((l) => l.productId === productId)
     if (line) rows.push({ id: `order-${o.id}`, at: o.packedAt ?? o.placedAt, productId, loc: orderLocation(o), kind: 'order', qty: -line.qty, ref: o.id })
   }
+  return rows.sort((a, b) => b.at.localeCompare(a.at))
+}
+
+// A line of the adjustments page: the corrections the Back Office recorded, after four made-up ones from the past.
+export type AdjustmentRow = { id: string; at: string; productId: string; loc: string; qty: number; reason: AdjustmentReason; note?: string; sample?: boolean }
+
+export function adjustmentsOf(products: Product[], movements: Movement[], now = Date.now()): AdjustmentRow[] {
+  const ranked = [...products].sort((a, b) => hash(`${a.id}:adj`) - hash(`${b.id}:adj`))
+  const past: [AdjustmentReason, number, string, number][] = [['damaged', -2, 'b2', 1], ['count', 5, CENTRAL, 3], ['expired', -3, CENTRAL, 6], ['lost', -1, 'b4', 9]]
+  const rows: AdjustmentRow[] = past.flatMap(([reason, qty, loc, days], i) => (ranked[i] ? [{ id: `ADJ-090${i + 1}`, at: dayAt(days, now), productId: ranked[i].id, loc, qty, reason, sample: true }] : []))
+  const live = movements.filter((m) => m.kind === 'adjust').sort((a, b) => a.at.localeCompare(b.at))
+  live.forEach((m, i) => rows.push({ id: `ADJ-${1001 + i}`, at: m.at, productId: m.productId, loc: m.loc, qty: m.qty, reason: m.reason ?? 'count', note: m.note }))
   return rows.sort((a, b) => b.at.localeCompare(a.at))
 }

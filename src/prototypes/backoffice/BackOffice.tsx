@@ -4,6 +4,7 @@ import { Badge, Button, Col, Grid, Logo, SideNav, SideNavLayout } from '../../ui
 import { PROTOTYPE_ID, useCounts, useSearch } from './data'
 import { Overview } from './pages/Overview'
 import { OrderDetail } from './pages/OrderDetail'
+import { Adjustments } from './pages/Adjustments'
 import { Orders } from './pages/Orders'
 import { Receive } from './pages/Receive'
 import { StockDetail } from './pages/StockDetail'
@@ -18,7 +19,7 @@ export function BackOffice() {
   const base = `/${PROTOTYPE_ID}`
   const counts = useCounts()
   const here = pathname.replace(base, '') || '/'
-  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus', badge?: number) => ({
+  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit', badge?: number) => ({
     to: `${base}${to}${search}`,
     label,
     icon,
@@ -36,7 +37,7 @@ export function BackOffice() {
           groups={[
             { title: t(b.groupOverview), items: [item('/', t(b.navOverview), 'home')] },
             { title: t(b.groupOrders), items: [item('/orders', t(b.navOrders), 'orders', counts.toPack)] },
-            { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts), item('/receive', t(b.navReceive), 'plus')] },
+            { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts), item('/adjustments', t(b.navAdjust), 'edit'), item('/receive', t(b.navReceive), 'plus')] },
           ]}
         />
       }
@@ -58,6 +59,7 @@ export function BackOffice() {
           <Route path="orders/:orderId" element={<OrderDetail />} />
           <Route path="stock" element={<StockList />} />
           <Route path="stock/:productId" element={<StockDetail />} />
+          <Route path="adjustments" element={<Adjustments />} />
           <Route path="receive" element={<Receive />} />
           <Route path="*" element={<Navigate to={`${base}${search}`} replace />} />
         </Routes>
