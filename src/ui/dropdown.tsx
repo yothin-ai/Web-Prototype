@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent as ReactKeyEvent, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { Button, IconCircle } from './index'
 import { Icon, type IconName } from './icon'
@@ -82,7 +83,8 @@ function ActionMenu({ items, label }: { items: DropdownItem[]; label: string }) 
       <button type="button" ref={trigger} className="row-menu__trigger" aria-label={label} aria-haspopup="menu" aria-expanded={open} aria-controls={open ? panelId : undefined} onClick={() => (open ? close(false) : show())} onKeyDown={onTriggerKey}>
         <Icon name="more" size="md" />
       </button>
-      {open && place && (
+      {open && place && createPortal(
+        // Drawn in the page body, so the table's pinned columns and its scrolling frame can neither cover nor cut it.
         <div className="row-menu__panel" id={panelId} ref={panel} role="menu" aria-label={label} style={{ top: place.top, bottom: place.bottom, right: place.right }} onKeyDown={onKey}>
           {items.map((item) => {
             const body = (
@@ -102,7 +104,8 @@ function ActionMenu({ items, label }: { items: DropdownItem[]; label: string }) 
               </div>
             )
           })}
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   )
