@@ -1,4 +1,6 @@
 import { useLocation } from 'react-router-dom'
+import type { Coupon } from '../../../datasets/types'
+import { useCoupons } from '../../../promotions/useCoupons'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { Badge, Button, Card, DataRow, IconCircle, MemberBanner } from '../../../ui'
@@ -34,9 +36,9 @@ export function ClubPage() {
   const base = `/${PROTOTYPE_ID}`
   const total = account.spent + account.toNext
   const history = [...log, ...sampleHistory]
-  const redeemable = dataset.ecommerce.checkout.coupons.filter((c) => c.redeemCost)
+  const redeemable = useCoupons().shop.filter((c) => c.redeemCost)
 
-  const redeem = (c: (typeof redeemable)[number]) => {
+  const redeem = (c: Coupon) => {
     const cost = c.redeemCost ?? 0
     if (balance < cost) return
     add({ th: `${t(k.redeemNote)} ${c.title.th}`, en: `${k.redeemNote.en} ${c.title.en}` }, -cost)

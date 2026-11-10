@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useCoupons } from '../../../promotions/useCoupons'
 import { useSettings } from '../../../settings/useSettings'
 import { Link, Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
@@ -73,7 +74,7 @@ export function Checkout() {
   const shippingPrice = fulfil === 'pickup' ? 0 : (parcelMethods.find((m) => m.id === shippingId)?.price ?? 0)
   const { entryOf, markUsed } = useCouponWallet()
   // Only the coupons in the wallet that are still usable online can be picked.
-  const walletCoupons = checkout.coupons.filter((x) => x.channel === 'online' && isUsable(x, entryOf(x.id)))
+  const walletCoupons = useCoupons().shop.filter((x) => x.channel === 'online' && isUsable(x, entryOf(x.id)))
   const coupon = walletCoupons.find((x) => x.id === couponId)
   const cut = couponDiscount(coupon, subtotal, shippingPrice, fulfil)
   const afterDiscount = subtotal - cut.items
@@ -140,6 +141,7 @@ export function Checkout() {
       discount: cut.items + cut.shipping,
       walletUsed: walletUse > 0 ? walletUse : undefined,
       couponTitle: coupon && cut.items + cut.shipping > 0 ? coupon.title : undefined,
+      couponId: coupon && cut.items + cut.shipping > 0 ? coupon.id : undefined,
       points,
       installment: activePay === 'card' && months > 0 ? { months, monthly: Math.ceil(net / months) } : undefined,
     }

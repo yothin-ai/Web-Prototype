@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useCoupons } from '../../../promotions/useCoupons'
 import { useLocation } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { Button, Card } from '../../../ui'
 import { PROTOTYPE_ID } from '../cart'
@@ -15,12 +15,13 @@ type Tab = 'all' | 'ready' | 'done'
 export function MyCouponsPage() {
   const { t } = useLang()
   const { search } = useLocation()
-  const { dataset } = useDataset()
   const { wallet } = useCouponWallet()
+  // A coupon switched off in the Back Office reads as past its date.
+  const coupons = useCoupons().all.map((c) => (c.inactive ? { ...c, expired: true } : c))
   const [tab, setTab] = useState<Tab>('all')
   const base = `/${PROTOTYPE_ID}`
   const held = wallet.flatMap((w) => {
-    const coupon = dataset.ecommerce.checkout.coupons.find((c) => c.id === w.id)
+    const coupon = coupons.find((c) => c.id === w.id)
     return coupon ? [{ coupon, ready: walletState(coupon, w) === 'ready' }] : []
   })
   const shown = held.filter((h) => tab === 'all' || (tab === 'ready' ? h.ready : !h.ready)).map((h) => h.coupon)

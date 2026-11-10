@@ -145,6 +145,7 @@ export const pr = {
   sampleRestore: { th: 'คืนค่าเดิม', en: 'Restore the original' },
   sampleSaved: { th: 'บันทึกค่าของสินค้าตัวอย่างแล้ว', en: 'The sample product’s values are saved.' },
   sampleRestored: { th: 'คืนค่าเดิมของสินค้าแล้ว', en: 'The original values are back.' },
+  onCut: { th: 'ลดราคา', en: 'Price cut' },
   sampleChanged: { th: 'แก้แล้ว', en: 'Changed' },
   sampleNote: { th: 'ตัวเลขตัวอย่างของยอดขายและกำไรในอดีตยังคำนวณจากราคาเดิม', en: 'The made-up past sales and profit are still worked out from the original price.' },
 } satisfies Record<string, Localized>

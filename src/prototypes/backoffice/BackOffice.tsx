@@ -14,6 +14,11 @@ import { VatReport } from './pages/VatReport'
 import { ac } from './accStrings'
 import { EditPurchaseOrder, NewPurchaseOrder } from './pages/NewPurchaseOrder'
 import { Movements } from './pages/Movements'
+import { Coupons } from './pages/Coupons'
+import { CouponForm } from './pages/CouponForm'
+import { PricePromoForm } from './pages/PricePromoForm'
+import { PricePromos } from './pages/PricePromos'
+import { pm } from './promoStrings'
 import { Orders } from './pages/Orders'
 import { ProductForm } from './pages/ProductForm'
 import { Products } from './pages/Products'
@@ -40,7 +45,7 @@ export function BackOffice() {
   const base = `/${PROTOTYPE_ID}`
   const counts = useCounts()
   const here = pathname.replace(base, '') || '/'
-  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check' | 'grid' | 'settings', badge?: number, badgeLabel?: string) => ({
+  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check' | 'grid' | 'settings' | 'ticket' | 'tag', badge?: number, badgeLabel?: string) => ({
     to: `${base}${to}${search}`,
     label,
     icon,
@@ -62,6 +67,7 @@ export function BackOffice() {
             { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts, t(b.alerts)), item('/products', t(pr.nav), 'grid'), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
             { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
             { title: t(b.groupReports), items: [item('/reports/valuation', t(b.navValuation), 'cash'), item('/reports/movements', t(b.navMovements), 'receipt')] },
+            { title: t(pm.group), items: [item('/promotions/coupons', t(pm.navCoupons), 'ticket'), item('/promotions/prices', t(pm.navPrices), 'tag')] },
             { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/invoices', t(ac.navInvoices), 'receipt'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank'), item('/accounting/close', t(ac.navClose), 'check')] },
             { title: t(st.group), items: [item('/settings', t(st.nav), 'settings')] },
           ]}
@@ -106,6 +112,12 @@ export function BackOffice() {
           <Route path="accounting/profit" element={<ProfitLoss />} />
           <Route path="reports/valuation" element={<Valuation />} />
           <Route path="reports/movements" element={<Movements />} />
+          <Route path="promotions/coupons" element={<Coupons />} />
+          <Route path="promotions/coupons/new" element={<CouponForm />} />
+          <Route path="promotions/coupons/:couponId/edit" element={<CouponForm />} />
+          <Route path="promotions/prices" element={<PricePromos />} />
+          <Route path="promotions/prices/new" element={<PricePromoForm />} />
+          <Route path="promotions/prices/:promoId/edit" element={<PricePromoForm />} />
           <Route path="settings" element={<Settings />} />
           <Route path="receive" element={<Receive />} />
           <Route path="*" element={<Navigate to={`${base}${search}`} replace />} />

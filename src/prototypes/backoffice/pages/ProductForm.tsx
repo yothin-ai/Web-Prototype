@@ -349,7 +349,8 @@ function SampleForm({ product }: { product: Product }) {
   const base = `/${PROTOTYPE_ID}`
   const search = useSearch()
   const original = originalOf(product.id) ?? product
-  const [price, setPrice] = useState(String(product.price))
+  // While a price cut is on, the regular price is the one the cut is taken from.
+  const [price, setPrice] = useState(String(product.promoId ? (product.originalPrice ?? product.price) : product.price))
   const [cost, setCost] = useState(String(costOf(product)))
   const [reorder, setReorder] = useState(String(reorderPoint(product)))
   const [tried, setTried] = useState(false)

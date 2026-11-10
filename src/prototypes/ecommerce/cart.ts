@@ -26,6 +26,8 @@ export type Order = {
   pickupMode?: 'counter' | 'locker'
   discount?: number
   couponTitle?: Localized
+  // The coupon's id, so the Back Office can count how often it was used.
+  couponId?: string
   // Paid from the wallet (already taken off `total`).
   walletUsed?: number
   points?: number

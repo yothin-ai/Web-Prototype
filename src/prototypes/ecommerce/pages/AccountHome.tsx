@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useCoupons } from '../../../promotions/useCoupons'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { Badge, Button, Card, DataRow, ShortcutCard, StatCard, MemberBanner } from '../../../ui'
@@ -14,7 +15,7 @@ export function AccountHome() {
   const { t, lang } = useLang()
   const { search } = useLocation()
   const { dataset } = useDataset()
-  const { account, checkout } = dataset.ecommerce
+  const { account } = dataset.ecommerce
   const [orders] = useOrderBook()
   const [linked, setLinked] = useClubLinked()
   const who = useAccountIdentity()
@@ -27,7 +28,7 @@ export function AccountHome() {
   const progress = linked ? (account.spent / total) * 100 : 0
   const latest = orders.slice(0, 2)
   const { wallet } = useCouponWallet()
-  const coupons = checkout.coupons.filter((x) => isUsable(x, wallet.find((w) => w.id === x.id)))
+  const coupons = useCoupons().shop.filter((x) => isUsable(x, wallet.find((w) => w.id === x.id)))
 
   return (
     <AccountShell active="home">

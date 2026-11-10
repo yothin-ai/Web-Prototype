@@ -37,6 +37,12 @@ export type Coupon = {
   full?: boolean
   // Points a member pays to get this coupon; such a coupon is not on the public coupon page.
   redeemCost?: number
+  // How many times it can be used in all; counted from the orders that carry it.
+  limit?: number
+  // Made in the Back Office, not given by the Dataset.
+  custom?: boolean
+  // Switched off in the Back Office: not offered any more, nothing already spent is touched.
+  inactive?: boolean
 }
 
 // Checkout content: coupons, instalment banks and the bank-transfer account (all placeholders).
@@ -75,6 +81,10 @@ export type Product = {
   // Set only on a product made in the Back Office (kept in the browser, never in a Dataset).
   // The price the Dataset gave, kept when the Back Office changed the selling price; the made-up history is worked out from this one.
   basePrice?: number
+  // Set while a price promotion from the Back Office is on: which one, and when it ends.
+  promoId?: string
+  promoKind?: 'discount' | 'flash'
+  promoEnds?: string
   custom?: boolean
   // Pictures made from an upload in the Back Office, as small data addresses; the first is the main one.
   images?: string[]

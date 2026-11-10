@@ -38,7 +38,7 @@ export function Products() {
     { key: 'name', wrap: true, header: t(pr.colName), sort: (x, y) => t(x.name).localeCompare(t(y.name)), render: (p) => <Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link> },
     { key: 'cat', header: t(pr.colCategory), sort: (x, y) => t(x.category).localeCompare(t(y.category)), render: (p) => t(p.category) },
     { key: 'unit', header: t(pr.colUnit), render: (p) => (p.unit ? t(p.unit) : '-') },
-    { key: 'price', header: t(pr.colPrice), end: true, sort: (x, y) => x.price - y.price, render: (p) => <span className="row">{edits[p.id] && <Badge tone="info">{t(pr.sampleChanged)}</Badge>}{formatMoney(p.price, lang)}</span> },
+    { key: 'price', header: t(pr.colPrice), end: true, sort: (x, y) => x.price - y.price, render: (p) => <span className="row">{edits[p.id] && <Badge tone="info">{t(pr.sampleChanged)}</Badge>}{p.promoId && <Badge tone="warning">{t(pr.onCut)}</Badge>}{formatMoney(p.price, lang)}</span> },
     { key: 'cost', header: t(pr.colCost), end: true, render: (p) => formatMoney(costOf(p), lang) },
     { key: 'stock', header: t(pr.colStock), end: true, sort: (x, y) => book.total(x.id).available - book.total(y.id).available, render: (p) => <strong>{book.total(p.id).available}</strong> },
     { key: 'info', header: t(pr.colInfo), render: (p) => (p.custom ? (missingParts(p).length === 0 ? <Badge tone="success">{t(pr.infoComplete)}</Badge> : <Badge tone="warning">{t(pr.infoMissing)} ({missingParts(p).length})</Badge>) : '-') },

@@ -1,4 +1,5 @@
 import { useDataset } from '../../../datasets/DatasetContext'
+import { useProducts } from '../../../products/useProducts'
 import { useLang } from '../../../i18n'
 import {
   AppPromoCard, ArticleCard, BannerSlide, BenefitBar, BrandChip, Badge, Button, Carousel, Col, Countdown, FlashSaleCard, Grid, IconCircle, ProductCard, ProductImage, SectionHeader, ShortcutCard, ShortcutRow, TileMosaic,
@@ -37,6 +38,10 @@ export function Home() {
   const { productById } = useEcommerce()
   const { dataset } = useDataset()
   const { home } = dataset.ecommerce
+  // Flash Sales set in the Back Office come first, with a countdown to the soonest one to end; the Dataset's own follow.
+  const { activeFlash } = useProducts()
+  const flashIds = [...activeFlash.map((p) => p.id), ...home.flashIds.filter((id) => !activeFlash.some((p) => p.id === id))]
+  const flashSeconds = activeFlash.length ? Math.max(60, Math.round((new Date(activeFlash[0].promoEnds ?? '').getTime() - Date.now()) / 1000)) : home.flashStartSeconds
   const prev = t(s.scrollPrev)
   const next = t(s.scrollNext)
 
@@ -101,11 +106,11 @@ export function Home() {
           <SectionHeader
             tone="sale"
             title={t(s.flashTitle)}
-            aside={<Countdown startSeconds={home.flashStartSeconds} label={t(s.remaining)} />}
+            aside={<Countdown key={flashSeconds} startSeconds={flashSeconds} label={t(s.remaining)} />}
           />
           <div className="sale-panel__body">
             <Carousel label={t(s.flashRow)} count={6} minItem="150px" prevLabel={prev} nextLabel={next}>
-              {home.flashIds.map((id) => {
+              {flashIds.map((id) => {
                 const p = productById(id)
                 if (!p || p.originalPrice === undefined) return null
                 const sold = p.sold ?? 0

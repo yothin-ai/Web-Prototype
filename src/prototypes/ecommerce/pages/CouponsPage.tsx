@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useCoupons } from '../../../promotions/useCoupons'
 import { useLocation } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { Breadcrumb, Button, Col, Grid } from '../../../ui'
 import { PROTOTYPE_ID } from '../cart'
@@ -12,10 +12,9 @@ import { CouponGrid } from './CouponParts'
 export function CouponsPage() {
   const { t } = useLang()
   const { search } = useLocation()
-  const { dataset } = useDataset()
   const [channel, setChannel] = useState<'online' | 'store'>('online')
   const base = `/${PROTOTYPE_ID}`
-  const coupons = dataset.ecommerce.checkout.coupons.filter((c) => c.channel === channel && !c.expired && !c.redeemCost)
+  const coupons = useCoupons().shop.filter((c) => c.channel === channel && !c.expired && !c.redeemCost)
 
   return (
     <Grid>
