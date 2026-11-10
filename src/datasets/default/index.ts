@@ -1,6 +1,7 @@
 import type { Dataset } from '../types'
 import { sampleCoupons } from '../coupons'
 import { menu } from './menu'
+import { education } from './education'
 
 const dataset: Dataset = {
   id: 'default',
@@ -152,55 +153,7 @@ const dataset: Dataset = {
       { id: 'cod', name: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' }, detail: { th: 'ชำระเมื่อได้รับสินค้า', en: 'Pay when it arrives' } },
     ],
   },
-  education: {
-    courses: [
-      {
-        id: 'photo',
-        title: { th: 'พื้นฐานการถ่ายภาพ', en: 'Photography basics' },
-        summary: { th: 'เข้าใจแสงและองค์ประกอบภาพ แล้วถ่ายรูปสวยขึ้นได้ด้วยกล้องที่มีอยู่', en: 'Understand light and composition and take better photos with the camera you already have.' },
-        level: { th: 'มือใหม่', en: 'Beginner' },
-        lessons: [
-          { id: 'p1', minutes: 8, title: { th: 'แสงและการเปิดรับแสง', en: 'Light and exposure' }, body: { th: 'แสงคือหัวใจของภาพถ่าย ภาพจะสว่างหรือมืดขึ้นอยู่กับปริมาณแสงที่เข้าสู่เซนเซอร์ ลองถ่ายหัวข้อเดียวกันในที่สว่างและที่มืดเพื่อดูความต่าง', en: 'Light is the heart of a photo. How bright or dark it looks depends on how much light reaches the sensor. Shoot the same subject in bright and dim places to see the difference.' } },
-          { id: 'p2', minutes: 6, title: { th: 'องค์ประกอบภาพ', en: 'Composition' }, body: { th: 'กฎสามส่วนช่วยให้ภาพสมดุล วางจุดเด่นไว้ที่จุดตัดของเส้นแบ่งสามส่วน แทนที่จะไว้กลางภาพ', en: 'The rule of thirds keeps a photo balanced. Put the subject on an intersection of the thirds lines instead of the centre.' } },
-          { id: 'p3', minutes: 7, title: { th: 'การจัดแสงในร่ม', en: 'Lighting indoors' }, body: { th: 'แสงจากหน้าต่างนุ่มนวลและเป็นธรรมชาติ ให้วางตัวแบบข้างหน้าต่างแทนการใช้แฟลชตรงๆ', en: 'Window light is soft and natural. Place the subject beside a window rather than using direct flash.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'ภาพที่มืดเกินไปมักเกิดจากอะไร', en: 'What usually makes a photo too dark?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'แสงเข้าสู่เซนเซอร์น้อยเกินไป', en: 'Too little light reached the sensor' } }, { id: 'b', text: { th: 'ใช้เลนส์สะอาดเกินไป', en: 'The lens was too clean' } }, { id: 'c', text: { th: 'ถ่ายในแนวนอน', en: 'It was shot in landscape' } }] },
-          { id: 'q2', question: { th: 'กฎสามส่วนแนะนำให้วางจุดเด่นไว้ที่ใด', en: 'Where does the rule of thirds put the subject?' }, correctId: 'b', options: [{ id: 'a', text: { th: 'กลางภาพเสมอ', en: 'Always in the centre' } }, { id: 'b', text: { th: 'ที่จุดตัดของเส้นแบ่งสามส่วน', en: 'On an intersection of the thirds lines' } }, { id: 'c', text: { th: 'มุมล่างสุดของภาพ', en: 'In the very bottom corner' } }] },
-        ],
-      },
-      {
-        id: 'email',
-        title: { th: 'เขียนอีเมลให้คนอยากตอบ', en: 'Writing emails people answer' },
-        summary: { th: 'เทคนิคสั้นๆ สำหรับหัวข้อ โครงสร้าง และการปิดท้ายที่ทำให้ผู้รับตอบกลับ', en: 'Short techniques for subjects, structure and closings that get a reply.' },
-        level: { th: 'ทุกระดับ', en: 'All levels' },
-        lessons: [
-          { id: 'e1', minutes: 5, title: { th: 'หัวข้อที่ดี', en: 'A good subject line' }, body: { th: 'หัวข้อควรบอกว่าอีเมลเกี่ยวกับอะไรและต้องการอะไร เช่น “ขออนุมัติงบ 5,000 บาท ภายในวันศุกร์” ดีกว่า “ขอความอนุเคราะห์”', en: 'A subject should say what the email is about and what you need, such as “Approval needed for 5,000 baht by Friday” instead of “A request”.' } },
-          { id: 'e2', minutes: 6, title: { th: 'โครงสร้างที่สั้นกระชับ', en: 'A short structure' }, body: { th: 'เริ่มด้วยสิ่งที่ต้องการ ตามด้วยเหตุผลสั้นๆ และรายละเอียดที่จำเป็นเท่านั้น', en: 'Start with what you need, then a brief reason and only the details that matter.' } },
-          { id: 'e3', minutes: 4, title: { th: 'ปิดท้ายด้วยการกระทำ', en: 'Close with an action' }, body: { th: 'ระบุให้ชัดว่าผู้รับต้องทำอะไรและภายในเมื่อไหร่ เพื่อให้ตอบได้ในครั้งเดียว', en: 'Say clearly what the reader should do and by when, so they can answer in one go.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'หัวข้ออีเมลที่ดีควรมีอะไร', en: 'What should a good subject line contain?' }, correctId: 'b', options: [{ id: 'a', text: { th: 'คำทักทายยาวๆ', en: 'A long greeting' } }, { id: 'b', text: { th: 'เรื่องที่เกี่ยวข้องและสิ่งที่ต้องการ', en: 'The topic and what you need' } }, { id: 'c', text: { th: 'ตัวพิมพ์ใหญ่ทั้งหมด', en: 'All capital letters' } }] },
-          { id: 'q2', question: { th: 'ควรวางสิ่งที่ต้องการไว้ตรงไหนของอีเมล', en: 'Where should the request go in the email?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'ตอนต้น', en: 'Near the start' } }, { id: 'b', text: { th: 'ท้ายสุดหลังเล่าประวัติ', en: 'At the very end after the backstory' } }, { id: 'c', text: { th: 'ในไฟล์แนบเท่านั้น', en: 'Only in an attachment' } }] },
-        ],
-      },
-      {
-        id: 'money',
-        title: { th: 'จัดการเงินเบื้องต้น', en: 'Money basics' },
-        summary: { th: 'วางงบรายเดือน สร้างเงินสำรอง และออมก่อนใช้ ด้วยวิธีที่ทำได้จริง', en: 'Plan a monthly budget, build a reserve and save first with methods you can actually keep.' },
-        level: { th: 'มือใหม่', en: 'Beginner' },
-        lessons: [
-          { id: 'm1', minutes: 6, title: { th: 'งบรายเดือน', en: 'Monthly budget' }, body: { th: 'จดรายรับและรายจ่ายประจำก่อน แล้วแบ่งเงินที่เหลือเป็นส่วนใช้จ่ายและส่วนออม', en: 'Write down income and fixed costs first, then split what is left between spending and saving.' } },
-          { id: 'm2', minutes: 7, title: { th: 'เงินสำรองฉุกเฉิน', en: 'Emergency fund' }, body: { th: 'เป้าหมายเริ่มต้นคือเงินสำรองเท่ากับค่าใช้จ่ายสามเดือน เก็บแยกบัญชีเพื่อไม่ให้เผลอใช้', en: 'A starting goal is three months of expenses, kept in a separate account so it is not spent by accident.' } },
-          { id: 'm3', minutes: 5, title: { th: 'ออมก่อนใช้', en: 'Pay yourself first' }, body: { th: 'ตั้งโอนเงินออมอัตโนมัติทันทีที่เงินเดือนเข้า แทนการรอออมจากเงินที่เหลือ', en: 'Set up an automatic transfer the moment your salary arrives instead of saving what is left.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'เงินสำรองฉุกเฉินเบื้องต้นควรเท่ากับกี่เดือนของค่าใช้จ่าย', en: 'How many months of expenses is a starting emergency fund?' }, correctId: 'b', options: [{ id: 'a', text: { th: 'หนึ่งสัปดาห์', en: 'One week' } }, { id: 'b', text: { th: 'สามเดือน', en: 'Three months' } }, { id: 'c', text: { th: 'ห้าปี', en: 'Five years' } }] },
-          { id: 'q2', question: { th: '“ออมก่อนใช้” หมายถึงอะไร', en: 'What does “pay yourself first” mean?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'โอนเงินออมทันทีที่เงินเข้า', en: 'Transfer savings as soon as money arrives' } }, { id: 'b', text: { th: 'ออมเฉพาะเงินที่เหลือท้ายเดือน', en: 'Only save what is left at month end' } }, { id: 'c', text: { th: 'ไม่ต้องออมเลย', en: 'Do not save at all' } }] },
-        ],
-      },
-    ],
-  },
+  education,
 }
 
 export default dataset

@@ -3,6 +3,7 @@ import { useDataset } from '../../datasets/DatasetContext'
 import { useLang } from '../../i18n'
 import { Col, Grid, NavTabs } from '../../ui'
 import { PROTOTYPE_ID } from './data'
+import { CertificatePage } from './pages/CertificatePage'
 import { CourseDetail } from './pages/CourseDetail'
 import { CourseList } from './pages/CourseList'
 import { LessonPage } from './pages/LessonPage'
@@ -24,7 +25,7 @@ export function Education() {
 
   return (
     <>
-      <div className="section">
+      <div className="section no-print">
         <Grid>
           <Col>
             <div className="stack">
@@ -37,6 +38,7 @@ export function Education() {
       <Routes>
         <Route index element={<CourseList />} />
         <Route path="course/:courseId" element={<CourseDetail />} />
+        <Route path="course/:courseId/certificate" element={<CertificatePage />} />
         <Route path="course/:courseId/lesson/:lessonId" element={<LessonPage />} />
         <Route path="course/:courseId/quiz" element={<QuizPage />} />
         <Route path="progress" element={<ProgressPage />} />

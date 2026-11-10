@@ -118,23 +118,48 @@ export type TitledText = { title: Localized; body: Localized }
 
 export type Lesson = { id: string; title: Localized; body: Localized; minutes: number }
 
+// A question has one right option (single choice, true/false) or several (pick all that apply).
 export type QuizQuestion = {
   id: string
   question: Localized
   options: { id: string; text: Localized }[]
-  correctId: string
+  correctIds: string[]
 }
+
+export type CourseLevel = 'beginner' | 'all' | 'intermediate'
+
+export type Instructor = { id: string; name: Localized; role: Localized; bio: Localized }
+
+// A sample comment from a past learner (invented people).
+export type CourseReview = { id: string; name: Localized; date: string; rating: number; text: Localized }
 
 export type Course = {
   id: string
   title: Localized
   summary: Localized
-  level: Localized
+  levelId: CourseLevel
+  categoryId: string
+  // Baht; 0 means free. Shown only, nothing is charged.
+  price: number
+  rating: number
+  ratingCount: number
+  isNew?: boolean
+  instructorId: string
+  outcomes: Localized[]
+  audience: Localized[]
   lessons: Lesson[]
   quiz: QuizQuestion[]
+  // Minutes allowed for the quiz.
+  quizMinutes: number
 }
 
-export type EducationContent = { courses: Course[] }
+export type EducationContent = {
+  categories: { id: string; name: Localized }[]
+  instructors: Instructor[]
+  courses: Course[]
+  reviews: CourseReview[]
+  faq: { question: Localized; answer: Localized }[]
+}
 
 // A Dataset carries content and wording only, never styling (see GLOSSARY.md).
 export type Dataset = {

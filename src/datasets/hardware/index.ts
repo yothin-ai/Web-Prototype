@@ -1,6 +1,7 @@
 import type { Dataset } from '../types'
 import { sampleCoupons } from '../coupons'
 import { menu } from './menu'
+import { education } from './education'
 
 const dataset: Dataset = {
   id: 'hardware',
@@ -231,55 +232,7 @@ const dataset: Dataset = {
       { id: 'cod', name: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' }, detail: { th: 'ชำระเมื่อได้รับสินค้า', en: 'Pay when it arrives' } },
     ],
   },
-  education: {
-    courses: [
-      {
-        id: 'cement',
-        title: { th: 'เลือกปูนให้เหมาะกับงาน', en: 'Choosing cement for the job' },
-        summary: { th: 'รู้จักประเภทปูนและการผสมเบื้องต้น เพื่อซื้อให้ตรงกับงานก่อและงานเท', en: 'Know the cement types and basic mixing so you buy the right one for masonry and pouring.' },
-        level: { th: 'มือใหม่', en: 'Beginner' },
-        lessons: [
-          { id: 'c1', minutes: 6, title: { th: 'ประเภทของปูน', en: 'Types of cement' }, body: { th: 'ปูนซีเมนต์ปอร์ตแลนด์ใช้กับงานโครงสร้าง ส่วนปูนก่อและปูนฉาบมีส่วนผสมที่เหมาะกับงานผนัง', en: 'Portland cement suits structural work, while masonry and plaster mixes are made for walls.' } },
-          { id: 'c2', minutes: 8, title: { th: 'อัตราส่วนผสมเบื้องต้น', en: 'Basic mix ratios' }, body: { th: 'งานเทพื้นทั่วไปมักผสมปูน ทราย และหินในอัตราส่วนคงที่ แล้วปรับน้ำให้พอเหมาะ ไม่เหลวเกินไป', en: 'Typical floor pours mix cement, sand and stone at a fixed ratio, with just enough water.' } },
-          { id: 'c3', minutes: 5, title: { th: 'การบ่มคอนกรีต', en: 'Curing concrete' }, body: { th: 'หลังเทเสร็จควรรักษาความชื้นหลายวัน เพื่อให้คอนกรีตแข็งแรงและไม่แตกร้าว', en: 'Keep concrete damp for several days after pouring so it gains strength and does not crack.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'ปูนประเภทใดเหมาะกับงานโครงสร้าง', en: 'Which cement suits structural work?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'ปูนซีเมนต์ปอร์ตแลนด์', en: 'Portland cement' } }, { id: 'b', text: { th: 'ปูนฉาบอย่างเดียว', en: 'Plaster mix only' } }, { id: 'c', text: { th: 'ปูนขาวทาผนัง', en: 'Whitewash' } }] },
-          { id: 'q2', question: { th: 'หลังเทคอนกรีตควรทำอย่างไร', en: 'What should you do after pouring concrete?' }, correctId: 'b', options: [{ id: 'a', text: { th: 'ปล่อยให้แห้งเร็วที่สุด', en: 'Let it dry as fast as possible' } }, { id: 'b', text: { th: 'รักษาความชื้นหลายวัน', en: 'Keep it damp for several days' } }, { id: 'c', text: { th: 'เดินบนพื้นทันที', en: 'Walk on it straight away' } }] },
-        ],
-      },
-      {
-        id: 'electric',
-        title: { th: 'งานไฟฟ้าในบ้านอย่างปลอดภัย', en: 'Safe home electrics' },
-        summary: { th: 'หลักความปลอดภัยเบื้องต้นก่อนเปลี่ยนโคมไฟ ปลั๊ก และสวิตช์', en: 'Basic safety rules before changing lamps, sockets and switches.' },
-        level: { th: 'ทุกระดับ', en: 'All levels' },
-        lessons: [
-          { id: 'e1', minutes: 5, title: { th: 'ตัดไฟก่อนเสมอ', en: 'Always cut the power first' }, body: { th: 'ปิดเบรกเกอร์ของวงจรที่จะทำงาน และตรวจด้วยไขควงเช็กไฟก่อนแตะสายทุกครั้ง', en: 'Switch off the breaker for the circuit and check with a voltage tester before touching wires.' } },
-          { id: 'e2', minutes: 7, title: { th: 'เลือกอุปกรณ์ให้ตรงกับโหลด', en: 'Match parts to the load' }, body: { th: 'ดูกำลังไฟ (วัตต์) และขนาดสายไฟให้รองรับอุปกรณ์ที่จะใช้', en: 'Check wattage and wire size can carry the appliances you plan to use.' } },
-          { id: 'e3', minutes: 5, title: { th: 'เมื่อไรควรเรียกช่าง', en: 'When to call a technician' }, body: { th: 'งานที่เกี่ยวกับตู้เมนหรือเดินสายใหม่ควรให้ช่างไฟมืออาชีพทำ', en: 'Work on the main panel or new wiring belongs to a professional electrician.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'สิ่งแรกที่ต้องทำก่อนเปลี่ยนโคมไฟคืออะไร', en: 'What comes first before changing a lamp?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'ตัดไฟที่เบรกเกอร์', en: 'Switch off at the breaker' } }, { id: 'b', text: { th: 'จับสายดูว่ามีไฟไหม', en: 'Touch the wire to check' } }, { id: 'c', text: { th: 'ใช้มือเปียกจับสวิตช์', en: 'Use wet hands on the switch' } }] },
-          { id: 'q2', question: { th: 'งานเดินสายใหม่ควรให้ใครทำ', en: 'Who should do new wiring?' }, correctId: 'b', options: [{ id: 'a', text: { th: 'ใครก็ได้', en: 'Anyone' } }, { id: 'b', text: { th: 'ช่างไฟมืออาชีพ', en: 'A professional electrician' } }, { id: 'c', text: { th: 'ทำเองโดยดูคลิป', en: 'You, after watching a video' } }] },
-        ],
-      },
-      {
-        id: 'plumbing',
-        title: { th: 'ซ่อมรั่วซึมและงานประปาเบื้องต้น', en: 'Leaks and basic plumbing' },
-        summary: { th: 'หาจุดรั่ว เลือกข้อต่อ และซ่อมก๊อกน้ำที่หยดได้ด้วยตัวเอง', en: 'Find leaks, choose fittings and fix a dripping tap yourself.' },
-        level: { th: 'มือใหม่', en: 'Beginner' },
-        lessons: [
-          { id: 'p1', minutes: 6, title: { th: 'หาจุดรั่ว', en: 'Finding the leak' }, body: { th: 'ปิดน้ำทุกจุดแล้วดูมาตรวัดน้ำ ถ้ายังหมุนแปลว่ามีรั่วในระบบ', en: 'Turn every tap off and watch the meter; if it still moves, the system leaks.' } },
-          { id: 'p2', minutes: 7, title: { th: 'เลือกข้อต่อและเทปพันเกลียว', en: 'Fittings and thread tape' }, body: { th: 'ขนาดข้อต่อต้องตรงกับท่อ และพันเทปตามทิศทางเกลียวเพื่อกันซึม', en: 'Fittings must match the pipe size, and tape wrapped with the thread direction prevents seepage.' } },
-          { id: 'p3', minutes: 6, title: { th: 'ซ่อมก๊อกน้ำหยด', en: 'Fixing a dripping tap' }, body: { th: 'ส่วนใหญ่แก้ได้ด้วยการเปลี่ยนแหวนยางภายในก๊อก', en: 'Most drips are fixed by replacing the rubber washer inside the tap.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'จะรู้ได้อย่างไรว่าท่อภายในรั่ว', en: 'How can you tell a hidden pipe leaks?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'มาตรวัดน้ำยังหมุนทั้งที่ปิดน้ำแล้ว', en: 'The meter still moves with every tap off' } }, { id: 'b', text: { th: 'ได้ยินเสียงน้ำจากห้องข้างเคียง', en: 'You hear water next door' } }, { id: 'c', text: { th: 'ไม่มีทางรู้', en: 'There is no way to tell' } }] },
-          { id: 'q2', question: { th: 'ก๊อกน้ำหยดมักแก้ด้วยอะไร', en: 'What usually fixes a dripping tap?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'เปลี่ยนแหวนยาง', en: 'Replacing the rubber washer' } }, { id: 'b', text: { th: 'เปลี่ยนท่อทั้งบ้าน', en: 'Replacing all the pipes' } }, { id: 'c', text: { th: 'ทาสีทับ', en: 'Painting over it' } }] },
-        ],
-      },
-    ],
-  },
+  education,
 }
 
 export default dataset

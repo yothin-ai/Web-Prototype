@@ -1,6 +1,7 @@
 import type { Dataset } from '../types'
 import { sampleCoupons } from '../coupons'
 import { menu } from './menu'
+import { education } from './education'
 
 const dataset: Dataset = {
   id: 'coffee',
@@ -151,55 +152,7 @@ const dataset: Dataset = {
       { id: 'cod', name: { th: 'เก็บเงินปลายทาง', en: 'Cash on delivery' }, detail: { th: 'ชำระเมื่อได้รับสินค้า', en: 'Pay when it arrives' } },
     ],
   },
-  education: {
-    courses: [
-      {
-        id: 'brew',
-        title: { th: 'ชงกาแฟดริปที่บ้าน', en: 'Pour-over at home' },
-        summary: { th: 'ชงกาแฟดริปให้อร่อยด้วยอุปกรณ์พื้นฐานและขั้นตอนที่ทำซ้ำได้', en: 'Brew a good pour-over with basic gear and a repeatable routine.' },
-        level: { th: 'มือใหม่', en: 'Beginner' },
-        lessons: [
-          { id: 'b1', minutes: 6, title: { th: 'อุปกรณ์ที่ต้องมี', en: 'What you need' }, body: { th: 'ดริปเปอร์ กระดาษกรอง เครื่องชั่ง และกาต้มน้ำคอห่าน ก็เริ่มต้นได้แล้ว', en: 'A dripper, filters, a scale and a gooseneck kettle are enough to start.' } },
-          { id: 'b2', minutes: 7, title: { th: 'อัตราส่วนกาแฟต่อน้ำ', en: 'Coffee-to-water ratio' }, body: { th: 'เริ่มจากกาแฟ 1 ส่วนต่อน้ำ 15 ส่วน แล้วปรับตามรสที่ชอบ', en: 'Start at 1 part coffee to 15 parts water, then adjust to taste.' } },
-          { id: 'b3', minutes: 8, title: { th: 'เทน้ำอย่างไรให้สม่ำเสมอ', en: 'Pouring evenly' }, body: { th: 'เทเป็นวงกลมช้าๆ จากกลางออกขอบ และรอให้กาแฟบานก่อนเทรอบแรก', en: 'Pour slowly in circles from centre outward, and let the coffee bloom first.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'อัตราส่วนเริ่มต้นที่แนะนำคือเท่าไหร่', en: 'What starting ratio is recommended?' }, correctId: 'a', options: [{ id: 'a', text: { th: '1 ต่อ 15', en: '1 to 15' } }, { id: 'b', text: { th: '1 ต่อ 2', en: '1 to 2' } }, { id: 'c', text: { th: '1 ต่อ 100', en: '1 to 100' } }] },
-          { id: 'q2', question: { th: 'ต้องทำอะไรก่อนเทน้ำรอบแรก', en: 'What comes before the first main pour?' }, correctId: 'b', options: [{ id: 'a', text: { th: 'เติมน้ำตาล', en: 'Add sugar' } }, { id: 'b', text: { th: 'รอให้กาแฟบาน', en: 'Let the coffee bloom' } }, { id: 'c', text: { th: 'ปิดฝาทิ้งไว้', en: 'Cover it and walk away' } }] },
-        ],
-      },
-      {
-        id: 'beans',
-        title: { th: 'เข้าใจเมล็ดกาแฟ', en: 'Understanding beans' },
-        summary: { th: 'รู้จักระดับการคั่วและแหล่งปลูก เพื่อเลือกกาแฟที่ตรงกับรสนิยม', en: 'Learn roast levels and origins so you can pick coffee you will love.' },
-        level: { th: 'ทุกระดับ', en: 'All levels' },
-        lessons: [
-          { id: 'c1', minutes: 5, title: { th: 'ระดับการคั่ว', en: 'Roast levels' }, body: { th: 'คั่วอ่อนให้รสเปรี้ยวสดใส คั่วเข้มให้รสขมหนัก คั่วกลางอยู่ตรงกลาง', en: 'Light roasts taste bright and acidic, dark roasts bitter and heavy, medium sits between.' } },
-          { id: 'c2', minutes: 7, title: { th: 'แหล่งปลูกและรสชาติ', en: 'Origin and flavor' }, body: { th: 'ความสูงและสภาพดินของแหล่งปลูกส่งผลต่อกลิ่นและรสของกาแฟ', en: 'Altitude and soil shape the aroma and taste of the coffee.' } },
-          { id: 'c3', minutes: 5, title: { th: 'เก็บเมล็ดอย่างไรให้สด', en: 'Keeping beans fresh' }, body: { th: 'เก็บในถุงปิดสนิท พ้นแสงและความชื้น และใช้ให้หมดภายในหนึ่งเดือนหลังคั่ว', en: 'Store airtight, away from light and moisture, and finish within a month of roasting.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'คั่วอ่อนมักให้รสแบบไหน', en: 'What do light roasts usually taste like?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'เปรี้ยวสดใส', en: 'Bright and acidic' } }, { id: 'b', text: { th: 'ขมไหม้', en: 'Burnt and bitter' } }, { id: 'c', text: { th: 'จืดเหมือนน้ำ', en: 'Watery' } }] },
-          { id: 'q2', question: { th: 'ควรเก็บเมล็ดกาแฟอย่างไร', en: 'How should beans be stored?' }, correctId: 'b', options: [{ id: 'a', text: { th: 'เปิดฝาไว้บนเคาน์เตอร์', en: 'Open on the counter' } }, { id: 'b', text: { th: 'ในถุงปิดสนิท พ้นแสง', en: 'Airtight and out of light' } }, { id: 'c', text: { th: 'ตากแดด', en: 'In direct sunlight' } }] },
-        ],
-      },
-      {
-        id: 'latte',
-        title: { th: 'ลาเต้อาร์ตเบื้องต้น', en: 'Latte art basics' },
-        summary: { th: 'ตีฟองนมให้ละเอียดและเทเป็นลายหัวใจแรกของคุณ', en: 'Texture milk properly and pour your first heart.' },
-        level: { th: 'มือใหม่', en: 'Beginner' },
-        lessons: [
-          { id: 'l1', minutes: 8, title: { th: 'ตีฟองนม', en: 'Steaming milk' }, body: { th: 'ให้หัวตีฟองอยู่ใต้ผิวนมเล็กน้อย จนได้ฟองละเอียดเหมือนสีทาบ้าน', en: 'Keep the wand just under the surface until the milk looks like wet paint.' } },
-          { id: 'l2', minutes: 9, title: { th: 'เทลายหัวใจ', en: 'Pouring a heart' }, body: { th: 'เทจากที่สูงก่อนแล้วลดถ้วยลงใกล้ผิวเมื่อฟองเริ่มลอย', en: 'Pour from high, then lower the jug close to the surface as the foam appears.' } },
-          { id: 'l3', minutes: 6, title: { th: 'แก้ปัญหาที่พบบ่อย', en: 'Fixing common problems' }, body: { th: 'ฟองหยาบเกิดจากตีนานเกินไป ลองตีให้สั้นลงและหมุนถ้วยให้ทั่ว', en: 'Coarse foam comes from steaming too long; steam shorter and swirl the jug.' } },
-        ],
-        quiz: [
-          { id: 'q1', question: { th: 'ฟองนมที่ดีควรมีลักษณะอย่างไร', en: 'What should good milk foam look like?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'ละเอียดเหมือนสีทาบ้าน', en: 'Fine, like wet paint' } }, { id: 'b', text: { th: 'เป็นก้อนหยาบ', en: 'Coarse and lumpy' } }, { id: 'c', text: { th: 'ไม่มีฟองเลย', en: 'No foam at all' } }] },
-          { id: 'q2', question: { th: 'เทลายหัวใจเริ่มจากตรงไหน', en: 'Where does a heart pour begin?' }, correctId: 'a', options: [{ id: 'a', text: { th: 'เทจากที่สูงก่อน', en: 'Pour from high' } }, { id: 'b', text: { th: 'วางถ้วยชิดผิวทันที', en: 'Rest the jug on the surface at once' } }, { id: 'c', text: { th: 'เทนมลงในถ้วยเปล่า', en: 'Pour into an empty cup' } }] },
-        ],
-      },
-    ],
-  },
+  education,
 }
 
 export default dataset

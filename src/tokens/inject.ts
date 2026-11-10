@@ -28,9 +28,11 @@ function cardGrid(): string {
   for (const [name, min] of Object.entries(sizes)) {
     const need = (cols: number) => cols * min + (cols - 1) * gap
     for (let count = 2; count <= 40; count++) {
-      const divisors = Array.from({ length: 5 }, (_, i) => i + 2).filter((c) => c <= count && count % c === 0)
-      // A count with no even split (5, 7, 11) and a long list use as many columns as fit.
-      const fits = divisors.length > 0 && count <= 12 ? divisors : [2, 3, 4, 5, 6]
+      const divisors = [2, 3, 4, 5, 6].filter((c) => c <= count && count % c === 0)
+      // A count that splits evenly uses those column counts. One that does not (5, 7, 11) uses the counts that leave more than one card on the last row; a long list uses as many columns as fit.
+      const uneven = [2, 3, 4].filter((c) => count % c !== 1)
+      const noSplit = divisors.length === 0 || (divisors.length === 1 && divisors[0] === count && count > 4)
+      const fits = count > 12 ? [2, 3, 4, 5, 6] : noSplit ? (uneven.length ? uneven : [2, 3, 4]) : divisors
       // Later rules have a bigger min-width, so the widest count that fits wins.
       for (const cols of fits) rules.push(`@container (min-width: ${need(cols)}px) { .card-grid--${name} > .card-grid__list[data-count="${count}"] { grid-template-columns: repeat(${cols}, minmax(0, 1fr)); } }`)
     }
