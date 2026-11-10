@@ -143,3 +143,22 @@ export function useInvoices() {
   const [records] = useInvoiceRecords()
   return useMemo(() => buildInvoices(products, orders, records), [products, orders, records])
 }
+
+// The moves a transfer goes through. Approving takes stock out of the source, so it needs enough available there.
+export function useTransferActions() {
+  const [transfers, setTransfers] = useTransferBook()
+  const book = useStock()
+  const update = (id: string, patch: Partial<Transfer>) => setTransfers(transfers.map((x) => (x.id === id ? { ...x, ...patch } : x)))
+  return {
+    transfers,
+    setTransfers,
+    // Returns false, and changes nothing, when the source does not have enough available.
+    approve: (x: Transfer) => {
+      if (book.cell(x.productId, x.from).available < x.qty) return false
+      update(x.id, { status: 'transit', outAt: new Date().toISOString() })
+      return true
+    },
+    receive: (x: Transfer) => update(x.id, { status: 'done', inAt: new Date().toISOString() }),
+    cancel: (x: Transfer) => update(x.id, { status: 'cancelled' }),
+  }
+}

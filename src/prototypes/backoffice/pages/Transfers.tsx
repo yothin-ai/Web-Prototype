@@ -7,7 +7,7 @@ import { useStock } from '../../../stock/useStock'
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
 import { formatDate } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
-import { locationName, PROTOTYPE_ID, useSearch, useTransferBook } from '../data'
+import { locationName, PROTOTYPE_ID, useSearch, useTransferActions } from '../data'
 import { b } from '../strings'
 
 const statuses: TransferStatus[] = ['pending', 'transit', 'done', 'cancelled']
@@ -19,8 +19,7 @@ export function Transfers() {
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const products = useDataset().dataset.ecommerce.products
-  const book = useStock()
-  const [transfers, setTransfers] = useTransferBook()
+  const { transfers, setTransfers, approve: approveTransfer, receive, cancel } = useTransferActions()
   const [q, setQ] = useState('')
   const [status, setStatus] = useState('')
   const [adding, setAdding] = useState(false)
@@ -28,17 +27,11 @@ export function Transfers() {
   const nameOf = (id: string) => t(products.find((p) => p.id === id)?.name ?? {})
   const needle = q.trim().toLowerCase()
   const rows = transfers.filter((x) => (!status || x.status === status) && (!needle || x.id.toLowerCase().includes(needle) || nameOf(x.productId).toLowerCase().includes(needle)))
-  const update = (id: string, patch: Partial<Transfer>) => setTransfers(transfers.map((x) => (x.id === id ? { ...x, ...patch } : x)))
   const approve = (x: Transfer) => {
-    if (book.cell(x.productId, x.from).available < x.qty) {
-      setMessage({ tone: 'error', text: t(b.trfShortApprove) })
-      return
-    }
-    setMessage(null)
-    update(x.id, { status: 'transit', outAt: new Date().toISOString() })
+    setMessage(approveTransfer(x) ? null : { tone: 'error', text: t(b.trfShortApprove) })
   }
   const columns: DataColumn<Transfer>[] = [
-    { key: 'id', header: t(b.colTrfNo), sort: (x, y) => x.id.localeCompare(y.id), render: (x) => <span className="row">{x.id}{x.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
+    { key: 'id', header: t(b.colTrfNo), sort: (x, y) => x.id.localeCompare(y.id), render: (x) => <span className="row"><Link to={`${base}/transfers/${x.id}${search}`}>{x.id}</Link>{x.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
     { key: 'product', header: t(b.colProduct), render: (x) => <Link to={`${base}/stock/${x.productId}${search}`}>{nameOf(x.productId)}</Link> },
     { key: 'route', header: t(b.colRoute), render: (x) => `${t(locationName(x.from))} → ${t(locationName(x.to))}` },
     { key: 'qty', header: t(b.colQty), end: true, sort: (x, y) => x.qty - y.qty, render: (x) => x.qty },
@@ -50,8 +43,8 @@ export function Transfers() {
       render: (x) => (
         <span className="row">
           {x.status === 'pending' && <Button size="sm" onClick={() => approve(x)}>{t(b.trfApprove)}</Button>}
-          {x.status === 'transit' && <Button size="sm" onClick={() => update(x.id, { status: 'done', inAt: new Date().toISOString() })}>{t(b.trfReceive)}</Button>}
-          {x.status === 'pending' && <Button size="sm" variant="ghost" onClick={() => update(x.id, { status: 'cancelled' })}>{t(b.trfCancel)}</Button>}
+          {x.status === 'transit' && <Button size="sm" onClick={() => receive(x)}>{t(b.trfReceive)}</Button>}
+          {x.status === 'pending' && <Button size="sm" variant="ghost" onClick={() => cancel(x)}>{t(b.trfCancel)}</Button>}
           {(x.status === 'done' || x.status === 'cancelled') && '-'}
         </span>
       ),

@@ -48,8 +48,8 @@ export function AdjustModal({ product, open, onClose, initialLoc, onSaved }: { p
       <div className="stack">
         <h2>{t(b.adjustTitle)}</h2>
         {product ? <strong>{t(product.name)}</strong> : <Select label={t(b.product)} id="adj-product" value={pickedId} placeholder={t(b.adjProductPick)} onChange={(e) => setPickedId(e.target.value)} hint={tried && !chosen ? t(b.adjErrProduct) : undefined} options={products.map((p) => ({ value: p.id, label: t(p.name) }))} />}
-        <Select label={t(b.place)} value={loc} onChange={(e) => { setLoc(e.target.value); setCounted('') }} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
-        <Select label={t(b.reasonFilter)} value={reason} onChange={(e) => setReason(e.target.value as AdjustmentReason)} options={adjustmentReasons.map((r) => ({ value: r, label: t(reasonLabel(r)) }))} />
+        <Select label={t(b.place)} id="adj-place" value={loc} onChange={(e) => { setLoc(e.target.value); setCounted('') }} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
+        <Select label={t(b.reasonFilter)} id="adj-reason" value={reason} onChange={(e) => setReason(e.target.value as AdjustmentReason)} options={adjustmentReasons.map((r) => ({ value: r, label: t(reasonLabel(r)) }))} />
         <DataRow label={t(b.inSystem)} value={`${current} ${t(b.pieces)}`} />
         <Field label={t(b.counted)} id="adj-counted" type="number" min={0} inputMode="numeric" value={counted} onChange={(e) => setCounted(e.target.value)} hint={tried && !valid ? t(b.adjustBad) : undefined} />
         {valid && <DataRow label={t(b.difference)} value={<strong>{diff > 0 ? `+${diff}` : diff}</strong>} />}

@@ -19,6 +19,7 @@ import { Valuation } from './pages/Valuation'
 import { PurchaseOrderDetail } from './pages/PurchaseOrderDetail'
 import { PurchaseOrders } from './pages/PurchaseOrders'
 import { Suppliers } from './pages/Suppliers'
+import { TransferDetail } from './pages/TransferDetail'
 import { Transfers } from './pages/Transfers'
 import { Receive } from './pages/Receive'
 import { StockDetail } from './pages/StockDetail'
@@ -33,12 +34,13 @@ export function BackOffice() {
   const base = `/${PROTOTYPE_ID}`
   const counts = useCounts()
   const here = pathname.replace(base, '') || '/'
-  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check', badge?: number) => ({
+  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check', badge?: number, badgeLabel?: string) => ({
     to: `${base}${to}${search}`,
     label,
     icon,
     active: to === '/' ? here === '/' : here.startsWith(to),
     badge: badge ? String(badge) : undefined,
+    badgeLabel: badge && badgeLabel ? `${badge} ${badgeLabel}` : undefined,
   })
   return (
     <SideNavLayout
@@ -50,8 +52,8 @@ export function BackOffice() {
           brand={<Logo name={t(b.brand)} tone="on-dark" />}
           groups={[
             { title: t(b.groupOverview), items: [item('/', t(b.navOverview), 'home')] },
-            { title: t(b.groupOrders), items: [item('/orders', t(b.navOrders), 'orders', counts.toPack)] },
-            { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
+            { title: t(b.groupOrders), items: [item('/orders', t(b.navOrders), 'orders', counts.toPack, t(b.badgeToPack))] },
+            { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts, t(b.alerts)), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
             { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
             { title: t(b.groupReports), items: [item('/reports/valuation', t(b.navValuation), 'cash'), item('/reports/movements', t(b.navMovements), 'receipt')] },
             { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/invoices', t(ac.navInvoices), 'receipt'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank'), item('/accounting/close', t(ac.navClose), 'check')] },
@@ -78,6 +80,7 @@ export function BackOffice() {
           <Route path="stock/:productId" element={<StockDetail />} />
           <Route path="adjustments" element={<Adjustments />} />
           <Route path="transfers" element={<Transfers />} />
+          <Route path="transfers/:transferId" element={<TransferDetail />} />
           <Route path="purchase-orders" element={<PurchaseOrders />} />
           <Route path="purchase-orders/new" element={<NewPurchaseOrder />} />
           <Route path="purchase-orders/:poId/edit" element={<EditPurchaseOrder />} />

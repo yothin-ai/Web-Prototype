@@ -51,7 +51,7 @@ export function StockDetail() {
     { key: 'type', header: t(b.colType), render: (h) => <span className="row"><Badge tone={h.qty > 0 ? 'success' : undefined}>{t(typeLabel(h.kind))}</Badge>{h.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
     { key: 'place', header: t(b.place), render: (h) => t(locationName(h.loc)) },
     { key: 'qty', header: t(b.colQtyChange), end: true, render: (h) => <strong>{h.qty > 0 ? `+${h.qty}` : h.qty}</strong> },
-    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={(h.ref.startsWith('TRF-') ? `${base}/transfers${search}` : `${base}/${h.ref.startsWith('PO-') ? 'purchase-orders' : 'orders'}/${h.ref}${search}`)}>{h.ref}</Link> : h.supplierId ? t(supplierNames[h.supplierId]) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-')) },
+    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={(h.ref.startsWith('TRF-') ? `${base}/transfers/${h.ref}${search}` : `${base}/${h.ref.startsWith('PO-') ? 'purchase-orders' : 'orders'}/${h.ref}${search}`)}>{h.ref}</Link> : h.supplierId ? t(supplierNames[h.supplierId]) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-')) },
   ]
   return (
     <Grid>
