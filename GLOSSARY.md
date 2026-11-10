@@ -52,6 +52,14 @@ _Avoid_: Style guide, theme, mockup
 The frame shared by every E-Commerce page: promo strip, utility bar, site header and category menu above the page, and a footer below.
 _Avoid_: Layout, template, chrome
 
+**Back Office**:
+The Prototype for the shop's owner and staff: orders to pack, stock to count and receive. It reads the same Dataset and the same orders as the E-Commerce Prototype, so what a Viewer does in the storefront shows up here and the other way round.
+_Avoid_: Admin, dashboard, ERP
+
+**Stock**:
+How many of a product a place holds. Three figures: on hand (on the shelf), set aside (ordered but not yet packed) and available (on hand minus set aside, what the storefront may sell). Nothing is stored as a total; each figure is worked out from the Dataset's starting stock, the orders and the movements the Back Office recorded, so a Reset puts it back.
+_Avoid_: Inventory, quantity
+
 **Flash Sale**:
 A time-limited group of discounted products shown with a countdown, each carrying its price before the discount and how many are sold and left.
 _Avoid_: Promotion, deal of the day

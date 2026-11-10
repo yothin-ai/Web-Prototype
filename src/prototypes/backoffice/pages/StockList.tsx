@@ -1,0 +1,64 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useDataset } from '../../../datasets/DatasetContext'
+import type { Product } from '../../../datasets/types'
+import { useLang } from '../../../i18n'
+import { locationIds, reorderPoint, type StockStatus } from '../../../stock/stock'
+import { useStock } from '../../../stock/useStock'
+import { Badge, Button, Card, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
+import { skuOf } from '../../ecommerce/cart'
+import { AdjustModal } from '../AdjustModal'
+import { locationName, PROTOTYPE_ID, useSearch } from '../data'
+import { b } from '../strings'
+
+export const levelLabel = (s: StockStatus) => ({ out: b.levelOut, low: b.levelLow, ok: b.levelOk })[s]
+
+export function StockList() {
+  const { t } = useLang()
+  const search = useSearch()
+  const base = `/${PROTOTYPE_ID}`
+  const products = useDataset().dataset.ecommerce.products
+  const book = useStock()
+  const [q, setQ] = useState('')
+  const [loc, setLoc] = useState('')
+  const [level, setLevel] = useState('')
+  const [adjusting, setAdjusting] = useState<Product | null>(null)
+  const [saved, setSaved] = useState(false)
+  const needle = q.trim().toLowerCase()
+  const cellOf = (p: Product) => (loc ? book.cell(p.id, loc) : book.total(p.id))
+  const rows = products.filter((p) => (!needle || t(p.name).toLowerCase().includes(needle) || skuOf(p).toLowerCase().includes(needle)) && (!level || book.status(p.id) === level))
+  const columns: DataColumn<Product>[] = [
+    { key: 'name', header: t(b.colProduct), sort: (x, y) => t(x.name).localeCompare(t(y.name)), render: (p) => <span className="stack"><Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link><span className="muted">{skuOf(p)}</span></span> },
+    { key: 'cat', header: t(b.colCategory), sort: (x, y) => t(x.category).localeCompare(t(y.category)), render: (p) => t(p.category) },
+    { key: 'onhand', header: t(b.colOnHand), end: true, sort: (x, y) => cellOf(x).onHand - cellOf(y).onHand, render: (p) => cellOf(p).onHand },
+    { key: 'reserved', header: t(b.colReserved), end: true, render: (p) => cellOf(p).reserved },
+    { key: 'avail', header: t(b.colAvailable), end: true, sort: (x, y) => cellOf(x).available - cellOf(y).available, render: (p) => <strong>{cellOf(p).available}</strong> },
+    { key: 'reorder', header: t(b.colReorder), end: true, render: (p) => reorderPoint(p.id) },
+    { key: 'level', header: t(b.colLevel), render: (p) => <Badge tone={book.status(p.id) === 'ok' ? 'success' : 'warning'}>{t(levelLabel(book.status(p.id)))}</Badge> },
+    { key: 'act', header: t(b.colAction), render: (p) => <Button variant="secondary" size="sm" onClick={() => { setSaved(false); setAdjusting(p) }}>{t(b.adjust)}</Button> },
+  ]
+  return (
+    <Grid>
+      <Col>
+        <div className="stack">
+          <h1>{t(b.stockTitle)}</h1>
+          <p className="muted">{t(b.stockText)} {t(b.sample)}</p>
+        </div>
+      </Col>
+      <Col span={{ base: 4, sm: 8, md: 5 }}><Field label={t(b.search)} id="stock-q" type="search" placeholder={t(b.searchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
+      <Col span={{ base: 4, sm: 4, md: 4 }}>
+        <Select label={t(b.place)} value={loc} onChange={(e) => setLoc(e.target.value)} options={[{ value: '', label: t(b.allPlaces) }, ...locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))]} />
+      </Col>
+      <Col span={{ base: 4, sm: 4, md: 3 }}>
+        <Select label={t(b.stockFilter)} value={level} onChange={(e) => setLevel(e.target.value)} options={[{ value: '', label: t(b.allLevels) }, { value: 'low', label: t(b.levelLow) }, { value: 'out', label: t(b.levelOut) }, { value: 'ok', label: t(b.levelOk) }]} />
+      </Col>
+      {saved && <Col><Notice tone="success">{t(b.adjusted)}</Notice></Col>}
+      <Col>
+        <Card>
+          <DataTable label={t(b.stockLabel)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(b.stockEmpty)} />
+        </Card>
+      </Col>
+      {adjusting && <AdjustModal key={adjusting.id} product={adjusting} open onClose={() => setAdjusting(null)} initialLoc={loc || 'central'} onSaved={() => setSaved(true)} />}
+    </Grid>
+  )
+}

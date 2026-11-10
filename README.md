@@ -1,6 +1,6 @@
 # Mock Prototype Showcase
 
-A clickable set of mock sites (E-Commerce, Landing Page, Educational) for pitching a decision. Nothing is sent to a server: what a Viewer enters stays in their own browser. Terms are defined in [GLOSSARY.md](GLOSSARY.md), the visual rules in [MOODBOARD.md](MOODBOARD.md).
+A clickable set of mock sites (E-Commerce, Landing Page, Educational, Back Office) for pitching a decision. Nothing is sent to a server: what a Viewer enters stays in their own browser. Terms are defined in [GLOSSARY.md](GLOSSARY.md), the visual rules in [MOODBOARD.md](MOODBOARD.md).
 
 ## Run
 
@@ -10,7 +10,7 @@ npm run dev        # http://localhost:5173
 npm run check      # typecheck + "no values outside tokens" check
 ```
 
-Useful addresses: `/#/` Hub, `/#/moodboard`, `/#/ecommerce`, `/#/landing`, `/#/education`. Add `?clean=1` after the path to hide the Shell (press Esc to bring it back).
+Useful addresses: `/#/` Hub, `/#/moodboard`, `/#/ecommerce`, `/#/landing`, `/#/education`, `/#/backoffice`. Add `?clean=1` after the path to hide the Shell (press Esc to bring it back).
 
 ## Build and deploy
 
