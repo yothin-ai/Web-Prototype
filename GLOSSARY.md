@@ -88,3 +88,7 @@ _Avoid_: Taxonomy, sitemap
 The page for one product, with its gallery, price and buy box, details, specifications, reviews and related products.
 _Avoid_: Detail page, PDP
 
+
+**Made product**:
+A product a Viewer adds in the Back Office. It lives in the browser beside the chosen Dataset's own products (one list per Dataset) and is cleared by a Reset. It shows in stock, the books and the Storefront's full list and search, but never changes the Dataset's made-up history, and a Dataset's own products cannot be edited, only hidden from the Storefront. A made product with history (opening stock, orders, receipts or transfers) is hidden rather than deleted.
+_Avoid_: Custom product, new item

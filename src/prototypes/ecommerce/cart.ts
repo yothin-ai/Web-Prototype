@@ -1,4 +1,5 @@
 import { readDemoState, useDemoState } from '../../state/demoState'
+import { useProducts } from '../../products/useProducts'
 import { useDataset } from '../../datasets/DatasetContext'
 import { useStock } from '../../stock/useStock'
 import type { Product } from '../../datasets/types'
@@ -42,10 +43,13 @@ export type Order = {
   taxBuyer?: { id: string; name: string }
 }
 
+// `products` is the Dataset's own products the shop still shows, for the curated pages that pick from a fixed list;
+// `catalog` adds the products made in the Back Office, for the full list and search; `productById` finds any of them.
 export const useEcommerce = () => {
-  const { products, shippingMethods, paymentMethods } = useDataset().dataset.ecommerce
-  const productById = (id: string) => products.find((p) => p.id === id)
-  return { products, shippingMethods, paymentMethods, productById }
+  const { shippingMethods, paymentMethods } = useDataset().dataset.ecommerce
+  const { all, shop, shopSeed } = useProducts()
+  const productById = (id: string) => all.find((p) => p.id === id)
+  return { products: shopSeed, catalog: shop, shippingMethods, paymentMethods, productById }
 }
 
 export const useCart = () => useDemoState<CartLine[]>(PROTOTYPE_ID, 'cart', [])
@@ -63,6 +67,7 @@ export const useAddToCart = () => {
 // The SKU shown for a product: the Dataset's own when it has one, else a stable made-up number.
 export function skuOf(p: Product) {
   if (p.detail?.sku) return p.detail.sku
+  if (p.sku) return p.sku
   let h = 0
   for (const ch of p.id) h = (h * 31 + ch.charCodeAt(0)) >>> 0
   return `SKU-${String(h).padStart(8, '0').slice(-8)}`

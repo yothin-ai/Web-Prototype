@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link, useParams } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { costOf, purchaseTotal, receivedQtyOf, remainingQtyOf, type PurchaseOrder } from '../../../stock/stock'
 import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Modal, Notice, type DataColumn } from '../../../ui'
@@ -16,7 +16,7 @@ export function PurchaseOrderDetail() {
   const search = useSearch()
   const { poId = '' } = useParams()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [purchases, setPurchases] = usePurchaseBook()
   const [receiving, setReceiving] = useState(false)
   const po = purchases.find((x) => x.id === poId)

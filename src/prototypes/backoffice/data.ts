@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
+import { useProducts } from '../../products/useProducts'
 import { useLocation } from 'react-router-dom'
-import { useDataset } from '../../datasets/DatasetContext'
 import type { Localized } from '../../i18n'
 import { buildBooks, buildInvoices, seedSales, type Close, type Expense, type InvoiceRecord } from '../../accounting/accounting'
 import { CENTRAL } from '../../stock/stock'
@@ -34,8 +34,7 @@ const sameDay = (a: Date, c: Date) => a.getFullYear() === c.getFullYear() && a.g
 
 // Sales of the last `days` days, oldest first: the made-up figure plus every order the shopper placed (not cancelled).
 export function useSales(days = 7) {
-  const { dataset } = useDataset()
-  const products = dataset.ecommerce.products
+  const products = useProducts().all
   const orders = useBackOrders()
   return useMemo(() => {
     const now = new Date()
@@ -63,8 +62,7 @@ export function useSearch() {
 
 // How many orders wait to be packed, and how many products are running low or out: the numbers the menu and the bell show.
 export function useCounts() {
-  const { dataset } = useDataset()
-  const products = dataset.ecommerce.products
+  const products = useProducts().all
   const orders = useBackOrders()
   const book = useStock()
   return {
@@ -88,7 +86,7 @@ export function useBestSellers(limit = 5) {
 
 // The transfers, newest first. The first time, the list is filled with the made-up ones; Reset clears them with the rest.
 export function useTransferBook(): [Transfer[], (next: Transfer[]) => void] {
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [transfers, setTransfers] = useTransfers()
   const [seeded, setSeeded] = useDemoState<boolean>(PROTOTYPE_ID, 'transfersSeeded', false)
   useEffect(() => {
@@ -103,7 +101,7 @@ export function useTransferBook(): [Transfer[], (next: Transfer[]) => void] {
 
 // The purchase orders, newest first, filled with the made-up ones the first time.
 export function usePurchaseBook(): [PurchaseOrder[], (next: PurchaseOrder[]) => void] {
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [purchases, setPurchases] = usePurchases()
   const [seeded, setSeeded] = useDemoState<boolean>(PROTOTYPE_ID, 'purchasesSeeded', false)
   useEffect(() => {
@@ -126,7 +124,7 @@ const NO_DAYS: string[] = []
 
 // The shop's books: made-up daily sales, the real orders, received purchase orders and the costs, ready for the accounting pages.
 export function useBooks() {
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const orders = useBackOrders()
   const [purchases] = usePurchaseBook()
   const [expenses] = useExpenses()
@@ -138,7 +136,7 @@ const NO_INVOICES: InvoiceRecord[] = []
 
 // The tax invoices: those asked for at checkout, and three made-up past ones.
 export function useInvoices() {
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const orders = useBackOrders()
   const [records] = useInvoiceRecords()
   return useMemo(() => buildInvoices(products, orders, records), [products, orders, records])

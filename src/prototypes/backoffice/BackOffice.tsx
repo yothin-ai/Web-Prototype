@@ -15,6 +15,8 @@ import { ac } from './accStrings'
 import { EditPurchaseOrder, NewPurchaseOrder } from './pages/NewPurchaseOrder'
 import { Movements } from './pages/Movements'
 import { Orders } from './pages/Orders'
+import { Products } from './pages/Products'
+import { pr } from './productStrings'
 import { Valuation } from './pages/Valuation'
 import { PurchaseOrderDetail } from './pages/PurchaseOrderDetail'
 import { PurchaseOrders } from './pages/PurchaseOrders'
@@ -34,7 +36,7 @@ export function BackOffice() {
   const base = `/${PROTOTYPE_ID}`
   const counts = useCounts()
   const here = pathname.replace(base, '') || '/'
-  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check', badge?: number, badgeLabel?: string) => ({
+  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check' | 'grid', badge?: number, badgeLabel?: string) => ({
     to: `${base}${to}${search}`,
     label,
     icon,
@@ -53,7 +55,7 @@ export function BackOffice() {
           groups={[
             { title: t(b.groupOverview), items: [item('/', t(b.navOverview), 'home')] },
             { title: t(b.groupOrders), items: [item('/orders', t(b.navOrders), 'orders', counts.toPack, t(b.badgeToPack))] },
-            { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts, t(b.alerts)), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
+            { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts, t(b.alerts)), item('/products', t(pr.nav), 'grid'), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
             { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
             { title: t(b.groupReports), items: [item('/reports/valuation', t(b.navValuation), 'cash'), item('/reports/movements', t(b.navMovements), 'receipt')] },
             { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/invoices', t(ac.navInvoices), 'receipt'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank'), item('/accounting/close', t(ac.navClose), 'check')] },
@@ -76,6 +78,7 @@ export function BackOffice() {
           <Route index element={<Overview />} />
           <Route path="orders" element={<Orders />} />
           <Route path="orders/:orderId" element={<OrderDetail />} />
+          <Route path="products" element={<Products />} />
           <Route path="stock" element={<StockList />} />
           <Route path="stock/:productId" element={<StockDetail />} />
           <Route path="adjustments" element={<Adjustments />} />

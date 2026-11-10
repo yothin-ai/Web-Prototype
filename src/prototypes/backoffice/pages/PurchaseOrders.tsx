@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link, useLocation } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { purchaseTotal, type PurchaseOrder, type PurchaseStatus } from '../../../stock/stock'
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Select, type DataColumn } from '../../../ui'
@@ -18,7 +18,7 @@ export function PurchaseOrders() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [purchases] = usePurchaseBook()
   const [q, setQ] = useState('')
   const [status, setStatus] = useState('')

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
+import { useProducts } from '../../../products/useProducts'
 import { useLang } from '../../../i18n'
 import { reorderPoint } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
@@ -18,8 +18,7 @@ export function Overview() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const { dataset } = useDataset()
-  const products = dataset.ecommerce.products
+  const products = useProducts().all
   const orders = useBackOrders()
   const book = useStock()
   const sales = useSales(7)
@@ -93,7 +92,7 @@ export function Overview() {
                 <DataRow
                   key={p.id}
                   label={<Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link>}
-                  value={<span className="row"><span>{t(b.available)} {have} {t(b.pieces)} ({t(b.colReorder)} {reorderPoint(p.id)})</span><Badge tone={have === 0 ? 'danger' : 'warning'}>{t(have === 0 ? b.levelOut : b.levelLow)}</Badge></span>}
+                  value={<span className="row"><span>{t(b.available)} {have} {t(b.pieces)} ({t(b.colReorder)} {reorderPoint(p)})</span><Badge tone={have === 0 ? 'danger' : 'warning'}>{t(have === 0 ? b.levelOut : b.levelLow)}</Badge></span>}
                 />
               )
             })}

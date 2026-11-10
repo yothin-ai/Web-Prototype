@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { adjustmentReasons, adjustmentsOf, type AdjustmentRow } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
@@ -15,7 +15,7 @@ export function Adjustments() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [movements] = useMovements()
   const [q, setQ] = useState('')
   const [reason, setReason] = useState('')

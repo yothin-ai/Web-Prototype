@@ -35,7 +35,7 @@ export function receivedQtyOf(po: PurchaseOrder, productId: string) {
 export const remainingQtyOf = (po: PurchaseOrder, productId: string) => Math.max(0, (po.lines.find((l) => l.productId === productId)?.qty ?? 0) - receivedQtyOf(po, productId))
 
 // A made-up cost price, between 55% and 75% of the selling price, the same every time for a product.
-export const costOf = (p: Product) => Math.round(p.price * (0.55 + (hash(`${p.id}:c`) % 21) / 100))
+export const costOf = (p: Product) => p.cost ?? Math.round(p.price * (0.55 + (hash(`${p.id}:c`) % 21) / 100))
 export const purchaseTotal = (po: PurchaseOrder, products: Product[]) => po.lines.reduce((n, l) => n + l.qty * costOf(products.find((p) => p.id === l.productId) ?? ({ id: l.productId, price: 0 } as Product)), 0)
 
 export const remainingValue = (po: PurchaseOrder, products: Product[]) => purchaseTotal({ ...po, lines: po.lines.map((l) => ({ ...l, qty: remainingQtyOf(po, l.productId) })) }, products)
@@ -51,14 +51,15 @@ const hash = (text: string) => {
   return h
 }
 
-export const reorderPoint = (productId: string) => 10 + (hash(`${productId}:r`) % 15)
+export const reorderPoint = (p: Product) => p.reorderAt ?? 10 + (hash(`${p.id}:r`) % 15)
 
 // A few products start low on stock and one starts out, so the warnings have something to show.
 const flagCache = new WeakMap<Product[], Map<string, 'out' | 'low'>>()
 function flagsFor(products: Product[]) {
   const cached = flagCache.get(products)
   if (cached) return cached
-  const ranked = [...products].sort((a, b) => hash(`${a.id}:f`) - hash(`${b.id}:f`))
+  // Only the Dataset's own products can start low or out; a product made in the Back Office starts with what its owner entered.
+  const ranked = products.filter((p) => !p.custom).sort((a, b) => hash(`${a.id}:f`) - hash(`${b.id}:f`))
   const flags = new Map<string, 'out' | 'low'>()
   ranked.slice(0, 1).forEach((p) => flags.set(p.id, 'out'))
   ranked.slice(1, 5).forEach((p) => flags.set(p.id, 'low'))
@@ -94,7 +95,7 @@ export function buildStock(products: Product[], orders: Order[], movements: Move
   const book = new Map<string, Map<string, { onHand: number; reserved: number }>>()
   for (const p of products) {
     const row = new Map<string, { onHand: number; reserved: number }>()
-    for (const loc of locationIds) row.set(loc, { onHand: seedOnHand(p.id, loc, flags.get(p.id)), reserved: 0 })
+    for (const loc of locationIds) row.set(loc, { onHand: p.custom ? 0 : seedOnHand(p.id, loc, flags.get(p.id)), reserved: 0 })
     book.set(p.id, row)
   }
   for (const m of movements) {
@@ -141,9 +142,11 @@ export function buildStock(products: Product[], orders: Order[], movements: Move
     }, { onHand: 0, reserved: 0 })
     return { ...sum, available: sum.onHand - sum.reserved }
   }
+  const byId = new Map(products.map((p) => [p.id, p]))
   const status = (productId: string): StockStatus => {
     const available = total(productId).available
-    return available <= 0 ? 'out' : available < reorderPoint(productId) ? 'low' : 'ok'
+    const product = byId.get(productId)
+    return available <= 0 ? 'out' : product && available < reorderPoint(product) ? 'low' : 'ok'
   }
   return { cell, total, status }
 }
@@ -191,7 +194,7 @@ export function historyOf(productId: string, orders: Order[], movements: Movemen
 export type AdjustmentRow = { id: string; at: string; productId: string; loc: string; qty: number; reason: AdjustmentReason; note?: string; sample?: boolean }
 
 export function adjustmentsOf(products: Product[], movements: Movement[], now = Date.now()): AdjustmentRow[] {
-  const ranked = [...products].sort((a, b) => hash(`${a.id}:adj`) - hash(`${b.id}:adj`))
+  const ranked = products.filter((p) => !p.custom).sort((a, b) => hash(`${a.id}:adj`) - hash(`${b.id}:adj`))
   const past: [AdjustmentReason, number, string, number][] = [['damaged', -2, 'b2', 1], ['count', 5, CENTRAL, 3], ['expired', -3, CENTRAL, 6], ['lost', -1, 'b4', 9]]
   const rows: AdjustmentRow[] = past.flatMap(([reason, qty, loc, days], i) => (ranked[i] ? [{ id: `ADJ-090${i + 1}`, at: dayAt(days, now), productId: ranked[i].id, loc, qty, reason, sample: true }] : []))
   const live = movements.filter((m) => m.kind === 'adjust').sort((a, b) => a.at.localeCompare(b.at))
@@ -202,7 +205,7 @@ export function adjustmentsOf(products: Product[], movements: Movement[], now = 
 // Four made-up transfers, so the page is never empty: two done, one cancelled and one waiting for approval.
 export function sampleTransfers(products: Product[], now = Date.now()): Transfer[] {
   const flags = flagsFor(products)
-  const ranked = [...products].filter((p) => !flags.has(p.id)).sort((a, b) => hash(`${a.id}:trf`) - hash(`${b.id}:trf`))
+  const ranked = products.filter((p) => !p.custom && !flags.has(p.id)).sort((a, b) => hash(`${a.id}:trf`) - hash(`${b.id}:trf`))
   const plan: [TransferStatus, number, string, string, number][] = [['done', 30, CENTRAL, 'b1', 8], ['done', 12, CENTRAL, 'b2', 5], ['cancelled', 8, 'b3', CENTRAL, 3], ['pending', 10, CENTRAL, 'b3', 0]]
   return plan.flatMap(([status, qty, from, to, days], i) =>
     ranked[i] ? [{ id: `TRF-090${i + 1}`, at: dayAt(days, now), productId: ranked[i].id, qty, from, to, status, sample: true }] : [],
@@ -212,7 +215,7 @@ export function sampleTransfers(products: Product[], now = Date.now()): Transfer
 // Five made-up purchase orders: two received, one placed and waiting, one draft and one cancelled.
 export function samplePurchaseOrders(products: Product[], now = Date.now()): PurchaseOrder[] {
   const flags = flagsFor(products)
-  const ranked = [...products].filter((p) => !flags.has(p.id)).sort((a, b) => hash(`${a.id}:po`) - hash(`${b.id}:po`))
+  const ranked = products.filter((p) => !p.custom && !flags.has(p.id)).sort((a, b) => hash(`${a.id}:po`) - hash(`${b.id}:po`))
   const at = (i: number) => ranked[i % Math.max(1, ranked.length)]?.id ?? ''
   const plan: { status: PurchaseStatus; supplierId: string; days: number; lines: [number, number][] }[] = [
     { status: 'received', supplierId: 's1', days: 18, lines: [[0, 40], [1, 24]] },

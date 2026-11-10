@@ -10,7 +10,7 @@ export function Browse() {
   const { t } = useLang()
   const [params] = useSearchParams()
   const { search } = useLocation()
-  const { products } = useEcommerce()
+  const { catalog: products } = useEcommerce()
   const q = (params.get('q') ?? '').trim().toLowerCase()
 
   const matches = (text: string) => text.toLowerCase().includes(q)

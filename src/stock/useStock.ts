@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useDataset } from '../datasets/DatasetContext'
+import { useProducts } from '../products/useProducts'
 import type { Order } from '../prototypes/ecommerce/cart'
 import { useDemoState } from '../state/demoState'
 import { buildStock, type Movement, type PurchaseOrder, type Transfer } from './stock'
@@ -17,8 +17,7 @@ export const useTransfers = () => useDemoState<Transfer[]>(BACKOFFICE_ID, 'trans
 
 // The stock of every product of the chosen Dataset, worked out from the orders and the recorded movements.
 export function useStock() {
-  const { dataset } = useDataset()
-  const products = dataset.ecommerce.products
+  const products = useProducts().all
   const [orders] = useDemoState<Order[]>('ecommerce', 'orders', NO_ORDERS)
   const [movements] = useMovements()
   const [transfers] = useTransfers()

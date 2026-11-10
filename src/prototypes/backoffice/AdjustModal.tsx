@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDataset } from '../../datasets/DatasetContext'
+import { useProducts } from '../../products/useProducts'
 import { useLang } from '../../i18n'
 import type { Product } from '../../datasets/types'
 import { adjustmentReasons, locationIds, type AdjustmentReason } from '../../stock/stock'
@@ -15,7 +15,7 @@ export const reasonTone = (r: AdjustmentReason) => (r === 'damaged' ? 'danger' :
 // Without a `product` the dialog first asks which one.
 export function AdjustModal({ product, open, onClose, initialLoc, onSaved }: { product?: Product; open: boolean; onClose: () => void; initialLoc: string; onSaved: () => void }) {
   const { t } = useLang()
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const book = useStock()
   const [movements, setMovements] = useMovements()
   const [pickedId, setPickedId] = useState('')

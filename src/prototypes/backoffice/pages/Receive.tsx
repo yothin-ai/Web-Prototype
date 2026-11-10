@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link, useLocation } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { locationIds, supplierIds, type Movement } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
@@ -15,7 +15,7 @@ export function Receive() {
   const { search: rawSearch } = useLocation()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [movements, setMovements] = useMovements()
   const preset = new URLSearchParams(rawSearch).get('product') ?? ''
   const [productId, setProductId] = useState(products.some((p) => p.id === preset) ? preset : '')

@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { locationIds, type Transfer, type TransferStatus } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
@@ -18,7 +18,7 @@ export function Transfers() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const { transfers, setTransfers, approve: approveTransfer, receive, cancel } = useTransferActions()
   const [q, setQ] = useState('')
   const [status, setStatus] = useState('')
@@ -82,7 +82,7 @@ export function Transfers() {
 
 function NewTransfer({ onClose, onCreate }: { onClose: () => void; onCreate: (draft: Omit<Transfer, 'id' | 'at' | 'status'>) => void }) {
   const { t } = useLang()
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const book = useStock()
   const [productId, setProductId] = useState('')
   const [from, setFrom] = useState('central')

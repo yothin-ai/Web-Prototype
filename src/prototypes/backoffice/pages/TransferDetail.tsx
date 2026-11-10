@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link, useParams } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import type { Transfer, TransferStatus } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
@@ -19,7 +19,7 @@ export function TransferDetail() {
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const { transferId = '' } = useParams()
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const book = useStock()
   const { transfers, approve, receive, cancel } = useTransferActions()
   const [short, setShort] = useState(false)

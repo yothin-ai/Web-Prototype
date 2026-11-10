@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import type { Localized } from '../../../i18n'
@@ -51,7 +52,10 @@ export function ProductPage() {
     if (ready) navigate(`${base}/account/reviews${withQuery(search, 'write', ready.key)}`)
     else setReviewHint(t(mine.some((r) => r.productId === productId) ? rv.alreadyReviewed : rv.onlyAfterReceive))
   }
-  const p = productById(productId)
+  const { isHidden } = useProducts()
+  // A product hidden from the shop in the Back Office reads as not found here.
+  const found = productById(productId)
+  const p = found && !isHidden(found.id) ? found : undefined
 
   useEffect(() => {
     setQty(1)
@@ -98,7 +102,7 @@ export function ProductPage() {
 
   // Explicit picks first, then the same category, then anything else so the row is never nearly empty.
   const relatedIds = [...(d?.related ?? []), ...products.filter((x) => x.category.th === p.category.th).map((x) => x.id), ...products.map((x) => x.id)]
-  const related = [...new Set(relatedIds)].filter((id) => id !== p.id).map((id) => productById(id)).filter((x) => !!x).slice(0, 10)
+  const related = [...new Set(relatedIds)].filter((id) => id !== p.id).map((id) => productById(id)).filter((x) => !!x && !isHidden(x.id)).slice(0, 10)
 
   const specs = d?.specs
     ? d.specs.map((row) => ({ label: t(row.label), value: t(row.value) }))

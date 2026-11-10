@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { historyOf, type HistoryEntry } from '../../../stock/stock'
 import { useMovements, usePurchases, useTransfers } from '../../../stock/useStock'
@@ -20,7 +20,7 @@ export function Movements() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const orders = useBackOrders()
   const [movements] = useMovements()
   const [transfers] = useTransfers()

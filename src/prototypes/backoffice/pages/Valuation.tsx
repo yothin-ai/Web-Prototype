@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import type { Product } from '../../../datasets/types'
 import { useLang } from '../../../i18n'
 import { costOf, locationIds } from '../../../stock/stock'
@@ -15,7 +15,7 @@ export function Valuation() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const book = useStock()
   const [loc, setLoc] = useState('')
   const held = (p: Product) => Math.max(0, loc ? book.cell(p.id, loc).onHand : book.total(p.id).onHand)

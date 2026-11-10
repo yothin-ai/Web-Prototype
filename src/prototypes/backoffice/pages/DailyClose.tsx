@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDataset } from '../../../datasets/DatasetContext'
+import { useProducts } from '../../../products/useProducts'
 import { useLang } from '../../../i18n'
 import { CLOSE_WINDOW, channels, dayKey, dayReport, isClosed, sampleCloseCounted, sampleCloseDays, type Close } from '../../../accounting/accounting'
 import { Badge, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Modal, Notice, StatCard, type DataColumn } from '../../../ui'
@@ -13,7 +13,7 @@ type DayRow = { day: string; report: ReturnType<typeof dayReport>; closed: boole
 
 export function DailyClose() {
   const { t, lang } = useLang()
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const books = useBooks()
   const [closes, setCloses] = useCloses()
   const [reopened, setReopened] = useReopened()

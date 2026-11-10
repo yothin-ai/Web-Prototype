@@ -72,6 +72,13 @@ export type Product = {
   sold?: number
   stock?: number
   detail?: ProductDetail
+  // Set only on a product made in the Back Office (kept in the browser, never in a Dataset).
+  custom?: boolean
+  sku?: string
+  unit?: Localized
+  // Cost price and the level that raises a low-stock warning; a Dataset's own products have these worked out instead.
+  cost?: number
+  reorderAt?: number
 }
 
 export type Choice = { id: string; name: Localized; detail: Localized; price?: number }

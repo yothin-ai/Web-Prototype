@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link, useParams } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { historyOf, locationIds, reorderPoint, type HistoryEntry } from '../../../stock/stock'
 import { useMovements, usePurchases, useStock, useTransfers } from '../../../stock/useStock'
@@ -18,7 +18,7 @@ export function StockDetail() {
   const search = useSearch()
   const { productId = '' } = useParams()
   const base = `/${PROTOTYPE_ID}`
-  const product = useDataset().dataset.ecommerce.products.find((p) => p.id === productId)
+  const product = useProducts().all.find((p) => p.id === productId)
   const book = useStock()
   const orders = useBackOrders()
   const [movements] = useMovements()
@@ -76,7 +76,7 @@ export function StockDetail() {
               <DataRow label={t(b.sku)} value={skuOf(product)} />
               <DataRow label={t(b.colCategory)} value={t(product.category)} />
               <DataRow label={t(b.price)} value={formatMoney(product.price, lang)} />
-              <DataRow label={t(b.colReorder)} value={`${reorderPoint(product.id)} ${t(b.pieces)}`} />
+              <DataRow label={t(b.colReorder)} value={`${reorderPoint(product)} ${t(b.pieces)}`} />
               <DataRow label={`${t(b.total)}: ${t(b.colOnHand)}`} value={total.onHand} />
               <DataRow label={`${t(b.total)}: ${t(b.colReserved)}`} value={total.reserved} />
               <DataRow strong label={`${t(b.total)}: ${t(b.colAvailable)}`} value={total.available} />

@@ -70,8 +70,12 @@ export function monthsBack(count: number, now = Date.now()) {
 
 const DAYS_BACK = 190
 // Made-up sales of a past day, scaled to the Dataset's prices. Today's figure is a made-up morning that live orders add to.
+// The made-up figures come from the Dataset's own products only, so a product made in the Back Office does not change them.
+const ownProducts = (products: Product[]) => products.filter((p) => !p.custom)
+
 export function seedSales(products: Product[], daysAgo: number) {
-  const average = products.reduce((n, p) => n + p.price, 0) / Math.max(1, products.length)
+  const own = ownProducts(products)
+  const average = own.reduce((n, p) => n + p.price, 0) / Math.max(1, own.length)
   const share = 0.6 + (hash(`day:${daysAgo}`) % 80) / 100
   return Math.round((average * 12 * (daysAgo === 0 ? share / 2 : share)) / 10) * 10
 }
@@ -100,7 +104,8 @@ const sampleExpensePlan: [ExpenseCategory, string, number, boolean][] = [
 ]
 // Six made-up costs for each of the last six months, scaled to the Dataset's prices.
 export function seedExpenses(products: Product[], now = Date.now()): Expense[] {
-  const average = products.reduce((n, p) => n + p.price, 0) / Math.max(1, products.length)
+  const own = ownProducts(products)
+  const average = own.reduce((n, p) => n + p.price, 0) / Math.max(1, own.length)
   const today = dayKey(new Date(now))
   const rows: Expense[] = []
   monthsBack(6, now).forEach((month) => {
@@ -288,7 +293,7 @@ export function buildInvoices(products: Product[], orders: Order[], records: Inv
     const doc = netLines(parts)
     rows.push({ id: o.id, orderId: o.id, no: record?.no, status: record?.status ?? 'pending', at: record?.issuedAt ?? o.placedAt, buyerName: o.taxBuyer.name, buyerTaxId: o.taxBuyer.id, buyerAddress: o.customer.address, ...doc, canIssue: saleState(o) === 'paid', sample: false })
   }
-  const ranked = [...products].sort((a, b) => hash(`${a.id}:inv`) - hash(`${b.id}:inv`))
+  const ranked = products.filter((p) => !p.custom).sort((a, b) => hash(`${a.id}:inv`) - hash(`${b.id}:inv`))
   const plan: [string, number, number][] = [['@buyer1', 3, 2], ['@buyer2', 9, 1], ['@buyer3', 16, 3]]
   plan.forEach(([buyer, days, qty], i) => {
     const p = ranked[i]

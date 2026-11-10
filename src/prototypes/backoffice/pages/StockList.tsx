@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Link, useLocation } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import type { Product } from '../../../datasets/types'
 import { useLang } from '../../../i18n'
 import { locationIds, reorderPoint, type StockStatus } from '../../../stock/stock'
@@ -19,7 +19,7 @@ export function StockList() {
   const { t } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const book = useStock()
   const [q, setQ] = useState('')
   const [loc, setLoc] = useState('')
@@ -35,14 +35,14 @@ export function StockList() {
     { key: 'onhand', header: t(b.colOnHand), end: true, sort: (x, y) => cellOf(x).onHand - cellOf(y).onHand, render: (p) => cellOf(p).onHand },
     { key: 'reserved', header: t(b.colReserved), end: true, render: (p) => cellOf(p).reserved },
     { key: 'avail', header: t(b.colAvailable), end: true, sort: (x, y) => cellOf(x).available - cellOf(y).available, render: (p) => <strong>{cellOf(p).available}</strong> },
-    { key: 'reorder', header: t(b.colReorder), end: true, render: (p) => reorderPoint(p.id) },
+    { key: 'reorder', header: t(b.colReorder), end: true, render: (p) => reorderPoint(p) },
     { key: 'level', header: t(b.colLevel), render: (p) => <Badge tone={book.status(p.id) === 'ok' ? 'success' : book.status(p.id) === 'out' ? 'danger' : 'warning'}>{t(levelLabel(book.status(p.id)))}</Badge> },
     { key: 'act', header: t(b.colAction), render: (p) => <Button variant="secondary" size="sm" onClick={() => { setSaved(false); setAdjusting(p) }}>{t(b.adjust)}</Button> },
   ]
   return (
     <Grid>
       <Col>
-        <PageHead title={t(b.stockTitle)} text={`${t(b.stockText)} (${products.length} ${t(b.records)}) ${t(b.sample)}`} actions={<><Button variant="secondary" icon="receipt" onClick={() => downloadCsv('stock.csv', [[t(b.colProduct), 'SKU', t(b.colCategory), t(b.place), t(b.colOnHand), t(b.colReserved), t(b.colAvailable), t(b.colReorder), t(b.colLevel)], ...rows.map((p) => [t(p.name), skuOf(p), t(p.category), loc ? t(locationName(loc)) : t(b.allPlaces), cellOf(p).onHand, cellOf(p).reserved, cellOf(p).available, reorderPoint(p.id), t(levelLabel(book.status(p.id)))])])}>{t(b.exportCsv)}</Button><Button to={`${base}/receive${search}`}>{t(b.receive)}</Button></>} />
+        <PageHead title={t(b.stockTitle)} text={`${t(b.stockText)} (${products.length} ${t(b.records)}) ${t(b.sample)}`} actions={<><Button variant="secondary" icon="receipt" onClick={() => downloadCsv('stock.csv', [[t(b.colProduct), 'SKU', t(b.colCategory), t(b.place), t(b.colOnHand), t(b.colReserved), t(b.colAvailable), t(b.colReorder), t(b.colLevel)], ...rows.map((p) => [t(p.name), skuOf(p), t(p.category), loc ? t(locationName(loc)) : t(b.allPlaces), cellOf(p).onHand, cellOf(p).reserved, cellOf(p).available, reorderPoint(p), t(levelLabel(book.status(p.id)))])])}>{t(b.exportCsv)}</Button><Button to={`${base}/receive${search}`}>{t(b.receive)}</Button></>} />
       </Col>
       <Col span={{ base: 4, sm: 8, md: 5 }}><Field label={t(b.search)} id="stock-q" type="search" placeholder={t(b.searchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>

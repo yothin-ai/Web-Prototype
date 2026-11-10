@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useProducts } from '../../../products/useProducts'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { costOf, locationIds, type PurchaseOrder } from '../../../stock/stock'
 import { Breadcrumb, Button, Card, CardGrid, Col, DataRow, Field, Grid, Select } from '../../../ui'
@@ -33,7 +33,7 @@ function PurchaseOrderForm({ existing }: { existing?: PurchaseOrder }) {
   const search = useSearch()
   const navigate = useNavigate()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [purchases, setPurchases] = usePurchaseBook()
   const [supplierId, setSupplierId] = useState(existing?.supplierId ?? '')
   const [loc, setLoc] = useState(existing?.loc ?? 'central')

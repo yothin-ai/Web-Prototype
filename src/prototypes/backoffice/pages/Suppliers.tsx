@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDataset } from '../../../datasets/DatasetContext'
+import { useProducts } from '../../../products/useProducts'
 import { useLang } from '../../../i18n'
 import { remainingValue } from '../../../stock/stock'
 import { Button, Card, CardGrid, Col, DataRow, Field, Grid, IconCircle } from '../../../ui'
@@ -13,7 +13,7 @@ export function Suppliers() {
   const { t, lang } = useLang()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
-  const products = useDataset().dataset.ecommerce.products
+  const products = useProducts().all
   const [purchases] = usePurchaseBook()
   const [q, setQ] = useState('')
   const needle = q.trim().toLowerCase()
