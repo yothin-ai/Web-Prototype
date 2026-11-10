@@ -123,3 +123,13 @@ a { color: var(--color-accent); }
 .search-select__empty { margin: 0; padding: var(--space-3); text-align: center; }
 
 .field__input--picker { cursor: pointer; }
+
+/* The ⋯ action menu at the end of a table row (DropdownMenu with variant 'actions'). */
+.row-menu { display: inline-flex; }
+.row-menu__trigger { display: inline-grid; place-items: center; width: var(--space-6); height: var(--space-6); padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--color-text-muted); cursor: pointer; }
+.row-menu__trigger:hover, .row-menu__trigger[aria-expanded='true'] { background: var(--color-surface-alt); color: var(--color-text); }
+.row-menu__panel { position: fixed; z-index: 60; display: flex; flex-direction: column; min-width: calc(var(--space-8) * 3); padding: var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-md); }
+.row-menu__item { display: flex; align-items: center; gap: var(--space-3); width: 100%; box-sizing: border-box; padding: var(--space-3); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--color-text); font: inherit; text-align: start; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.row-menu__item:hover, .row-menu__item:focus-visible { background: var(--color-accent-soft); outline: none; }
+.row-menu__item--danger { color: var(--color-danger); }
+.row-menu__separator { margin-top: var(--space-1); padding-top: var(--space-1); border-top: 1px solid var(--color-border); }

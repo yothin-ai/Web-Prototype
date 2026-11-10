@@ -1,12 +1,116 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent as ReactKeyEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, IconCircle } from './index'
 import { Icon, type IconName } from './icon'
 
-export type DropdownItem = { id: string; label: string; detail?: string; active?: boolean; to?: string; onSelect?: () => void }
+export type DropdownItem = {
+  id: string
+  label: string
+  detail?: string
+  active?: boolean
+  to?: string
+  onSelect?: () => void
+  // For the 'actions' menu: an icon before the label, a red look for a risky action, and a line drawn above the item.
+  icon?: IconName
+  danger?: boolean
+  separator?: boolean
+}
+
+// The small panel of actions that opens from a ⋯ button at the end of a table row. It is placed with fixed coordinates taken from the button when it opens,
+// so a table that scrolls sideways does not cut it off; it opens upward when there is no room below and closes when the page scrolls.
+function ActionMenu({ items, label }: { items: DropdownItem[]; label: string }) {
+  const [open, setOpen] = useState(false)
+  const [place, setPlace] = useState<{ top?: number; bottom?: number; right: number } | null>(null)
+  const trigger = useRef<HTMLButtonElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
+  const panelId = useId()
+
+  const show = () => {
+    const r = trigger.current?.getBoundingClientRect()
+    if (!r) return
+    const right = Math.max(8, document.documentElement.clientWidth - r.right)
+    // The panel is not measured yet; a menu needs about this much room, so a button near the bottom edge opens it upward.
+    const room = window.innerHeight - r.bottom
+    setPlace(room < items.length * 48 + 24 ? { bottom: window.innerHeight - r.top + 4, right } : { top: r.bottom + 4, right })
+    setOpen(true)
+  }
+  const close = useCallback((refocus: boolean) => {
+    setOpen(false)
+    if (refocus) trigger.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    if (open) panel.current?.querySelector<HTMLElement>('[role="menuitem"]')?.focus()
+  }, [open])
+  useEffect(() => {
+    if (!open) return
+    const onDown = (e: MouseEvent) => {
+      if (!panel.current?.contains(e.target as Node) && !trigger.current?.contains(e.target as Node)) setOpen(false)
+    }
+    const away = () => setOpen(false)
+    document.addEventListener('mousedown', onDown)
+    window.addEventListener('scroll', away, true)
+    window.addEventListener('resize', away)
+    return () => {
+      document.removeEventListener('mousedown', onDown)
+      window.removeEventListener('scroll', away, true)
+      window.removeEventListener('resize', away)
+    }
+  }, [open])
+
+  const onKey = (e: ReactKeyEvent<HTMLDivElement>) => {
+    const nodes = [...(panel.current?.querySelectorAll<HTMLElement>('[role="menuitem"]') ?? [])]
+    const at = nodes.indexOf(document.activeElement as HTMLElement)
+    const go = (i: number) => { e.preventDefault(); nodes[(i + nodes.length) % nodes.length]?.focus() }
+    if (e.key === 'ArrowDown') go(at + 1)
+    else if (e.key === 'ArrowUp') go(at - 1)
+    else if (e.key === 'Home') go(0)
+    else if (e.key === 'End') go(nodes.length - 1)
+    else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(true) }
+    else if (e.key === 'Tab') close(false)
+  }
+  const onTriggerKey = (e: ReactKeyEvent<HTMLButtonElement>) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); show() }
+  }
+  const pick = (item: DropdownItem) => {
+    close(!item.to)
+    item.onSelect?.()
+  }
+
+  return (
+    <div className="row-menu">
+      <button type="button" ref={trigger} className="row-menu__trigger" aria-label={label} aria-haspopup="menu" aria-expanded={open} aria-controls={open ? panelId : undefined} onClick={() => (open ? close(false) : show())} onKeyDown={onTriggerKey}>
+        <Icon name="more" size="md" />
+      </button>
+      {open && place && (
+        <div className="row-menu__panel" id={panelId} ref={panel} role="menu" aria-label={label} style={{ top: place.top, bottom: place.bottom, right: place.right }} onKeyDown={onKey}>
+          {items.map((item) => {
+            const body = (
+              <>
+                {item.icon && <Icon name={item.icon} size="sm" />}
+                <span>{item.label}</span>
+              </>
+            )
+            const cls = `row-menu__item${item.danger ? ' row-menu__item--danger' : ''}`
+            return (
+              <div key={item.id} role="none" className={item.separator ? 'row-menu__separator' : undefined}>
+                {item.to ? (
+                  <Link to={item.to} role="menuitem" className={cls} onClick={() => pick(item)}>{body}</Link>
+                ) : (
+                  <button type="button" role="menuitem" className={cls} onClick={() => pick(item)}>{body}</button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
 
 // A button that opens a small panel of choices or links under it; closes on a pick, outside click or Escape.
-export function DropdownMenu({ trigger, items, footer, variant = 'bar', label, icon }: { trigger: ReactNode; items: DropdownItem[]; footer?: ReactNode; variant?: 'bar' | 'button'; label?: string; icon?: IconName }) {
+export function DropdownMenu({ trigger, items, footer, variant = 'bar', label, icon }: { trigger?: ReactNode; items: DropdownItem[]; footer?: ReactNode; variant?: 'bar' | 'button' | 'actions'; label?: string; icon?: IconName }) {
+  if (variant === 'actions') return <ActionMenu items={items} label={label ?? ''} />
   const [open, setOpen] = useState(false)
   const root = useRef<HTMLDivElement>(null)
   const panelId = useId()

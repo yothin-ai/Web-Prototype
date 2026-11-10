@@ -5,9 +5,10 @@ import { useLang } from '../../../i18n'
 import { useSearchLabels } from '../../../i18n/searchLabels'
 import { locationIds, type Transfer, type TransferStatus } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, SearchSelect, Select, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, Col, DataTable, DropdownMenu, Field, Grid, Modal, Notice, SearchSelect, Select, type DataColumn } from '../../../ui'
 import { formatDate, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useSearch, useTransferActions } from '../data'
 import { b } from '../strings'
@@ -41,15 +42,20 @@ export function Transfers() {
     { key: 'status', header: t(b.colStatus), render: (x) => <Badge tone={statusTone(x.status)}>{t(statusLabel(x.status))}</Badge> },
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.at.localeCompare(y.at), render: (x) => formatDate(x.at, lang) },
     {
-      key: 'act',
+      key: 'act', pin: true,
       header: t(b.colActions),
+      end: true,
       render: (x) => (
-        <span className="row">
-          {x.status === 'pending' && <Button size="sm" onClick={() => approve(x)}>{t(b.trfApprove)}</Button>}
-          {x.status === 'transit' && <Button size="sm" onClick={() => receive(x)}>{t(b.trfReceive)}</Button>}
-          {x.status === 'pending' && <Button size="sm" variant="ghost" onClick={() => cancel(x)}>{t(b.trfCancel)}</Button>}
-          {(x.status === 'done' || x.status === 'cancelled') && '-'}
-        </span>
+        <DropdownMenu
+          variant="actions"
+          label={`${t(mn.manage)} ${x.id}`}
+          items={[
+            { id: 'view', label: t(mn.view), icon: 'view', to: `${base}/transfers/${x.id}${search}` },
+            ...(x.status === 'pending' ? [{ id: 'approve', label: t(b.trfApprove), icon: 'check' as const, onSelect: () => approve(x) }] : []),
+            ...(x.status === 'transit' ? [{ id: 'receive', label: t(b.trfReceive), icon: 'package' as const, onSelect: () => receive(x) }] : []),
+            ...(x.status === 'pending' ? [{ id: 'cancel', label: t(b.trfCancel), icon: 'close' as const, danger: true, separator: true, onSelect: () => cancel(x) }] : []),
+          ]}
+        />
       ),
     },
   ]

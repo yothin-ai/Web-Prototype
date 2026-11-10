@@ -14,9 +14,11 @@ export type DataColumn<T> = {
   end?: boolean
   // Long text (a name, an address, a note) may break into lines; every other column stays on one line.
   wrap?: boolean
+  // Holds the column at the right edge while the table scrolls sideways (for the ⋯ menu column).
+  pin?: boolean
 }
 
-const cellClass = (c: { end?: boolean; wrap?: boolean }) => [c.end && 'data-table__end', c.wrap && 'data-table__wrap'].filter(Boolean).join(' ') || undefined
+const cellClass = (c: { end?: boolean; wrap?: boolean; pin?: boolean }) => [c.end && 'data-table__end', c.wrap && 'data-table__wrap', c.pin && 'data-table__pin'].filter(Boolean).join(' ') || undefined
 
 // The words of the page bar under a table; the table holds no text of its own.
 export type PagingLabels = {

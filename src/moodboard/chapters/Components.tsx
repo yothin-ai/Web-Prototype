@@ -464,6 +464,10 @@ export function Components() {
           <div className="row">
             <DropdownMenu variant="button" trigger={t(text.dropdownTrigger)} items={[{ id: 'a', label: t(text.optionA), detail: t(text.optionDetail), active: true }, { id: 'b', label: t(text.optionB), detail: t(text.optionDetail) }]} footer={<span>{t(text.dropdownFooter)}</span>} />
           </div>
+          <p className="mb-caption">{t(text.dropdownActions)}</p>
+          <div className="row">
+            <DropdownMenu variant="actions" label={t(text.dropdownActions)} items={[{ id: 'v', label: t(text.actionView), icon: 'view', to: '/moodboard' }, { id: 'p', label: t(text.actionPrint), icon: 'print' }, { id: 'e', label: t(text.actionEdit), icon: 'edit' }, { id: 'd', label: t(text.actionDelete), icon: 'trash', danger: true, separator: true }]} />
+          </div>
           <p className="mb-caption">{t(text.dropdownBar)}</p>
           <UtilityBar items={[t(text.branchHours), <DropdownMenu key="m" trigger={t(text.branchName)} items={[{ id: 'a', label: t(text.optionA), detail: t(text.optionDetail), active: true }, { id: 'b', label: t(text.optionB), detail: t(text.optionDetail) }]} />]} />
           <p className="mb-caption">{t(text.branchCard)}</p>

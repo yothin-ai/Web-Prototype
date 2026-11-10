@@ -6,11 +6,12 @@ import { useLang } from '../../../i18n'
 import { useSearchLabels } from '../../../i18n/searchLabels'
 import { locationIds, reorderPoint, type StockStatus } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Notice, SearchSelect, Select, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, Col, DataTable, DropdownMenu, Field, Grid, Notice, SearchSelect, Select, type DataColumn } from '../../../ui'
 import { skuOf } from '../../ecommerce/cart'
 import { AdjustModal } from '../AdjustModal'
 import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { b } from '../strings'
@@ -41,7 +42,7 @@ export function StockList() {
     { key: 'avail', header: t(b.colAvailable), end: true, sort: (x, y) => cellOf(x).available - cellOf(y).available, render: (p) => <strong>{cellOf(p).available}</strong> },
     { key: 'reorder', header: t(b.colReorder), end: true, render: (p) => reorderPoint(p) },
     { key: 'level', header: t(b.colLevel), render: (p) => <Badge tone={book.status(p.id) === 'ok' ? 'success' : book.status(p.id) === 'out' ? 'danger' : 'warning'}>{t(levelLabel(book.status(p.id)))}</Badge> },
-    { key: 'act', header: t(b.colAction), render: (p) => <Button variant="secondary" size="sm" onClick={() => { setSaved(false); setAdjusting(p) }}>{t(b.adjust)}</Button> },
+    { key: 'act', pin: true, header: t(b.colAction), end: true, render: (p) => <DropdownMenu variant="actions" label={`${t(mn.manage)} ${t(p.name)}`} items={[{ id: 'adjust', label: t(b.adjust), icon: 'edit', onSelect: () => { setSaved(false); setAdjusting(p) } }]} /> },
   ]
   return (
     <Grid>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { paidAtOf, vatIncluded } from '../../../accounting/accounting'
@@ -20,7 +21,15 @@ export function CreditNote() {
   const orders = useBackOrders()
   const base = `/${PROTOTYPE_ID}`
   const search = useSearch()
-  const notice = (useLocation().state as { notice?: string } | null)?.notice ?? ''
+  const state = useLocation().state as { notice?: string; print?: boolean } | null
+  const notice = state?.notice ?? ''
+  const printOnArrival = !!state?.print
+  useEffect(() => {
+    // Coming from a Print choice in the returns table: the page opens the print dialog once it is drawn.
+    if (!printOnArrival) return
+    const timer = window.setTimeout(() => window.print(), 400)
+    return () => window.clearTimeout(timer)
+  }, [printOnArrival])
   const r = returns.find((x) => x.id === returnId)
   if (!r) return <Grid><Col><Card><p>{t(rt.cnNotFound)}</p><div><Button to={`${base}/returns${search}`}>{t(rt.cnBack)}</Button></div></Card></Col></Grid>
   const order = orders.find((o) => o.id === r.orderId)

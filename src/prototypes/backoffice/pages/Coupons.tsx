@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { useCoupons, type CouponView } from '../../../promotions/useCoupons'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, Col, DataTable, DropdownMenu, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { PROTOTYPE_ID, useSearch } from '../data'
 import { pm } from '../promoStrings'
@@ -38,14 +39,19 @@ export function Coupons() {
     { key: 'used', header: t(pm.colUsed), end: true, render: (c) => (c.limit !== undefined ? `${c.used}/${c.limit}` : `${c.used} (${t(pm.unlimited)})`) },
     { key: 'status', header: t(pm.colStatus), render: (c) => <Badge tone={statusTone[couponStatus(c)]}>{t(statusLabel[couponStatus(c)])}</Badge> },
     {
-      key: 'act',
+      key: 'act', pin: true,
       header: t(pm.colAction),
+      end: true,
       render: (c) => (
-        <span className="row">
-          <Button size="sm" variant="secondary" to={`${base}/promotions/coupons/${c.id}/edit${search}`}>{t(pm.edit)}</Button>
-          <Button size="sm" variant="ghost" onClick={() => update(c.id, { inactive: !c.inactive })}>{t(c.inactive ? pm.activate : pm.deactivate)}</Button>
-          {c.custom && <Button size="sm" variant="ghost" onClick={() => { setMessage(''); setDeleting(c) }}>{t(pm.delete)}</Button>}
-        </span>
+        <DropdownMenu
+          variant="actions"
+          label={`${t(mn.manage)} ${t(c.title)}`}
+          items={[
+            { id: 'edit', label: t(pm.edit), icon: 'edit', to: `${base}/promotions/coupons/${c.id}/edit${search}` },
+            { id: 'toggle', label: t(c.inactive ? pm.activate : pm.deactivate), icon: c.inactive ? 'check' : 'close', onSelect: () => update(c.id, { inactive: !c.inactive }) },
+            ...(c.custom ? [{ id: 'delete', label: t(pm.delete), icon: 'trash' as const, danger: true, separator: true, onSelect: () => { setMessage(''); setDeleting(c) } }] : []),
+          ]}
+        />
       ),
     },
   ]

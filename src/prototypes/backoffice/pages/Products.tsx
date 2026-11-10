@@ -5,10 +5,11 @@ import { useLang } from '../../../i18n'
 import { missingParts } from '../../../products/completeness'
 import { useProducts } from '../../../products/useProducts'
 import { useMovements, useStock } from '../../../stock/useStock'
-import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Modal, Notice, Select, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataTable, DropdownMenu, Field, Grid, Modal, Notice, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { costOf } from '../../../stock/stock'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { PROTOTYPE_ID, usePurchaseBook, useBackOrders, useSearch, useTransferBook } from '../data'
 import { pr } from '../productStrings'
@@ -46,14 +47,19 @@ export function Products() {
     { key: 'info', header: t(pr.colInfo), render: (p) => (p.custom ? (missingParts(p).length === 0 ? <Badge tone="success">{t(pr.infoComplete)}</Badge> : <Badge tone="warning">{t(pr.infoMissing)} ({missingParts(p).length})</Badge>) : '-') },
     { key: 'shop', header: t(pr.colShop), render: (p) => <Badge tone={isHidden(p.id) ? undefined : 'success'}>{t(isHidden(p.id) ? pr.hidden : pr.shown)}</Badge> },
     {
-      key: 'act',
+      key: 'act', pin: true,
       header: t(pr.colAction),
+      end: true,
       render: (p) => (
-        <span className="row">
-          <Button size="sm" variant="secondary" to={`${base}/products/${p.id}/edit${search}`}>{t(pr.edit)}</Button>
-          <Button size="sm" variant="secondary" onClick={() => setShown(p.id, isHidden(p.id))}>{t(isHidden(p.id) ? pr.show : pr.hide)}</Button>
-          {p.custom && <Button size="sm" variant="ghost" onClick={() => { setMessage(''); setDeleting(p) }}>{t(pr.delete)}</Button>}
-        </span>
+        <DropdownMenu
+          variant="actions"
+          label={`${t(mn.manage)} ${t(p.name)}`}
+          items={[
+            { id: 'edit', label: t(pr.edit), icon: 'edit', to: `${base}/products/${p.id}/edit${search}` },
+            { id: 'shown', label: t(isHidden(p.id) ? pr.show : pr.hide), icon: isHidden(p.id) ? 'view' : 'close', onSelect: () => setShown(p.id, isHidden(p.id)) },
+            ...(p.custom ? [{ id: 'delete', label: t(pr.delete), icon: 'trash' as const, danger: true, separator: true, onSelect: () => { setMessage(''); setDeleting(p) } }] : []),
+          ]}
+        />
       ),
     },
   ]

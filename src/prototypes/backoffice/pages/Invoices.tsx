@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { nextInvoiceNo, type Invoice } from '../../../accounting/accounting'
-import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Select, Notice, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Card, CardGrid, Col, DataTable, DropdownMenu, Field, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { ac, buyerText, invoiceStatusLabel, invoiceStatusTone } from '../accStrings'
 import { b } from '../strings'
@@ -15,6 +16,7 @@ import { PROTOTYPE_ID, useInvoiceRecords, useInvoices, useSearch } from '../data
 export function Invoices() {
   const { t, lang } = useLang()
   const paging = usePaging()
+  const navigate = useNavigate()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const invoices = useInvoices()
@@ -37,15 +39,20 @@ export function Invoices() {
     { key: 'gross', header: t(b.colTotal), end: true, sort: (x, y) => x.gross - y.gross, render: (i) => <strong>{formatMoney(i.gross, lang)}</strong> },
     { key: 'status', header: t(b.colStatus), render: (i) => <Badge tone={invoiceStatusTone(i.status)}>{t(invoiceStatusLabel(i.status))}</Badge> },
     {
-      key: 'act',
+      key: 'act', pin: true,
       header: t(b.colActions),
+      end: true,
       render: (i) => (
-        <span className="row">
-          {i.status === 'pending' && <Button size="sm" disabled={!i.canIssue} onClick={() => issue(i)}>{t(ac.invIssue)}</Button>}
-          {i.status === 'pending' && !i.canIssue && <span className="muted">{t(ac.invWaitPay)}</span>}
-          {i.status === 'issued' && !i.sample && <Button size="sm" variant="ghost" onClick={() => cancel(i)}>{t(ac.invCancelBtn)}</Button>}
-          {(i.sample || i.status === 'cancelled') && '-'}
-        </span>
+        <DropdownMenu
+          variant="actions"
+          label={`${t(mn.manage)} ${i.no ?? i.id}`}
+          items={[
+            { id: 'view', label: t(mn.view), icon: 'view', to: `${base}/accounting/invoices/${i.id}${search}` },
+            { id: 'print', label: t(mn.print), icon: 'print', onSelect: () => navigate(`${base}/accounting/invoices/${i.id}${search}`, { state: { print: true } }) },
+            ...(i.status === 'pending' && i.canIssue ? [{ id: 'issue', label: t(ac.invIssue), icon: 'receipt' as const, onSelect: () => issue(i) }] : []),
+            ...(i.status === 'issued' && !i.sample ? [{ id: 'cancel', label: t(ac.invCancelBtn), icon: 'close' as const, danger: true, separator: true, onSelect: () => cancel(i) }] : []),
+          ]}
+        />
       ),
     },
   ]

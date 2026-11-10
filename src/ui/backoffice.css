@@ -11,6 +11,7 @@
 .data-table .data-table__wrap { white-space: normal; min-width: calc(var(--space-8) * 4); }
 .data-table td .row { flex-wrap: nowrap; }
 .data-table td .stack { gap: var(--space-1); }
+.data-table th.data-table__pin, .data-table td.data-table__pin { position: sticky; right: 0; background: var(--color-surface); box-shadow: calc(var(--space-1) * -1) 0 var(--space-2) calc(var(--space-1) * -1) var(--color-border); }
 .data-table th:first-child, .data-table td:first-child { position: sticky; left: 0; background: var(--color-surface); }
 .data-table caption { text-align: left; }
 .data-table th { color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); text-align: left; }

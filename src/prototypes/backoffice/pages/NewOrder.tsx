@@ -120,7 +120,7 @@ export function NewOrder() {
     { key: 'qty', header: t(po_.colQty), render: (l) => <QuantityStepper value={l.qty} onChange={(v) => setQty(l.productId, v)} min={1} max={Math.max(1, availableOf(l.productId))} label={`${t(po_.qtyOf)} ${t(productOf(l.productId)!.name)}`} decreaseLabel={t(po_.less)} increaseLabel={t(po_.more)} /> },
     { key: 'avail', header: t(po_.colAvail), end: true, render: (l) => <Badge tone={l.qty > availableOf(l.productId) ? 'danger' : undefined}>{availableOf(l.productId)}</Badge> },
     { key: 'sum', header: t(po_.colTotal), end: true, render: (l) => formatMoney(productOf(l.productId)!.price * l.qty, lang) },
-    { key: 'act', header: '', render: (l) => <Button size="sm" variant="ghost" onClick={() => setLines(lines.filter((x) => x.productId !== l.productId))}>{t(po_.remove)}</Button> },
+    { key: 'act', pin: true, header: '', render: (l) => <Button size="sm" variant="ghost" onClick={() => setLines(lines.filter((x) => x.productId !== l.productId))}>{t(po_.remove)}</Button> },
   ]
   const err = (bad: boolean, message: string) => (tried && bad ? message : undefined)
   const placeOptions = locationIds.filter((id) => id !== CENTRAL).map((id) => ({ value: id, label: t(locationName(id)) }))

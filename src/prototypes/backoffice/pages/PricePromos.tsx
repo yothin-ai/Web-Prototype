@@ -5,9 +5,10 @@ import { useProducts } from '../../../products/useProducts'
 import { soldIn, stateOf, usePricePromos, type PricePromo, type PromoState } from '../../../promotions/usePricePromos'
 import { useDemoState } from '../../../state/demoState'
 import type { Order } from '../../ecommerce/cart'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, Col, DataTable, DropdownMenu, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { PROTOTYPE_ID, useSearch } from '../data'
 import { pm } from '../promoStrings'
@@ -44,16 +45,21 @@ export function PricePromos() {
     { key: 'qty', header: t(pm.colQty), end: true, render: (x) => (x.kind === 'flash' ? `${soldIn(x, orders)}/${x.qty ?? '-'}` : '-') },
     { key: 'status', header: t(pm.colStatus), render: (x) => { const s = stateOf(x, now, soldIn(x, orders)); return <Badge tone={stateTone[s]}>{t(stateLabel[s])}</Badge> } },
     {
-      key: 'act',
+      key: 'act', pin: true,
       header: t(pm.colAction),
+      end: true,
       render: (x) => {
         const s = stateOf(x, now, soldIn(x, orders))
         return (
-          <span className="row">
-            <Button size="sm" variant="secondary" to={`${base}/promotions/prices/${x.id}/edit${search}`}>{t(pm.edit)}</Button>
-            {(s === 'active' || s === 'scheduled') && <Button size="sm" variant="ghost" onClick={() => { setPromos(promos.map((p) => (p.id === x.id ? { ...p, ends: now < p.starts ? p.starts : now } : p))); setMessage(t(pm.pEnded)) }}>{t(pm.endNow)}</Button>}
-            <Button size="sm" variant="ghost" onClick={() => { setMessage(''); setDeleting(x) }}>{t(pm.delete)}</Button>
-          </span>
+          <DropdownMenu
+            variant="actions"
+            label={`${t(mn.manage)} ${t(productOf(x.productId)?.name ?? {})}`}
+            items={[
+              { id: 'edit', label: t(pm.edit), icon: 'edit', to: `${base}/promotions/prices/${x.id}/edit${search}` },
+              ...(s === 'active' || s === 'scheduled' ? [{ id: 'end', label: t(pm.endNow), icon: 'clock' as const, onSelect: () => { setPromos(promos.map((p) => (p.id === x.id ? { ...p, ends: now < p.starts ? p.starts : now } : p))); setMessage(t(pm.pEnded)) } }] : []),
+              { id: 'delete', label: t(pm.delete), icon: 'trash', danger: true, separator: true, onSelect: () => { setMessage(''); setDeleting(x) } },
+            ]}
+          />
         )
       },
     },

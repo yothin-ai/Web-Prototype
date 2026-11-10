@@ -1,4 +1,5 @@
-import { Link, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useParams, useLocation } from 'react-router-dom'
 import { useSettings } from '../../../settings/useSettings'
 import { useLang } from '../../../i18n'
 import { nextInvoiceNo, type InvoiceLine } from '../../../accounting/accounting'
@@ -16,6 +17,13 @@ export function InvoiceView() {
   const base = `/${PROTOTYPE_ID}`
   const { invoiceId = '' } = useParams()
   const invoice = useInvoices().find((i) => i.id === invoiceId)
+  const printOnArrival = !!(useLocation().state as { print?: boolean } | null)?.print
+  useEffect(() => {
+    // Coming from a Print choice in a table: the page opens the print dialog once it is drawn.
+    if (!printOnArrival || !invoice) return
+    const timer = window.setTimeout(() => window.print(), 400)
+    return () => window.clearTimeout(timer)
+  }, [printOnArrival, !!invoice])
   const { shop } = useSettings()
   const [records, setRecords] = useInvoiceRecords()
   if (!invoice) {

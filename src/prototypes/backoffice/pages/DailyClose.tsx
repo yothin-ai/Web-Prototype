@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useProducts } from '../../../products/useProducts'
 import { useLang } from '../../../i18n'
 import { CLOSE_WINDOW, channels, dayKey, dayReport, isClosed, sampleCloseCounted, sampleCloseDays, type Close } from '../../../accounting/accounting'
-import { Badge, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Modal, Notice, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataRow, DataTable, DropdownMenu, Field, Grid, Modal, Notice, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { ac, channelLabel } from '../accStrings'
 import { b } from '../strings'
 import { useBooks, useCloses, useReopened } from '../data'
@@ -46,7 +47,7 @@ export function DailyClose() {
     { key: 'counted', header: t(ac.colCounted), end: true, render: (r) => (r.counted === undefined ? '-' : money(r.counted)) },
     { key: 'diff', header: t(ac.colDiff), end: true, render: (r) => (r.counted === undefined ? '-' : <strong>{r.counted - r.report.expected > 0 ? '+' : ''}{money(r.counted - r.report.expected)}</strong>) },
     { key: 'status', header: t(b.colStatus), render: (r) => <Badge tone={r.closed ? 'success' : 'warning'}>{t(r.closed ? ac.closeStatusClosed : ac.closeStatusOpen)}</Badge> },
-    { key: 'act', header: t(b.colActions), render: (r) => (r.closed ? <Button size="sm" variant="ghost" onClick={() => reopen(r)}>{t(ac.reopenAction)}</Button> : <Button size="sm" onClick={() => { setMessage(''); setClosing(r) }}>{t(ac.closeAction)}</Button>) },
+    { key: 'act', pin: true, header: t(b.colActions), end: true, render: (r) => <DropdownMenu variant="actions" label={`${t(mn.manage)} ${date(r.day)}`} items={[r.closed ? { id: 'reopen', label: t(ac.reopenAction), icon: 'returns', onSelect: () => reopen(r) } : { id: 'close', label: t(ac.closeAction), icon: 'check', onSelect: () => { setMessage(''); setClosing(r) } }]} /> },
   ]
   return (
     <Grid>

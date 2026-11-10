@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { useReturns, type Return } from '../../../returns/useReturns'
-import { Badge, Button, Card, Col, DataTable, Grid, type DataColumn } from '../../../ui'
+import { Badge, Card, Col, DataTable, DropdownMenu, Grid, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { PROTOTYPE_ID, useSearch } from '../data'
 import { rt } from '../returnStrings'
@@ -14,6 +15,7 @@ export const methodText = { cash: rt.methodCash, transfer: rt.methodTransfer, wa
 export function Returns() {
   const { t, lang } = useLang()
   const paging = usePaging()
+  const navigate = useNavigate()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const [returns] = useReturns()
@@ -28,7 +30,7 @@ export function Returns() {
     { key: 'where', header: t(rt.colWhere), render: (r) => <Badge tone={r.destination === 'restock' ? 'success' : 'warning'}>{t(r.destination === 'restock' ? rt.destRestock : rt.destDiscard)}</Badge> },
     { key: 'method', header: t(rt.colMethod), render: (r) => t(methodText[r.method]) },
     { key: 'amount', header: t(rt.colAmount), end: true, sort: (x, y) => x.amount - y.amount, render: (r) => formatMoney(r.amount, lang) },
-    { key: 'cn', header: t(rt.colCredit), render: (r) => <Button size="sm" variant="secondary" to={`${base}/returns/${r.id}${search}`}>{t(rt.openCredit)}</Button> },
+    { key: 'cn', pin: true, header: t(rt.colCredit), end: true, render: (r) => <DropdownMenu variant="actions" label={`${t(mn.manage)} ${r.id}`} items={[{ id: 'view', label: t(rt.openCredit), icon: 'view', to: `${base}/returns/${r.id}${search}` }, { id: 'print', label: t(mn.print), icon: 'print', onSelect: () => navigate(`${base}/returns/${r.id}${search}`, { state: { print: true } }) }]} /> },
   ]
   return (
     <Grid>

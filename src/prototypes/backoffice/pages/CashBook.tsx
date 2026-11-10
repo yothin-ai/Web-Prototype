@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { monthReport, monthsBack, type Expense, type LedgerEntry } from '../../../accounting/accounting'
-import { Badge, Button, Card, CardGrid, Col, DataTable, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataTable, DropdownMenu, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { ExpenseDialog } from '../ExpenseDialog'
 import { PageHead } from '../PageHead'
+import { mn } from '../menuStrings'
 import { usePaging } from '../paging'
 import { ac, categoryLabel, channelLabel, kindLabel, payeeText } from '../accStrings'
 import { downloadCsv } from '../csv'
@@ -39,15 +40,20 @@ export function CashBook() {
     { key: 'out', header: t(ac.colOut), end: true, sort: (x, y) => x.moneyOut - y.moneyOut, render: (e) => (e.moneyOut ? formatMoney(e.moneyOut, lang) : '-') },
     { key: 'vat', header: t(ac.colVat), end: true, render: (e) => (e.vat ? formatMoney(e.vat, lang) : '-') },
     {
-      key: 'act',
+      key: 'act', pin: true,
       header: t(b.colActions),
+      end: true,
       render: (e) => {
         const own = e.kind === 'expense' && !e.sample ? expenses.find((x) => x.id === e.expenseId) : undefined
         return own ? (
-          <span className="row">
-            <Button size="sm" variant="secondary" onClick={() => setEditing(own)}>{t(ac.expEdit)}</Button>
-            <Button size="sm" variant="ghost" onClick={() => setExpenses(expenses.filter((x) => x.id !== own.id))}>{t(ac.expDelete)}</Button>
-          </span>
+          <DropdownMenu
+            variant="actions"
+            label={`${t(mn.manage)} ${payeeText(own.payee, t)}`}
+            items={[
+              { id: 'edit', label: t(ac.expEdit), icon: 'edit', onSelect: () => setEditing(own) },
+              { id: 'delete', label: t(ac.expDelete), icon: 'trash', danger: true, separator: true, onSelect: () => setExpenses(expenses.filter((x) => x.id !== own.id)) },
+            ]}
+          />
         ) : '-'
       },
     },
