@@ -6,6 +6,7 @@ import {
   Badge, Breadcrumb, Button, Card, ChoiceCard, Col, DataRow, DropdownMenu, Field, Grid, IconCircle, Notice, Select, StepPill, StickyActionBar, Switch,
 } from '../../../ui'
 import { CENTRAL } from '../../../stock/stock'
+import { useStock } from '../../../stock/useStock'
 import { cartCount, cartSubtotal, formatMoney, PROTOTYPE_ID, useChosenCart, useEcommerce, type Order } from '../cart'
 import {
   couponDiscount, needsPaymentPage, paymentOptions, payTypeFromParam, useClubLinked, useCommitOrder, useAddresses, pickAddress,
@@ -84,6 +85,7 @@ export function Checkout() {
   const count = cartCount(cart)
   const club = t(home.app.club)
   const [branchId, setBranchId] = useBranch()
+  const stockBook = useStock()
   const branch = t(branchById(branchId).name)
   const eligible = net >= store.installmentMin
   const modes = paymentOptions.filter((p) => p.modes.includes(fulfil))
@@ -97,6 +99,8 @@ export function Checkout() {
     if (!address) problems.push({ anchor: 'co-address', message: t(c.errAddress) })
     if (!shippingId) problems.push({ anchor: 'co-shipping', message: t(c.errShipping) })
   }
+  // The goods come from one place: the chosen branch for pick-up, the central warehouse for a parcel.
+  if (cart.some((l) => stockBook.cell(l.productId, fulfil === 'pickup' ? branchId : CENTRAL).available < l.qty)) problems.push({ anchor: 'co-summary', message: t(fulfil === 'pickup' ? c.errStockBranch : c.errStockCentral) })
   if (!activePay) problems.push({ anchor: 'co-payment', message: t(c.errPayment) })
   if (activePay === 'card' && months > 0 && !bank) problems.push({ anchor: 'co-bank', message: t(c.errBank) })
 
@@ -309,7 +313,7 @@ export function Checkout() {
       </Col>
 
       <Col span={{ base: 4, sm: 8, md: 4 }}>
-        <div className="checkout-aside" ref={summaryRef}>
+        <div id="co-summary" className="checkout-aside" ref={summaryRef}>
           <Card>
             <div className="row"><IconCircle size="sm" icon="crown" /><strong className="row__grow">{t(c.clubTitle)}{club}</strong>{clubLinked && <Badge tone="success">{t(c.connected)}</Badge>}</div>
             <span className="muted">{t(c.clubSub)}</span>
