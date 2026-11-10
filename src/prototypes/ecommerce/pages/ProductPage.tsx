@@ -6,6 +6,8 @@ import { useLang } from '../../../i18n'
 import {
   Badge, Breadcrumb, Button, Card, Carousel, DataRow, IconCircle, ProductCard, ProductGallery, QuantityStepper, RatingStars, StickyActionBar, Tabs,
 } from '../../../ui'
+import { useStock } from '../../../stock/useStock'
+import { branchById, useBranch } from '../branches'
 import { formatDate, formatMoney, PROTOTYPE_ID, skuOf, useAddToCart, useEcommerce } from '../cart'
 import { averageRating, useReviews } from '../reviews'
 import { rv } from '../reviewStrings'
@@ -77,11 +79,14 @@ export function ProductPage() {
   const d = p.detail
   const unit = d?.unit ?? DEFAULT_UNIT
   const sku = d?.sku ?? skuOf(p)
-  const stock = p.stock ?? store.stockDefault
+  const book = useStock()
+  const [branchId] = useBranch()
+  const here = Math.max(0, book.cell(p.id, branchId).available)
+  const stock = Math.max(0, book.total(p.id).available)
   const total = p.price * qty
   const points = Math.floor(total / home.app.earnBaht)
   const remaining = Math.max(0, store.installmentMin - total)
-  const branch = t(home.utility[1] ?? home.utility[0])
+  const branch = t(branchById(branchId).name)
   const goSearch = (label: string) => `${base}/products${withQuery(search, 'q', label)}`
   const detailPath = (id: string) => `${base}/product/${id}${search}`
 
@@ -134,8 +139,8 @@ export function ProductPage() {
 
   const actions = (
     <>
-      <Button variant="secondary" size="sm" icon="cart" onClick={addToCart}>{t(s.add)}</Button>
-      <Button size="sm" onClick={buyNow}>{t(s.buyNow)}</Button>
+      <Button variant="secondary" size="sm" icon="cart" onClick={addToCart} disabled={stock <= 0}>{t(s.add)}</Button>
+      <Button size="sm" onClick={buyNow} disabled={stock <= 0}>{t(s.buyNow)}</Button>
     </>
   )
 
@@ -207,11 +212,11 @@ export function ProductPage() {
             </Card>
 
             <Card>
-              <DataRow muted label={t(s.deliveryLabel)} value={<span className="row"><strong>{t(store.delivery)}</strong><Badge tone="success">{t(s.readyToShip)}</Badge></span>} />
+              <DataRow muted label={t(s.deliveryLabel)} value={<span className="row"><strong>{t(store.delivery)}</strong>{stock > 0 ? <Badge tone="success">{t(s.readyToShip)}</Badge> : <Badge tone="warning">{t(s.soldOutNow)}</Badge>}</span>} />
               <DataRow
                 muted
                 label={`${t(s.stockAt)} ${branch}`}
-                value={<span><strong>{t(s.inStockBefore)} {stock} {t(unit)}</strong> · <span className="muted">{t(s.pickupWithin)} {store.pickupMinutes} {t(s.minutes)}</span></span>}
+                value={<span>{here > 0 ? <><strong>{t(s.inStockBefore)} {here} {t(unit)}</strong> · <span className="muted">{t(s.pickupWithin)} {store.pickupMinutes} {t(s.minutes)}</span></> : <strong>{t(stock > 0 ? s.noStockHere : s.soldOutNow)}</strong>}</span>}
               />
               <DataRow muted label={t(s.shelfLabel)} value={t(store.shelf)} />
               <div><Button variant="ghost" size="sm">{t(s.changeBranch)}</Button></div>
@@ -231,8 +236,8 @@ export function ProductPage() {
                 <span className="muted">{t(s.unitLabel)}: {t(unit)}</span>
               </div>
               <div className="row">
-                <Button variant="secondary" icon="cart" onClick={addToCart}>{t(s.add)}</Button>
-                <Button onClick={buyNow}>{t(s.buyNow)}</Button>
+                <Button variant="secondary" icon="cart" onClick={addToCart} disabled={stock <= 0}>{t(s.add)}</Button>
+                <Button onClick={buyNow} disabled={stock <= 0}>{t(s.buyNow)}</Button>
                 <span className="muted" aria-live="polite">{added ? t(s.addedToCart) : ''}</span>
               </div>
             </div>

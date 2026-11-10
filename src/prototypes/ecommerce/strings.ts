@@ -102,6 +102,8 @@ export const s = {
   stockAt: { th: 'สต็อก ณ', en: 'Stock at' },
   pickupWithin: { th: 'รับได้ภายใน', en: 'Ready in' },
   minutes: { th: 'นาที', en: 'min' },
+  noStockHere: { th: 'สาขานี้ไม่มีสินค้า เลือกจัดส่งพัสดุได้', en: 'Not at this branch. Choose parcel delivery.' },
+  soldOutNow: { th: 'สินค้าหมด', en: 'Sold out' },
   inStockBefore: { th: 'มีสต็อก', en: 'In stock:' },
   changeBranch: { th: 'เปลี่ยนสาขา', en: 'Change branch' },
   shelfLabel: { th: 'ชั้นวางสินค้า', en: 'Shelf location' },

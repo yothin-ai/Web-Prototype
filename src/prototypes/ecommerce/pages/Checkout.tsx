@@ -5,6 +5,7 @@ import { useLang } from '../../../i18n'
 import {
   Badge, Breadcrumb, Button, Card, ChoiceCard, Col, DataRow, DropdownMenu, Field, Grid, IconCircle, Notice, Select, StepPill, StickyActionBar, Switch,
 } from '../../../ui'
+import { CENTRAL } from '../../../stock/stock'
 import { cartCount, cartSubtotal, formatMoney, PROTOTYPE_ID, useChosenCart, useEcommerce, type Order } from '../cart'
 import {
   couponDiscount, needsPaymentPage, paymentOptions, payTypeFromParam, useClubLinked, useCommitOrder, useAddresses, pickAddress,
@@ -126,6 +127,7 @@ export function Checkout() {
       shippingPrice,
       total: net,
       fulfilment: fulfil,
+      stockLoc: fulfil === 'pickup' ? branchId : CENTRAL,
       pickupMode: fulfil === 'pickup' ? pickupMode : undefined,
       discount: cut.items + cut.shipping,
       walletUsed: walletUse > 0 ? walletUse : undefined,

@@ -1,5 +1,6 @@
 import { readDemoState, useDemoState } from '../../state/demoState'
 import { useDataset } from '../../datasets/DatasetContext'
+import { useStock } from '../../stock/useStock'
 import type { Product } from '../../datasets/types'
 import type { Localized } from '../../i18n'
 
@@ -30,6 +31,11 @@ export type Order = {
   status?: OrderStatus
   etax?: boolean
   sample?: boolean
+  // Where the goods come from: a branch for pick-up, the central warehouse for a parcel (see src/stock).
+  stockLoc?: string
+  // Set by the Back Office when the goods are taken off the shelf.
+  packed?: boolean
+  packedAt?: string
 }
 
 export const useEcommerce = () => {
@@ -60,14 +66,16 @@ export function skuOf(p: Product) {
 
 export const isTicked = (l: CartLine) => l.selected !== false
 
-// What the cart page and checkout work with: lines that are ticked and still in stock.
+// What the cart page and checkout work with: lines that are ticked and still in stock. A line asks for no more than
+// the stock has, counting every place that holds the product.
 export function useChosenCart() {
   const { productById } = useEcommerce()
-  const { store } = useDataset().dataset.ecommerce
+  const stock = useStock()
   const [cart] = useCart()
-  const stockOf = (id: string) => productById(id)?.stock ?? store.stockDefault
+  const stockOf = (id: string) => Math.max(0, stock.total(id).available)
   const available = (l: CartLine) => !!productById(l.productId) && stockOf(l.productId) > 0
-  return { cart, stockOf, available, chosen: cart.filter((l) => isTicked(l) && available(l)) }
+  const chosen = cart.filter((l) => isTicked(l) && available(l)).map((l) => ({ ...l, qty: Math.min(l.qty, stockOf(l.productId)) }))
+  return { cart, stockOf, available, chosen }
 }
 
 // Up to `limit` products to suggest: same categories as the cart first, then the Dataset's picks, then the rest.
