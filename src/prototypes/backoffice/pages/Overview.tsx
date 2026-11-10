@@ -8,8 +8,10 @@ import { formatMoney } from '../../ecommerce/cart'
 import { customerText, statusOf } from '../../ecommerce/orders'
 import { statusLabel, statusTone } from '../../ecommerce/pages/OrdersPage'
 import { Badge } from '../../../ui'
+import { monthKey, monthReport } from '../../../accounting/accounting'
+import { ac } from '../accStrings'
 import { PageHead } from '../PageHead'
-import { PROTOTYPE_ID, useBackOrders, useBestSellers, useSales, useSearch } from '../data'
+import { PROTOTYPE_ID, useBackOrders, useBestSellers, useBooks, useSales, useSearch } from '../data'
 import { b } from '../strings'
 
 export function Overview() {
@@ -29,6 +31,7 @@ export function Overview() {
   const out = products.filter((p) => book.status(p.id) === 'out')
   const reorder = [...out, ...low].slice(0, 6)
   const best = useBestSellers(5)
+  const month = monthReport(useBooks(), monthKey(new Date()))
   const recent = orders.slice(0, 5)
   return (
     <Grid>
@@ -53,6 +56,8 @@ export function Overview() {
       <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="package" label={t(b.toPack)} value={String(waiting.length)} note={t(b.toPackNote)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="warning" label={t(b.lowStock)} value={String(low.length)} note={t(b.lowStockNote)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="bell" label={t(b.outOfStock)} value={String(out.length)} note={t(b.outOfStockNote)} /></Col>
+      <Col span={{ base: 4, sm: 4, md: 6 }}><StatCard icon="cash" label={t(ac.overviewRevenue)} value={formatMoney(month.netSales, lang)} note={t(ac.overviewRevenueNote)} /></Col>
+      <Col span={{ base: 4, sm: 4, md: 6 }}><StatCard icon="bank" label={t(ac.overviewProfit)} value={formatMoney(month.netProfit, lang)} note={t(ac.overviewProfitNote)} /></Col>
       <Col span={{ base: 4, sm: 8, md: 8 }}>
         <Card>
           <div className="stack">
