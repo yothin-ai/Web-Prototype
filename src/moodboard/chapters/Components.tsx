@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  BarChart, DataTable, AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -688,6 +688,31 @@ export function Components() {
             <div className="row"><Button to="/moodboard" variant="ghost" size="sm" newTab newTabLabel={t(text.c439Warn)}>{t(text.c439Title)}</Button></div>
           </Col>
         </Grid>
+      </Block>
+      <Block number="4.40" title={t(text.c440)} note={t(text.c440Note)}>
+        <Card>
+          <DataTable
+            label={t(text.c440Label)}
+            empty={t(text.c440Empty)}
+            rowKey={(r) => r.id}
+            rows={[
+              { id: 'a', name: t(text.c440Item1), onHand: 120, available: 118, low: false },
+              { id: 'b', name: t(text.c440Item2), onHand: 8, available: 6, low: true },
+              { id: 'c', name: t(text.c440Item3), onHand: 64, available: 64, low: false },
+            ]}
+            columns={[
+              { key: 'name', header: t(text.c440Col1), sort: (x, y) => x.name.localeCompare(y.name), render: (r) => <a href="#/moodboard">{r.name}</a> },
+              { key: 'onHand', header: t(text.c440Col2), end: true, sort: (x, y) => x.onHand - y.onHand, render: (r) => r.onHand },
+              { key: 'available', header: t(text.c440Col3), end: true, sort: (x, y) => x.available - y.available, render: (r) => <strong>{r.available}</strong> },
+              { key: 'level', header: t(text.c440Col4), render: (r) => <Badge tone={r.low ? 'warning' : 'success'}>{t(r.low ? text.c440Low : text.c440Fine)}</Badge> },
+            ]}
+          />
+        </Card>
+      </Block>
+      <Block number="4.41" title={t(text.c441)} note={t(text.c441Note)}>
+        <Card>
+          <BarChart label={t(text.c441Label)} items={[{ label: 'M', value: 1200, text: '1.2K' }, { label: 'T', value: 1800, text: '1.8K' }, { label: 'W', value: 900, text: '900' }, { label: 'T', value: 1500, text: '1.5K' }, { label: 'F', value: 2100, text: '2.1K' }]} />
+        </Card>
       </Block>
     </Chapter>
   )

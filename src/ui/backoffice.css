@@ -1,0 +1,19 @@
+/* Back office blocks: DataTable and BarChart. What changes with the screen width (the table turning into cards)
+   is set in src/tokens/inject.ts. */
+
+.data-table { display: flex; flex-direction: column; gap: var(--space-3); }
+.data-table table { width: 100%; border-collapse: collapse; }
+.data-table caption { text-align: left; }
+.data-table th { color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); text-align: left; }
+.data-table__sort { display: inline-flex; align-items: center; gap: var(--space-1); padding: 0; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.data-table__sort:hover { color: var(--color-text); }
+.data-table td::before { color: var(--color-text-muted); font-size: var(--font-size-xs); }
+.data-table__empty { padding: var(--space-5); text-align: center; }
+
+.bar-chart { margin: 0; }
+.bar-chart__bars { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--space-3); margin: 0; padding: 0; list-style: none; }
+.bar-chart__item { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); }
+.bar-chart__value { color: var(--color-text-muted); font-size: var(--font-size-xs); text-align: center; }
+.bar-chart__track { display: flex; align-items: flex-end; width: 100%; height: calc(var(--space-8) * 2); }
+.bar-chart__bar { display: block; width: 100%; border-radius: var(--radius-sm) var(--radius-sm) 0 0; background: var(--color-accent); }
+.bar-chart__label { font-size: var(--font-size-xs); text-align: center; }
