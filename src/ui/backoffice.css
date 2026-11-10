@@ -10,6 +10,7 @@
 .data-table th.data-table__end, .data-table td.data-table__end { text-align: right; }
 .data-table .data-table__wrap { white-space: normal; min-width: calc(var(--space-8) * 4); }
 .data-table td .row { flex-wrap: nowrap; }
+.data-table td .stack { gap: var(--space-1); }
 .data-table th:first-child, .data-table td:first-child { position: sticky; left: 0; background: var(--color-surface); }
 .data-table caption { text-align: left; }
 .data-table th { color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); text-align: left; }
@@ -18,8 +19,9 @@
 .data-table__empty { padding: var(--space-5); text-align: center; }
 .data-table__pager { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); }
 .data-table__pager p { margin: 0; flex: 1 1 auto; }
-.data-table__size { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-sm); }
-.data-table__size select { padding: var(--space-2) var(--space-5) var(--space-2) var(--space-3); }
+.data-table__size { display: inline-flex; flex: none; align-items: center; gap: var(--space-2); font-size: var(--font-size-sm); }
+.data-table__size span { white-space: nowrap; }
+.data-table__size select { width: auto; min-width: calc(var(--space-7) + var(--space-3)); padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3); }
 .data-table__pages { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
 .data-table__page { min-width: var(--space-6); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-text); font: inherit; font-size: var(--font-size-sm); cursor: pointer; }
 .data-table__page:hover:not(:disabled) { border-color: var(--color-accent); color: var(--color-accent); }
