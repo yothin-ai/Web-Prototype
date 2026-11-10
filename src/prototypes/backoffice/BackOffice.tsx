@@ -19,6 +19,7 @@ import { CouponForm } from './pages/CouponForm'
 import { PricePromoForm } from './pages/PricePromoForm'
 import { PricePromos } from './pages/PricePromos'
 import { pm } from './promoStrings'
+import { NewOrder } from './pages/NewOrder'
 import { Orders } from './pages/Orders'
 import { ProductForm } from './pages/ProductForm'
 import { Products } from './pages/Products'
@@ -88,6 +89,7 @@ export function BackOffice() {
         <Routes>
           <Route index element={<Overview />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="orders/new" element={<NewOrder />} />
           <Route path="orders/:orderId" element={<OrderDetail />} />
           <Route path="products" element={<Products />} />
           <Route path="products/new" element={<ProductForm />} />

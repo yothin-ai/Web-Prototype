@@ -42,6 +42,8 @@ export type Order = {
   packedAt?: string
   // When the money came in (online: when paid; at the branch or on delivery: when handed over).
   paidAt?: string
+  // Made in the Back Office: a sale at the counter, or an order taken by phone.
+  origin?: 'counter' | 'phone'
   // Who the tax invoice is for, when one was asked for at checkout.
   taxBuyer?: { id: string; name: string }
 }

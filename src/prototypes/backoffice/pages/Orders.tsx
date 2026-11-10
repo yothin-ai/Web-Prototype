@@ -9,6 +9,7 @@ import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
 import { PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
 import { b } from '../strings'
+import { po_ } from '../posStrings'
 
 export function Orders() {
   const { t, lang } = useLang()
@@ -18,7 +19,7 @@ export function Orders() {
   const [status, setStatus] = useState('')
   const rows = orders.filter((o) => !status || statusOf(o) === status)
   const columns: DataColumn<Order>[] = [
-    { key: 'id', header: t(b.colOrder), sort: (x, y) => x.id.localeCompare(y.id), render: (o) => <span className="row"><Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link>{o.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
+    { key: 'id', header: t(b.colOrder), sort: (x, y) => x.id.localeCompare(y.id), render: (o) => <span className="row"><Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link>{o.sample && <Badge>{t(b.sampleBadge)}</Badge>}{o.origin && <Badge tone="info">{t(o.origin === 'counter' ? po_.originCounter : po_.originPhone)}</Badge>}</span> },
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.placedAt.localeCompare(y.placedAt), render: (o) => formatDate(o.placedAt, lang) },
     { key: 'customer', wrap: true, header: t(b.colCustomer), render: (o) => customerText(o.customer.name, lang) },
     { key: 'handover', header: t(b.colHandover), render: (o) => t(o.fulfilment === 'pickup' ? b.pickup : b.parcel) },
@@ -29,7 +30,7 @@ export function Orders() {
   return (
     <Grid>
       <Col>
-        <PageHead title={t(b.ordersTitle)} text={`${t(b.ordersText)} (${orders.length} ${t(b.records)})`} actions={<Button variant="secondary" icon="receipt" onClick={() => downloadCsv('orders.csv', [[t(b.colOrder), t(b.colDate), t(b.colCustomer), t(b.colHandover), t(b.colItems), t(b.colTotal), t(b.colStatus)], ...rows.map((o) => [o.id, new Date(o.placedAt).toISOString(), customerText(o.customer.name, lang), t(o.fulfilment === 'pickup' ? b.pickup : b.parcel), o.lines.reduce((n, l) => n + l.qty, 0), o.total, t(statusLabel(statusOf(o)))])])}>{t(b.exportCsv)}</Button>} />
+        <PageHead title={t(b.ordersTitle)} text={`${t(b.ordersText)} (${orders.length} ${t(b.records)})`} actions={<><Button icon="plus" to={`${base}/orders/new${search}`}>{t(po_.newOrder)}</Button><Button variant="secondary" icon="receipt" onClick={() => downloadCsv('orders.csv', [[t(b.colOrder), t(b.colDate), t(b.colCustomer), t(b.colHandover), t(b.colItems), t(b.colTotal), t(b.colStatus)], ...rows.map((o) => [o.id, new Date(o.placedAt).toISOString(), customerText(o.customer.name, lang), t(o.fulfilment === 'pickup' ? b.pickup : b.parcel), o.lines.reduce((n, l) => n + l.qty, 0), o.total, t(statusLabel(statusOf(o)))])])}>{t(b.exportCsv)}</Button></>} />
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
         <Select label={t(b.statusFilter)} value={status} onChange={(e) => setStatus(e.target.value)} options={[{ value: '', label: t(b.allStatuses) }, ...statusOrder.map((s) => ({ value: s, label: t(statusLabel(s)) }))]} />

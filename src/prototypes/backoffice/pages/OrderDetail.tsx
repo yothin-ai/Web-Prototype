@@ -10,6 +10,7 @@ import { statusLabel, statusTone } from '../../ecommerce/pages/OrdersPage'
 import { useEcommerce } from '../../ecommerce/cart'
 import { locationName, PROTOTYPE_ID, useBackOrders, useUpdateOrder, useSearch } from '../data'
 import { b } from '../strings'
+import { po_ } from '../posStrings'
 
 type Line = { productId?: string; name: { th?: string; en?: string }; price: number; qty: number }
 
@@ -51,6 +52,7 @@ export function OrderDetail() {
             <h1>{t(b.orderTitle)} {order.id}</h1>
             <Badge tone={statusTone(st)}>{t(statusLabel(st))}</Badge>
             {order.sample && <Badge>{t(b.sampleBadge)}</Badge>}
+            {order.origin && <Badge tone="info">{t(order.origin === 'counter' ? po_.originCounter : po_.originPhone)}</Badge>}
           </div>
         </div>
       </Col>
