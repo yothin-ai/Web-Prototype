@@ -32,8 +32,8 @@ export function Transfers() {
   }
   const columns: DataColumn<Transfer>[] = [
     { key: 'id', header: t(b.colTrfNo), sort: (x, y) => x.id.localeCompare(y.id), render: (x) => <span className="row"><Link to={`${base}/transfers/${x.id}${search}`}>{x.id}</Link>{x.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
-    { key: 'product', header: t(b.colProduct), render: (x) => <Link to={`${base}/stock/${x.productId}${search}`}>{nameOf(x.productId)}</Link> },
-    { key: 'route', header: t(b.colRoute), render: (x) => `${t(locationName(x.from))} → ${t(locationName(x.to))}` },
+    { key: 'product', wrap: true, header: t(b.colProduct), render: (x) => <Link to={`${base}/stock/${x.productId}${search}`}>{nameOf(x.productId)}</Link> },
+    { key: 'route', wrap: true, header: t(b.colRoute), render: (x) => `${t(locationName(x.from))} → ${t(locationName(x.to))}` },
     { key: 'qty', header: t(b.colQty), end: true, sort: (x, y) => x.qty - y.qty, render: (x) => x.qty },
     { key: 'status', header: t(b.colStatus), render: (x) => <Badge tone={statusTone(x.status)}>{t(statusLabel(x.status))}</Badge> },
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.at.localeCompare(y.at), render: (x) => formatDate(x.at, lang) },

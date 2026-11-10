@@ -20,7 +20,7 @@ export function Orders() {
   const columns: DataColumn<Order>[] = [
     { key: 'id', header: t(b.colOrder), sort: (x, y) => x.id.localeCompare(y.id), render: (o) => <span className="row"><Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link>{o.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.placedAt.localeCompare(y.placedAt), render: (o) => formatDate(o.placedAt, lang) },
-    { key: 'customer', header: t(b.colCustomer), render: (o) => customerText(o.customer.name, lang) },
+    { key: 'customer', wrap: true, header: t(b.colCustomer), render: (o) => customerText(o.customer.name, lang) },
     { key: 'handover', header: t(b.colHandover), render: (o) => t(o.fulfilment === 'pickup' ? b.pickup : b.parcel) },
     { key: 'items', header: t(b.colItems), end: true, sort: (x, y) => x.lines.length - y.lines.length, render: (o) => o.lines.reduce((n, l) => n + l.qty, 0) },
     { key: 'total', header: t(b.colTotal), end: true, sort: (x, y) => x.total - y.total, render: (o) => formatMoney(o.total, lang) },

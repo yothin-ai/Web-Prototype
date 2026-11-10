@@ -4,7 +4,7 @@ import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { locationIds, supplierIds, type Movement } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
-import { Button, Card, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
+import { Button, Card, CardGrid, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
 import { formatDate, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
@@ -38,8 +38,8 @@ export function Receive() {
   const nameOf = (id: string) => products.find((p) => p.id === id)?.name ?? {}
   const columns: DataColumn<Movement>[] = [
     { key: 'date', header: t(b.colDate), render: (m) => formatDate(m.at, lang) },
-    { key: 'product', header: t(b.colProduct), render: (m) => <Link to={`${base}/stock/${m.productId}${search}`}>{t(nameOf(m.productId))}</Link> },
-    { key: 'supplier', header: t(b.supplier), render: (m) => (m.supplierId ? t(supplierNames[m.supplierId]) : '-') },
+    { key: 'product', wrap: true, header: t(b.colProduct), render: (m) => <Link to={`${base}/stock/${m.productId}${search}`}>{t(nameOf(m.productId))}</Link> },
+    { key: 'supplier', wrap: true, header: t(b.supplier), render: (m) => (m.supplierId ? t(supplierNames[m.supplierId]) : '-') },
     { key: 'place', header: t(b.place), render: (m) => t(locationName(m.loc)) },
     { key: 'qty', header: t(b.colQtyChange), end: true, render: (m) => <strong>+{m.qty}</strong> },
   ]
@@ -48,29 +48,29 @@ export function Receive() {
       <Col>
         <PageHead title={t(b.receiveTitle)} text={t(b.receiveText)} />
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 5 }}>
-        <Card>
-          <div className="stack">
-            {done && (
-              <Notice tone="success" title={t(b.received)}>
-                {t(b.receivedText)} <Link to={`${base}/stock/${done.productId}${search}`}>{t(b.viewProduct)}</Link>
-              </Notice>
-            )}
-            <Select label={t(b.product)} id="rc-product" value={productId} placeholder={t(b.pickProduct)} onChange={(e) => setProductId(e.target.value)} hint={tried && !productId ? t(b.errProduct) : undefined} options={products.map((p) => ({ value: p.id, label: `${t(p.name)} (${skuOf(p)})` }))} />
-            <Select label={t(b.supplier)} id="rc-supplier" value={supplierId} placeholder={t(b.pickSupplier)} onChange={(e) => setSupplierId(e.target.value)} hint={tried && !supplierId ? t(b.errSupplier) : undefined} options={supplierIds.map((id) => ({ value: id, label: t(supplierNames[id]) }))} />
-            <Select label={t(b.receiveTo)} id="rc-place" value={loc} onChange={(e) => setLoc(e.target.value)} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
-            <Field label={t(b.quantity)} id="rc-qty" type="number" min={1} inputMode="numeric" value={qty} onChange={(e) => setQty(e.target.value)} hint={tried && !qtyOk ? t(b.errQty) : undefined} />
-            <div><Button onClick={save}>{t(b.saveReceipt)}</Button></div>
-          </div>
-        </Card>
-      </Col>
-      <Col span={{ base: 4, sm: 8, md: 7 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(b.recentTitle)}</h3>
-            <DataTable label={t(b.recentLabel)} columns={columns} rows={recent} rowKey={(m) => m.id} empty={t(b.recentEmpty)} />
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="large">
+          <Card>
+            <div className="stack">
+              {done && (
+                <Notice tone="success" title={t(b.received)}>
+                  {t(b.receivedText)} <Link to={`${base}/stock/${done.productId}${search}`}>{t(b.viewProduct)}</Link>
+                </Notice>
+              )}
+              <Select label={t(b.product)} id="rc-product" value={productId} placeholder={t(b.pickProduct)} onChange={(e) => setProductId(e.target.value)} hint={tried && !productId ? t(b.errProduct) : undefined} options={products.map((p) => ({ value: p.id, label: `${t(p.name)} (${skuOf(p)})` }))} />
+              <Select label={t(b.supplier)} id="rc-supplier" value={supplierId} placeholder={t(b.pickSupplier)} onChange={(e) => setSupplierId(e.target.value)} hint={tried && !supplierId ? t(b.errSupplier) : undefined} options={supplierIds.map((id) => ({ value: id, label: t(supplierNames[id]) }))} />
+              <Select label={t(b.receiveTo)} id="rc-place" value={loc} onChange={(e) => setLoc(e.target.value)} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
+              <Field label={t(b.quantity)} id="rc-qty" type="number" min={1} inputMode="numeric" value={qty} onChange={(e) => setQty(e.target.value)} hint={tried && !qtyOk ? t(b.errQty) : undefined} />
+              <div><Button onClick={save}>{t(b.saveReceipt)}</Button></div>
+            </div>
+          </Card>
+          <Card>
+            <div className="stack">
+              <h3>{t(b.recentTitle)}</h3>
+              <DataTable label={t(b.recentLabel)} columns={columns} rows={recent} rowKey={(m) => m.id} empty={t(b.recentEmpty)} />
+            </div>
+          </Card>
+        </CardGrid>
       </Col>
     </Grid>
   )

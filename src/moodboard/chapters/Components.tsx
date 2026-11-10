@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  BarChart, DataTable, SideNav, SideNavLayout, AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  BarChart, CardGrid, DataTable, SideNav, SideNavLayout, AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -732,6 +732,14 @@ export function Components() {
         >
           <Card><p className="muted">{t(text.c442Page)}</p></Card>
         </SideNavLayout>
+      </Block>
+      <Block number="4.43" title={t(text.c443)} note={t(text.c443Note)}>
+        <CardGrid size="small">
+          <StatCard label={t(text.c443Item)} value="1" note={t(text.statNote)} />
+          <StatCard label={t(text.c443Item)} value="2" note={t(text.statNote)} />
+          <StatCard label={t(text.c443Item)} value="3" note={t(text.statNote)} />
+          <StatCard label={t(text.c443Item)} value="4" note={t(text.statNote)} />
+        </CardGrid>
       </Block>
     </Chapter>
   )

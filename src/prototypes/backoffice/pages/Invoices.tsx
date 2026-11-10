@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { nextInvoiceNo, type Invoice } from '../../../accounting/accounting'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Select, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { ac, buyerText, invoiceStatusLabel, invoiceStatusTone } from '../accStrings'
@@ -24,7 +24,7 @@ export function Invoices() {
   const cancel = (i: Invoice) => setRecords(records.map((r) => (r.orderId === i.orderId ? { ...r, status: 'cancelled' as const } : r)))
   const columns: DataColumn<Invoice>[] = [
     { key: 'no', header: t(ac.colInvNo), render: (i) => <span className="row"><Link to={`${base}/accounting/invoices/${i.id}${search}`}>{i.no ?? t(ac.invNotNumbered)}</Link>{i.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
-    { key: 'buyer', header: t(ac.colBuyer), render: (i) => buyerText(i.buyerName, t) },
+    { key: 'buyer', wrap: true, header: t(ac.colBuyer), render: (i) => buyerText(i.buyerName, t) },
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.at.localeCompare(y.at), render: (i) => date(i.at) },
     { key: 'order', header: t(b.colOrder), render: (i) => (i.orderId ? <Link to={`${base}/orders/${i.orderId}${search}`}>{i.orderId}</Link> : '-') },
     { key: 'net', header: t(ac.colNet), end: true, render: (i) => formatMoney(i.net, lang) },
@@ -49,9 +49,13 @@ export function Invoices() {
       <Col>
         <PageHead title={t(ac.invTitle)} text={`${t(ac.invText)} (${invoices.length} ${t(b.records)}) ${t(b.sample)}`} />
       </Col>
-      <Col span={{ base: 4, sm: 4, md: 4 }}><StatCard icon="clock" label={t(ac.invPending)} value={String(invoices.filter((i) => i.status === 'pending').length)} note={t(b.records)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 4 }}><StatCard icon="check" label={t(ac.invIssued)} value={String(invoices.filter((i) => i.status === 'issued').length)} note={t(b.records)} /></Col>
-      <Col span={{ base: 4, sm: 8, md: 4 }}><StatCard icon="close" label={t(ac.invCancelled)} value={String(invoices.filter((i) => i.status === 'cancelled').length)} note={t(b.records)} /></Col>
+      <Col>
+        <CardGrid size="small">
+          <StatCard icon="clock" label={t(ac.invPending)} value={String(invoices.filter((i) => i.status === 'pending').length)} note={t(b.records)} />
+          <StatCard icon="check" label={t(ac.invIssued)} value={String(invoices.filter((i) => i.status === 'issued').length)} note={t(b.records)} />
+          <StatCard icon="close" label={t(ac.invCancelled)} value={String(invoices.filter((i) => i.status === 'cancelled').length)} note={t(b.records)} />
+        </CardGrid>
+      </Col>
       <Col span={{ base: 4, sm: 8, md: 8 }}><Field label={t(ac.invSearch)} id="inv-q" type="search" placeholder={t(ac.invSearchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       <Col span={{ base: 4, sm: 8, md: 4 }}>
         <Select label={t(b.statusFilter)} value={status} onChange={(e) => setStatus(e.target.value)} options={[{ value: '', label: t(b.allStatuses) }, { value: 'pending', label: t(ac.invPending) }, { value: 'issued', label: t(ac.invIssued) }, { value: 'cancelled', label: t(ac.invCancelled) }]} />

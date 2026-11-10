@@ -30,7 +30,7 @@ export function StockList() {
   const cellOf = (p: Product) => (loc ? book.cell(p.id, loc) : book.total(p.id))
   const rows = products.filter((p) => (!needle || t(p.name).toLowerCase().includes(needle) || skuOf(p).toLowerCase().includes(needle)) && (!level || (level === 'alert' ? book.status(p.id) !== 'ok' : book.status(p.id) === level)))
   const columns: DataColumn<Product>[] = [
-    { key: 'name', header: t(b.colProduct), sort: (x, y) => t(x.name).localeCompare(t(y.name)), render: (p) => <span className="stack"><Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link><span className="muted">{skuOf(p)}</span></span> },
+    { key: 'name', wrap: true, header: t(b.colProduct), sort: (x, y) => t(x.name).localeCompare(t(y.name)), render: (p) => <span className="stack"><Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link><span className="muted">{skuOf(p)}</span></span> },
     { key: 'cat', header: t(b.colCategory), sort: (x, y) => t(x.category).localeCompare(t(y.category)), render: (p) => t(p.category) },
     { key: 'onhand', header: t(b.colOnHand), end: true, sort: (x, y) => cellOf(x).onHand - cellOf(y).onHand, render: (p) => cellOf(p).onHand },
     { key: 'reserved', header: t(b.colReserved), end: true, render: (p) => cellOf(p).reserved },

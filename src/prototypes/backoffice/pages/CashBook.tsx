@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { monthReport, monthsBack, type Expense, type LedgerEntry } from '../../../accounting/accounting'
-import { Badge, Button, Card, Col, DataTable, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataTable, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { ExpenseDialog } from '../ExpenseDialog'
 import { PageHead } from '../PageHead'
@@ -31,7 +31,7 @@ export function CashBook() {
   const columns: DataColumn<LedgerEntry>[] = [
     { key: 'date', header: t(b.colDate), sort: (x, y) => x.at.localeCompare(y.at), render: (e) => date(e.at) },
     { key: 'kind', header: t(b.colType), render: (e) => <span className="row"><Badge tone={e.moneyIn > 0 ? 'success' : undefined}>{t(kindLabel(e.kind))}</Badge>{e.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
-    { key: 'desc', header: t(ac.colDesc), render: (e) => (e.kind === 'sale' ? <Link to={`${base}/orders/${e.ref}${search}`}>{e.ref}</Link> : e.kind === 'purchase' ? <Link to={`${base}/purchase-orders/${e.ref}${search}`}>{e.ref}</Link> : describe(e)) },
+    { key: 'desc', wrap: true, header: t(ac.colDesc), render: (e) => (e.kind === 'sale' ? <Link to={`${base}/orders/${e.ref}${search}`}>{e.ref}</Link> : e.kind === 'purchase' ? <Link to={`${base}/purchase-orders/${e.ref}${search}`}>{e.ref}</Link> : describe(e)) },
     { key: 'channel', header: t(ac.colChannel), render: (e) => (e.channel && e.kind === 'sale' ? t(channelLabel(e.channel)) : '-') },
     { key: 'in', header: t(ac.colIn), end: true, sort: (x, y) => x.moneyIn - y.moneyIn, render: (e) => (e.moneyIn ? formatMoney(e.moneyIn, lang) : '-') },
     { key: 'out', header: t(ac.colOut), end: true, sort: (x, y) => x.moneyOut - y.moneyOut, render: (e) => (e.moneyOut ? formatMoney(e.moneyOut, lang) : '-') },
@@ -60,10 +60,14 @@ export function CashBook() {
       <Col>
         <PageHead title={t(ac.cashBookTitle)} text={`${t(ac.cashBookText)} (${rows.length} ${t(b.records)}) ${t(b.sample)}`} actions={<><Button variant="secondary" icon="receipt" onClick={exportRows}>{t(ac.exportCsv)}</Button><Button icon="plus" onClick={() => { setSaved(false); setEditing('new') }}>{t(ac.expAdd)}</Button></>} />
       </Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="plus" label={t(ac.moneyIn)} value={formatMoney(report.moneyIn, lang)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="minus" label={t(ac.moneyOut)} value={formatMoney(report.moneyOut, lang)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="cash" label={t(ac.moneyNet)} value={formatMoney(report.moneyIn - report.moneyOut, lang)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="clock" label={t(ac.receivable)} value={formatMoney(report.receivable, lang)} note={t(ac.receivableNote)} /></Col>
+      <Col>
+        <CardGrid size="small">
+          <StatCard icon="plus" label={t(ac.moneyIn)} value={formatMoney(report.moneyIn, lang)} note={monthLabel(month, lang)} />
+          <StatCard icon="minus" label={t(ac.moneyOut)} value={formatMoney(report.moneyOut, lang)} note={monthLabel(month, lang)} />
+          <StatCard icon="cash" label={t(ac.moneyNet)} value={formatMoney(report.moneyIn - report.moneyOut, lang)} note={monthLabel(month, lang)} />
+          <StatCard icon="clock" label={t(ac.receivable)} value={formatMoney(report.receivable, lang)} note={t(ac.receivableNote)} />
+        </CardGrid>
+      </Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>
         <Select label={t(ac.month)} value={month} onChange={(e) => setMonth(e.target.value)} options={months.map((m) => ({ value: m, label: monthLabel(m, lang) }))} />
       </Col>

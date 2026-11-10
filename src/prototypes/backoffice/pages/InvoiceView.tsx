@@ -28,7 +28,7 @@ export function InvoiceView() {
   }
   const date = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH' : 'en-GB', { dateStyle: 'long' }).format(new Date(invoice.at))
   const columns: DataColumn<InvoiceLine>[] = [
-    { key: 'item', header: t(ac.invItem), render: (l) => t(l.name) },
+    { key: 'item', wrap: true, header: t(ac.invItem), render: (l) => t(l.name) },
     { key: 'qty', header: t(b.colQty), end: true, render: (l) => l.qty },
     { key: 'unit', header: t(ac.invUnit), end: true, render: (l) => formatMoney(l.unitNet, lang) },
     { key: 'amount', header: t(ac.invAmount), end: true, render: (l) => formatMoney(l.net, lang) },

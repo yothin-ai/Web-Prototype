@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { remainingValue } from '../../../stock/stock'
-import { Button, Card, Col, DataRow, Field, Grid, IconCircle } from '../../../ui'
+import { Button, Card, CardGrid, Col, DataRow, Field, Grid, IconCircle } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { PROTOTYPE_ID, usePurchaseBook, useSearch } from '../data'
@@ -25,24 +25,26 @@ export function Suppliers() {
       </Col>
       <Col><Field label={t(b.supplierSearch)} id="sup-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       {shown.length === 0 && <Col><p className="muted">{t(b.supNone)}</p></Col>}
+      <Col>
+        <CardGrid size="medium">
       {shown.map((s) => {
         const open = purchases.filter((po) => po.supplierId === s.id && po.status === 'ordered' || po.status === 'partial')
         const value = open.reduce((n, po) => n + remainingValue(po, products), 0)
         return (
-          <Col key={s.id} span={{ base: 4, sm: 4, md: 4 }}>
-            <Card>
+          <Card key={s.id}>
               <div className="stack">
                 <div className="row"><IconCircle size="md" icon="truck" /><div className="stack row__grow"><strong>{t(s.name)}</strong><span className="muted">{t(s.contact)}</span></div></div>
                 <DataRow muted label={t(b.supPhone)} value={s.phone} />
                 <DataRow muted label={t(b.supEmail)} value={s.email} />
                 <DataRow muted label={t(b.supCity)} value={t(s.city)} />
                 <DataRow strong label={t(b.supOpen)} value={`${open.length} · ${formatMoney(value, lang)}`} />
-                <div><Button to={`${base}/purchase-orders?supplier=${s.id}${search ? `&${search.slice(1)}` : ''}`} variant="secondary" size="sm">{t(b.supSeeOrders)}</Button></div>
+                <div className="card-grid__push"><Button to={`${base}/purchase-orders?supplier=${s.id}${search ? `&${search.slice(1)}` : ''}`} variant="secondary" size="sm">{t(b.supSeeOrders)}</Button></div>
               </div>
-            </Card>
-          </Col>
+          </Card>
         )
       })}
+        </CardGrid>
+      </Col>
     </Grid>
   )
 }

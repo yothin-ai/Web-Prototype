@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../../../i18n'
 import { monthReport, monthsBack, type LedgerEntry } from '../../../accounting/accounting'
-import { Badge, Button, Card, Col, DataRow, DataTable, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataRow, DataTable, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { ac, categoryLabel, kindLabel, payeeText } from '../accStrings'
@@ -57,27 +57,31 @@ export function VatReport() {
       <Col span={{ base: 4, sm: 4, md: 4 }}>
         <Select label={t(ac.month)} value={month} onChange={(e) => setMonth(e.target.value)} options={months.map((m) => ({ value: m, label: monthLabel(m, lang) }))} />
       </Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="receipt" label={t(ac.vatOutput)} value={formatMoney(report.outputVat, lang)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="tag" label={t(ac.vatInput)} value={formatMoney(report.inputVat, lang)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="bank" label={t(payable ? ac.vatPayable : ac.vatCredit)} value={formatMoney(Math.abs(report.vatPayable), lang)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 8, md: 4 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(ac.vatSummary)}</h3>
-            <DataRow label={t(ac.vatNetSales)} value={formatMoney(report.netSales, lang)} />
-            <DataRow label={t(ac.vatOutput)} value={formatMoney(report.outputVat, lang)} />
-            <DataRow label={t(ac.vatInput)} value={formatMoney(report.inputVat, lang)} />
-            <DataRow strong label={t(payable ? ac.vatPayable : ac.vatCredit)} value={formatMoney(Math.abs(report.vatPayable), lang)} />
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="small">
+          <StatCard icon="receipt" label={t(ac.vatOutput)} value={formatMoney(report.outputVat, lang)} note={monthLabel(month, lang)} />
+          <StatCard icon="tag" label={t(ac.vatInput)} value={formatMoney(report.inputVat, lang)} note={monthLabel(month, lang)} />
+          <StatCard icon="bank" label={t(payable ? ac.vatPayable : ac.vatCredit)} value={formatMoney(Math.abs(report.vatPayable), lang)} note={monthLabel(month, lang)} />
+        </CardGrid>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 8 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(ac.vatInputList)}</h3>
-            <DataTable label={t(ac.vatInputLabel)} columns={columns} rows={input} rowKey={(e) => e.id} empty={t(ac.vatNoRows)} />
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="large">
+          <Card>
+            <div className="stack">
+              <h3>{t(ac.vatSummary)}</h3>
+              <DataRow label={t(ac.vatNetSales)} value={formatMoney(report.netSales, lang)} />
+              <DataRow label={t(ac.vatOutput)} value={formatMoney(report.outputVat, lang)} />
+              <DataRow label={t(ac.vatInput)} value={formatMoney(report.inputVat, lang)} />
+              <DataRow strong label={t(payable ? ac.vatPayable : ac.vatCredit)} value={formatMoney(Math.abs(report.vatPayable), lang)} />
+            </div>
+          </Card>
+          <Card>
+            <div className="stack">
+              <h3>{t(ac.vatInputList)}</h3>
+              <DataTable label={t(ac.vatInputLabel)} columns={columns} rows={input} rowKey={(e) => e.id} empty={t(ac.vatNoRows)} />
+            </div>
+          </Card>
+        </CardGrid>
       </Col>
       <Col>
         <Card>

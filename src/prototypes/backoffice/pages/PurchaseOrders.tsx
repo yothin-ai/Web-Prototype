@@ -28,7 +28,7 @@ export function PurchaseOrders() {
   const rows = purchases.filter((po) => (!status || po.status === status) && (!supplier || po.supplierId === supplier) && (!needle || po.id.toLowerCase().includes(needle) || t(supplierNames[po.supplierId]).toLowerCase().includes(needle)))
   const columns: DataColumn<PurchaseOrder>[] = [
     { key: 'id', header: t(b.colPoNo), sort: (x, y) => x.id.localeCompare(y.id), render: (po) => <span className="row"><Link to={`${base}/purchase-orders/${po.id}${search}`}>{po.id}</Link>{po.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
-    { key: 'supplier', header: t(b.colSupplier), render: (po) => t(supplierNames[po.supplierId]) },
+    { key: 'supplier', wrap: true, header: t(b.colSupplier), render: (po) => t(supplierNames[po.supplierId]) },
     { key: 'at', header: t(b.colOrdered), sort: (x, y) => x.at.localeCompare(y.at), render: (po) => date(po.at) },
     { key: 'expected', header: t(b.colExpected), render: (po) => date(po.expectedAt) },
     { key: 'items', header: t(b.colItems), end: true, render: (po) => po.lines.length },

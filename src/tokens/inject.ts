@@ -19,6 +19,26 @@ function cssVars(): string {
   return `:root {\n  ${lines.join('\n  ')}\n}\n.theme-landing {\n  ${theme.join('\n  ')}\n}`
 }
 
+// CardGrid: columns follow the width of the space the grid sits in. A count of cards uses only column counts that fill every row.
+function cardGrid(): string {
+  const gap = parseInt(tokens.grid.gutter, 10)
+  const unit = parseInt(tokens.space[8], 10)
+  const sizes = { small: unit * 3, medium: unit * 4, large: unit * 6 }
+  const rules: string[] = []
+  for (const [name, min] of Object.entries(sizes)) {
+    const need = (cols: number) => cols * min + (cols - 1) * gap
+    for (let count = 2; count <= 40; count++) {
+      const divisors = Array.from({ length: 5 }, (_, i) => i + 2).filter((c) => c <= count && count % c === 0)
+      // A count with no even split (5, 7, 11) and a long list use as many columns as fit.
+      const fits = divisors.length > 0 && count <= 12 ? divisors : [2, 3, 4, 5, 6]
+      // Later rules have a bigger min-width, so the widest count that fits wins.
+      for (const cols of fits) rules.push(`@container (min-width: ${need(cols)}px) { .card-grid--${name} > .card-grid__list[data-count="${count}"] { grid-template-columns: repeat(${cols}, minmax(0, 1fr)); } }`)
+    }
+    for (const cols of [2, 3, 4, 5, 6]) rules.push(`@container (min-width: ${need(cols)}px) { .card-grid--${name} > .card-grid__list[data-count="many"] { grid-template-columns: repeat(${cols}, minmax(0, 1fr)); } }`)
+  }
+  return rules.join('\n')
+}
+
 // The grid is generated here because media queries cannot read CSS variables.
 function gridCss(): string {
   const { breakpoint, grid } = tokens
@@ -46,9 +66,7 @@ function gridCss(): string {
     at(breakpoint.sm, `.grid { grid-template-columns: repeat(${grid.columns.sm}, minmax(0, 1fr)); } .col-sm-full { grid-column: 1 / -1; } ${spans('col-sm', grid.columns.sm)}`),
     mosaic,
     gallery,
-    // Back office: a table is a stack of cards below md and a real table from md.
-    `.data-table table, .data-table tbody, .data-table tr { display: block; } .data-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; } .data-table tr { margin-bottom: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); } .data-table td { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); padding: var(--space-2) 0; text-align: right; } .data-table td::before { content: attr(data-label); display: block; flex: none; text-align: left; }`,
-    at(breakpoint.md, `.data-table table { display: table; } .data-table thead { position: static; width: auto; height: auto; overflow: visible; display: table-header-group; } .data-table tbody { display: table-row-group; } .data-table tr { display: table-row; margin: 0; padding: 0; border: 0; border-bottom: 1px solid var(--color-border); border-radius: 0; background: transparent; } .data-table th, .data-table td { display: table-cell; padding: var(--space-3) var(--space-4); vertical-align: middle; } .data-table td::before { display: none; } .data-table th.data-table__end, .data-table td.data-table__end { text-align: right; } .data-table td { text-align: left; }`),
+    cardGrid(),
     // Printing a page (such as a tax invoice) leaves out the frame around it: the Shell bar, the back office menu and anything marked no-print.
     `@media print { .topbar, .side-nav, .no-print { display: none !important; } .side-nav-layout { display: block; } }`,
     // Back office menu: a bar with a button below md, a dark column at the left edge from md.

@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { costOf, purchaseTotal, receivedQtyOf, remainingQtyOf, type PurchaseOrder } from '../../../stock/stock'
-import { Badge, Breadcrumb, Button, Card, Col, DataRow, DataTable, Field, Grid, Modal, Notice, type DataColumn } from '../../../ui'
+import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Modal, Notice, type DataColumn } from '../../../ui'
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { locationName, PROTOTYPE_ID, usePurchaseBook, useSearch } from '../data'
 import { b, supplierNames } from '../strings'
@@ -34,7 +34,7 @@ export function PurchaseOrderDetail() {
   const date = (iso?: string) => (iso ? new Intl.DateTimeFormat(lang === 'th' ? 'th-TH' : 'en-GB', { dateStyle: 'medium' }).format(new Date(iso)) : '-')
   const productOf = (id: string) => products.find((p) => p.id === id)
   const columns: DataColumn<Line>[] = [
-    { key: 'product', header: t(b.colProduct), render: (l) => { const p = productOf(l.productId); return p ? <span className="stack"><Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link><span className="muted">{skuOf(p)}</span></span> : l.productId } },
+    { key: 'product', wrap: true, header: t(b.colProduct), render: (l) => { const p = productOf(l.productId); return p ? <span className="stack"><Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link><span className="muted">{skuOf(p)}</span></span> : l.productId } },
     { key: 'qty', header: t(b.colOrderedQty), end: true, render: (l) => l.qty },
     { key: 'got', header: t(b.colReceivedQty), end: true, render: (l) => receivedQtyOf(po, l.productId) },
     { key: 'left', header: t(b.colRemainingQty), end: true, render: (l) => remainingQtyOf(po, l.productId) },
@@ -62,35 +62,35 @@ export function PurchaseOrderDetail() {
           </div>
         </div>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 8 }}>
-        <div className="stack">
+      <Col>
+        <CardGrid size="large">
+          <div className="stack">
+            <Card>
+              <div className="stack">
+                <h3>{t(b.poLines)}</h3>
+                <DataTable label={t(b.poLinesLabel)} columns={columns} rows={po.lines} rowKey={(l) => l.productId} empty="" />
+                <span className="muted">{t(b.poCostNote)}</span>
+              </div>
+            </Card>
+            <Notice tone={po.status === 'received' ? 'success' : 'info'}>{t(note)}</Notice>
+            <div className="row">
+              {po.status === 'draft' && <Button onClick={() => update({ status: 'ordered' })}>{t(b.poPlaceOrder)}</Button>}
+              {po.status === 'draft' && <Button to={`${base}/purchase-orders/${po.id}/edit${search}`} variant="secondary" icon="edit">{t(b.poEdit)}</Button>}
+              {(po.status === 'ordered' || po.status === 'partial') && <Button onClick={() => setReceiving(true)}>{t(b.poReceiveGoods)}</Button>}
+              {(po.status === 'draft' || po.status === 'ordered') && <Button variant="secondary" onClick={() => update({ status: 'cancelled' })}>{t(b.poCancel)}</Button>}
+            </div>
+          </div>
           <Card>
             <div className="stack">
-              <h3>{t(b.poLines)}</h3>
-              <DataTable label={t(b.poLinesLabel)} columns={columns} rows={po.lines} rowKey={(l) => l.productId} empty="" />
-              <span className="muted">{t(b.poCostNote)}</span>
+              <DataRow label={t(b.colSupplier)} value={t(supplierNames[po.supplierId])} />
+              <DataRow label={t(b.colOrdered)} value={date(po.at)} />
+              <DataRow label={t(b.colExpected)} value={date(po.expectedAt)} />
+              <DataRow label={t(b.poPlace)} value={t(locationName(po.loc))} />
+              {po.note && <DataRow label={t(b.colNote)} value={po.note} />}
+              <DataRow strong label={t(b.poTotal)} value={formatMoney(purchaseTotal(po, products), lang)} />
             </div>
           </Card>
-          <Notice tone={po.status === 'received' ? 'success' : 'info'}>{t(note)}</Notice>
-          <div className="row">
-            {po.status === 'draft' && <Button onClick={() => update({ status: 'ordered' })}>{t(b.poPlaceOrder)}</Button>}
-            {po.status === 'draft' && <Button to={`${base}/purchase-orders/${po.id}/edit${search}`} variant="secondary" icon="edit">{t(b.poEdit)}</Button>}
-            {(po.status === 'ordered' || po.status === 'partial') && <Button onClick={() => setReceiving(true)}>{t(b.poReceiveGoods)}</Button>}
-            {(po.status === 'draft' || po.status === 'ordered') && <Button variant="secondary" onClick={() => update({ status: 'cancelled' })}>{t(b.poCancel)}</Button>}
-          </div>
-        </div>
-      </Col>
-      <Col span={{ base: 4, sm: 8, md: 4 }}>
-        <Card>
-          <div className="stack">
-            <DataRow label={t(b.colSupplier)} value={t(supplierNames[po.supplierId])} />
-            <DataRow label={t(b.colOrdered)} value={date(po.at)} />
-            <DataRow label={t(b.colExpected)} value={date(po.expectedAt)} />
-            <DataRow label={t(b.poPlace)} value={t(locationName(po.loc))} />
-            {po.note && <DataRow label={t(b.colNote)} value={po.note} />}
-            <DataRow strong label={t(b.poTotal)} value={formatMoney(purchaseTotal(po, products), lang)} />
-          </div>
-        </Card>
+        </CardGrid>
       </Col>
       {receiving && <ReceiveDialog po={po} nameOf={(id) => t(productOf(id)?.name ?? {})} onClose={() => setReceiving(false)} onSave={receive} />}
     </Grid>

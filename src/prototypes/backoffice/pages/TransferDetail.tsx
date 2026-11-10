@@ -4,7 +4,7 @@ import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import type { Transfer, TransferStatus } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { Badge, Breadcrumb, Button, Card, Col, DataRow, Grid, Notice, OrderTimeline, type TimelineStep } from '../../../ui'
+import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, Grid, Notice, OrderTimeline, type TimelineStep } from '../../../ui'
 import { formatDate } from '../../ecommerce/cart'
 import { locationName, PROTOTYPE_ID, useSearch, useTransferActions } from '../data'
 import { b } from '../strings'
@@ -55,34 +55,34 @@ export function TransferDetail() {
           </div>
         </div>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 6 }}>
-        <div className="stack">
-          <Card>
-            <OrderTimeline label={t(b.trfStepsLabel)} steps={steps} />
-          </Card>
-          <Notice tone={tr.status === 'done' ? 'success' : 'info'}>{t(noteOf(tr.status))}</Notice>
-          {short && <Notice tone="error">{t(b.trfShortApprove)}</Notice>}
-          <div className="row">
-            {tr.status === 'pending' && <Button onClick={() => setShort(!approve(tr))}>{t(b.trfApprove)}</Button>}
-            {tr.status === 'transit' && <Button onClick={() => receive(tr)}>{t(b.trfReceive)}</Button>}
-            {tr.status === 'pending' && <Button variant="secondary" onClick={() => cancel(tr)}>{t(b.trfCancel)}</Button>}
-          </div>
-        </div>
-      </Col>
-      <Col span={{ base: 4, sm: 8, md: 6 }}>
-        <Card>
+      <Col>
+        <CardGrid size="medium">
           <div className="stack">
-            <DataRow label={t(b.colProduct)} value={product ? <Link to={`${base}/stock/${product.id}${search}`}>{t(product.name)}</Link> : tr.productId} />
-            <DataRow label={t(b.colQty)} value={tr.qty} />
-            <DataRow label={t(b.trfFrom)} value={t(locationName(tr.from))} />
-            <DataRow label={t(b.trfTo)} value={t(locationName(tr.to))} />
-            {tr.status === 'pending' && <DataRow label={t(b.trfAvailableAtSource)} value={`${book.cell(tr.productId, tr.from).available} ${t(b.pieces)}`} />}
-            <DataRow label={t(b.trfCreatedAt)} value={formatDate(tr.at, lang)} />
-            {tr.outAt && <DataRow label={t(b.trfApprovedAt)} value={formatDate(tr.outAt, lang)} />}
-            {tr.inAt && <DataRow label={t(b.trfReceivedAt)} value={formatDate(tr.inAt, lang)} />}
-            {tr.note && <DataRow label={t(b.colNote)} value={tr.note} />}
+            <Card>
+              <OrderTimeline label={t(b.trfStepsLabel)} steps={steps} />
+            </Card>
+            <Notice tone={tr.status === 'done' ? 'success' : 'info'}>{t(noteOf(tr.status))}</Notice>
+            {short && <Notice tone="error">{t(b.trfShortApprove)}</Notice>}
+            <div className="row">
+              {tr.status === 'pending' && <Button onClick={() => setShort(!approve(tr))}>{t(b.trfApprove)}</Button>}
+              {tr.status === 'transit' && <Button onClick={() => receive(tr)}>{t(b.trfReceive)}</Button>}
+              {tr.status === 'pending' && <Button variant="secondary" onClick={() => cancel(tr)}>{t(b.trfCancel)}</Button>}
+            </div>
           </div>
-        </Card>
+          <Card>
+            <div className="stack">
+              <DataRow label={t(b.colProduct)} value={product ? <Link to={`${base}/stock/${product.id}${search}`}>{t(product.name)}</Link> : tr.productId} />
+              <DataRow label={t(b.colQty)} value={tr.qty} />
+              <DataRow label={t(b.trfFrom)} value={t(locationName(tr.from))} />
+              <DataRow label={t(b.trfTo)} value={t(locationName(tr.to))} />
+              {tr.status === 'pending' && <DataRow label={t(b.trfAvailableAtSource)} value={`${book.cell(tr.productId, tr.from).available} ${t(b.pieces)}`} />}
+              <DataRow label={t(b.trfCreatedAt)} value={formatDate(tr.at, lang)} />
+              {tr.outAt && <DataRow label={t(b.trfApprovedAt)} value={formatDate(tr.outAt, lang)} />}
+              {tr.inAt && <DataRow label={t(b.trfReceivedAt)} value={formatDate(tr.inAt, lang)} />}
+              {tr.note && <DataRow label={t(b.colNote)} value={tr.note} />}
+            </div>
+          </Card>
+        </CardGrid>
       </Col>
     </Grid>
   )

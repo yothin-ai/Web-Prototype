@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../../i18n'
 import { expenseCategories, monthReport, monthsBack, type ExpenseCategory } from '../../../accounting/accounting'
-import { BarChart, Card, Col, DataRow, Grid, Notice, Select, StatCard } from '../../../ui'
+import { BarChart, Card, CardGrid, Col, DataRow, Grid, Notice, Select, StatCard } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { ac, categoryLabel } from '../accStrings'
@@ -29,32 +29,36 @@ export function ProfitLoss() {
       <Col span={{ base: 4, sm: 4, md: 4 }}>
         <Select label={t(ac.month)} value={month} onChange={(e) => setMonth(e.target.value)} options={months.map((m) => ({ value: m, label: monthLabel(m, lang) }))} />
       </Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="cash" label={t(ac.plRevenue)} value={money(report.netSales)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="package" label={t(ac.plGross)} value={money(report.grossProfit)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="minus" label={t(ac.plOpex)} value={money(report.opex)} note={monthLabel(month, lang)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="bank" label={t(ac.plNet)} value={money(report.netProfit)} note={`${t(ac.plMargin)} ${margin}%`} /></Col>
-      <Col span={{ base: 4, sm: 8, md: 6 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(ac.plStatement)} · {monthLabel(month, lang)}</h3>
-            <DataRow label={t(ac.plRevenue)} value={money(report.netSales)} />
-            <DataRow label={t(ac.plCogs)} value={`-${money(report.cogs)}`} />
-            <DataRow strong label={t(ac.plGross)} value={money(report.grossProfit)} />
-            {expenseCategories.map((c) => <DataRow key={c} muted label={t(categoryLabel(c))} value={`-${money(byCategory(c))}`} />)}
-            <DataRow label={t(ac.plOpex)} value={`-${money(report.opex)}`} />
-            <DataRow strong label={t(ac.plNet)} value={money(report.netProfit)} />
-            <span className="muted">{t(ac.plCostNote)} {t(ac.notAdvice)}</span>
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="small">
+          <StatCard icon="cash" label={t(ac.plRevenue)} value={money(report.netSales)} note={monthLabel(month, lang)} />
+          <StatCard icon="package" label={t(ac.plGross)} value={money(report.grossProfit)} note={monthLabel(month, lang)} />
+          <StatCard icon="minus" label={t(ac.plOpex)} value={money(report.opex)} note={monthLabel(month, lang)} />
+          <StatCard icon="bank" label={t(ac.plNet)} value={money(report.netProfit)} note={`${t(ac.plMargin)} ${margin}%`} />
+        </CardGrid>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 6 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(ac.plChart)}</h3>
-            <BarChart label={t(ac.plChartLabel)} items={[...months].reverse().map((m) => ({ label: short(m), value: Math.max(0, monthReport(books, m).netSales), text: compact.format(monthReport(books, m).netSales) }))} />
-            {report.netProfit < 0 && <Notice tone="info">{t(ac.plNet)}: {money(report.netProfit)}</Notice>}
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="medium">
+          <Card>
+            <div className="stack">
+              <h3>{t(ac.plStatement)} · {monthLabel(month, lang)}</h3>
+              <DataRow label={t(ac.plRevenue)} value={money(report.netSales)} />
+              <DataRow label={t(ac.plCogs)} value={`-${money(report.cogs)}`} />
+              <DataRow strong label={t(ac.plGross)} value={money(report.grossProfit)} />
+              {expenseCategories.map((c) => <DataRow key={c} muted label={t(categoryLabel(c))} value={`-${money(byCategory(c))}`} />)}
+              <DataRow label={t(ac.plOpex)} value={`-${money(report.opex)}`} />
+              <DataRow strong label={t(ac.plNet)} value={money(report.netProfit)} />
+              <span className="muted">{t(ac.plCostNote)} {t(ac.notAdvice)}</span>
+            </div>
+          </Card>
+          <Card>
+            <div className="stack">
+              <h3>{t(ac.plChart)}</h3>
+              <BarChart label={t(ac.plChartLabel)} items={[...months].reverse().map((m) => ({ label: short(m), value: Math.max(0, monthReport(books, m).netSales), text: compact.format(monthReport(books, m).netSales) }))} />
+              {report.netProfit < 0 && <Notice tone="info">{t(ac.plNet)}: {money(report.netProfit)}</Notice>}
+            </div>
+          </Card>
+        </CardGrid>
       </Col>
     </Grid>
   )

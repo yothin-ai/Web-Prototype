@@ -3,7 +3,7 @@ import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { reorderPoint } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { BarChart, Button, Card, Col, DataRow, DataTable, Grid, StatCard } from '../../../ui'
+import { BarChart, Button, Card, CardGrid, Col, DataRow, DataTable, Grid, StatCard } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { customerText, statusOf } from '../../ecommerce/orders'
 import { statusLabel, statusTone } from '../../ecommerce/pages/OrdersPage'
@@ -52,31 +52,35 @@ export function Overview() {
           </Card>
         </div>
       </Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="cash" label={t(b.salesToday)} value={formatMoney(sales[sales.length - 1].value, lang)} note={t(b.salesTodayNote)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="package" label={t(b.toPack)} value={String(waiting.length)} note={t(b.toPackNote)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="warning" label={t(b.lowStock)} value={String(low.length)} note={t(b.lowStockNote)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="bell" label={t(b.outOfStock)} value={String(out.length)} note={t(b.outOfStockNote)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 6 }}><StatCard icon="cash" label={t(ac.overviewRevenue)} value={formatMoney(month.netSales, lang)} note={t(ac.overviewRevenueNote)} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 6 }}><StatCard icon="bank" label={t(ac.overviewProfit)} value={formatMoney(month.netProfit, lang)} note={t(ac.overviewProfitNote)} /></Col>
-      <Col span={{ base: 4, sm: 8, md: 8 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(b.salesChart)}</h3>
-            <BarChart label={t(b.salesChartLabel)} items={sales.map((s) => ({ label: weekday.format(s.day), value: s.value, text: compact.format(s.value) }))} />
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="small">
+          <StatCard icon="cash" label={t(b.salesToday)} value={formatMoney(sales[sales.length - 1].value, lang)} note={t(b.salesTodayNote)} />
+          <StatCard icon="package" label={t(b.toPack)} value={String(waiting.length)} note={t(b.toPackNote)} />
+          <StatCard icon="warning" label={t(b.lowStock)} value={String(low.length)} note={t(b.lowStockNote)} />
+          <StatCard icon="bell" label={t(b.outOfStock)} value={String(out.length)} note={t(b.outOfStockNote)} />
+          <StatCard icon="cash" label={t(ac.overviewRevenue)} value={formatMoney(month.netSales, lang)} note={t(ac.overviewRevenueNote)} />
+          <StatCard icon="bank" label={t(ac.overviewProfit)} value={formatMoney(month.netProfit, lang)} note={t(ac.overviewProfitNote)} />
+        </CardGrid>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 4 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(b.waitingTitle)}</h3>
-            {waiting.length === 0 && <p className="muted">{t(b.waitingEmpty)}</p>}
-            {waiting.slice(0, 5).map((o) => (
-              <DataRow key={o.id} label={<span className="stack"><Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link><span className="muted">{customerText(o.customer.name, lang)}</span></span>} value={<span className="stack"><strong>{formatMoney(o.total, lang)}</strong><Badge tone="warning">{t(statusLabel(statusOf(o)))}</Badge></span>} />
-            ))}
-            <div><Button to={`${base}/orders${search}`} variant="ghost" size="sm">{t(b.seeAll)}</Button></div>
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="medium">
+          <Card>
+            <div className="stack">
+              <h3>{t(b.salesChart)}</h3>
+              <BarChart label={t(b.salesChartLabel)} items={sales.map((s) => ({ label: weekday.format(s.day), value: s.value, text: compact.format(s.value) }))} />
+            </div>
+          </Card>
+          <Card>
+            <div className="stack">
+              <h3>{t(b.waitingTitle)}</h3>
+              {waiting.length === 0 && <p className="muted">{t(b.waitingEmpty)}</p>}
+              {waiting.slice(0, 5).map((o) => (
+                <DataRow key={o.id} label={<span className="stack"><Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link><span className="muted">{customerText(o.customer.name, lang)}</span></span>} value={<span className="stack"><strong>{formatMoney(o.total, lang)}</strong><Badge tone="warning">{t(statusLabel(statusOf(o)))}</Badge></span>} />
+              ))}
+              <div><Button to={`${base}/orders${search}`} variant="ghost" size="sm">{t(b.seeAll)}</Button></div>
+            </div>
+          </Card>
+        </CardGrid>
       </Col>
       <Col>
         <Card>
@@ -97,35 +101,35 @@ export function Overview() {
           </div>
         </Card>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 5 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(b.topSellers)}</h3>
-            {best.length === 0 && <p className="muted">{t(b.topSellersEmpty)}</p>}
-            {best.map(([id, qty]) => {
-              const p = products.find((x) => x.id === id)
-              return p ? <DataRow key={id} label={<Link to={`${base}/stock/${id}${search}`}>{t(p.name)}</Link>} value={`${qty} ${t(b.sold)}`} /> : null
-            })}
-          </div>
-        </Card>
-      </Col>
-      <Col span={{ base: 4, sm: 8, md: 7 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(b.recentOrders)}</h3>
-            <DataTable
-              label={t(b.recentOrdersLabel)}
-              rows={recent}
-              rowKey={(o) => o.id}
-              empty={t(b.ordersEmpty)}
-              columns={[
-                { key: 'id', header: t(b.colOrder), render: (o) => <Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link> },
-                { key: 'total', header: t(b.colTotal), end: true, render: (o) => formatMoney(o.total, lang) },
-                { key: 'status', header: t(b.colStatus), render: (o) => <Badge tone={statusTone(statusOf(o))}>{t(statusLabel(statusOf(o)))}</Badge> },
-              ]}
-            />
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="large">
+          <Card>
+            <div className="stack">
+              <h3>{t(b.topSellers)}</h3>
+              {best.length === 0 && <p className="muted">{t(b.topSellersEmpty)}</p>}
+              {best.map(([id, qty]) => {
+                const p = products.find((x) => x.id === id)
+                return p ? <DataRow key={id} label={<Link to={`${base}/stock/${id}${search}`}>{t(p.name)}</Link>} value={`${qty} ${t(b.sold)}`} /> : null
+              })}
+            </div>
+          </Card>
+          <Card>
+            <div className="stack">
+              <h3>{t(b.recentOrders)}</h3>
+              <DataTable
+                label={t(b.recentOrdersLabel)}
+                rows={recent}
+                rowKey={(o) => o.id}
+                empty={t(b.ordersEmpty)}
+                columns={[
+                  { key: 'id', header: t(b.colOrder), render: (o) => <Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link> },
+                  { key: 'total', header: t(b.colTotal), end: true, render: (o) => formatMoney(o.total, lang) },
+                  { key: 'status', header: t(b.colStatus), render: (o) => <Badge tone={statusTone(statusOf(o))}>{t(statusLabel(statusOf(o)))}</Badge> },
+                ]}
+              />
+            </div>
+          </Card>
+        </CardGrid>
       </Col>
     </Grid>
   )

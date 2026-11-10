@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { CLOSE_WINDOW, channels, dayKey, dayReport, isClosed, sampleCloseCounted, sampleCloseDays, type Close } from '../../../accounting/accounting'
-import { Badge, Button, Card, Col, DataRow, DataTable, Field, Grid, Modal, Notice, StatCard, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Modal, Notice, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { ac, channelLabel } from '../accStrings'
@@ -53,8 +53,12 @@ export function DailyClose() {
       <Col>
         <PageHead title={t(ac.closeTitle)} text={`${t(ac.closeText)} ${t(b.sample)}`} />
       </Col>
-      <Col span={{ base: 4, sm: 4, md: 6 }}><StatCard icon="check" label={t(ac.closedCount)} value={String(rows.filter((r) => r.closed).length)} note={`/ ${CLOSE_WINDOW}`} /></Col>
-      <Col span={{ base: 4, sm: 4, md: 6 }}><StatCard icon="clock" label={t(ac.openCount)} value={String(rows.filter((r) => !r.closed).length)} note={`/ ${CLOSE_WINDOW}`} /></Col>
+      <Col>
+        <CardGrid size="small">
+          <StatCard icon="check" label={t(ac.closedCount)} value={String(rows.filter((r) => r.closed).length)} note={`/ ${CLOSE_WINDOW}`} />
+          <StatCard icon="clock" label={t(ac.openCount)} value={String(rows.filter((r) => !r.closed).length)} note={`/ ${CLOSE_WINDOW}`} />
+        </CardGrid>
+      </Col>
       {message && <Col><Notice tone="success">{message}</Notice></Col>}
       <Col>
         <Card>

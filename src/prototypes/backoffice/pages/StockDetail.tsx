@@ -4,7 +4,7 @@ import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { historyOf, locationIds, reorderPoint, type HistoryEntry } from '../../../stock/stock'
 import { useMovements, usePurchases, useStock, useTransfers } from '../../../stock/useStock'
-import { Badge, Breadcrumb, Button, Card, Col, DataRow, DataTable, Grid, Notice, type DataColumn } from '../../../ui'
+import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Grid, Notice, type DataColumn } from '../../../ui'
 import { formatDate, formatMoney, skuOf } from '../../ecommerce/cart'
 import { AdjustModal, reasonLabel } from '../AdjustModal'
 import { locationName, PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
@@ -69,26 +69,26 @@ export function StockDetail() {
           {saved && <Notice tone="success">{t(b.adjusted)}</Notice>}
         </div>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 4 }}>
-        <Card>
-          <div className="stack">
-            <DataRow label={t(b.sku)} value={skuOf(product)} />
-            <DataRow label={t(b.colCategory)} value={t(product.category)} />
-            <DataRow label={t(b.price)} value={formatMoney(product.price, lang)} />
-            <DataRow label={t(b.colReorder)} value={`${reorderPoint(product.id)} ${t(b.pieces)}`} />
-            <DataRow label={`${t(b.total)}: ${t(b.colOnHand)}`} value={total.onHand} />
-            <DataRow label={`${t(b.total)}: ${t(b.colReserved)}`} value={total.reserved} />
-            <DataRow strong label={`${t(b.total)}: ${t(b.colAvailable)}`} value={total.available} />
-          </div>
-        </Card>
-      </Col>
-      <Col span={{ base: 4, sm: 8, md: 8 }}>
-        <Card>
-          <div className="stack">
-            <h3>{t(b.detailPlaces)}</h3>
-            <DataTable label={t(b.detailPlacesLabel)} columns={placeColumns} rows={places} rowKey={(p) => p.id} empty="" />
-          </div>
-        </Card>
+      <Col>
+        <CardGrid size="large">
+          <Card>
+            <div className="stack">
+              <DataRow label={t(b.sku)} value={skuOf(product)} />
+              <DataRow label={t(b.colCategory)} value={t(product.category)} />
+              <DataRow label={t(b.price)} value={formatMoney(product.price, lang)} />
+              <DataRow label={t(b.colReorder)} value={`${reorderPoint(product.id)} ${t(b.pieces)}`} />
+              <DataRow label={`${t(b.total)}: ${t(b.colOnHand)}`} value={total.onHand} />
+              <DataRow label={`${t(b.total)}: ${t(b.colReserved)}`} value={total.reserved} />
+              <DataRow strong label={`${t(b.total)}: ${t(b.colAvailable)}`} value={total.available} />
+            </div>
+          </Card>
+          <Card>
+            <div className="stack">
+              <h3>{t(b.detailPlaces)}</h3>
+              <DataTable label={t(b.detailPlacesLabel)} columns={placeColumns} rows={places} rowKey={(p) => p.id} empty="" />
+            </div>
+          </Card>
+        </CardGrid>
       </Col>
       <Col>
         <Card>
