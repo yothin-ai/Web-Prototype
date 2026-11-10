@@ -13,7 +13,12 @@ export type AdjustmentReason = 'damaged' | 'expired' | 'lost' | 'count' | 'other
 export const adjustmentReasons: AdjustmentReason[] = ['count', 'damaged', 'expired', 'lost', 'other']
 export type Movement = { id: string; at: string; productId: string; loc: string; kind: 'in' | 'adjust'; qty: number; supplierId?: string; note?: string; reason?: AdjustmentReason; poId?: string }
 // One line of a product's history: the recorded movements, the made-up past sales and receipts, and orders that took stock out.
-export type HistoryEntry = { id: string; at: string; productId: string; loc: string; kind: 'in' | 'adjust' | 'sale' | 'order'; qty: number; ref?: string; supplierId?: string; note?: string; reason?: AdjustmentReason; sample?: boolean }
+export type HistoryEntry = { id: string; at: string; productId: string; loc: string; kind: 'in' | 'adjust' | 'sale' | 'order' | 'transferOut' | 'transferIn'; qty: number; ref?: string; supplierId?: string; note?: string; reason?: AdjustmentReason; sample?: boolean }
+
+// A move of goods from one place to another. Stock leaves the source when it is approved (`outAt`) and arrives when it is
+// received (`inAt`). The made-up past ones carry neither, because their stock is already in the starting figures.
+export type TransferStatus = 'pending' | 'transit' | 'done' | 'cancelled'
+export type Transfer = { id: string; at: string; productId: string; qty: number; from: string; to: string; status: TransferStatus; outAt?: string; inAt?: string; note?: string; sample?: boolean }
 
 export type Cell = { onHand: number; reserved: number; available: number }
 export type StockStatus = 'out' | 'low' | 'ok'
@@ -64,7 +69,7 @@ export type StockBook = {
   status: (productId: string) => StockStatus
 }
 
-export function buildStock(products: Product[], orders: Order[], movements: Movement[]): StockBook {
+export function buildStock(products: Product[], orders: Order[], movements: Movement[], transfers: Transfer[] = []): StockBook {
   const flags = flagsFor(products)
   const book = new Map<string, Map<string, { onHand: number; reserved: number }>>()
   for (const p of products) {
@@ -75,6 +80,16 @@ export function buildStock(products: Product[], orders: Order[], movements: Move
   for (const m of movements) {
     const place = book.get(m.productId)?.get(m.loc)
     if (place) place.onHand += m.qty
+  }
+  for (const tr of transfers) {
+    if (tr.outAt) {
+      const place = book.get(tr.productId)?.get(tr.from)
+      if (place) place.onHand -= tr.qty
+    }
+    if (tr.inAt) {
+      const place = book.get(tr.productId)?.get(tr.to)
+      if (place) place.onHand += tr.qty
+    }
   }
   for (const o of orders) {
     const effect = orderEffect(o)
@@ -114,7 +129,7 @@ const dayAt = (daysAgo: number, now: number) => {
 }
 
 // What happened to one product, newest first. The two made-up past lines (a receipt and a sale) are marked as samples.
-export function historyOf(productId: string, orders: Order[], movements: Movement[], now = Date.now()): HistoryEntry[] {
+export function historyOf(productId: string, orders: Order[], movements: Movement[], transfers: Transfer[] = [], now = Date.now()): HistoryEntry[] {
   const h = hash(productId)
   const rows: HistoryEntry[] = [
     { id: `seed-in-${productId}`, at: dayAt(6 + (h % 20), now), productId, loc: CENTRAL, kind: 'in', qty: 20 + (h % 40), supplierId: supplierIds[h % supplierIds.length], sample: true },
@@ -125,6 +140,11 @@ export function historyOf(productId: string, orders: Order[], movements: Movemen
     if (orderEffect(o) !== 'cut') continue
     const line = o.lines.find((l) => l.productId === productId)
     if (line) rows.push({ id: `order-${o.id}`, at: o.packedAt ?? o.placedAt, productId, loc: orderLocation(o), kind: 'order', qty: -line.qty, ref: o.id })
+  }
+  for (const tr of transfers) {
+    if (tr.productId !== productId) continue
+    if (tr.outAt) rows.push({ id: `trf-out-${tr.id}`, at: tr.outAt, productId, loc: tr.from, kind: 'transferOut', qty: -tr.qty, ref: tr.id })
+    if (tr.inAt) rows.push({ id: `trf-in-${tr.id}`, at: tr.inAt, productId, loc: tr.to, kind: 'transferIn', qty: tr.qty, ref: tr.id })
   }
   return rows.sort((a, b) => b.at.localeCompare(a.at))
 }
@@ -139,4 +159,14 @@ export function adjustmentsOf(products: Product[], movements: Movement[], now = 
   const live = movements.filter((m) => m.kind === 'adjust').sort((a, b) => a.at.localeCompare(b.at))
   live.forEach((m, i) => rows.push({ id: `ADJ-${1001 + i}`, at: m.at, productId: m.productId, loc: m.loc, qty: m.qty, reason: m.reason ?? 'count', note: m.note }))
   return rows.sort((a, b) => b.at.localeCompare(a.at))
+}
+
+// Four made-up transfers, so the page is never empty: two done, one cancelled and one waiting for approval.
+export function sampleTransfers(products: Product[], now = Date.now()): Transfer[] {
+  const flags = flagsFor(products)
+  const ranked = [...products].filter((p) => !flags.has(p.id)).sort((a, b) => hash(`${a.id}:trf`) - hash(`${b.id}:trf`))
+  const plan: [TransferStatus, number, string, string, number][] = [['done', 30, CENTRAL, 'b1', 8], ['done', 12, CENTRAL, 'b2', 5], ['cancelled', 8, 'b3', CENTRAL, 3], ['pending', 10, CENTRAL, 'b3', 0]]
+  return plan.flatMap(([status, qty, from, to, days], i) =>
+    ranked[i] ? [{ id: `TRF-090${i + 1}`, at: dayAt(days, now), productId: ranked[i].id, qty, from, to, status, sample: true }] : [],
+  )
 }

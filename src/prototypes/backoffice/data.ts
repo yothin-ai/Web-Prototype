@@ -4,8 +4,10 @@ import { useDataset } from '../../datasets/DatasetContext'
 import type { Product } from '../../datasets/types'
 import type { Localized } from '../../i18n'
 import { CENTRAL } from '../../stock/stock'
-import { useStock } from '../../stock/useStock'
-import { readDemoState } from '../../state/demoState'
+import { useEffect } from 'react'
+import { sampleTransfers, type Transfer } from '../../stock/stock'
+import { useStock, useTransfers } from '../../stock/useStock'
+import { readDemoState, useDemoState } from '../../state/demoState'
 import { branchById } from '../ecommerce/branches'
 import { useOrders, type Order } from '../ecommerce/cart'
 import { useOrderBook } from '../ecommerce/orders'
@@ -94,4 +96,19 @@ export function useBestSellers(limit = 5) {
     }
     return [...sold.entries()].sort((a, c) => c[1] - a[1]).slice(0, limit)
   }, [orders, limit])
+}
+
+// The transfers, newest first. The first time, the list is filled with the made-up ones; Reset clears them with the rest.
+export function useTransferBook(): [Transfer[], (next: Transfer[]) => void] {
+  const products = useDataset().dataset.ecommerce.products
+  const [transfers, setTransfers] = useTransfers()
+  const [seeded, setSeeded] = useDemoState<boolean>(PROTOTYPE_ID, 'transfersSeeded', false)
+  useEffect(() => {
+    if (seeded || readDemoState<boolean>(PROTOTYPE_ID, 'transfersSeeded', false)) return
+    setSeeded(true)
+    if (readDemoState<Transfer[]>(PROTOTYPE_ID, 'transfers', []).length > 0) return
+    setTransfers(sampleTransfers(products))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seeded])
+  return [[...transfers].sort((a, c) => c.at.localeCompare(a.at)), setTransfers]
 }

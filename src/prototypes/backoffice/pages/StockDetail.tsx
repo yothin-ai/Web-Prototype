@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { historyOf, locationIds, reorderPoint, type HistoryEntry } from '../../../stock/stock'
-import { useMovements, useStock } from '../../../stock/useStock'
+import { useMovements, useStock, useTransfers } from '../../../stock/useStock'
 import { Badge, Breadcrumb, Button, Card, Col, DataRow, DataTable, Grid, Notice, type DataColumn } from '../../../ui'
 import { formatDate, formatMoney, skuOf } from '../../ecommerce/cart'
 import { AdjustModal, reasonLabel } from '../AdjustModal'
@@ -11,7 +11,7 @@ import { locationName, PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
 import { b, supplierNames } from '../strings'
 import { levelLabel } from './StockList'
 
-const typeLabel = (k: HistoryEntry['kind']) => ({ in: b.typeIn, adjust: b.typeAdjust, sale: b.typeSale, order: b.typeOrder })[k]
+const typeLabel = (k: HistoryEntry['kind']) => ({ in: b.typeIn, adjust: b.typeAdjust, sale: b.typeSale, order: b.typeOrder, transferOut: b.typeTransferOut, transferIn: b.typeTransferIn })[k]
 
 export function StockDetail() {
   const { t, lang } = useLang()
@@ -22,6 +22,7 @@ export function StockDetail() {
   const book = useStock()
   const orders = useBackOrders()
   const [movements] = useMovements()
+  const [transfers] = useTransfers()
   const [adjusting, setAdjusting] = useState(false)
   const [saved, setSaved] = useState(false)
   if (!product) {
@@ -37,7 +38,7 @@ export function StockDetail() {
   const total = book.total(product.id)
   const status = book.status(product.id)
   const places = locationIds.map((id) => ({ id, ...book.cell(product.id, id) }))
-  const history = historyOf(product.id, orders, movements)
+  const history = historyOf(product.id, orders, movements, transfers)
   const placeColumns: DataColumn<(typeof places)[number]>[] = [
     { key: 'place', header: t(b.place), render: (p) => t(locationName(p.id)) },
     { key: 'onhand', header: t(b.colOnHand), end: true, render: (p) => p.onHand },
@@ -49,7 +50,7 @@ export function StockDetail() {
     { key: 'type', header: t(b.colType), render: (h) => <span className="row"><Badge tone={h.qty > 0 ? 'success' : undefined}>{t(typeLabel(h.kind))}</Badge>{h.sample && <Badge>{t(b.sampleBadge)}</Badge>}</span> },
     { key: 'place', header: t(b.place), render: (h) => t(locationName(h.loc)) },
     { key: 'qty', header: t(b.colQtyChange), end: true, render: (h) => <strong>{h.qty > 0 ? `+${h.qty}` : h.qty}</strong> },
-    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={`${base}/${h.ref.startsWith('PO-') ? 'purchase-orders' : 'orders'}/${h.ref}${search}`}>{h.ref}</Link> : h.supplierId ? t(supplierNames[h.supplierId]) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-')) },
+    { key: 'ref', header: t(b.colRef), render: (h) => (h.ref ? <Link to={(h.ref.startsWith('TRF-') ? `${base}/transfers${search}` : `${base}/${h.ref.startsWith('PO-') ? 'purchase-orders' : 'orders'}/${h.ref}${search}`)}>{h.ref}</Link> : h.supplierId ? t(supplierNames[h.supplierId]) : h.reason ? [t(reasonLabel(h.reason)), h.note].filter(Boolean).join(' · ') : (h.note ?? '-')) },
   ]
   return (
     <Grid>
