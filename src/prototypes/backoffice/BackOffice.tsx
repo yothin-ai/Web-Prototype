@@ -15,6 +15,7 @@ import { ac } from './accStrings'
 import { EditPurchaseOrder, NewPurchaseOrder } from './pages/NewPurchaseOrder'
 import { Movements } from './pages/Movements'
 import { Orders } from './pages/Orders'
+import { ProductForm } from './pages/ProductForm'
 import { Products } from './pages/Products'
 import { pr } from './productStrings'
 import { Valuation } from './pages/Valuation'
@@ -79,6 +80,8 @@ export function BackOffice() {
           <Route path="orders" element={<Orders />} />
           <Route path="orders/:orderId" element={<OrderDetail />} />
           <Route path="products" element={<Products />} />
+          <Route path="products/new" element={<ProductForm />} />
+          <Route path="products/:productId/edit" element={<ProductForm />} />
           <Route path="stock" element={<StockList />} />
           <Route path="stock/:productId" element={<StockDetail />} />
           <Route path="adjustments" element={<Adjustments />} />

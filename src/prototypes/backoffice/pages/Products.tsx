@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import type { Product } from '../../../datasets/types'
 import { useLang } from '../../../i18n'
+import { missingParts } from '../../../products/completeness'
 import { useProducts } from '../../../products/useProducts'
 import { useMovements, useStock } from '../../../stock/useStock'
 import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Modal, Notice, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { costOf } from '../../../stock/stock'
 import { PageHead } from '../PageHead'
-import { ProductDialog } from '../ProductDialog'
 import { PROTOTYPE_ID, usePurchaseBook, useBackOrders, useSearch, useTransferBook } from '../data'
 import { pr } from '../productStrings'
 
@@ -23,14 +23,15 @@ export function Products() {
   const [q, setQ] = useState('')
   const [source, setSource] = useState('')
   const [shop, setShop] = useState('')
-  const [editing, setEditing] = useState<Product | 'new' | null>(null)
   const [deleting, setDeleting] = useState<Product | null>(null)
-  const [message, setMessage] = useState('')
+  const notice = (useLocation().state as { notice?: string } | null)?.notice ?? ''
+  const [message, setMessage] = useState(notice)
+  const [info, setInfo] = useState('')
 
   const hasHistory = (id: string) =>
     orders.some((o) => o.lines.some((l) => l.productId === id)) || movements.some((m) => m.productId === id) || transfers.some((x) => x.productId === id) || purchases.some((po) => po.lines.some((l) => l.productId === id))
   const needle = q.trim().toLowerCase()
-  const rows = all.filter((p) => (!needle || t(p.name).toLowerCase().includes(needle) || skuOf(p).toLowerCase().includes(needle)) && (!source || (source === 'mine' ? !!p.custom : !p.custom)) && (!shop || (shop === 'hidden' ? isHidden(p.id) : !isHidden(p.id))))
+  const rows = all.filter((p) => (!needle || t(p.name).toLowerCase().includes(needle) || skuOf(p).toLowerCase().includes(needle)) && (!source || (source === 'mine' ? !!p.custom : !p.custom)) && (!shop || (shop === 'hidden' ? isHidden(p.id) : !isHidden(p.id))) && (!info || (!!p.custom && (info === 'incomplete' ? missingParts(p).length > 0 : missingParts(p).length === 0))))
 
   const columns: DataColumn<Product>[] = [
     { key: 'sku', header: t(pr.colSku), sort: (x, y) => skuOf(x).localeCompare(skuOf(y)), render: (p) => <span className="row">{skuOf(p)}{p.custom && <Badge tone="info">{t(pr.mine)}</Badge>}</span> },
@@ -40,13 +41,14 @@ export function Products() {
     { key: 'price', header: t(pr.colPrice), end: true, sort: (x, y) => x.price - y.price, render: (p) => formatMoney(p.price, lang) },
     { key: 'cost', header: t(pr.colCost), end: true, render: (p) => formatMoney(costOf(p), lang) },
     { key: 'stock', header: t(pr.colStock), end: true, sort: (x, y) => book.total(x.id).available - book.total(y.id).available, render: (p) => <strong>{book.total(p.id).available}</strong> },
+    { key: 'info', header: t(pr.colInfo), render: (p) => (p.custom ? (missingParts(p).length === 0 ? <Badge tone="success">{t(pr.infoComplete)}</Badge> : <Badge tone="warning">{t(pr.infoMissing)} ({missingParts(p).length})</Badge>) : '-') },
     { key: 'shop', header: t(pr.colShop), render: (p) => <Badge tone={isHidden(p.id) ? undefined : 'success'}>{t(isHidden(p.id) ? pr.hidden : pr.shown)}</Badge> },
     {
       key: 'act',
       header: t(pr.colAction),
       render: (p) => (
         <span className="row">
-          {p.custom && <Button size="sm" variant="secondary" onClick={() => { setMessage(''); setEditing(p) }}>{t(pr.edit)}</Button>}
+          {p.custom && <Button size="sm" variant="secondary" to={`${base}/products/${p.id}/edit${search}`}>{t(pr.edit)}</Button>}
           <Button size="sm" variant="secondary" onClick={() => setShown(p.id, isHidden(p.id))}>{t(isHidden(p.id) ? pr.show : pr.hide)}</Button>
           {p.custom && <Button size="sm" variant="ghost" onClick={() => { setMessage(''); setDeleting(p) }}>{t(pr.delete)}</Button>}
         </span>
@@ -58,7 +60,7 @@ export function Products() {
   return (
     <Grid>
       <Col>
-        <PageHead title={t(pr.title)} text={`${t(pr.text)} (${all.length} ${t(pr.records)})`} actions={<Button icon="plus" onClick={() => { setMessage(''); setEditing('new') }}>{t(pr.add)}</Button>} />
+        <PageHead title={t(pr.title)} text={`${t(pr.text)} (${all.length} ${t(pr.records)})`} actions={<Button icon="plus" to={`${base}/products/new${search}`}>{t(pr.add)}</Button>} />
       </Col>
       <Col>
         <CardGrid size="small">
@@ -67,9 +69,12 @@ export function Products() {
           <StatCard icon="view" label={t(pr.statHidden)} value={String(all.filter((p) => isHidden(p.id)).length)} note={t(pr.records)} />
         </CardGrid>
       </Col>
-      <Col span={{ base: 4, sm: 8, md: 6 }}><Field label={t(pr.search)} id="prd-q" type="search" placeholder={t(pr.searchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
+      <Col span={{ base: 4, sm: 8, md: 12 }}><Field label={t(pr.search)} id="prd-q" type="search" placeholder={t(pr.searchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
         <Select label={t(pr.source)} id="prd-source" value={source} onChange={(e) => setSource(e.target.value)} options={[{ value: '', label: t(pr.allSources) }, { value: 'mine', label: t(pr.mine) }, { value: 'sample', label: t(pr.sampleSource) }]} />
+      </Col>
+      <Col span={{ base: 4, sm: 4, md: 3 }}>
+        <Select label={t(pr.infoFilter)} id="prd-info" value={info} onChange={(e) => setInfo(e.target.value)} options={[{ value: '', label: t(pr.infoAll) }, { value: 'incomplete', label: t(pr.infoIncomplete) }, { value: 'complete', label: t(pr.infoComplete) }]} />
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
         <Select label={t(pr.shopStatus)} id="prd-shop" value={shop} onChange={(e) => setShop(e.target.value)} options={[{ value: '', label: t(pr.allShop) }, { value: 'shown', label: t(pr.shown) }, { value: 'hidden', label: t(pr.hidden) }]} />
@@ -81,7 +86,6 @@ export function Products() {
           <DataTable label={t(pr.label)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(pr.empty)} />
         </Card>
       </Col>
-      {editing && <ProductDialog key={editing === 'new' ? 'new' : editing.id} product={editing === 'new' ? undefined : editing} onClose={() => setEditing(null)} onSaved={(made) => setMessage(t(made ? pr.saved : pr.updated))} />}
       {deleting && (
         <Modal open onClose={() => setDeleting(null)} label={t(pr.deleteTitle)} closeLabel={t(pr.close)}>
           <div className="stack">

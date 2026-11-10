@@ -18,12 +18,15 @@ export function Breadcrumb({ label, items }: { label: string; items: { label: st
   )
 }
 
-type GalleryProps = { name: string; frameLabels: string[]; prevLabel: string; nextLabel: string; image?: string }
+// `images` gives each frame its own picture (the frames are then as many as the images); `image` repeats one picture in every frame.
+type GalleryProps = { name: string; frameLabels: string[]; prevLabel: string; nextLabel: string; image?: string; images?: string[] }
 
 // A main picture frame with thumbnails: beside it on a wide column, below it on a narrow one.
-export function ProductGallery({ name, frameLabels, prevLabel, nextLabel, image }: GalleryProps) {
+export function ProductGallery({ name, frameLabels: labels, prevLabel, nextLabel, image: shared, images }: GalleryProps) {
   const [index, setIndex] = useState(0)
+  const frameLabels = images?.length ? labels.slice(0, images.length) : labels
   const count = frameLabels.length
+  const image = images?.length ? images[Math.min(index, images.length - 1)] : shared
   const go = (i: number) => setIndex((i + count) % count)
   const letter = initial(name)
   const onThumbKey = (e: KeyboardEvent) => {
@@ -41,7 +44,7 @@ export function ProductGallery({ name, frameLabels, prevLabel, nextLabel, image 
         <div className="gallery__thumbs" role="tablist" aria-orientation="vertical" onKeyDown={onThumbKey}>
           {frameLabels.map((frame, i) => (
             <button key={frame} type="button" role="tab" aria-selected={i === index} aria-label={frame} tabIndex={i === index ? 0 : -1} className="gallery__thumb" onClick={() => setIndex(i)}>
-              {image ? <img src={image} alt="" /> : <span aria-hidden="true">{letter}</span>}
+              {(images?.[i] ?? shared) ? <img src={images?.[i] ?? shared} alt="" /> : <span aria-hidden="true">{letter}</span>}
             </button>
           ))}
         </div>

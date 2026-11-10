@@ -522,7 +522,7 @@ export const text = {
   settingSave: { th: 'บันทึก', en: 'Save' },
   settingCancel: { th: 'ยกเลิก', en: 'Cancel' },
   c412: { th: 'ส่วนประกอบหน้าสินค้า (Product page)', en: 'Product page blocks' },
-  c412Note: { th: 'เส้นทางหน้า แกลเลอรี แท็บ และแถบล่างที่ค้างหน้าจอ', en: 'Breadcrumb, gallery, tabs and the bottom bar that stays on screen.' },
+  c412Note: { th: 'เส้นทางหน้า แกลเลอรี แท็บ และแถบล่างที่ค้างหน้าจอ แกลเลอรีแสดงรูปเดียวในทุกกรอบ หรือถ้าให้ images จะแสดงรูปต่างกันในแต่ละกรอบ', en: 'Breadcrumb, gallery, tabs and the bottom bar that stays on screen. The gallery shows one picture in every frame, or with images a different picture in each frame.' },
   breadcrumb: { th: 'เส้นทางนำทาง', en: 'Breadcrumb' },
   gallery: { th: 'แกลเลอรีภาพสินค้า', en: 'Product gallery' },
   tabs: { th: 'แท็บ', en: 'Tabs' },

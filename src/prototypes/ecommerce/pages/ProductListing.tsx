@@ -117,7 +117,7 @@ export function ProductListing({ products, head }: { products: Product[]; head?:
               return (
                 <ProductCard
                   key={p.id}
-                  image={picture}
+                  image={picture(p.id)}
                   to={detail(p.id)}
                   imageLabel={t(p.name)}
                   badges={<><Badge>{t(p.brand ?? p.category)}</Badge>{cut > 0 && <Badge tone="warning">{t(g.discount)} {cut}%</Badge>}{qty > 0 && <Badge tone="success">{t(s.inCart)}: {qty}</Badge>}</>}

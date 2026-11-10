@@ -111,7 +111,7 @@ export function Home() {
                 const sold = p.sold ?? 0
                 const stock = p.stock ?? 0
                 return (
-                  <FlashSaleCard image={picture}
+                  <FlashSaleCard image={picture(p.id)}
                     key={id}
                     flashLabel={t(s.flashTag)}
                     imageLabel={t(p.name)}
@@ -170,7 +170,7 @@ export function Home() {
             const p = productById(id)
             if (!p) return null
             return (
-              <ProductCard image={picture} key={id} to={detailPath(id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(id)}>{t(s.add)}</Button>} />
+              <ProductCard image={picture(id)} key={id} to={detailPath(id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(id)}>{t(s.add)}</Button>} />
             )
           })}
         </div>

@@ -62,7 +62,7 @@ export function OrdersPage() {
             total={formatMoney(order.total, lang)}
             thumbs={
               <>
-                {order.lines.slice(0, MAX_PICTURES).map((l, i) => <ProductImage key={i} label={t(l.name)} src={picture} square />)}
+                {order.lines.slice(0, MAX_PICTURES).map((l, i) => <ProductImage key={i} label={t(l.name)} src={picture(l.productId)} square />)}
                 {extra > 0 && <span className="muted">+{extra} {t(o.more)}</span>}
               </>
             }

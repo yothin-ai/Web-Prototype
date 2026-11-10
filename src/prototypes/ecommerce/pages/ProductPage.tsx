@@ -81,7 +81,7 @@ export function ProductPage() {
   if (!p) return <NotFoundPage />
 
   const d = p.detail
-  const unit = d?.unit ?? DEFAULT_UNIT
+  const unit = (d && (d.unit.th || d.unit.en) ? d.unit : undefined) ?? p.unit ?? DEFAULT_UNIT
   const sku = d?.sku ?? skuOf(p)
   const book = useStock()
   const [branchId] = useBranch()
@@ -104,7 +104,7 @@ export function ProductPage() {
   const relatedIds = [...(d?.related ?? []), ...products.filter((x) => x.category.th === p.category.th).map((x) => x.id), ...products.map((x) => x.id)]
   const related = [...new Set(relatedIds)].filter((id) => id !== p.id).map((id) => productById(id)).filter((x) => !!x && !isHidden(x.id)).slice(0, 10)
 
-  const specs = d?.specs
+  const specs = d?.specs?.length
     ? d.specs.map((row) => ({ label: t(row.label), value: t(row.value) }))
     : [
         ...(p.brand ? [{ label: t(s.specBrand), value: t(p.brand) }] : []),
@@ -128,12 +128,13 @@ export function ProductPage() {
       <h2>{t(s.about)}</h2>
       {d ? (
         <>
-          <div className="product-section"><h3>{t(s.highlights)}</h3><List items={d.highlights} /></div>
-          <div className="product-section"><h3>{t(s.general)}</h3><List items={d.general} /></div>
-          <div className="product-section"><h3>{t(s.detailsTitle)}</h3><List items={d.details} /></div>
-          <div className="product-section"><h3>{t(s.installTitle2)}</h3><p>{t(d.install)}</p></div>
-          <div className="product-section"><h3>{t(s.warrantyTitle)}</h3><p>{t(d.warranty)}</p></div>
-          <div className="product-section"><h3>{t(s.cautionTitle)}</h3><p>{t(d.caution)}</p></div>
+          {p.custom && <p>{t(p.description)}</p>}
+          {d.highlights.length > 0 && <div className="product-section"><h3>{t(s.highlights)}</h3><List items={d.highlights} /></div>}
+          {d.general.length > 0 && <div className="product-section"><h3>{t(s.general)}</h3><List items={d.general} /></div>}
+          {d.details.length > 0 && <div className="product-section"><h3>{t(s.detailsTitle)}</h3><List items={d.details} /></div>}
+          {t(d.install) && <div className="product-section"><h3>{t(s.installTitle2)}</h3><p>{t(d.install)}</p></div>}
+          {t(d.warranty) && <div className="product-section"><h3>{t(s.warrantyTitle)}</h3><p>{t(d.warranty)}</p></div>}
+          {t(d.caution) && <div className="product-section"><h3>{t(s.cautionTitle)}</h3><p>{t(d.caution)}</p></div>}
         </>
       ) : (
         <p>{t(p.description)}</p>
@@ -154,7 +155,7 @@ export function ProductPage() {
         <Breadcrumb label={t(s.breadcrumbLabel)} items={crumbs} />
 
         <div className="product-layout">
-          <ProductGallery image={picture}
+          <ProductGallery image={picture(p.id)} images={p.images}
             name={t(p.name)}
             frameLabels={Array.from({ length: FRAMES }, (_, i) => `${t(s.galleryLabel)} ${i + 1}`)}
             prevLabel={t(s.galleryPrev)}
@@ -299,7 +300,7 @@ export function ProductPage() {
               {related.map((r) => (
                 <ProductCard
                   key={r!.id}
-                  image={picture}
+                  image={picture(r!.id)}
                   to={detailPath(r!.id)}
                   imageLabel={t(r!.name)}
                   badges={<Badge>{t(r!.brand ?? r!.category)}</Badge>}

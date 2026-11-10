@@ -129,7 +129,7 @@ export function ArticlePage() {
             <p className="muted">{t(w.relatedSub)}</p>
             <Carousel label={t(w.relatedRow)} count={5} minItem="176px" prevLabel={t(s.scrollPrev)} nextLabel={t(s.scrollNext)}>
               {related.map((p) => (
-                <ProductCard image={picture} key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
+                <ProductCard image={picture(p.id)} key={p.id} to={detail(p.id)} imageLabel={t(p.name)} badges={<Badge>{t(p.brand ?? p.category)}</Badge>} name={t(p.name)} price={formatMoney(p.price, lang)} action={<Button size="sm" icon="cart" onClick={() => add(p.id)}>{t(s.add)}</Button>} />
               ))}
             </Carousel>
           </div>

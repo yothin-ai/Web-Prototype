@@ -74,6 +74,8 @@ export type Product = {
   detail?: ProductDetail
   // Set only on a product made in the Back Office (kept in the browser, never in a Dataset).
   custom?: boolean
+  // Pictures made from an upload in the Back Office, as small data addresses; the first is the main one.
+  images?: string[]
   sku?: string
   unit?: Localized
   // Cost price and the level that raises a low-stock warning; a Dataset's own products have these worked out instead.
