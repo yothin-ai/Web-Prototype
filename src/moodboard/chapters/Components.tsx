@@ -697,6 +697,8 @@ export function Components() {
             label={t(text.c440Label)}
             empty={t(text.c440Empty)}
             rowKey={(r) => r.id}
+            pageSize={2}
+            paging={{ nav: t(text.c440PageNav), prev: t(text.c440Prev), next: t(text.c440Next), perPage: t(text.c440Rows), page: (n) => `${t(text.c440PageWord)} ${n}`, summary: (from, to, total) => `${t(text.c440Showing)} ${from}–${to} ${t(text.c440Of)} ${total}` }}
             rows={[
               { id: 'a', name: t(text.c440Item1), onHand: 120, available: 118, low: false },
               { id: 'b', name: t(text.c440Item2), onHand: 8, available: 6, low: true },

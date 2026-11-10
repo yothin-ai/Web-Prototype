@@ -5,6 +5,7 @@ import { monthReport, monthsBack, type LedgerEntry } from '../../../accounting/a
 import { Badge, Button, Card, CardGrid, Col, DataRow, DataTable, Grid, Notice, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { ac, categoryLabel, kindLabel, payeeText } from '../accStrings'
 import { downloadCsv } from '../csv'
 import { b } from '../strings'
@@ -15,6 +16,7 @@ import { monthLabel } from './CashBook'
 
 export function VatReport() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const books = useBooks()
@@ -81,7 +83,7 @@ export function VatReport() {
           <Card>
             <div className="stack">
               <h3>{t(ac.vatInputList)}</h3>
-              <DataTable label={t(ac.vatInputLabel)} columns={columns} rows={input} rowKey={(e) => e.id} empty={t(ac.vatNoRows)} />
+              <DataTable label={t(ac.vatInputLabel)} columns={columns} rows={input} rowKey={(e) => e.id} empty={t(ac.vatNoRows)} {...paging()} />
             </div>
           </Card>
         </CardGrid>
@@ -90,7 +92,7 @@ export function VatReport() {
         <Card>
           <div className="stack">
             <h3>{t(ac.vatOutputList)}</h3>
-            <DataTable label={t(ac.vatOutputLabel)} columns={columns} rows={output} rowKey={(e) => e.id} empty={t(ac.vatNoRows)} />
+            <DataTable label={t(ac.vatOutputLabel)} columns={columns} rows={output} rowKey={(e) => e.id} empty={t(ac.vatNoRows)} {...paging()} />
           </div>
         </Card>
       </Col>

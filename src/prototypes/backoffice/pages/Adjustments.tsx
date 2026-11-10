@@ -8,11 +8,13 @@ import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Notice, Sel
 import { formatDate } from '../../ecommerce/cart'
 import { AdjustModal, reasonLabel, reasonTone } from '../AdjustModal'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { b } from '../strings'
 
 export function Adjustments() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const products = useProducts().all
@@ -54,7 +56,7 @@ export function Adjustments() {
       {saved && <Col><Notice tone="success">{t(b.adjusted)}</Notice></Col>}
       <Col>
         <Card>
-          <DataTable label={t(b.adjLabel)} columns={columns} rows={rows} rowKey={(r) => r.id} empty={t(b.adjEmpty)} />
+          <DataTable label={t(b.adjLabel)} columns={columns} rows={rows} rowKey={(r) => r.id} empty={t(b.adjEmpty)} {...paging()} />
         </Card>
       </Col>
       {adding && <AdjustModal open onClose={() => setAdding(false)} initialLoc="central" onSaved={() => setSaved(true)} />}

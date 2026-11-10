@@ -7,6 +7,7 @@ import { useStock } from '../../../stock/useStock'
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
 import { formatDate } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useSearch, useTransferActions } from '../data'
 import { b } from '../strings'
 
@@ -16,6 +17,7 @@ const statusTone = (s: TransferStatus) => ({ pending: 'warning', transit: 'info'
 
 export function Transfers() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const products = useProducts().all
@@ -62,7 +64,7 @@ export function Transfers() {
       {message && <Col><Notice tone={message.tone}>{message.text}</Notice></Col>}
       <Col>
         <Card>
-          <DataTable label={t(b.trfLabel)} columns={columns} rows={rows} rowKey={(x) => x.id} empty={t(b.trfEmpty)} />
+          <DataTable label={t(b.trfLabel)} columns={columns} rows={rows} rowKey={(x) => x.id} empty={t(b.trfEmpty)} {...paging()} />
         </Card>
       </Col>
       {adding && (

@@ -7,12 +7,14 @@ import { customerText, statusOf, statusOrder } from '../../ecommerce/orders'
 import { statusLabel, statusTone } from '../../ecommerce/pages/OrdersPage'
 import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
 import { b } from '../strings'
 import { po_ } from '../posStrings'
 
 export function Orders() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const orders = useBackOrders()
@@ -37,7 +39,7 @@ export function Orders() {
       </Col>
       <Col>
         <Card>
-          <DataTable label={t(b.ordersLabel)} columns={columns} rows={rows} rowKey={(o) => o.id} empty={t(b.ordersEmpty)} />
+          <DataTable label={t(b.ordersLabel)} columns={columns} rows={rows} rowKey={(o) => o.id} empty={t(b.ordersEmpty)} {...paging()} />
         </Card>
       </Col>
     </Grid>

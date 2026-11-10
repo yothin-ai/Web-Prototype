@@ -9,6 +9,7 @@ import { formatDate } from '../../ecommerce/cart'
 import { reasonLabel } from '../AdjustModal'
 import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
 import { b } from '../strings'
 import { useSuppliers } from '../suppliers'
@@ -19,6 +20,7 @@ const isoDay = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padSt
 
 export function Movements() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const { nameOf: supplierName } = useSuppliers()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
@@ -73,7 +75,7 @@ export function Movements() {
       </Col>
       <Col>
         <Card>
-          <DataTable label={t(b.mvLabel)} columns={columns} rows={rows} rowKey={(h) => `${h.productId}:${h.id}`} empty={t(b.mvEmpty)} />
+          <DataTable label={t(b.mvLabel)} columns={columns} rows={rows} rowKey={(h) => `${h.productId}:${h.id}`} empty={t(b.mvEmpty)} {...paging()} />
         </Card>
       </Col>
     </Grid>

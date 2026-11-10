@@ -5,6 +5,7 @@ import { useCoupons, type CouponView } from '../../../promotions/useCoupons'
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { PROTOTYPE_ID, useSearch } from '../data'
 import { pm } from '../promoStrings'
 
@@ -12,6 +13,7 @@ export const couponStatus = (c: CouponView): 'inactive' | 'expired' | 'notStarte
 
 export function Coupons() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const { all, update, remove, edited } = useCoupons()
@@ -55,7 +57,7 @@ export function Coupons() {
         <Select label={t(pm.cStatusFilter)} id="cp-status" value={status} onChange={(e) => setStatus(e.target.value)} options={[{ value: '', label: t(pm.allStatus) }, ...(['active', 'inactive', 'expired', 'notStarted', 'full'] as const).map((k) => ({ value: k, label: t(statusLabel[k]) }))]} />
       </Col>
       {message && <Col><Notice tone="success">{message}</Notice></Col>}
-      <Col><Card><DataTable label={t(pm.cLabel)} columns={columns} rows={rows} rowKey={(c) => c.id} empty={t(pm.cEmpty)} /></Card></Col>
+      <Col><Card><DataTable label={t(pm.cLabel)} columns={columns} rows={rows} rowKey={(c) => c.id} empty={t(pm.cEmpty)} {...paging()} /></Card></Col>
       {deleting && (
         <Modal open onClose={() => setDeleting(null)} label={t(pm.cDeleteTitle)} closeLabel={t(pm.close)}>
           <div className="stack">

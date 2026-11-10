@@ -5,6 +5,7 @@ import { nextInvoiceNo, type Invoice } from '../../../accounting/accounting'
 import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Select, Notice, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { ac, buyerText, invoiceStatusLabel, invoiceStatusTone } from '../accStrings'
 import { b } from '../strings'
 import { useSettings } from '../../../settings/useSettings'
@@ -13,6 +14,7 @@ import { PROTOTYPE_ID, useInvoiceRecords, useInvoices, useSearch } from '../data
 
 export function Invoices() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const invoices = useInvoices()
@@ -66,7 +68,7 @@ export function Invoices() {
       </Col>
       <Col>
         <Card>
-          <DataTable label={t(ac.invLabel)} columns={columns} rows={rows} rowKey={(i) => i.id} empty={t(ac.invEmpty)} />
+          <DataTable label={t(ac.invLabel)} columns={columns} rows={rows} rowKey={(i) => i.id} empty={t(ac.invEmpty)} {...paging()} />
         </Card>
       </Col>
     </Grid>

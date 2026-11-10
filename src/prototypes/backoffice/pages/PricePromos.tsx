@@ -8,6 +8,7 @@ import type { Order } from '../../ecommerce/cart'
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { PROTOTYPE_ID, useSearch } from '../data'
 import { pm } from '../promoStrings'
 
@@ -15,6 +16,7 @@ const NO_ORDERS: Order[] = []
 
 export function PricePromos() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const { all, regularPriceOf } = useProducts()
@@ -64,7 +66,7 @@ export function PricePromos() {
         <Select label={t(pm.pKindFilter)} id="pp-kind" value={kind} onChange={(e) => setKind(e.target.value)} options={[{ value: '', label: t(pm.allKinds) }, { value: 'discount', label: t(pm.kindDiscount) }, { value: 'flash', label: t(pm.kindFlash) }]} />
       </Col>
       {message && <Col><Notice tone="success">{message}</Notice></Col>}
-      <Col><Card><DataTable label={t(pm.pLabel)} columns={columns} rows={rows} rowKey={(x) => x.id} empty={t(pm.pEmpty)} /></Card></Col>
+      <Col><Card><DataTable label={t(pm.pLabel)} columns={columns} rows={rows} rowKey={(x) => x.id} empty={t(pm.pEmpty)} {...paging()} /></Card></Col>
       {deleting && (
         <Modal open onClose={() => setDeleting(null)} label={t(pm.pDeleteTitle)} closeLabel={t(pm.close)}>
           <div className="stack">

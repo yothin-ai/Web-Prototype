@@ -8,11 +8,13 @@ import { useStock } from '../../../stock/useStock'
 import { Card, CardGrid, Col, DataTable, Grid, Select, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { b } from '../strings'
 
 export function Valuation() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const products = useProducts().all
@@ -44,7 +46,7 @@ export function Valuation() {
       </Col>
       <Col>
         <Card>
-          <DataTable label={t(b.valLabel)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(b.stockEmpty)} />
+          <DataTable label={t(b.valLabel)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(b.stockEmpty)} {...paging()} />
         </Card>
       </Col>
     </Grid>

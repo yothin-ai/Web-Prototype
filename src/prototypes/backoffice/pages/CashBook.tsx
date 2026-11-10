@@ -6,6 +6,7 @@ import { Badge, Button, Card, CardGrid, Col, DataTable, Grid, Notice, Select, St
 import { formatMoney } from '../../ecommerce/cart'
 import { ExpenseDialog } from '../ExpenseDialog'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { ac, categoryLabel, channelLabel, kindLabel, payeeText } from '../accStrings'
 import { downloadCsv } from '../csv'
 import { b } from '../strings'
@@ -15,6 +16,7 @@ export const monthLabel = (month: string, lang: string) => new Intl.DateTimeForm
 
 export function CashBook() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const books = useBooks()
@@ -78,7 +80,7 @@ export function CashBook() {
       <Col>
         <Card>
           <div className="stack">
-            <DataTable label={t(ac.cashLabel)} columns={columns} rows={rows} rowKey={(e) => e.id} empty={t(ac.cashEmpty)} />
+            <DataTable label={t(ac.cashLabel)} columns={columns} rows={rows} rowKey={(e) => e.id} empty={t(ac.cashEmpty)} {...paging()} />
             <span className="muted">{t(ac.expOwnOnly)}. {t(ac.notAdvice)}</span>
           </div>
         </Card>

@@ -6,6 +6,7 @@ import { purchaseTotal, type PurchaseOrder, type PurchaseStatus } from '../../..
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Select, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { PROTOTYPE_ID, usePurchaseBook, useSearch } from '../data'
 import { useSuppliers } from '../suppliers'
 import { b } from '../strings'
@@ -16,6 +17,7 @@ export const poStatusTone = (s: PurchaseStatus) => ({ draft: undefined, ordered:
 
 export function PurchaseOrders() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const { all, nameOf } = useSuppliers()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
@@ -50,7 +52,7 @@ export function PurchaseOrders() {
       </Col>
       <Col>
         <Card>
-          <DataTable label={t(b.poLabel)} columns={columns} rows={rows} rowKey={(po) => po.id} empty={t(b.poEmpty)} />
+          <DataTable label={t(b.poLabel)} columns={columns} rows={rows} rowKey={(po) => po.id} empty={t(b.poEmpty)} {...paging()} />
         </Card>
       </Col>
     </Grid>

@@ -10,6 +10,7 @@ import { skuOf } from '../../ecommerce/cart'
 import { AdjustModal } from '../AdjustModal'
 import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { b } from '../strings'
 
@@ -17,6 +18,7 @@ export const levelLabel = (s: StockStatus) => ({ out: b.levelOut, low: b.levelLo
 
 export function StockList() {
   const { t } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const products = useProducts().all
@@ -54,7 +56,7 @@ export function StockList() {
       {saved && <Col><Notice tone="success">{t(b.adjusted)}</Notice></Col>}
       <Col>
         <Card>
-          <DataTable label={t(b.stockLabel)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(b.stockEmpty)} />
+          <DataTable label={t(b.stockLabel)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(b.stockEmpty)} {...paging()} />
         </Card>
       </Col>
       {adjusting && <AdjustModal key={adjusting.id} product={adjusting} open onClose={() => setAdjusting(null)} initialLoc={loc || 'central'} onSaved={() => setSaved(true)} />}

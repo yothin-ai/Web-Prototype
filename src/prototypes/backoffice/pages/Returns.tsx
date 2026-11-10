@@ -4,6 +4,7 @@ import { useReturns, type Return } from '../../../returns/useReturns'
 import { Badge, Button, Card, Col, DataTable, Grid, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { PROTOTYPE_ID, useSearch } from '../data'
 import { rt } from '../returnStrings'
 
@@ -12,6 +13,7 @@ export const methodText = { cash: rt.methodCash, transfer: rt.methodTransfer, wa
 
 export function Returns() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const [returns] = useReturns()
@@ -31,7 +33,7 @@ export function Returns() {
   return (
     <Grid>
       <Col><PageHead title={t(rt.title)} text={`${t(rt.text)} (${returns.length})`} /></Col>
-      <Col><Card><DataTable label={t(rt.label)} columns={columns} rows={rows} rowKey={(r) => r.id} empty={t(rt.empty)} /></Card></Col>
+      <Col><Card><DataTable label={t(rt.label)} columns={columns} rows={rows} rowKey={(r) => r.id} empty={t(rt.empty)} {...paging()} /></Card></Col>
     </Grid>
   )
 }

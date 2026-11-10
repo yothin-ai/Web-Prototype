@@ -9,11 +9,13 @@ import { Badge, Button, Card, CardGrid, Col, DataTable, Field, Grid, Modal, Noti
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { costOf } from '../../../stock/stock'
 import { PageHead } from '../PageHead'
+import { usePaging } from '../paging'
 import { PROTOTYPE_ID, usePurchaseBook, useBackOrders, useSearch, useTransferBook } from '../data'
 import { pr } from '../productStrings'
 
 export function Products() {
   const { t, lang } = useLang()
+  const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
   const { all, remove, setShown, isHidden, edits } = useProducts()
@@ -83,7 +85,7 @@ export function Products() {
       <Col><p className="muted">{t(pr.readOnly)}</p></Col>
       <Col>
         <Card>
-          <DataTable label={t(pr.label)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(pr.empty)} />
+          <DataTable label={t(pr.label)} columns={columns} rows={rows} rowKey={(p) => p.id} empty={t(pr.empty)} {...paging()} />
         </Card>
       </Col>
       {deleting && (
