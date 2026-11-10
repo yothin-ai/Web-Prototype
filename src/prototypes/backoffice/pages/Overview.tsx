@@ -3,12 +3,13 @@ import { useDataset } from '../../../datasets/DatasetContext'
 import { useLang } from '../../../i18n'
 import { reorderPoint } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { BarChart, Button, Card, Col, DataRow, Grid, StatCard } from '../../../ui'
+import { BarChart, Button, Card, Col, DataRow, DataTable, Grid, StatCard } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { customerText, statusOf } from '../../ecommerce/orders'
-import { statusLabel } from '../../ecommerce/pages/OrdersPage'
+import { statusLabel, statusTone } from '../../ecommerce/pages/OrdersPage'
 import { Badge } from '../../../ui'
-import { PROTOTYPE_ID, useBackOrders, useSales, useSearch } from '../data'
+import { PageHead } from '../PageHead'
+import { PROTOTYPE_ID, useBackOrders, useBestSellers, useSales, useSearch } from '../data'
 import { b } from '../strings'
 
 export function Overview() {
@@ -27,12 +28,23 @@ export function Overview() {
   const low = products.filter((p) => book.status(p.id) === 'low')
   const out = products.filter((p) => book.status(p.id) === 'out')
   const reorder = [...out, ...low].slice(0, 6)
+  const best = useBestSellers(5)
+  const recent = orders.slice(0, 5)
   return (
     <Grid>
       <Col>
         <div className="stack">
-          <h1>{t(b.overviewTitle)}</h1>
-          <p className="muted">{t(b.overviewText)} {t(b.sample)}</p>
+          <PageHead title={t(b.overviewTitle)} text={`${t(b.overviewText)} ${t(b.sample)}`} />
+          <Card>
+            <div className="stack">
+              <h3>{t(b.quickTitle)}</h3>
+              <div className="row">
+                <Button to={`${base}/orders${search}`} variant="secondary" icon="orders">{t(b.quickOrders)}</Button>
+                <Button to={`${base}/receive${search}`} variant="secondary" icon="plus">{t(b.quickReceive)}</Button>
+                <Button to={`${base}/stock${search}`} variant="secondary" icon="edit">{t(b.quickAdjust)}</Button>
+              </div>
+            </div>
+          </Card>
         </div>
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}><StatCard icon="cash" label={t(b.salesToday)} value={formatMoney(sales[sales.length - 1].value, lang)} note={t(b.salesTodayNote)} /></Col>
@@ -70,11 +82,41 @@ export function Overview() {
                 <DataRow
                   key={p.id}
                   label={<Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link>}
-                  value={<span className="row"><span>{t(b.available)} {have} {t(b.pieces)} ({t(b.colReorder)} {reorderPoint(p.id)})</span><Badge tone="warning">{t(have === 0 ? b.levelOut : b.levelLow)}</Badge></span>}
+                  value={<span className="row"><span>{t(b.available)} {have} {t(b.pieces)} ({t(b.colReorder)} {reorderPoint(p.id)})</span><Badge tone={have === 0 ? 'danger' : 'warning'}>{t(have === 0 ? b.levelOut : b.levelLow)}</Badge></span>}
                 />
               )
             })}
             <div className="row"><Button to={`${base}/receive${search}`} size="sm">{t(b.receive)}</Button><Button to={`${base}/stock${search}`} variant="ghost" size="sm">{t(b.seeAll)}</Button></div>
+          </div>
+        </Card>
+      </Col>
+      <Col span={{ base: 4, sm: 8, md: 5 }}>
+        <Card>
+          <div className="stack">
+            <h3>{t(b.topSellers)}</h3>
+            {best.length === 0 && <p className="muted">{t(b.topSellersEmpty)}</p>}
+            {best.map(([id, qty]) => {
+              const p = products.find((x) => x.id === id)
+              return p ? <DataRow key={id} label={<Link to={`${base}/stock/${id}${search}`}>{t(p.name)}</Link>} value={`${qty} ${t(b.sold)}`} /> : null
+            })}
+          </div>
+        </Card>
+      </Col>
+      <Col span={{ base: 4, sm: 8, md: 7 }}>
+        <Card>
+          <div className="stack">
+            <h3>{t(b.recentOrders)}</h3>
+            <DataTable
+              label={t(b.recentOrdersLabel)}
+              rows={recent}
+              rowKey={(o) => o.id}
+              empty={t(b.ordersEmpty)}
+              columns={[
+                { key: 'id', header: t(b.colOrder), render: (o) => <Link to={`${base}/orders/${o.id}${search}`}>{o.id}</Link> },
+                { key: 'total', header: t(b.colTotal), end: true, render: (o) => formatMoney(o.total, lang) },
+                { key: 'status', header: t(b.colStatus), render: (o) => <Badge tone={statusTone(statusOf(o))}>{t(statusLabel(statusOf(o)))}</Badge> },
+              ]}
+            />
           </div>
         </Card>
       </Col>

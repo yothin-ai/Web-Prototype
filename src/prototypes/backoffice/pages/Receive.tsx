@@ -6,6 +6,7 @@ import { locationIds, supplierIds, type Movement } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
 import { Button, Card, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
 import { formatDate, skuOf } from '../../ecommerce/cart'
+import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { b, supplierNames } from '../strings'
 
@@ -45,10 +46,7 @@ export function Receive() {
   return (
     <Grid>
       <Col>
-        <div className="stack">
-          <h1>{t(b.receiveTitle)}</h1>
-          <p className="muted">{t(b.receiveText)}</p>
-        </div>
+        <PageHead title={t(b.receiveTitle)} text={t(b.receiveText)} />
       </Col>
       <Col span={{ base: 4, sm: 8, md: 5 }}>
         <Card>

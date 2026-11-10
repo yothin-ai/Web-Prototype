@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useDataset } from '../../../datasets/DatasetContext'
 import type { Product } from '../../../datasets/types'
 import { useLang } from '../../../i18n'
@@ -8,6 +8,7 @@ import { useStock } from '../../../stock/useStock'
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
 import { skuOf } from '../../ecommerce/cart'
 import { AdjustModal } from '../AdjustModal'
+import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { b } from '../strings'
 
@@ -21,12 +22,12 @@ export function StockList() {
   const book = useStock()
   const [q, setQ] = useState('')
   const [loc, setLoc] = useState('')
-  const [level, setLevel] = useState('')
+  const [level, setLevel] = useState(new URLSearchParams(useLocation().search).get('level') ?? '')
   const [adjusting, setAdjusting] = useState<Product | null>(null)
   const [saved, setSaved] = useState(false)
   const needle = q.trim().toLowerCase()
   const cellOf = (p: Product) => (loc ? book.cell(p.id, loc) : book.total(p.id))
-  const rows = products.filter((p) => (!needle || t(p.name).toLowerCase().includes(needle) || skuOf(p).toLowerCase().includes(needle)) && (!level || book.status(p.id) === level))
+  const rows = products.filter((p) => (!needle || t(p.name).toLowerCase().includes(needle) || skuOf(p).toLowerCase().includes(needle)) && (!level || (level === 'alert' ? book.status(p.id) !== 'ok' : book.status(p.id) === level)))
   const columns: DataColumn<Product>[] = [
     { key: 'name', header: t(b.colProduct), sort: (x, y) => t(x.name).localeCompare(t(y.name)), render: (p) => <span className="stack"><Link to={`${base}/stock/${p.id}${search}`}>{t(p.name)}</Link><span className="muted">{skuOf(p)}</span></span> },
     { key: 'cat', header: t(b.colCategory), sort: (x, y) => t(x.category).localeCompare(t(y.category)), render: (p) => t(p.category) },
@@ -34,23 +35,20 @@ export function StockList() {
     { key: 'reserved', header: t(b.colReserved), end: true, render: (p) => cellOf(p).reserved },
     { key: 'avail', header: t(b.colAvailable), end: true, sort: (x, y) => cellOf(x).available - cellOf(y).available, render: (p) => <strong>{cellOf(p).available}</strong> },
     { key: 'reorder', header: t(b.colReorder), end: true, render: (p) => reorderPoint(p.id) },
-    { key: 'level', header: t(b.colLevel), render: (p) => <Badge tone={book.status(p.id) === 'ok' ? 'success' : 'warning'}>{t(levelLabel(book.status(p.id)))}</Badge> },
+    { key: 'level', header: t(b.colLevel), render: (p) => <Badge tone={book.status(p.id) === 'ok' ? 'success' : book.status(p.id) === 'out' ? 'danger' : 'warning'}>{t(levelLabel(book.status(p.id)))}</Badge> },
     { key: 'act', header: t(b.colAction), render: (p) => <Button variant="secondary" size="sm" onClick={() => { setSaved(false); setAdjusting(p) }}>{t(b.adjust)}</Button> },
   ]
   return (
     <Grid>
       <Col>
-        <div className="stack">
-          <h1>{t(b.stockTitle)}</h1>
-          <p className="muted">{t(b.stockText)} {t(b.sample)}</p>
-        </div>
+        <PageHead title={t(b.stockTitle)} text={`${t(b.stockText)} (${products.length} ${t(b.records)}) ${t(b.sample)}`} actions={<Button to={`${base}/receive${search}`}>{t(b.receive)}</Button>} />
       </Col>
       <Col span={{ base: 4, sm: 8, md: 5 }}><Field label={t(b.search)} id="stock-q" type="search" placeholder={t(b.searchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>
         <Select label={t(b.place)} value={loc} onChange={(e) => setLoc(e.target.value)} options={[{ value: '', label: t(b.allPlaces) }, ...locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))]} />
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
-        <Select label={t(b.stockFilter)} value={level} onChange={(e) => setLevel(e.target.value)} options={[{ value: '', label: t(b.allLevels) }, { value: 'low', label: t(b.levelLow) }, { value: 'out', label: t(b.levelOut) }, { value: 'ok', label: t(b.levelOk) }]} />
+        <Select label={t(b.stockFilter)} value={level} onChange={(e) => setLevel(e.target.value)} options={[{ value: '', label: t(b.allLevels) }, { value: 'alert', label: t(b.levelAlert) }, { value: 'low', label: t(b.levelLow) }, { value: 'out', label: t(b.levelOut) }, { value: 'ok', label: t(b.levelOk) }]} />
       </Col>
       {saved && <Col><Notice tone="success">{t(b.adjusted)}</Notice></Col>}
       <Col>

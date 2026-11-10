@@ -5,6 +5,7 @@ import { Badge, Card, Col, DataTable, Grid, Select, type DataColumn } from '../.
 import { formatDate, formatMoney, type Order } from '../../ecommerce/cart'
 import { customerText, statusOf, statusOrder } from '../../ecommerce/orders'
 import { statusLabel, statusTone } from '../../ecommerce/pages/OrdersPage'
+import { PageHead } from '../PageHead'
 import { PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
 import { b } from '../strings'
 
@@ -27,10 +28,7 @@ export function Orders() {
   return (
     <Grid>
       <Col>
-        <div className="stack">
-          <h1>{t(b.ordersTitle)}</h1>
-          <p className="muted">{t(b.ordersText)}</p>
-        </div>
+        <PageHead title={t(b.ordersTitle)} text={`${t(b.ordersText)} (${orders.length} ${t(b.records)})`} />
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
         <Select label={t(b.statusFilter)} value={status} onChange={(e) => setStatus(e.target.value)} options={[{ value: '', label: t(b.allStatuses) }, ...statusOrder.map((s) => ({ value: s, label: t(statusLabel(s)) }))]} />

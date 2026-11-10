@@ -58,7 +58,7 @@ export function StockDetail() {
           <Breadcrumb label={t(b.breadcrumb)} items={[{ label: t(b.navStock), to: `${base}/stock${search}` }, { label: t(product.name) }]} />
           <div className="row">
             <h1>{t(product.name)}</h1>
-            <Badge tone={status === 'ok' ? 'success' : 'warning'}>{t(levelLabel(status))}</Badge>
+            <Badge tone={status === 'ok' ? 'success' : status === 'out' ? 'danger' : 'warning'}>{t(levelLabel(status))}</Badge>
           </div>
           <div className="row">
             <Button to={`${base}/receive${search}${search ? '&' : '?'}product=${product.id}`}>{t(b.receive)}</Button>

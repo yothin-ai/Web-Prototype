@@ -4,6 +4,7 @@ import { useDataset } from '../../datasets/DatasetContext'
 import type { Product } from '../../datasets/types'
 import type { Localized } from '../../i18n'
 import { CENTRAL } from '../../stock/stock'
+import { useStock } from '../../stock/useStock'
 import { readDemoState } from '../../state/demoState'
 import { branchById } from '../ecommerce/branches'
 import { useOrders, type Order } from '../ecommerce/cart'
@@ -60,11 +61,37 @@ export function useSales(days = 7) {
 }
 
 // The address search to carry on links inside the back office: whatever the visitor came with (such as ?clean=1),
-// without the ?product= that only the receive page reads.
+// without the ?product= and ?level= that only the receive and stock pages read.
 export function useSearch() {
   const { search } = useLocation()
   const params = new URLSearchParams(search)
   params.delete('product')
+  params.delete('level')
   const rest = params.toString()
   return rest ? `?${rest}` : ''
+}
+
+// How many orders wait to be packed, and how many products are running low or out: the numbers the menu and the bell show.
+export function useCounts() {
+  const { dataset } = useDataset()
+  const products = dataset.ecommerce.products
+  const orders = useBackOrders()
+  const book = useStock()
+  return {
+    toPack: orders.filter((o) => ['pending', 'preparing'].includes(o.status ?? 'preparing')).length,
+    alerts: products.filter((p) => book.status(p.id) !== 'ok').length,
+  }
+}
+
+// Units sold per product, from every order that was not cancelled, most first.
+export function useBestSellers(limit = 5) {
+  const orders = useBackOrders()
+  return useMemo(() => {
+    const sold = new Map<string, number>()
+    for (const o of orders) {
+      if (o.status === 'cancelled') continue
+      for (const l of o.lines) if (l.productId) sold.set(l.productId, (sold.get(l.productId) ?? 0) + l.qty)
+    }
+    return [...sold.entries()].sort((a, c) => c[1] - a[1]).slice(0, limit)
+  }, [orders, limit])
 }
