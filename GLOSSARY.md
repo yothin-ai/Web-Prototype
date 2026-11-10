@@ -68,6 +68,14 @@ _Avoid_: Shipment, relocation
 An order to a supplier for goods. It moves from draft to ordered to received, and receiving it adds the stock at the chosen place.
 _Avoid_: Procurement, PO request
 
+**Daily close**:
+Closing one day's books by comparing the cash counted at the till with the cash the books expect. A closed day takes no new costs until it is reopened.
+_Avoid_: End of day, reconciliation
+
+**Tax invoice**:
+A document for a shopper who asked for one at checkout, with its own number given when it is issued. The Back Office shows only a sample of the document, never a real tax document.
+_Avoid_: Receipt, e-Tax file
+
 **Flash Sale**:
 A time-limited group of discounted products shown with a countdown, each carrying its price before the discount and how many are sold and left.
 _Avoid_: Promotion, deal of the day

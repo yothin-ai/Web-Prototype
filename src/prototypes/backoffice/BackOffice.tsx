@@ -6,6 +6,7 @@ import { Overview } from './pages/Overview'
 import { OrderDetail } from './pages/OrderDetail'
 import { Adjustments } from './pages/Adjustments'
 import { CashBook } from './pages/CashBook'
+import { DailyClose } from './pages/DailyClose'
 import { InvoiceView } from './pages/InvoiceView'
 import { Invoices } from './pages/Invoices'
 import { ProfitLoss } from './pages/ProfitLoss'
@@ -32,7 +33,7 @@ export function BackOffice() {
   const base = `/${PROTOTYPE_ID}`
   const counts = useCounts()
   const here = pathname.replace(base, '') || '/'
-  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank', badge?: number) => ({
+  const item = (to: string, label: string, icon: 'home' | 'orders' | 'package' | 'plus' | 'edit' | 'truck' | 'receipt' | 'store' | 'cash' | 'percent' | 'bank' | 'check', badge?: number) => ({
     to: `${base}${to}${search}`,
     label,
     icon,
@@ -53,7 +54,7 @@ export function BackOffice() {
             { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
             { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
             { title: t(b.groupReports), items: [item('/reports/valuation', t(b.navValuation), 'cash'), item('/reports/movements', t(b.navMovements), 'receipt')] },
-            { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/invoices', t(ac.navInvoices), 'receipt'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank')] },
+            { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash'), item('/accounting/invoices', t(ac.navInvoices), 'receipt'), item('/accounting/vat', t(ac.navVat), 'percent'), item('/accounting/profit', t(ac.navProfit), 'bank'), item('/accounting/close', t(ac.navClose), 'check')] },
           ]}
         />
       }
@@ -85,6 +86,7 @@ export function BackOffice() {
           <Route path="accounting/invoices" element={<Invoices />} />
           <Route path="accounting/invoices/:invoiceId" element={<InvoiceView />} />
           <Route path="accounting/vat" element={<VatReport />} />
+          <Route path="accounting/close" element={<DailyClose />} />
           <Route path="accounting/profit" element={<ProfitLoss />} />
           <Route path="reports/valuation" element={<Valuation />} />
           <Route path="reports/movements" element={<Movements />} />

@@ -295,3 +295,25 @@ export function buildInvoices(products: Product[], orders: Order[], records: Inv
   })
   return rows.sort((a, b) => b.at.localeCompare(a.at))
 }
+
+const cashCategories: ExpenseCategory[] = ['shipping', 'utilities', 'other']
+export type DayReport = { day: string; byChannel: Record<Channel, number>; received: number; costs: number; expected: number }
+
+// What the books say about one day: the money received by channel, the costs paid, and the cash expected at the till.
+// A made-up day brings its made-up split of the channels.
+export function dayReport(books: Books, products: Product[], day: string, now = Date.now()): DayReport {
+  const byChannel = { cash: 0, cod: 0, transfer: 0, card: 0 } as Record<Channel, number>
+  let costs = 0
+  const daysAgo = Math.round((new Date(`${dayKey(new Date(now))}T12:00:00`).getTime() - new Date(`${day}T12:00:00`).getTime()) / 86_400_000)
+  for (const e of books.entries) {
+    if (e.day !== day) continue
+    if (e.kind === 'sale' && e.channel) byChannel[e.channel] += e.moneyIn
+    if (e.kind === 'daily') {
+      const split = seedChannels(products, daysAgo)
+      for (const c of channels) byChannel[c] += split[c]
+    }
+    // Rent, advertising and fees are paid by transfer; delivery, utilities and the rest come out of the till.
+    if (e.kind === 'expense' && e.category && cashCategories.includes(e.category)) costs += e.moneyOut
+  }
+  return { day, byChannel, received: round2(channels.reduce((n, c) => n + byChannel[c], 0)), costs: round2(costs), expected: round2(byChannel.cash + byChannel.cod - costs) }
+}
