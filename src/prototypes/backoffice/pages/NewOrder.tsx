@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { useProducts } from '../../../products/useProducts'
 import { useCoupons } from '../../../promotions/useCoupons'
 import { useSettings } from '../../../settings/useSettings'
 import { readDemoState } from '../../../state/demoState'
 import { useStock } from '../../../stock/useStock'
-import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Notice, QuantityStepper, Select, Switch, type DataColumn } from '../../../ui'
+import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Notice, QuantityStepper, SearchSelect, Select, Switch, type DataColumn } from '../../../ui'
 import { PROTOTYPE_ID as SHOP, formatMoney, skuOf, useEcommerce, useOrders, type Order } from '../../ecommerce/cart'
 import { couponDiscount } from '../../ecommerce/checkout'
 import { PageHead } from '../PageHead'
@@ -22,6 +23,7 @@ type Pay = 'branch' | 'transfer' | 'card'
 // Makes an order from the Back Office: a counter sale that is paid and handed over at once, or an order taken by phone that waits to be packed.
 export function NewOrder() {
   const { t, lang } = useLang()
+  const sl = useSearchLabels()
   const navigate = useNavigate()
   const base = `/${PROTOTYPE_ID}`
   const search = useSearch()
@@ -144,7 +146,7 @@ export function NewOrder() {
             <div className="stack">
               <h3>{t(po_.itemsTitle)}</h3>
               <div className="row">
-                <div className="row__grow"><Select label={t(po_.addProduct)} id="no-product" value={pick} placeholder={t(po_.pickProduct)} onChange={(e) => setPick(e.target.value)} options={shop.map((p) => ({ value: p.id, label: `${t(p.name)} · ${formatMoney(p.price, lang)}` }))} /></div>
+                <div style={{ flex: 1, minWidth: 0 }}><SearchSelect {...sl} label={t(po_.addProduct)} id="no-product" value={pick} placeholder={t(po_.pickProduct)} onChange={(v) => setPick(v)} options={shop.map((p) => ({ value: p.id, keywords: skuOf(p), label: `${t(p.name)} · ${formatMoney(p.price, lang)}` }))} /></div>
                 <Button variant="secondary" disabled={!pick} onClick={add}>{t(po_.addBtn)}</Button>
               </div>
               {lines.length === 0 ? <p className="muted">{t(tried ? po_.errNoItems : po_.noItems)}</p> : <DataTable label={t(po_.linesLabel)} columns={columns} rows={lines} rowKey={(l) => l.productId} empty="" />}
@@ -154,7 +156,7 @@ export function NewOrder() {
           <Card>
             <div className="stack">
               <h3>{t(po_.detailsTitle)}</h3>
-              {!parcel && <Select label={t(po_.from)} id="no-branch" value={branch} onChange={(e) => setBranch(e.target.value)} options={placeOptions} />}
+              {!parcel && <SearchSelect {...sl} label={t(po_.from)} id="no-branch" value={branch} onChange={(v) => setBranch(v)} options={placeOptions} />}
               <Field label={t(po_.customerName)} id="no-name" value={name} onChange={(e) => setName(e.target.value)} hint={err(!nameOk, t(po_.errName)) ?? (mode === 'counter' ? t(po_.customerNameHint) : undefined)} />
               <Field label={t(po_.customerPhone)} id="no-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} hint={err(!phoneOk, t(po_.errPhone))} />
               {mode === 'phone' && <Select label={t(po_.handover)} id="no-fulfil" value={fulfil} onChange={(e) => setFulfil(e.target.value as 'pickup' | 'parcel')} options={[{ value: 'pickup', label: t(po_.pickup) }, { value: 'parcel', label: t(po_.parcel) }]} />}

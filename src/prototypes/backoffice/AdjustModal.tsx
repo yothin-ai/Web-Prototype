@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { skuOf } from '../ecommerce/cart'
 import { useProducts } from '../../products/useProducts'
 import { useLang } from '../../i18n'
+import { useSearchLabels } from '../../i18n/searchLabels'
 import type { Product } from '../../datasets/types'
 import { adjustmentReasons, locationIds, type AdjustmentReason } from '../../stock/stock'
 import { useMovements, useStock } from '../../stock/useStock'
-import { Button, DataRow, Field, Modal, Notice, Select } from '../../ui'
+import { Button, DataRow, Field, Modal, Notice, SearchSelect, Select } from '../../ui'
 import { locationName } from './data'
 import { b } from './strings'
 
@@ -15,6 +17,7 @@ export const reasonTone = (r: AdjustmentReason) => (r === 'damaged' ? 'danger' :
 // Without a `product` the dialog first asks which one.
 export function AdjustModal({ product, open, onClose, initialLoc, onSaved }: { product?: Product; open: boolean; onClose: () => void; initialLoc: string; onSaved: () => void }) {
   const { t } = useLang()
+  const sl = useSearchLabels()
   const products = useProducts().all
   const book = useStock()
   const [movements, setMovements] = useMovements()
@@ -47,8 +50,8 @@ export function AdjustModal({ product, open, onClose, initialLoc, onSaved }: { p
     <Modal open={open} onClose={close} label={t(b.adjustTitle)} closeLabel={t(b.adjustClose)}>
       <div className="stack">
         <h2>{t(b.adjustTitle)}</h2>
-        {product ? <strong>{t(product.name)}</strong> : <Select label={t(b.product)} id="adj-product" value={pickedId} placeholder={t(b.adjProductPick)} onChange={(e) => setPickedId(e.target.value)} hint={tried && !chosen ? t(b.adjErrProduct) : undefined} options={products.map((p) => ({ value: p.id, label: t(p.name) }))} />}
-        <Select label={t(b.place)} id="adj-place" value={loc} onChange={(e) => { setLoc(e.target.value); setCounted('') }} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
+        {product ? <strong>{t(product.name)}</strong> : <SearchSelect {...sl} label={t(b.product)} id="adj-product" value={pickedId} placeholder={t(b.adjProductPick)} onChange={(v) => setPickedId(v)} hint={tried && !chosen ? t(b.adjErrProduct) : undefined} options={products.map((p) => ({ value: p.id, keywords: skuOf(p), label: t(p.name) }))} />}
+        <SearchSelect {...sl} label={t(b.place)} id="adj-place" value={loc} onChange={(v) => { setLoc(v); setCounted('') }} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
         <Select label={t(b.reasonFilter)} id="adj-reason" value={reason} onChange={(e) => setReason(e.target.value as AdjustmentReason)} options={adjustmentReasons.map((r) => ({ value: r, label: t(reasonLabel(r)) }))} />
         <DataRow label={t(b.inSystem)} value={`${current} ${t(b.pieces)}`} />
         <Field label={t(b.counted)} id="adj-counted" type="number" min={0} inputMode="numeric" value={counted} onChange={(e) => setCounted(e.target.value)} hint={tried && !valid ? t(b.adjustBad) : undefined} />

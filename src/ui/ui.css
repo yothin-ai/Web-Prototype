@@ -107,3 +107,17 @@ a { color: var(--color-accent); }
 
 /* Text a shopper typed over several lines keeps its line breaks. */
 .keep-lines { white-space: pre-line; overflow-wrap: anywhere; }
+
+/* SearchSelect: a field that opens a list with a search box on top. */
+.search-select { position: relative; }
+.search-select__trigger { display: flex; align-items: center; width: 100%; text-align: start; cursor: pointer; padding-inline-end: calc(var(--space-4) * 2 + var(--space-2)); }
+.search-select__trigger::after { content: ''; position: absolute; top: 50%; inset-inline-end: var(--space-4); width: var(--space-2); height: var(--space-2); border-inline-end: 2px solid var(--color-text-muted); border-bottom: 2px solid var(--color-text-muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.search-select__trigger > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-select__placeholder { color: var(--color-text-muted); }
+.search-select__panel { min-width: min(calc(var(--space-8) * 4), calc(100vw - var(--space-6))); position: absolute; z-index: 30; inset-inline: 0; top: calc(100% + var(--space-1)); display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-md); }
+.search-select__search { width: 100%; box-sizing: border-box; }
+.search-select__list { max-height: calc(var(--space-8) * 4); margin: 0; padding: 0; overflow-y: auto; list-style: none; }
+.search-select__option { padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); cursor: pointer; }
+.search-select__option[data-active='true'] { background: var(--color-accent-soft); }
+.search-select__option[aria-selected='true'] { font-weight: var(--font-weight-bold); }
+.search-select__empty { margin: 0; padding: var(--space-3); text-align: center; }

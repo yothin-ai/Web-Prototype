@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { isClosed } from '../../../accounting/accounting'
 import { returnedQty, useReturns, type RefundMethod, type Return, type ReturnReason } from '../../../returns/useReturns'
 import { locationIds } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
-import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Notice, QuantityStepper, Select, type DataColumn } from '../../../ui'
+import { Badge, Breadcrumb, Button, Card, CardGrid, Col, DataRow, DataTable, Field, Grid, Notice, QuantityStepper, SearchSelect, Select, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { statusOf } from '../../ecommerce/orders'
 import { useWallet } from '../../ecommerce/wallet'
@@ -22,6 +23,7 @@ const round2 = (n: number) => Math.round(n * 100) / 100
 
 export function ReturnForm() {
   const { t, lang } = useLang()
+  const sl = useSearchLabels()
   const navigate = useNavigate()
   const { orderId } = useParams()
   const base = `/${PROTOTYPE_ID}`
@@ -102,7 +104,7 @@ export function ReturnForm() {
                 <Select label={t(rt.reason)} id="rt-reason" value={reason} onChange={(e) => { const r = e.target.value as ReturnReason; setReason(r); setDestination(r === 'defective' ? 'discard' : 'restock') }} options={reasons.map((r) => ({ value: r, label: t(reasonLabel[r]) }))} />
                 <Field label={t(rt.note)} id="rt-note" value={note} onChange={(e) => setNote(e.target.value)} />
                 <Select label={t(rt.destination)} id="rt-dest" value={destination} onChange={(e) => setDestination(e.target.value as 'restock' | 'discard')} options={[{ value: 'restock', label: t(rt.destRestock) }, { value: 'discard', label: t(rt.destDiscard) }]} />
-                {destination === 'restock' && <Select label={t(rt.restockTo)} id="rt-place" value={place} onChange={(e) => setPlace(e.target.value)} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />}
+                {destination === 'restock' && <SearchSelect {...sl} label={t(rt.restockTo)} id="rt-place" value={place} onChange={(v) => setPlace(v)} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />}
                 <Select label={t(rt.method)} id="rt-method" value={method} onChange={(e) => setMethod(e.target.value as RefundMethod)} options={[{ value: 'cash', label: t(rt.methodCash) }, { value: 'transfer', label: t(rt.methodTransfer) }, { value: 'wallet', label: t(rt.methodWallet) }]} />
                 <DataRow strong label={t(rt.refund)} value={`${formatMoney(amount, lang)}`} />
                 <span className="muted">{t(rt.vatIn)}</span>

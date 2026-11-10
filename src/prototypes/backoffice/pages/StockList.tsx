@@ -3,9 +3,10 @@ import { useProducts } from '../../../products/useProducts'
 import { Link, useLocation } from 'react-router-dom'
 import type { Product } from '../../../datasets/types'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { locationIds, reorderPoint, type StockStatus } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, Col, DataTable, Field, Grid, Notice, SearchSelect, Select, type DataColumn } from '../../../ui'
 import { skuOf } from '../../ecommerce/cart'
 import { AdjustModal } from '../AdjustModal'
 import { downloadCsv } from '../csv'
@@ -18,6 +19,7 @@ export const levelLabel = (s: StockStatus) => ({ out: b.levelOut, low: b.levelLo
 
 export function StockList() {
   const { t } = useLang()
+  const sl = useSearchLabels()
   const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
@@ -48,7 +50,7 @@ export function StockList() {
       </Col>
       <Col span={{ base: 4, sm: 8, md: 5 }}><Field label={t(b.search)} id="stock-q" type="search" placeholder={t(b.searchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>
-        <Select label={t(b.place)} value={loc} onChange={(e) => setLoc(e.target.value)} options={[{ value: '', label: t(b.allPlaces) }, ...locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))]} />
+        <SearchSelect {...sl} label={t(b.place)} value={loc} onChange={(v) => setLoc(v)} options={[{ value: '', label: t(b.allPlaces) }, ...locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))]} />
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
         <Select label={t(b.stockFilter)} value={level} onChange={(e) => setLevel(e.target.value)} options={[{ value: '', label: t(b.allLevels) }, { value: 'alert', label: t(b.levelAlert) }, { value: 'low', label: t(b.levelLow) }, { value: 'out', label: t(b.levelOut) }, { value: 'ok', label: t(b.levelOk) }]} />

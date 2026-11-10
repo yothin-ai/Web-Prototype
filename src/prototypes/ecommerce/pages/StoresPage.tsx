@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { BranchCard, Breadcrumb, Col, Grid, Select } from '../../../ui'
+import { useSearchLabels } from '../../../i18n/searchLabels'
+import { BranchCard, Breadcrumb, Col, Grid, SearchSelect } from '../../../ui'
 import { branches, useBranch } from '../branches'
 import { PROTOTYPE_ID } from '../cart'
 import { s } from '../strings'
@@ -9,6 +10,7 @@ import { s } from '../strings'
 // The store finder: every sample store, filtered by province, with a button to choose one.
 export function StoresPage() {
   const { t } = useLang()
+  const sl = useSearchLabels()
   const { search } = useLocation()
   const [branchId, setBranchId] = useBranch()
   const [province, setProvince] = useState('')
@@ -23,7 +25,7 @@ export function StoresPage() {
         </div>
       </Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>
-        <Select label={t(s.storesProvince)} id="stores-province" value={province} placeholder={t(s.storesAll)} options={provinces.map((p) => ({ value: p.th ?? '', label: t(p) }))} onChange={(e) => setProvince(e.target.value)} />
+        <SearchSelect {...sl} label={t(s.storesProvince)} id="stores-province" value={province} placeholder={t(s.storesAll)} options={provinces.map((p) => ({ value: p.th ?? '', label: t(p) }))} onChange={(v) => setProvince(v)} />
       </Col>
       <Col>
         <div className="stack">

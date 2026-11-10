@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { useProducts } from '../../../products/useProducts'
 import { Link } from 'react-router-dom'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { locationIds, type Transfer, type TransferStatus } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, Select, type DataColumn } from '../../../ui'
-import { formatDate } from '../../ecommerce/cart'
+import { Badge, Button, Card, Col, DataTable, Field, Grid, Modal, Notice, SearchSelect, Select, type DataColumn } from '../../../ui'
+import { formatDate, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { usePaging } from '../paging'
 import { locationName, PROTOTYPE_ID, useSearch, useTransferActions } from '../data'
@@ -84,6 +85,7 @@ export function Transfers() {
 
 function NewTransfer({ onClose, onCreate }: { onClose: () => void; onCreate: (draft: Omit<Transfer, 'id' | 'at' | 'status'>) => void }) {
   const { t } = useLang()
+  const sl = useSearchLabels()
   const products = useProducts().all
   const book = useStock()
   const [productId, setProductId] = useState('')
@@ -105,9 +107,9 @@ function NewTransfer({ onClose, onCreate }: { onClose: () => void; onCreate: (dr
     <Modal open onClose={onClose} label={t(b.trfTitle)} closeLabel={t(b.trfClose)}>
       <div className="stack">
         <h2>{t(b.trfTitle)}</h2>
-        <Select label={t(b.product)} id="trf-product" value={productId} placeholder={t(b.adjProductPick)} onChange={(e) => setProductId(e.target.value)} hint={tried && !productId ? t(b.trfErrProduct) : undefined} options={products.map((p) => ({ value: p.id, label: t(p.name) }))} />
-        <Select label={t(b.trfFrom)} id="trf-from" value={from} onChange={(e) => setFrom(e.target.value)} options={places} />
-        <Select label={t(b.trfTo)} id="trf-to" value={to} onChange={(e) => setTo(e.target.value)} hint={tried && from === to ? t(b.trfErrSame) : undefined} options={places} />
+        <SearchSelect {...sl} label={t(b.product)} id="trf-product" value={productId} placeholder={t(b.adjProductPick)} onChange={(v) => setProductId(v)} hint={tried && !productId ? t(b.trfErrProduct) : undefined} options={products.map((p) => ({ value: p.id, keywords: skuOf(p), label: t(p.name) }))} />
+        <SearchSelect {...sl} label={t(b.trfFrom)} id="trf-from" value={from} onChange={(v) => setFrom(v)} options={places} />
+        <SearchSelect {...sl} label={t(b.trfTo)} id="trf-to" value={to} onChange={(v) => setTo(v)} hint={tried && from === to ? t(b.trfErrSame) : undefined} options={places} />
         {productId && <span className="muted">{t(b.trfAvailableAtSource)}: {have} {t(b.pieces)}</span>}
         <Field label={t(b.trfQty)} id="trf-qty" type="number" min={1} inputMode="numeric" value={qty} onChange={(e) => setQty(e.target.value)} hint={tried && !qtyOk ? t(b.trfErrQty) : tried && qtyOk && amount > have ? t(b.trfErrShort) : undefined} />
         <Field label={t(b.trfNote)} id="trf-note" value={note} onChange={(e) => setNote(e.target.value)} />

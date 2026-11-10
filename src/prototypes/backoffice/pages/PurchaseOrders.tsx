@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useProducts } from '../../../products/useProducts'
 import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { purchaseTotal, type PurchaseOrder, type PurchaseStatus } from '../../../stock/stock'
-import { Badge, Button, Card, Col, DataTable, Field, Grid, Select, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, Col, DataTable, Field, Grid, SearchSelect, Select, type DataColumn } from '../../../ui'
 import { formatMoney } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { usePaging } from '../paging'
@@ -17,6 +18,7 @@ export const poStatusTone = (s: PurchaseStatus) => ({ draft: undefined, ordered:
 
 export function PurchaseOrders() {
   const { t, lang } = useLang()
+  const sl = useSearchLabels()
   const paging = usePaging()
   const { all, nameOf } = useSuppliers()
   const search = useSearch()
@@ -45,7 +47,7 @@ export function PurchaseOrders() {
       </Col>
       <Col span={{ base: 4, sm: 8, md: 5 }}><Field label={t(b.poSearch)} id="po-q" type="search" placeholder={t(b.poSearchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>
-        <Select label={t(b.colSupplier)} value={supplier} onChange={(e) => setSupplier(e.target.value)} options={[{ value: '', label: t(b.allStatuses) }, ...all.map((s) => ({ value: s.id, label: t(s.name) }))]} />
+        <SearchSelect {...sl} label={t(b.colSupplier)} value={supplier} onChange={(v) => setSupplier(v)} options={[{ value: '', label: t(b.allStatuses) }, ...all.map((s) => ({ value: s.id, label: t(s.name) }))]} />
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
         <Select label={t(b.statusFilter)} value={status} onChange={(e) => setStatus(e.target.value)} options={[{ value: '', label: t(b.allStatuses) }, ...poStatuses.map((s) => ({ value: s, label: t(poStatusLabel(s)) }))]} />

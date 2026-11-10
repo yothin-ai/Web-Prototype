@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import type { Localized } from '../../../i18n'
 import type { Product, ProductDetail } from '../../../datasets/types'
 import { missingParts, productParts, type ProductPart } from '../../../products/completeness'
@@ -8,7 +9,7 @@ import { IMAGE_TYPES, MAX_IMAGES, resizeImage, storageUsed, STORAGE_LIMIT } from
 import { useProducts } from '../../../products/useProducts'
 import { costOf, locationIds, reorderPoint } from '../../../stock/stock'
 import { useMovements } from '../../../stock/useStock'
-import { Badge, Breadcrumb, Button, Card, Col, Field, Grid, Notice, ProductImage, ProgressBar, Select, Textarea } from '../../../ui'
+import { Badge, Breadcrumb, Button, Card, Col, Field, Grid, Notice, ProductImage, ProgressBar, SearchSelect, Textarea } from '../../../ui'
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
@@ -96,6 +97,7 @@ export function ProductForm() {
 
 function Form({ product }: { product?: Product }) {
   const { t } = useLang()
+  const sl = useSearchLabels()
   const navigate = useNavigate()
   const { seed, all, add, update } = useProducts()
   const [movements, setMovements] = useMovements()
@@ -263,7 +265,7 @@ function Form({ product }: { product?: Product }) {
             <Field label={t(pr.nameEn)} id="prd-name-en" value={nameEn} onChange={(e) => setNameEn(e.target.value)} hint={tried && !nameOk ? t(pr.errName) : undefined} />
             <Textarea label={t(pr.descTh)} id="prd-desc-th" rows={3} value={descTh} onChange={(e) => setDescTh(e.target.value)} hint={t(pr.oneLangNote)} />
             <Textarea label={t(pr.descEn)} id="prd-desc-en" rows={3} value={descEn} onChange={(e) => setDescEn(e.target.value)} hint={t(pr.oneLangNote)} />
-            <Select label={t(pr.category)} id="prd-category" value={categoryTh} placeholder={t(pr.pickCategory)} onChange={(e) => setCategoryTh(e.target.value)} options={categories.map((c) => ({ value: c.th ?? '', label: t(c) }))} hint={tried && !categoryTh ? t(pr.errCategory) : undefined} />
+            <SearchSelect {...sl} label={t(pr.category)} id="prd-category" value={categoryTh} placeholder={t(pr.pickCategory)} onChange={(v) => setCategoryTh(v)} options={categories.map((c) => ({ value: c.th ?? '', label: t(c) }))} hint={tried && !categoryTh ? t(pr.errCategory) : undefined} />
             <Field label={t(pr.brand)} id="prd-brand" value={brand} onChange={(e) => setBrand(e.target.value)} />
           </div>
         </Card>
@@ -301,7 +303,7 @@ function Form({ product }: { product?: Product }) {
             {!product && (
               <>
                 <Field label={t(pr.openingStock)} id="prd-stock" type="number" min={0} inputMode="numeric" value={stock} onChange={(e) => setStock(e.target.value)} hint={tried && !stockOk ? t(pr.errStock) : undefined} />
-                <Select label={t(pr.openingPlace)} id="prd-place" value={place} onChange={(e) => setPlace(e.target.value)} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
+                <SearchSelect {...sl} label={t(pr.openingPlace)} id="prd-place" value={place} onChange={(v) => setPlace(v)} options={locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))} />
               </>
             )}
           </div>

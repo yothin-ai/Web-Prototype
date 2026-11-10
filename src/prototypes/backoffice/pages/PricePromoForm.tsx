@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { useProducts } from '../../../products/useProducts'
 import { usePricePromos, type PricePromo } from '../../../promotions/usePricePromos'
-import { Breadcrumb, Button, Card, Col, Field, Grid, Select } from '../../../ui'
-import { formatMoney } from '../../ecommerce/cart'
+import { Breadcrumb, Button, Card, Col, Field, Grid, SearchSelect, Select } from '../../../ui'
+import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { PROTOTYPE_ID, useSearch } from '../data'
 import { pm } from '../promoStrings'
@@ -27,6 +28,7 @@ export function PricePromoForm() {
 
 function Form({ promo }: { promo?: PricePromo }) {
   const { t, lang } = useLang()
+  const sl = useSearchLabels()
   const navigate = useNavigate()
   const { all, regularPriceOf } = useProducts()
   const [promos, setPromos] = usePricePromos()
@@ -70,7 +72,7 @@ function Form({ promo }: { promo?: PricePromo }) {
       <Col>
         <Card>
           <div className="stack">
-            <Select label={t(pm.fProduct)} id="pp-product" value={productId} placeholder={t(pm.fPickProduct)} onChange={(e) => setProductId(e.target.value)} options={all.map((p) => ({ value: p.id, label: t(p.name) }))} hint={err(!productId, t(pm.ePProduct)) ?? (regular !== undefined ? `${t(pm.regularNow)}: ${formatMoney(regular, lang)}` : undefined)} />
+            <SearchSelect {...sl} label={t(pm.fProduct)} id="pp-product" value={productId} placeholder={t(pm.fPickProduct)} onChange={(v) => setProductId(v)} options={all.map((p) => ({ value: p.id, keywords: skuOf(p), label: t(p.name) }))} hint={err(!productId, t(pm.ePProduct)) ?? (regular !== undefined ? `${t(pm.regularNow)}: ${formatMoney(regular, lang)}` : undefined)} />
             <Select label={t(pm.fPKind)} id="pp-kind-f" value={kind} onChange={(e) => setKind(e.target.value as PricePromo['kind'])} options={[{ value: 'discount', label: t(pm.kindDiscount) }, { value: 'flash', label: t(pm.kindFlash) }]} />
             <Field label={t(pm.fPrice)} id="pp-price" type="number" min={0} step="0.01" inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} hint={err(!priceOk, t(pm.ePPrice))} />
             <Field label={t(pm.fPStarts)} id="pp-starts" type="datetime-local" value={starts} onChange={(e) => setStarts(e.target.value)} />

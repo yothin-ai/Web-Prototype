@@ -3,9 +3,10 @@ import { useProducts } from '../../../products/useProducts'
 import { Link } from 'react-router-dom'
 import type { Product } from '../../../datasets/types'
 import { useLang } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { costOf, locationIds } from '../../../stock/stock'
 import { useStock } from '../../../stock/useStock'
-import { Card, CardGrid, Col, DataTable, Grid, Select, StatCard, type DataColumn } from '../../../ui'
+import { Card, CardGrid, Col, DataTable, Grid, SearchSelect, StatCard, type DataColumn } from '../../../ui'
 import { formatMoney, skuOf } from '../../ecommerce/cart'
 import { PageHead } from '../PageHead'
 import { usePaging } from '../paging'
@@ -14,6 +15,7 @@ import { b } from '../strings'
 
 export function Valuation() {
   const { t, lang } = useLang()
+  const sl = useSearchLabels()
   const paging = usePaging()
   const search = useSearch()
   const base = `/${PROTOTYPE_ID}`
@@ -42,7 +44,7 @@ export function Valuation() {
         </CardGrid>
       </Col>
       <Col span={{ base: 4, sm: 8, md: 4 }}>
-        <Select label={t(b.place)} value={loc} onChange={(e) => setLoc(e.target.value)} options={[{ value: '', label: t(b.allPlaces) }, ...locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))]} />
+        <SearchSelect {...sl} label={t(b.place)} value={loc} onChange={(v) => setLoc(v)} options={[{ value: '', label: t(b.allPlaces) }, ...locationIds.map((id) => ({ value: id, label: t(locationName(id)) }))]} />
       </Col>
       <Col>
         <Card>

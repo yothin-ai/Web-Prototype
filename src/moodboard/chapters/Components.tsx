@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../../i18n'
 import {
-  BarChart, CardGrid, DataTable, SideNav, SideNavLayout, AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
+  BarChart, CardGrid, DataTable, SearchSelect, SideNav, SideNavLayout, AccountSidebar, BottomTabBar, SiteNav, LogoWall, FeatureShowcase, CourseCard, ContactFooter, Modal, CouponCard, Textarea, RatingStars, BalanceCard, CartItem, CategoryCard, CategoryPills, ArticleBody, OrderCard, OrderTimeline, StatusHeader, BranchCard, CategoryTile, Checkbox, DropdownMenu, FilterGroup, ProductCard, MemberBanner, ShareBar, SettingRow, StatCard, Accordion, AppPromoCard, Breadcrumb, ArticleCard, BenefitBar, Badge, BannerSlide, BrandChip, Button, Card, Carousel, CategoryNav, ChoiceCard, ChoiceGroup, Col, Countdown, DataRow, Field, FlashSaleCard, Grid, Hero, IconCircle, Logo, NavTabs, Notice, Select, StepPill, Switch,
   MegaMenu, ProductGallery, ProductImage, ProgressBar, PromoStrip, QuantityStepper, Quote, SectionHeader, ShortcutCard, ShortcutRow, SiteFooter, SiteHeader, StickyActionBar, Tabs, TileMosaic, UtilityBar,
 } from '../../ui'
 import { paymentStrip, socialIcons, storeBadges } from '../../assets/brand'
@@ -743,6 +743,22 @@ export function Components() {
           <StatCard label={t(text.c443Item)} value="4" note={t(text.statNote)} />
         </CardGrid>
       </Block>
+      <Block number="4.44" title={t(text.c444)} note={t(text.c444Note)}>
+        <SearchSelectDemo />
+      </Block>
     </Chapter>
   )
+}
+
+function SearchSelectDemo() {
+  const { t } = useLang()
+  const [value, setValue] = useState('')
+  const options = [
+    { value: 'a', label: t(text.c440Item1), keywords: 'SKU-001' },
+    { value: 'b', label: t(text.c440Item2), keywords: 'SKU-002' },
+    { value: 'c', label: t(text.c440Item3), keywords: 'SKU-003' },
+    { value: 'd', label: `${t(text.c440Item1)} 2`, keywords: 'SKU-004' },
+    { value: 'e', label: `${t(text.c440Item2)} 2`, keywords: 'SKU-005' },
+  ]
+  return <SearchSelect label={t(text.c444Label)} id="moodboard-search-select" options={options} value={value} onChange={setValue} placeholder={t(text.c444Ph)} searchPlaceholder={t(text.c444Search)} emptyText={t(text.c444Empty)} countText={(n) => `${t(text.c444Found)} ${n} ${t(text.c444Options)}`} />
 }

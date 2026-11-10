@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useLang, type Localized } from '../../../i18n'
+import { useSearchLabels } from '../../../i18n/searchLabels'
 import { provinces } from '../../../data/provinces'
-import { Badge, Button, Checkbox, Col, Field, Grid, IconCircle, Select } from '../../../ui'
+import { Badge, Button, Checkbox, Col, Field, Grid, IconCircle, SearchSelect } from '../../../ui'
 import { districtsOf, localizeParts, subsOf, useAddressData, zipsOf } from '../../../data/address'
 import { a } from '../accountStrings'
 import { useAddresses, type Address, type SavedAddress } from '../checkout'
@@ -26,6 +27,7 @@ type Props = {
 // Saved delivery addresses: add as many as you like, edit, delete and tick which one is the main address.
 export function AddressBook({ selectedId, onSelect, emptyHint }: Props) {
   const { t } = useLang()
+  const sl = useSearchLabels()
   const [list, setList] = useAddresses()
   const [editingId, setEditingId] = useState<string | null>(null) // 'new' while adding
   const [form, setForm] = useState<Address>(EMPTY)
@@ -66,9 +68,9 @@ export function AddressBook({ selectedId, onSelect, emptyHint }: Props) {
         <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.fullName)} id="ab-name" placeholder={t(a.nameExample)} value={form.name} hint={bad(!form.name.trim())} onChange={(e) => setForm({ ...form, name: e.target.value })} /></Col>
         <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.phone)} id="ab-phone" type="tel" inputMode="tel" placeholder={t(a.phoneExample)} value={form.phone} hint={tried && !PHONE.test(form.phone) ? t(c.errPhone) : undefined} onChange={(e) => setForm({ ...form, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })} /></Col>
         <Col><Field label={t(c.addrLine)} id="ab-line" placeholder={t(a.lineExample)} value={form.line} hint={bad(!form.line.trim())} onChange={(e) => setForm({ ...form, line: e.target.value })} /></Col>
-        <Col span={{ base: 4, sm: 4, md: 6 }}><Select label={t(c.province)} id="ab-province" value={form.province} placeholder={t(c.selectProvince)} hint={bad(!form.province)} options={provinces.map((p) => ({ value: p.th ?? '', label: t(p) }))} onChange={(e) => setProvince(e.target.value)} /></Col>
-        <Col span={{ base: 4, sm: 4, md: 6 }}><Select label={t(c.district)} id="ab-district" value={form.district} disabled={!form.province} placeholder={t(a.selectDistrict)} hint={bad(!form.district)} options={districtsOf(geo, form.province).map((d) => ({ value: d.th ?? '', label: t(d) }))} onChange={(e) => setDistrict(e.target.value)} /></Col>
-        <Col span={{ base: 4, sm: 4, md: 6 }}><Select label={t(c.subdistrict)} id="ab-sub" value={form.subdistrict} disabled={!form.district} placeholder={t(a.selectSub)} hint={bad(!form.subdistrict)} options={subsOf(geo, form.province, form.district).map((x) => ({ value: x.name.th ?? '', label: t(x.name) }))} onChange={(e) => setSub(e.target.value)} /></Col>
+        <Col span={{ base: 4, sm: 4, md: 6 }}><SearchSelect {...sl} label={t(c.province)} id="ab-province" value={form.province} placeholder={t(c.selectProvince)} hint={bad(!form.province)} options={provinces.map((p) => ({ value: p.th ?? '', label: t(p) }))} onChange={(v) => setProvince(v)} /></Col>
+        <Col span={{ base: 4, sm: 4, md: 6 }}><SearchSelect {...sl} label={t(c.district)} id="ab-district" value={form.district} disabled={!form.province} placeholder={t(a.selectDistrict)} hint={bad(!form.district)} options={districtsOf(geo, form.province).map((d) => ({ value: d.th ?? '', label: t(d) }))} onChange={(v) => setDistrict(v)} /></Col>
+        <Col span={{ base: 4, sm: 4, md: 6 }}><SearchSelect {...sl} label={t(c.subdistrict)} id="ab-sub" value={form.subdistrict} disabled={!form.district} placeholder={t(a.selectSub)} hint={bad(!form.subdistrict)} options={subsOf(geo, form.province, form.district).map((x) => ({ value: x.name.th ?? '', label: t(x.name) }))} onChange={(v) => setSub(v)} /></Col>
         <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.postcode)} id="ab-post" inputMode="numeric" placeholder={t(a.zipExample)} value={form.postcode} hint={tried && !zipOk(form.postcode) ? (/^\d{5}$/.test(form.postcode) ? t(a.errZipProvince) : t(c.errRequired)) : undefined} onChange={(e) => setForm({ ...form, postcode: e.target.value.replace(/\D/g, '').slice(0, 5) })} /></Col>
       </Grid>
       <Checkbox label={t(a.makeMain)} checked={main || !otherMain(editingId ?? '')} disabled={!otherMain(editingId ?? '')} onChange={setMain} />
