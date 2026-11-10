@@ -60,6 +60,14 @@ _Avoid_: Admin, dashboard, ERP
 How many of a product a place holds. Three figures: on hand (on the shelf), set aside (ordered but not yet packed) and available (on hand minus set aside, what the storefront may sell). Nothing is stored as a total; each figure is worked out from the Dataset's starting stock, the orders and the movements the Back Office recorded, so a Reset puts it back.
 _Avoid_: Inventory, quantity
 
+**Transfer**:
+A move of goods between two places (the central warehouse and the branches). Stock leaves the source when the transfer is approved and reaches the destination when it is received.
+_Avoid_: Shipment, relocation
+
+**Purchase order**:
+An order to a supplier for goods. It moves from draft to ordered to received, and receiving it adds the stock at the chosen place.
+_Avoid_: Procurement, PO request
+
 **Flash Sale**:
 A time-limited group of discounted products shown with a countdown, each carrying its price before the discount and how many are sold and left.
 _Avoid_: Promotion, deal of the day

@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../../../i18n'
-import { Badge, Card, Col, DataTable, Grid, Select, type DataColumn } from '../../../ui'
+import { Badge, Button, Card, Col, DataTable, Grid, Select, type DataColumn } from '../../../ui'
 import { formatDate, formatMoney, type Order } from '../../ecommerce/cart'
 import { customerText, statusOf, statusOrder } from '../../ecommerce/orders'
 import { statusLabel, statusTone } from '../../ecommerce/pages/OrdersPage'
+import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
 import { PROTOTYPE_ID, useBackOrders, useSearch } from '../data'
 import { b } from '../strings'
@@ -28,7 +29,7 @@ export function Orders() {
   return (
     <Grid>
       <Col>
-        <PageHead title={t(b.ordersTitle)} text={`${t(b.ordersText)} (${orders.length} ${t(b.records)})`} />
+        <PageHead title={t(b.ordersTitle)} text={`${t(b.ordersText)} (${orders.length} ${t(b.records)})`} actions={<Button variant="secondary" icon="receipt" onClick={() => downloadCsv('orders.csv', [[t(b.colOrder), t(b.colDate), t(b.colCustomer), t(b.colHandover), t(b.colItems), t(b.colTotal), t(b.colStatus)], ...rows.map((o) => [o.id, new Date(o.placedAt).toISOString(), customerText(o.customer.name, lang), t(o.fulfilment === 'pickup' ? b.pickup : b.parcel), o.lines.reduce((n, l) => n + l.qty, 0), o.total, t(statusLabel(statusOf(o)))])])}>{t(b.exportCsv)}</Button>} />
       </Col>
       <Col span={{ base: 4, sm: 4, md: 3 }}>
         <Select label={t(b.statusFilter)} value={status} onChange={(e) => setStatus(e.target.value)} options={[{ value: '', label: t(b.allStatuses) }, ...statusOrder.map((s) => ({ value: s, label: t(statusLabel(s)) }))]} />

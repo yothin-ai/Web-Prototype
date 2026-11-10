@@ -8,6 +8,7 @@ import { useStock } from '../../../stock/useStock'
 import { Badge, Button, Card, Col, DataTable, Field, Grid, Notice, Select, type DataColumn } from '../../../ui'
 import { skuOf } from '../../ecommerce/cart'
 import { AdjustModal } from '../AdjustModal'
+import { downloadCsv } from '../csv'
 import { PageHead } from '../PageHead'
 import { locationName, PROTOTYPE_ID, useSearch } from '../data'
 import { b } from '../strings'
@@ -41,7 +42,7 @@ export function StockList() {
   return (
     <Grid>
       <Col>
-        <PageHead title={t(b.stockTitle)} text={`${t(b.stockText)} (${products.length} ${t(b.records)}) ${t(b.sample)}`} actions={<Button to={`${base}/receive${search}`}>{t(b.receive)}</Button>} />
+        <PageHead title={t(b.stockTitle)} text={`${t(b.stockText)} (${products.length} ${t(b.records)}) ${t(b.sample)}`} actions={<><Button variant="secondary" icon="receipt" onClick={() => downloadCsv('stock.csv', [[t(b.colProduct), 'SKU', t(b.colCategory), t(b.place), t(b.colOnHand), t(b.colReserved), t(b.colAvailable), t(b.colReorder), t(b.colLevel)], ...rows.map((p) => [t(p.name), skuOf(p), t(p.category), loc ? t(locationName(loc)) : t(b.allPlaces), cellOf(p).onHand, cellOf(p).reserved, cellOf(p).available, reorderPoint(p.id), t(levelLabel(book.status(p.id)))])])}>{t(b.exportCsv)}</Button><Button to={`${base}/receive${search}`}>{t(b.receive)}</Button></>} />
       </Col>
       <Col span={{ base: 4, sm: 8, md: 5 }}><Field label={t(b.search)} id="stock-q" type="search" placeholder={t(b.searchHint)} value={q} onChange={(e) => setQ(e.target.value)} /></Col>
       <Col span={{ base: 4, sm: 4, md: 4 }}>
