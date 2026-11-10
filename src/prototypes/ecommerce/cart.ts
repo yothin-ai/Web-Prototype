@@ -36,6 +36,10 @@ export type Order = {
   // Set by the Back Office when the goods are taken off the shelf.
   packed?: boolean
   packedAt?: string
+  // When the money came in (online: when paid; at the branch or on delivery: when handed over).
+  paidAt?: string
+  // Who the tax invoice is for, when one was asked for at checkout.
+  taxBuyer?: { id: string; name: string }
 }
 
 export const useEcommerce = () => {

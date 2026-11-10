@@ -101,6 +101,8 @@ export function Checkout() {
   }
   // The goods come from one place: the chosen branch for pick-up, the central warehouse for a parcel.
   if (cart.some((l) => stockBook.cell(l.productId, fulfil === 'pickup' ? branchId : CENTRAL).available < l.qty)) problems.push({ anchor: 'co-summary', message: t(fulfil === 'pickup' ? c.errStockBranch : c.errStockCentral) })
+  if (etax && tax.id.length !== 13) problems.push({ anchor: 'tx-id', message: t(c.errTaxId) })
+  if (etax && !tax.name.trim()) problems.push({ anchor: 'tx-name', message: t(c.errTaxName) })
   if (!activePay) problems.push({ anchor: 'co-payment', message: t(c.errPayment) })
   if (activePay === 'card' && months > 0 && !bank) problems.push({ anchor: 'co-bank', message: t(c.errBank) })
 
@@ -142,7 +144,7 @@ export function Checkout() {
     // Card, PromptPay and transfer wait for payment on the pay page; the others are placed straight away.
     const toPay = needsPaymentPage(activePay as PayId)
     placed.current = true
-    const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax })
+    const order = commit({ ...draft, status: toPay ? 'pending' : 'preparing', etax, taxBuyer: etax ? { id: tax.id, name: tax.name.trim() } : undefined })
     if (coupon && cut.items + cut.shipping > 0) markUsed(coupon.id)
     if (walletUse > 0) wallet.spend(walletUse, order.id)
     if (clubLinked && points > 0) addPoints({ th: `คำสั่งซื้อ ${order.id}`, en: `Order ${order.id}` }, points)
@@ -233,8 +235,8 @@ export function Checkout() {
             {etax && (
               <div className="checkout-panel stack">
                 <Grid>
-                  <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.taxId)} id="tx-id" inputMode="numeric" value={tax.id} onChange={(e) => setTax({ ...tax, id: e.target.value.replace(/\D/g, '').slice(0, 13) })} /></Col>
-                  <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.taxName)} id="tx-name" value={tax.name} onChange={(e) => setTax({ ...tax, name: e.target.value })} /></Col>
+                  <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.taxId)} id="tx-id" inputMode="numeric" aria-invalid={shown('tx-id')} hint={err(tax.id.length !== 13, t(c.errTaxId))} value={tax.id} onChange={(e) => setTax({ ...tax, id: e.target.value.replace(/\D/g, '').slice(0, 13) })} /></Col>
+                  <Col span={{ base: 4, sm: 4, md: 6 }}><Field label={t(c.taxName)} id="tx-name" aria-invalid={shown('tx-name')} hint={err(!tax.name.trim(), t(c.errTaxName))} value={tax.name} onChange={(e) => setTax({ ...tax, name: e.target.value })} /></Col>
                 </Grid>
                 <span className="muted">{t(c.taxNote)}</span>
               </div>

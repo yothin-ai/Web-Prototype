@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useDataset } from '../../datasets/DatasetContext'
-import type { Product } from '../../datasets/types'
 import type { Localized } from '../../i18n'
+import { buildBooks, seedSales, type Close, type Expense } from '../../accounting/accounting'
 import { CENTRAL } from '../../stock/stock'
 import { useEffect } from 'react'
 import { samplePurchaseOrders, sampleTransfers, type PurchaseOrder, type Transfer } from '../../stock/stock'
@@ -25,25 +25,12 @@ export function useUpdateOrder() {
   const [, setOrders] = useOrders()
   return (id: string, patch: Partial<Order>) => {
     const current = readDemoState<Order[]>('ecommerce', 'orders', [])
-    setOrders(current.map((o) => (o.id === id ? { ...o, ...patch } : o)))
+    // Money paid on delivery or at the branch comes in when the goods are handed over.
+    setOrders(current.map((o) => (o.id === id ? { ...o, ...patch, ...(patch.status === 'delivered' && !o.paidAt ? { paidAt: new Date().toISOString() } : {}) } : o)))
   }
 }
 
-const hash = (text: string) => {
-  let h = 2166136261
-  for (const ch of text) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0
-  return h
-}
-
 const sameDay = (a: Date, c: Date) => a.getFullYear() === c.getFullYear() && a.getMonth() === c.getMonth() && a.getDate() === c.getDate()
-
-// Made-up sales of past days, scaled to the Dataset's prices so they look right for any shop. Today's figure
-// starts from a made-up morning and grows with the orders placed since.
-const pastSales = (products: Product[], daysAgo: number) => {
-  const average = products.reduce((n, p) => n + p.price, 0) / Math.max(1, products.length)
-  const share = 0.6 + (hash(`day:${daysAgo}`) % 80) / 100
-  return Math.round((average * 12 * (daysAgo === 0 ? share / 2 : share)) / 10) * 10
-}
 
 // Sales of the last `days` days, oldest first: the made-up figure plus every order the shopper placed (not cancelled).
 export function useSales(days = 7) {
@@ -57,7 +44,7 @@ export function useSales(days = 7) {
       const day = new Date(now)
       day.setDate(day.getDate() - daysAgo)
       const live = orders.filter((o) => !o.sample && o.status !== 'cancelled' && sameDay(new Date(o.placedAt), day)).reduce((n, o) => n + o.total, 0)
-      return { day, value: pastSales(products, daysAgo) + live }
+      return { day, value: seedSales(products, daysAgo) + live }
     })
   }, [days, orders, products])
 }
@@ -127,4 +114,21 @@ export function usePurchaseBook(): [PurchaseOrder[], (next: PurchaseOrder[]) => 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seeded])
   return [[...purchases].sort((a, c) => c.at.localeCompare(a.at)), setPurchases]
+}
+
+// The costs the Back Office recorded by hand, and the daily closes it made.
+export const useExpenses = () => useDemoState<Expense[]>(PROTOTYPE_ID, 'expenses', NO_EXPENSES)
+export const useCloses = () => useDemoState<Close[]>(PROTOTYPE_ID, 'closes', NO_CLOSES)
+export const useReopened = () => useDemoState<string[]>(PROTOTYPE_ID, 'reopened', NO_DAYS)
+const NO_EXPENSES: Expense[] = []
+const NO_CLOSES: Close[] = []
+const NO_DAYS: string[] = []
+
+// The shop's books: made-up daily sales, the real orders, received purchase orders and the costs, ready for the accounting pages.
+export function useBooks() {
+  const products = useDataset().dataset.ecommerce.products
+  const orders = useBackOrders()
+  const [purchases] = usePurchaseBook()
+  const [expenses] = useExpenses()
+  return useMemo(() => buildBooks(products, orders, purchases, expenses), [products, orders, purchases, expenses])
 }

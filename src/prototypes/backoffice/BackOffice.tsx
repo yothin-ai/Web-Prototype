@@ -5,6 +5,8 @@ import { PROTOTYPE_ID, useCounts, useSearch } from './data'
 import { Overview } from './pages/Overview'
 import { OrderDetail } from './pages/OrderDetail'
 import { Adjustments } from './pages/Adjustments'
+import { CashBook } from './pages/CashBook'
+import { ac } from './accStrings'
 import { NewPurchaseOrder } from './pages/NewPurchaseOrder'
 import { Movements } from './pages/Movements'
 import { Orders } from './pages/Orders'
@@ -47,6 +49,7 @@ export function BackOffice() {
             { title: t(b.groupStock), items: [item('/stock', t(b.navStock), 'package', counts.alerts), item('/adjustments', t(b.navAdjust), 'edit'), item('/transfers', t(b.navTransfers), 'truck'), item('/receive', t(b.navReceive), 'plus')] },
             { title: t(b.groupPurchasing), items: [item('/purchase-orders', t(b.navPurchaseOrders), 'receipt'), item('/suppliers', t(b.navSuppliers), 'store')] },
             { title: t(b.groupReports), items: [item('/reports/valuation', t(b.navValuation), 'cash'), item('/reports/movements', t(b.navMovements), 'receipt')] },
+            { title: t(ac.groupAccounting), items: [item('/accounting/cash-book', t(ac.navCashBook), 'cash')] },
           ]}
         />
       }
@@ -74,6 +77,7 @@ export function BackOffice() {
           <Route path="purchase-orders/new" element={<NewPurchaseOrder />} />
           <Route path="purchase-orders/:poId" element={<PurchaseOrderDetail />} />
           <Route path="suppliers" element={<Suppliers />} />
+          <Route path="accounting/cash-book" element={<CashBook />} />
           <Route path="reports/valuation" element={<Valuation />} />
           <Route path="reports/movements" element={<Movements />} />
           <Route path="receive" element={<Receive />} />

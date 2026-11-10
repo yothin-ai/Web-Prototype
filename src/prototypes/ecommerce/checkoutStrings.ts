@@ -117,6 +117,8 @@ export const c = {
   errPhone: { th: 'กรอกเบอร์โทร 10 หลักให้ถูกต้อง', en: 'Enter a valid 10-digit phone number' },
   errStockBranch: { th: 'สาขานี้มีสินค้าไม่พอสำหรับบางรายการ ลดจำนวน เปลี่ยนสาขา หรือเลือกจัดส่งพัสดุ', en: 'This branch does not have enough of some items. Lower the quantity, change branch or choose parcel delivery.' },
   errStockCentral: { th: 'คลังกลางมีสินค้าไม่พอสำหรับบางรายการ ลดจำนวนในตะกร้า', en: 'The central warehouse does not have enough of some items. Lower the quantity in your cart.' },
+  errTaxId: { th: 'กรอกเลขประจำตัวผู้เสียภาษี 13 หลัก', en: 'Enter the 13-digit tax ID' },
+  errTaxName: { th: 'กรอกชื่อสำหรับออกใบกำกับภาษี', en: 'Enter the name for the tax invoice' },
   errAddress: { th: 'เพิ่มที่อยู่จัดส่ง', en: 'Add a delivery address' },
   errShipping: { th: 'เลือกวิธีจัดส่ง', en: 'Choose a delivery method' },
   errPayment: { th: 'เลือกวิธีการชำระเงิน', en: 'Choose a payment method' },

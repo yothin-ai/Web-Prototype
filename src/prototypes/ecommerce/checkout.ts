@@ -57,6 +57,6 @@ export function usePayOrder() {
   const [, setOrders] = useOrders()
   return (id: string) => {
     const current = readDemoState<Order[]>(PROTOTYPE_ID, 'orders', [])
-    setOrders(current.map((o) => (o.id === id && o.status === 'pending' ? { ...o, status: 'preparing' as const } : o)))
+    setOrders(current.map((o) => (o.id === id && o.status === 'pending' ? { ...o, status: 'preparing' as const, paidAt: new Date().toISOString() } : o)))
   }
 }
